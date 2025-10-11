@@ -1,0 +1,30 @@
+1.desacrgar proyecto de laravel
+2.instalar administrador de hopeui. https://github.com/saravanasai/laravel-hopeui-starter
+3. composer require barryvdh/laravel-dompdf
+
+php artisan vendor:publish --provider="Barryvdh\DomPDF\ServiceProvider"
+
+4.Instalación de paqueteria de excel    composer require maatwebsite/excel:^3.1 --ignore-platform-reqs
+
+
+Módulo BD:
+- Configuraciones
+- Docentes (código Alumko)->numero de emergencia.
+- Estudiantes (código Alumko)
+- Comprobante Estudiante
+- Comprobante Docente
+- Comprobante Administrativo
+- Cursos
+- Notas
+- Asistencias General
+- Comunicados (Reunión, )  
+- Apoderado
+- Personal Administrativo
+- Caja
+- Gastos Fijos
+- Concepto (Mora s/ 1 x día)
+
+
+Poner notas temporales com el sistema de certificados
+Lista de matriculados por Aula
+Asociar Tipo de Concepto a la Matricula del Estudiante = Abel paga por Pension de Hermanos

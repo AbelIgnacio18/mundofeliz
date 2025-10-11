@@ -1,0 +1,54 @@
+<div class="modal fade" id="model-edit-{{ $matri->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+   aria-labelledby="staticBackdropLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="staticBackdropLabel">Cambiar Matricula</h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+               <form action="{{ route('app.matriculas.update', $matri->id) }}" method="POST">
+                  @method('PUT')
+                  @csrf
+
+               
+
+                  <div class="form-group">
+                        <label for="concepto" class="form-label">Nombre Estudiante:</label>
+                        <input type="concepto" disabled name="concepto" class="form-control" id="concepto"
+                           aria-describedby="concepto" value="{{$matri->estudiante->apellidos}} {{$matri->estudiante->nombre}}">
+                  </div>
+                 <div class="form-group">
+                        <label for="modulo" class="form-label">Aula:</label>
+                        <div class="input-group ">
+                           <span class="input-group-text" id="">
+                              <svg width="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                 <circle cx="11.7669" cy="11.7666" r="8.98856" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle>
+                                 <path d="M18.0186 18.4851L21.5426 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                              </svg>
+                           </span>
+                           <select name="aula_id" type="search" class="form-control" required>
+                              <option value="{{$matri->aula->id}}" selected>{{$matri->aula->nivel}}
+                              </option>
+                              @forelse($aula as $esp)
+                              <option value="{{$esp->id}}">{{$esp->nivel}}</option>
+                              @empty   
+                              @endforelse
+
+                           </select>
+
+                        </div>
+                     </div>
+             
+
+                  <div class="text-center mt-2">
+                        <button type="submit" class="btn btn-info">Actualizar</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                  </div>
+               </form>
+
+            </div>
+      </div>
+   </div>
+</div>
+</div

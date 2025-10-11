@@ -1,0 +1,375 @@
+<div class="modal fade" id="staticBackdrop-1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Nuevo Comprobante</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+            <form action="{{ route('app.pagos-realizados.store') }}" method="POST" enctype="multipart/form-data">
+               @method('POST')
+               @csrf
+               <div class="form-group">
+                  <label for="nombre" class="form-label">Nombre del Docente:</label>
+                  <!-- id="ex-search" -->
+                  <select name="idestudiante" class="form-control" required onchange="mesespagado()" id="idestudiante">
+                     <option value="">Seleccionar</option>
+                     @forelse($docente as $doc)
+                     <option value="{{$doc->id}}"> {{$doc->nombre}} {{$doc->apellidos}} - {{$doc->dni}}</option>
+
+                     @empty
+                     <option value="">No hay Datos</option>
+                     @endforelse
+                  </select>
+
+
+
+                  <td>
+                     <div class="iq-media-group iq-media-group-1 d-flex mt-1" id="mesespagados">
+
+                     </div>
+                  </td>
+
+
+               </div>
+
+
+               <div class="form-group row">
+                  <label for="nombre" class="form-label col-sm-3">Pago concepto:</label>
+                  <div class="col-sm-9">
+                     <select name="idarticulo" id="idarticulo" class="form-control" onchange="articulos()">
+                        <option value="">Seleccionar(Ninguno)</option>
+                        @forelse($articulo as $art)
+                        <option value="{{$art->id}}-{{$art->nombre}}-{{$art->stock}}-{{$art->precioventa}}">{{$art->nombre}}</option>
+                        @empty
+                        <option value="">No hay Datos</option>
+                        @endforelse
+                     </select>
+
+
+
+                     <div class="row" id="mostrarstock">
+
+                        <div class="col-md-4 mt-2 px-2">
+                           <div class="form-group">
+                              <label for="monto" class="form-label">Stock:</label>
+                              <div class="input-group col-md-12">
+                                 <span class="input-group-text" id="basic-addon2">Cant.</span>
+                                 <input type="number" class="form-control" id="pstock" step="1" aria-describedby="monto" placeholder="Vacio" name="monto" disabled>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="col-md-4 mt-2 px-2">
+                           <div class="form-group">
+                              <label for="monto" class="form-label">Precio Costo:</label>
+                              <div class="input-group col-md-12">
+                                 <span class="input-group-text" id="basic-addon2">S/.</span>
+                                 <input type="number" class="form-control" id="pprecio" step="0.01" aria-describedby="monto" placeholder="" name="monto">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="form-group col-md-4 mt-2 px-2">
+                           <label for="monto" class="form-label">Cantidad:</label>
+                           <div class="input-group col-md-12">
+                              <span class="input-group-text" id="basic-addon2">cant.</span>
+                              <input type="number" class="form-control" id="pcantidad" step="1" aria-describedby="monto" placeholder="0" name="cantidad" value="1">
+                           </div>
+                        </div>
+                        <div class="col-md-12">
+                           <div class="col-md-3">
+                              <button type="button" id="bt_add" class="btn btn-primary btn-sm">Agregar</button>
+                           </div>
+
+                        </div>
+
+                     </div>
+                  </div>
+
+               </div>
+
+
+               <div class="form-group">
+                  <label for="imagen" class="form-label">Imagen: <span class="badge bg-primary">Opcional</span></label>
+                  <input type="file" name="imagen" class="form-control">
+               </div>
+               <!-- tabla de concepto de pagosss -->
+
+
+               <div class="table-responsive mt-2" id="mostrarconcepto">
+                  <div class="col-md-12">
+                     <h6>Pago de penciones</h6>
+                  </div>
+
+                  <table class="table table-striped table-hover" id="detallesp">
+                     <thead style="background-color:#A9D0F5">
+                        <tr>
+                           <th>#</th>
+                           <th>Concepto</th>
+                           <th>Nª Pens.</th>
+                           <th>Monto</th>
+                           <th>Subtotal</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                     </tbody>
+                     <tfoot>
+                        <th>TOTAL</th>
+
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>
+                           <h6 id="totalp">s/0.00</h6><input type="hidden" name="total_p" id="total_p" value="0">
+                        </th>
+                        </tfood>
+                  </table>
+
+               </div>
+
+
+
+               <div class="table-responsive mt-2" id="mostrararticulo">
+                  <div class="col-md-12">
+                     <h6>Pago de Articulos</h6>
+                  </div>
+                  <table class="table table-striped table-hover" id="detalles">
+                     <thead style="background-color:#A9D0F5">
+                        <tr>
+                           <th>#</th>
+                           <th>Articulo</th>
+                           <th>Cant Unit.</th>
+                           <th>P. Unit.</th>
+                           <th>Subtotal</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+
+                     </tbody>
+                     <tfoot>
+                        <th>TOTAL</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>
+                           <h6 id="total">s/0.00</h6><input type="hidden" name="total_venta" id="total_venta" value="0">
+                        </th>
+                        </tfood>
+                  </table>
+
+               </div>
+
+               <div class="mt-2" id="guardar">
+                  <div class="row text-end mb-2">
+                     <label for="">
+                        <h6>Total Pagar</h6>
+                     </label>
+                     <h4 id="montototalv">s/0.00</h4><input type="hidden" name="montototal" id="montototal">
+                  </div>
+
+                  <div class="form-group text-start">
+                     <input name="token" value="{{csrf_token()}}" type="hidden"></input>
+                     <button class="btn btn-info" type="submit">Guardar</button>
+                     <button class="btn btn-danger" type="reset" data-bs-dismiss="modal">Cancelar</button>
+                  </div>
+               </div>
+            </form>
+
+         </div>
+      </div>
+   </div>
+</div>
+
+@push('pago')
+<script>
+   // vareable generales
+   $(document).ready(function() {
+      $('#bt_addp').click(function() {
+         agregarp();
+         $("#mostrarconceptocosto").hide();
+
+         montototal = parseFloat($('#total_p').val()) + parseFloat($('#total_venta').val());
+         $('#montototal').val(montototal);
+         $("#montototalv").html("s/." + montototal);
+
+      });
+      $('#bt_add').click(function() {
+         agregar();
+         $("#mostrarstock").hide();
+
+         montototal = parseFloat($('#total_p').val()) + parseFloat($('#total_venta').val());
+         $('#montototal').val(montototal);
+         $("#montototalv").html("s/." + montototal);
+
+      });
+
+      $("#mostrarconceptocosto").hide();
+      $("#mesespagados").hide();
+      $("#mostrarstock").hide();
+      $("#guardar").hide();
+      $('#mostrarconcepto').hide();
+      $('#mostrararticulo').hide();
+
+   });
+   //end vareables generales
+
+   //vareables de conceptoss
+   var contp = 0;
+   totalp = 0;
+   subtotalp = [];
+
+   function mesespagado() {
+
+      $("#mesespagados").show();
+    
+
+   }
+
+   function conceptos() {
+      $("#mostrarconceptocosto").show();
+      datosConcepto = document.getElementById('pidconcepto').value.split('-');
+
+      $("#nmonto").val(datosConcepto[2]);
+
+   }
+
+   function agregarp() {
+      datosConcepto = document.getElementById('pidconcepto').value.split('-');
+      id = datosConcepto[0];
+      concepto = datosConcepto[1];
+      monto = parseFloat($("#nmonto").val());
+      cantidad = parseInt($("#npension").val());
+      if (monto != 0 && cantidad > 0) {
+
+         subtotalp[contp] = monto * cantidad;
+         totalp = totalp + subtotalp[contp];
+         var fila = '<tr class="selected" id="filap' + contp + '"><td><button type="button" class="btn btn-danger btn-xs" onclick="eliminar(' + contp + ');">x</button></td><td><input type="hidden" name="idconcepto[]" value="' + id + '">' + concepto + '</td><td><input type="hidden" name="cantidad[]" value="' + cantidad + '">' + cantidad + '</td><td><input type="hidden" name="monto[]" value="' + monto + '">' + monto + '</td><td>' + subtotalp[contp] + '</td></tr>';
+         contp++;
+
+         // limpiar();
+         $("#totalp").html("s/." + totalp);
+         $("#total_p").val(totalp);
+
+         $('#detallesp').append(fila);
+         evaluar();
+      } else {
+         alert('Debe ingregresar cantidad de pensiones a pagar');
+      }
+
+
+   }
+
+   function evaluar() {
+      if (totalp > 0 || total > 0) {
+         $("#guardar").show();
+
+      } else {
+         $("#guardar").hide();
+
+      }
+
+      if (totalp > 0) {
+
+         $('#mostrarconcepto').show();
+
+      } else {
+
+         $('#mostrarconcepto').hide();
+
+      }
+
+      if (total > 0) {
+
+         $('#mostrararticulo').show();
+      } else {
+
+         $('#mostrararticulo').hide();
+      }
+
+
+
+
+
+
+
+
+
+   }
+
+   function eliminar(index) {
+      totalp = totalp - subtotalp[index];
+      $("#totalp").html("s/." + totalp);
+      $("#total_p").val(totalp);
+      $("#filap" + index).remove();
+      evaluar();
+      montototal = parseFloat($('#total_p').val()) + parseFloat($('#total_venta').val());
+      $('#montototal').val(montototal);
+      $("#montototalv").html("s/." + montototal);
+
+   }
+   //funciones de articulo========================================================================
+
+
+   //funcion onchnge---------------------------------------------
+
+   var cont = 0;
+   total = 0;
+   subtotal = [];
+
+   function articulos() {
+      $("#mostrarstock").show();
+      datosarticulo = document.getElementById('idarticulo').value.split('-');
+
+      $("#pstock").val(datosarticulo[2]);
+      $("#pprecio").val(datosarticulo[3]);
+
+
+   }
+
+   function agregar() {
+      datosarticulo = document.getElementById('idarticulo').value.split('-');
+      idarticulo = datosarticulo[0];
+      nombre = datosarticulo[1];
+      stock = parseInt(datosarticulo[2]);
+      cantidad = parseInt($("#pcantidad").val());
+      monto = $("#pprecio").val();
+
+
+      if (stock > cantidad) {
+
+         subtotal[cont] = monto * cantidad;
+         total = total + subtotal[cont];
+         var fila = '<tr class="selected" id="fila' + cont + '"><td><button type="button" class="btn btn-danger btn-xs" onclick="eliminarar(' + cont + ');">x</button></td><td><input type="hidden" name="idarticulo[]" value="' + idarticulo + '">' + nombre + '</td><td><input type="hidden" name="cantidadar[]" value="' + cantidad + '">' + cantidad + '</td><td><input type="hidden" name="montoar[]" value="' + monto + '">' + monto + '</td><td>' + subtotal[cont] + '</td></tr>';
+         cont++;
+
+         // limpiar();
+         $("#total").html("s/." + total);
+         $("#total_venta").val(total);
+         $('#detalles').append(fila);
+         evaluar();
+
+      } else {
+         alert('Debe ingresar la cantidad de articulos a ingresar');
+      }
+
+
+   }
+
+   function eliminarar(index) {
+      total = total - subtotal[index];
+      $("#total").html("s/." + total);
+      $("#total_venta").val(total);
+      $("#fila" + index).remove();
+      evaluar();
+      montototal = parseFloat($('#total_p').val()) + parseFloat($('#total_venta').val());
+      $('#montototal').val(montototal);
+      $("#montototalv").html("s/." + montototal);
+   }
+
+   function montototal() {
+
+
+
+   }
+</script>
+@endpush
