@@ -4,7 +4,7 @@
         <a href="{{ route('home') }}" class="navbar-brand">
 
             <img src="{{ asset('assets/images/logo.png') }}" width="70px" alt="Logo Colegio Unión Científica">
-            <img class="logo-title" src="{{ asset('assets/images/logo_nombre.png') }}" width="185x" height="51px                alt="Texto Colegio Academia Unión Científica">
+            <img class="logo-title" src="{{ asset('assets/images/logo_nombre.png') }}" width="185x" height="51px                alt=" Texto Colegio Academia Unión Científica">
         </a>
         <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
             <i class="icon">
@@ -27,11 +27,11 @@
                         data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0.425rem 0.3rem;">
 
                         @if (auth()->user()->foto != '')
-                            <img src="{{ asset('imagenes/avatar/' . auth()->user()->foto) }}" alt="User-Profile"
-                                class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded">
+                        <img src="{{ asset('imagenes/avatar/' . auth()->user()->foto) }}" alt="User-Profile"
+                            class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded">
                         @else
-                            <img src="{{ asset('assets/images/avatars/01.png') }}" alt="User-Profile"
-                                class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded">
+                        <img src="{{ asset('assets/images/avatars/01.png') }}" alt="User-Profile"
+                            class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded">
                         @endif
                         <div class="container upload-icone bg-green">
                         </div>
@@ -65,9 +65,25 @@
                         </span>
                     </a>
                 </li>
+                <li>
+                    <hr class="hr-horizontal">
+                </li>
 
-           
-           
+                <li class="nav-item">
+                    {{-- Activar módulo: <a class="nav-link {{ activeRoute(route('{{ activeRoute(route('app.home')) }}" aria-current="page" href="{{ route('app.home') }}"> --}}
+                    <a class="nav-link " aria-current="page" href="{{ route('app.home') }}">
+                        <i class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" fill="none">
+                                <path opacity="0.4" d="M2 4C2 2.89543 2.89543 2 4 2H9C10.1046 2 11 2.89543 11 4V20C11 21.1046 10.1046 22 9 22H4C2.89543 22 2 21.1046 2 20V4Z" fill="currentColor" />
+                                <path d="M13 4C13 2.89543 13.8954 2 15 2H20C21.1046 2 22 2.89543 22 4V9C22 10.1046 21.1046 11 20 11H15C13.8954 11 13 10.1046 13 9V4Z" fill="currentColor" />
+                                <path d="M13 15C13 13.8954 13.8954 13 15 13H20C21.1046 13 22 13.8954 22 15V20C22 21.1046 21.1046 22 20 22H15C13.8954 22 13 21.1046 13 20V15Z" fill="currentColor" />
+                            </svg>
+                        </i>
+                        <span class="item-name">Panel Control</span>
+                    </a>
+                </li>
+
+
 
                 {{-- *** Estudiante *** --}}
                 <li class="nav-item">
@@ -145,7 +161,7 @@
                     </a>
                 </li>
 
-                 <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#Calificaciones-menus" role="button" aria-expanded="false" aria-controls="Calificaciones-menus">
                         <i class="icon">
                             <svg width="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -230,7 +246,7 @@
                     </a>
                     <ul class="sub-nav collapse" id="Calificaciones-menu" data-bs-parent="#sidebar-menu">
 
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="{{ request()->is('dashboard/asistencia-estudiantes') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/asistencia-estudiantes') }}">
                                 <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
@@ -243,8 +259,8 @@
                                 <i class="sidenav-mini-icon">LU</i>
                                 <span class="item-sub-name">Estudiante</span>
                             </a>
-                        </li>
-                        <li class="nav-item">
+                        </li> -->
+                        <!-- <li class="nav-item">
                             <a class="{{ request()->is('dashboard/asistencia-aula') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/asistencia-aula') }}">
                                 <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
@@ -257,9 +273,9 @@
                                 <i class="sidenav-mini-icon">LU</i>
                                 <span class="item-sub-name">Asistencia por Aulas</span>
                             </a>
-                        </li>
+                        </li> -->
 
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="{{ request()->is('dashboard/listar-falta') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/listar-falta') }}">
                                 <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
@@ -271,6 +287,20 @@
                                 </i>
                                 <i class="sidenav-mini-icon">LU</i>
                                 <span class="item-sub-name">Faltantes</span>
+                            </a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a class="{{ request()->is('dashboard/listar-falta') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/listar-falta') }}">
+                                <i class="icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
+                                        fill="currentColor">
+                                        <g>
+                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                        </g>
+                                    </svg>
+                                </i>
+                                <i class="sidenav-mini-icon">LU</i>
+                                <span class="item-sub-name">Docentes</span>
                             </a>
                         </li>
                     </ul>
@@ -361,7 +391,7 @@
                                 <span class="item-sub-name"> Lista de Usuarios </span>
                             </a>
                         </li>
-                        
+
                         <!-- <li class="nav-item">
                             <a class="nav-link " href="{{ url('dashboard/administracion-contrato') }}">
                                 <i class="icon">

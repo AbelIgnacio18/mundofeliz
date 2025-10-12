@@ -2,7 +2,7 @@
    <div class="modal-dialog">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Actualizar Estudiante</h5>
+            <h5 class="modal-title" id="staticBackdropLabel">Actualizar Docente</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
          </div>
          <div class="modal-body">
@@ -16,7 +16,7 @@
                </div>
 
                <div class="form-group">
-                  <label for="apellidos" class="form-label">Apellido Paterno:</label>
+                  <label for="apellidos" class="form-label">Apellidos:</label>
                   <input type="text" class="form-control" id="apellidos" aria-describedby="apellidos" placeholder="Silva" value="{{$estud->apellidos}}" name="apellidos">
                </div>
 
@@ -37,17 +37,7 @@
                   <input type="text" class="form-control" id="Codigo" aria-describedby="Codigo"  name="codigo"  value="{{$estud->codigo}}">
                </div>
 
-               <div class="form-group">
-                        <label for="idaula" class="form-label">Contrato:</label>
-                        <select name="idcargo" class="form-control" required id="ex-search">
-                           <option value="{{$estud->contrato->id}}" >{{$estud->contrato->cargo}}</option>
-                           @forelse($contrato as $au)
-                           <option value="{{$au->id}}"> {{$au->cargo}} </option>
-                           @empty m
-                           <option value="">No hay Datos</option>
-                           @endforelse
-                        </select>
-                     </div>
+            
 
 
                <div class="text-start mt-2">

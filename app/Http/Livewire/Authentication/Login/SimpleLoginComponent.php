@@ -9,7 +9,7 @@ class SimpleLoginComponent extends Component
 {
     public $email;
     public $password;
-    public $rememberMe = false;
+    public $rememberMe = true;
 
 
     protected $rules = [

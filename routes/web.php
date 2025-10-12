@@ -29,7 +29,7 @@ Route::get('/home', function () {
 
 Route::group(['prefix' => 'dashboard', 'as' => 'app.', 'middleware' => ['web','auth']], function () {
 
-    Route::get('home', [App\Http\Controllers\AsistenciaestController::class, 'index'])->name('home');
+Route::get('home', [App\Http\Controllers\PanelController::class, 'index'])->name('home');
 
     Route::get('user', function () {return view('pages.user'); })->name('user');
     Route::get('lista-estudiantes',[App\Http\Controllers\PanelController::class, 'reporte'])->name('reporte');
