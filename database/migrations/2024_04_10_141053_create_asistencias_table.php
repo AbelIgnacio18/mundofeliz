@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('idañolectivo')->references('id')->on('anolectivos')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('iddocente');
             $table->foreign('iddocente')->references('id')->on('docentes')->onUpdate('cascade')->onDelete('cascade');
-            $table->datetime('fechaentrada');
+            $table->date('fechaentrada');          
            
             $table->boolean('estado')->nullable();
             $table->timestamps();

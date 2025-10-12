@@ -32,6 +32,8 @@ Route::group(['prefix' => 'dashboard', 'as' => 'app.', 'middleware' => ['web','a
 Route::get('home', [App\Http\Controllers\PanelController::class, 'index'])->name('home');
 
     Route::get('user', function () {return view('pages.user'); })->name('user');
+
+
     Route::get('lista-estudiantes',[App\Http\Controllers\PanelController::class, 'reporte'])->name('reporte');
     Route::get('/reportepdf/{id}',[App\Http\Controllers\PagosController::class, 'reportepdf'])->name('reportepdf');
     Route::get('pdffiltrado',[App\Http\Controllers\EstudianteController::class, 'pdffiltrado'])->name('pdffiltrado');
@@ -53,6 +55,7 @@ Route::get('home', [App\Http\Controllers\PanelController::class, 'index'])->name
     Route::resource('/articulos',ArticuloController::class);
     Route::resource('/ingresos',IngresoController::class);
     Route::resource('/asistencia-docentes',AsistenciaController::class)->names('asistencia');
+    
     Route::resource('/asistencia-estudiantes',AsistenciaestController::class)->names('asist-estudiante');
      Route::post('/asistencia-actualizar',[App\Http\Controllers\AsistenciaestController::class, 'control'])->name('cambiarasistencia');
      Route::get('/reporte-asistencia',[App\Http\Controllers\AsistenciaestController::class, 'reporteasistencia'])->name('reporteasistencia');

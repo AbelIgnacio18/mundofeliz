@@ -290,7 +290,7 @@
                             </a>
                         </li> -->
                         <li class="nav-item">
-                            <a class="{{ request()->is('dashboard/listar-falta') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/listar-falta') }}">
+                            <a class="{{ request()->is('dashboard/asistencia-docentes') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/asistencia-docentes') }}">
                                 <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                         fill="currentColor">
@@ -345,7 +345,7 @@
                                     </svg>
                                 </i>
                                 <i class="sidenav-mini-icon">CL</i>
-                                <span class="item-sub-name">Ciclo Lectivo</span>
+                                <span class="item-sub-name">Año Lectivo</span>
                             </a>
                         </li>
                         <!-- <li class="nav-item">
@@ -374,7 +374,7 @@
                                     </svg>
                                 </i>
                                 <i class="sidenav-mini-icon">A</i>
-                                <span class="item-sub-name">Turno</span>
+                                <span class="item-sub-name">Aulas</span>
                             </a>
                         </li>
 
