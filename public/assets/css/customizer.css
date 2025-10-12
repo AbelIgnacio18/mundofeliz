@@ -24,17 +24,17 @@ body {
 
 :root {
 /* Colores de Header ROJO - Principal */
---bs-heading-color: #3E1366;
---bs-primary: #8A2BE2;
---bs-primary-shade-80: #3E1366;
---bs-primary-shade-60: #4F1981;
---bs-primary-shade-40: #621FA0;
---bs-primary-shade-20: #7525C0;
---bs-primary-tint-90: #F3EAFC;
---bs-primary-tint-80: #E3CCF8;
---bs-primary-tint-60: #CDA4F3;
---bs-primary-tint-40: #B579ED;
---bs-primary-tint-20: #9F51E7;
+--bs-heading-color: #61131A;
+--bs-primary: #D72A3A;
+--bs-primary-shade-80: #61131A;
+--bs-primary-shade-60: #7B1821;
+--bs-primary-shade-40: #991E29;
+--bs-primary-shade-20: #B72431;
+--bs-primary-tint-90: #FBEAEB;
+--bs-primary-tint-80: #F5CCD0;
+--bs-primary-tint-60: #EEA3AA;
+--bs-primary-tint-40: #E67983;
+--bs-primary-tint-20: #DE505D;
 --bs-primary-rgb: 138, 43, 226;
 
 /* Colores de Header ROJO - Secundario */

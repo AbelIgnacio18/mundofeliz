@@ -1,8 +1,9 @@
 @section('tab_tittle', 'Login')
 <section class="login-content">
     <div class="login row m-0 align-items-center justify-content-center bg-white vh-100 vw-100">
+        
 
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
             <div class="row justify-content-end">
                 <div class="col-md-10 col-lg-10">
                     <div class="card">
@@ -14,7 +15,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
 
 
@@ -24,14 +25,14 @@
 
 
 
-        <div class="col-md-6">
-            <div class="row">
+        <div class="col-md-5">
+            <div class="row justify-content-center">
                 <div class="col-md-10 col-lg-10">
                     <div class="card card-transparent shadow-none d-flex justify-content-center mb-0 auth-card">
                         <div class="card-body">
                             <a href="{{ route('home') }}" class="navbar-brand d-flex justify-content-center mb-3">
                                 <!--Logo start-->
-                                <img src="{{ asset('assets/images/alumko.png') }}" width="350px" alt="Logo Alumko">
+                                <img src="{{ asset('assets/images/alumko.png') }}" width="300px" alt="Logo Colegio Mundo Feliz">
                                 <!--logo End-->
                                 {{-- <h5 class="logo-title ms-3">ALUMKO</h5> --}}
                             </a>
