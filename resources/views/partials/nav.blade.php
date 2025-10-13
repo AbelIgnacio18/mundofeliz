@@ -2,8 +2,8 @@
     <div class="container-fluid navbar-inner">
         {{-- *** Logo *** --}}
         <a href="{{ route('home') }}" class="navbar-brand">
-            <img src="{{ asset('assets/images/logob.png') }}" width="60px" alt="Logo Colegio Unión Científica">
-            <img class="logo-title" src="{{ asset('assets/images/logo_nombreb.png') }}" width="170px"
+            <img src="{{ asset('assets/images/logob.png') }}" width="60px" alt="Isotipo Colegio Mundo Feliz">
+            <img class="logo-title" src="{{ asset('assets/images/logo_nombreb.png') }}" width="63px"
                 height="47px" alt="Texto Colegio Academia Unión Científica">
         </a>
         <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
