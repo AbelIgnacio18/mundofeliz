@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('asistencias', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('idañolectivo');
-            $table->foreign('idañolectivo')->references('id')->on('anolectivos')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('idanolectivo');
+            $table->foreign('idanolectivo')->references('id')->on('anolectivos')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('iddocente');
             $table->foreign('iddocente')->references('id')->on('docentes')->onUpdate('cascade')->onDelete('cascade');
             $table->date('fechaentrada');          

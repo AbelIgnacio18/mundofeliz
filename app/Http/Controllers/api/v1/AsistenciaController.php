@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Anolectivo;
 use App\Models\Matricula;
 use App\Models\Asistenciaest;
+use App\Models\Asistencia;
 use App\Models\Estudiante;
 use App\Models\Control;
 use App\Models\Personal_access_token;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Aula;
+use App\Models\Docente;
 use Carbon\Carbon;
 
 use Google\Client;
@@ -41,6 +43,31 @@ class AsistenciaController extends Controller
         $codigo = $request->get('codigo');
         $estudiante = Estudiante::where('codigo', $codigo)->first();
         $anolectivo = Anolectivo::where('estado', 1)->first();
+        
+
+        if(empty($estudiante)==true){
+        $docente = Docente::where('codigo', $codigo)->first();
+              if (date("h:i:s") < "08:00:00") {
+                    $asistencia = new Asistencia;
+                    $asistencia->idanolectivo = $anolectivo->id;
+                    $asistencia->iddocente = $docente->id;
+                    $asistencia->fechaentrada = date("Y-m-d");
+                    $asistencia->estado = 1;
+                    $asistencia->save();
+                }else{
+                    $asistencia = new Asistencia;
+                    $asistencia->idanolectivo = $anolectivo->id;
+                    $asistencia->iddocente = $docente->id;
+                    $asistencia->fechaentrada = date("Y-m-d");
+                    $asistencia->estado = 0;
+                    $asistencia->save();
+                }
+        
+            return response()->json($docente->nombre . ' ' . $codigo, 200);
+
+        }
+        
+     
         $matricula = Matricula::where('idestudiante', $estudiante->id)->where('idanolectivo', $anolectivo->id)->first();
         $aula = Aula::where('id', $matricula->idaula)->first();
 
@@ -80,6 +107,8 @@ class AsistenciaController extends Controller
 
             return response()->json("salida" . $estudiante->nombre, 200);
         }
+
+        
         return response()->json($codigo . ' ' . 'no matriculado', 200);
     }
 

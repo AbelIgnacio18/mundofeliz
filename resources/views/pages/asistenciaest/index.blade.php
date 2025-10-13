@@ -98,11 +98,9 @@
                <td>
                    @if($item->estado===null)
                      {{Carbon\Carbon::parse($item->updated_at)->translatedFormat('l, j F  h:i A')}}
-                     @endif
+                  @endif
                   @if($item->created_at==$item->updated_at)
-                  <h6>
-                  
-                  </h6>
+                 
                   @else
                     <h6>
                      {{Carbon\Carbon::parse($item->updated_at)->translatedFormat('l, j F  h:i A')}}

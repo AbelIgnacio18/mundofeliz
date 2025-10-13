@@ -32,50 +32,11 @@
          </i>
          <span>Registrar</span>
       </a>
-      <div class="modal fade" id="staticBackdrop-1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-         <div class="modal-dialog">
-            <div class="modal-content">
-               <div class="modal-header">
-                  <h5 class="modal-title" id="staticBackdropLabel">Registrar</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-               </div>
-               <div class="modal-body">
-                  <form action="{{ route('app.asistencia.store') }}" method="POST">
-                     @method('POST')
-                     @csrf
-
-                     <div class="form-group">
-                        <label for="nombre" class="form-label">Nombre del Docente:</label>
-                        <!-- id="ex-search" -->
-                        <select name="docente" class="form-control" required onchange="mesespagado()" id="idestudiante">
-                           <option value="">Seleccionar</option>
-                           @forelse($docente as $doc)
-                           <option value="{{$doc->id}}"> {{$doc->nombre}} {{$doc->apellidos}} - {{$doc->dni}}</option>
-
-                           @empty
-                           <option value="">No hay Datos</option>
-                           @endforelse
-                        </select>
 
 
-                     </div>
-
-                     <div class="form-group">
-                        <label for="nivelS" class="form-label">Hora de Entrada:</label>
-                        <input type="time" class="form-control" id="nivelS" aria-describedby="nivelS" placeholder="Primaria" name="fecha-entrada" min="00:00:00" value="07:00:00" step="1">
-                     </div>
+@include('pages.asistencia.create')
 
 
-
-                     <div class="text-start mt-2">
-                        <button class="btn btn-info" type="submit">Guardar</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                     </div>
-                  </form>
-               </div>
-            </div>
-         </div>
-      </div>
    </div>
 </div>
 
@@ -88,7 +49,7 @@
                <th>Nombres</th>
                <th>entrada</th>
                <th>Salida</th>
-
+<th>Estado</th>
                <th>Acciones</th>
             </tr>
          </thead>
@@ -105,11 +66,38 @@
                </td>
                <td>
                   <h6>
-                     <h6>{{$item->dia}}/{{$item->mes}}</h6> {{$item->fechaentrada}}
+                     {{Carbon\Carbon::parse($item->created_at)->translatedFormat('l, j F Y h:i A')}}
                   </h6>
                </td>
                <td>
-                  <h6> {{$item->updated_at}}</h6>
+                  @if($item->estado===null)
+                     {{Carbon\Carbon::parse($item->updated_at)->translatedFormat('l, j F  h:i A')}}
+                  @endif
+                  <h6></h6>
+                  @if($item->created_at==$item->updated_at)
+                 
+                  @else
+                    <h6>
+                     {{Carbon\Carbon::parse($item->updated_at)->translatedFormat('l, j F  h:i A')}}
+                  </h6>
+
+                  @endif
+               </td>
+                <td>
+                  <h6>
+                     @if($item->estado===0)
+                      <span>Tarde</span> 
+                     @endif
+
+                     @if($item->estado===1)
+                      <span>Asistió</span> 
+                     @endif
+                  
+
+                     @if($item->estado===null)
+                      <span>Faltó</span> 
+                     @endif
+                  </h6>               
                </td>
 
                <td>
@@ -131,7 +119,7 @@
                </td>
             </tr>
             @include('pages.asistencia.modal')
-            @include('pages.asistencia.edit')
+ 
 
             @empty
 

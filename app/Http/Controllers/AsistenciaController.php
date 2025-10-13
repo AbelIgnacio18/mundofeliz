@@ -37,20 +37,31 @@ class AsistenciaController extends Controller
        
 
 
-        $docente = $request->get('docente');
+        $iddocente = $request->get('docente');
         $entrada = $request->get('fecha-entrada');
 
-        $docente = Docente::where('id', $docente)->first();
+    
         $anolect = Anolectivo::where('estado', 0)->first();
 
-        $asistencia = new Asistencia;
-        $asistencia->idañolectivo = $anolect->id;
-        $asistencia->iddocente = $docente->id;
-        $asistencia->fechaentrada = $entrada;
-        $asistencia->mes = date("m");
-        $asistencia->a = date("d");       
-        $asistencia->save();
+
+          $cont = 0;
+        while ($cont < count($iddocente)) {
+            $asistencia = new Asistencia();
+            $asistencia->idanolectivo = $anolect->id;
+            $asistencia->iddocente = $iddocente[$cont];
+            $asistencia->fechaentrada = date('Y-m-d');
+            if ($entrada < "08:00:00") {
+                $asistencia->estado = 1;
+            } else {
+                $asistencia->estado = 0;
+            }
+
+            $asistencia->save();
+            $cont = $cont + 1;
+        }
         return back()->with('message', 'Registro Exítosa');
+
+
     }
 
     /**
