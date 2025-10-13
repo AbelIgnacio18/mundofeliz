@@ -44,30 +44,6 @@
                         </div>
                     </a>
 
-                <li>
-                    <hr class="hr-horizontal">
-                </li>
-
-                </li>
-
-                {{-- *** 1. Encabezado INICIO *** --}}
-                <li class="nav-item static-item">
-                    <a class="nav-link static-item disabled" href="#" tabindex="-1">
-                        <span class="default-icon text-primary">
-                            <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;"><b>Inicio</b></font>
-                            </font>
-                        </span>
-                        <span class="mini-icon text-primary">
-                            <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;"><b>-</b></font>
-                            </font>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <hr class="hr-horizontal">
-                </li>
 
                 <li class="nav-item">
                     {{-- Activar módulo: <a class="nav-link {{ activeRoute(route('{{ activeRoute(route('app.home')) }}" aria-current="page" href="{{ route('app.home') }}"> --}}
@@ -392,7 +368,7 @@
                             </a>
                         </li>
 
-                        <!-- <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link " href="{{ url('dashboard/administracion-contrato') }}">
                                 <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
@@ -435,9 +411,23 @@
                                 <i class="sidenav-mini-icon">C</i>
                                 <span class="item-sub-name">Caja</span>
                             </a>
-                        </li> -->
+                        </li>
+                    
+              
+                     
+                      
                     </ul>
                 </li>
 
+                <li class="nav-item" with="100px">
+                    <a class="{{ request()->is('dashboard/pagos-realizados') ? 'nav-link active' : 'nav-link' }}" aria-current="page" href="{{ url('dashboard/pagos-realizados') }}">
+                     
+                        <span class="item-name"></span>
+                    </a>
+                    
+                </li>
+
+
                 <div class="sidebar-footer"></div>
+
 </aside>
