@@ -13,9 +13,11 @@ return new class extends Migration
             $table->string('nombre',50);
             $table->string('apellidos',100);
             $table->string('dni',8);
+            $table->string('celular',9)->nullable();   
             $table->string('codigo',8)->nullable();
-            $table->boolean('estado',3)->default(1);
-            $table->string('celular',9)->nullable();      
+            $table->boolean('estado')->default(1);
+            $table->unsignedBigInteger('idcontrato');
+            $table->foreign('idcontrato')->references('id')->on('contratos')->onUpdate('cascade')->onDelete('cascade'); 
             $table->timestamps();
         });
     }

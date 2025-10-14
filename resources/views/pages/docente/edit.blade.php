@@ -30,6 +30,18 @@
                   <input type="text" class="form-control" id="celular" aria-describedby="celular" value="{{$estud->celular}}" name="celular">
                </div>
 
+                   <div class="form-group">
+                        <label for="idaula" class="form-label">Cargo:</label>
+                        <select name="idcargo" class="form-control" required id="ex-search">
+                           <option value="{{$estud->contrato->id}}" >{{$estud->contrato->cargo}} {{$estud->contrato->nivel}}  {{Carbon\Carbon::parse($estud->contrato->horaentrada)->translatedFormat('h:i A')}}</option>
+                           @forelse($contrato as $au)
+                           <option value="{{$au->id}}"> {{$au->cargo}}-{{$au->nivel}}  {{Carbon\Carbon::parse($au->horaentrada)->translatedFormat('h:i A')}} </option>
+                           @empty m
+                           <option value="">No hay Datos</option>
+                           @endforelse
+                        </select>
+                     </div>
+
         
 
                <div class="form-group">

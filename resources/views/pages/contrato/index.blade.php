@@ -18,7 +18,7 @@
       @endif
    </div>
    <div class="header-title">
-      <h4 class="card-title mb-0">Lista de   Contrato</h4>
+      <h4 class="card-title mb-0">Lista de Cargo</h4>
    </div>
 
    <!-- modal para crear nuevos conceptos de pagooo -->
@@ -30,13 +30,13 @@
                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
             </svg>
          </i>
-         <span>Nuevo Contrato</span>
+         <span>Nuevo Cargo</span>
       </a>
       <div class="modal fade" id="staticBackdrop-1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
          <div class="modal-dialog">
             <div class="modal-content">
                <div class="modal-header">
-                  <h5 class="modal-title" id="staticBackdropLabel">Nuevo Contrato</h5>
+                  <h5 class="modal-title" id="staticBackdropLabel">Nuevo Cargo</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                </div>
                <div class="modal-body">
@@ -50,15 +50,24 @@
                      </div>
 
                      <div class="form-group">
-                        <label for="tiempo" class="form-label">Tiempo de Contrato:</label>
-                        <input type="text" class="form-control" id="tiempo" aria-describedby="tiempo" placeholder="6 meses" name="tiempo">
+                        <label for="tiempo" class="form-label">Hota de Entrada:</label>
+                        <input type="time" class="form-control" id="" aria-describedby="nivelS" placeholder="Primaria" name="horaentrada" min="00:00:00" value="07:15:00" step="1">
                      </div>
 
-                     <div class="form-group">
-                        <label for="remuneracion" class="form-label">Remuneración por hora:</label>
-                        <div class="input-group col-md-12">
-                           <span class="input-group-text" id="basic-addon2">S/.</span>
-                           <input type="number" class="form-control" id="remuneracion" step="0.01" aria-describedby="remuneracion" placeholder="80" name="remuneracion">
+                      <div class="form-group">
+                        <label for="modulo" class="form-label">Nivel:</label>
+                        <div class="input-group ">
+                    
+                           <select name="nivel"  class="form-control"  required  >
+                              <option value="">Seleccionar</option>
+                              <option value="inicial">Inicial</option>
+                              <option value="primaria">Primaria</option>
+                              <option value="secundaria">Secundaria</option>
+
+                              
+
+                           </select>
+
                         </div>
                      </div>
                      
@@ -81,24 +90,30 @@
             <tr>
                <th>N°</th>
                <th>Cargo</th>
-               <th>Tiempo de Contrato</th>
-               <th>Remuneración</th>
+               <th>Hora Entrada</th>
+               <th>Nivel</th>
                <th>Acciones</th>
             </tr>
          </thead>
          <tbody>
+            
             @forelse($items as $item)
             <tr>
+                <td>
+                  <div class="d-flex align-items-center">
+                     <h6>{{$item->id}}</h6>
+                  </div>
+               </td>
                <td>
                   <div class="d-flex align-items-center">
                      <h6>{{$item->cargo}}</h6>
                   </div>
                </td>
                <td>
-                  <h6>{{$item->tiempo}}</h6>
+                  <h6>{{$item->horaentrada}}</h6>
                </td>
                <td>
-                  <h6>{{$item->remuneracion}}</h6>
+                  <h6>{{$item->nivel}}</h6>
                </td>
                
             

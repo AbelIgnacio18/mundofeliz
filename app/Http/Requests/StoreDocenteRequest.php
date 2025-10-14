@@ -27,7 +27,7 @@ class StoreDocenteRequest extends FormRequest
             'apellidoM'=>'string|max:50',
             'dni'=>'string|max:8|required',
             'celular'=>'max:9',
-            // 'idcargo'=>'required',
+            'idcargo'=>'required',
             'codigo'=>'',
         ];
     }

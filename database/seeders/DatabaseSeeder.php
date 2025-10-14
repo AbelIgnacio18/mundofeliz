@@ -66,12 +66,5 @@ class DatabaseSeeder extends Seeder
         \App\Models\Control::create([
             'estado' => true,
         ]);
-         \App\Models\Anolectivo::create([
-            'años' => 'verano 2025II',
-            'inicio' => '2025-09-25',
-            'fin' => '2025-12-25',
-         
-            'estado' => 1,
-        ]);
     }
 }

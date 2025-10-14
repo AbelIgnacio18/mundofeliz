@@ -23,8 +23,8 @@ class StoreContratoRequest extends FormRequest
     {
         return [
             'cargo'=>'required',
-            'remuneracion'=>'required',
-            'tiempo'=>'required'
+            'horaentrada'=>'required',
+            'nivel'=>'required'
         ];
     }
 }

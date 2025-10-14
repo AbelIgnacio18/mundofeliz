@@ -27,7 +27,7 @@ class UpdateDocenteRequest extends FormRequest
          
             'dni'=>'string|max:8|required',
             'celular'=>'max:9',
-            // 'idcargo'=>'required',
+            'idcargo'=>'required',
             'codigo'=>'string',
         ];
     }

@@ -47,7 +47,7 @@ class DocenteController extends Controller
         $estudiante->apellidos = strtoupper($apellidop . ' ' . $apellidom);
         $estudiante->dni = strtoupper($request->get('dni'));
         $estudiante->codigo = strtoupper($request->get('codigo'));
-        // $estudiante->idcontrato = $request->get('idcargo');
+     $estudiante->idcontrato = $request->get('idcargo');
         $estudiante->celular = strtoupper($request->get('celular'));
         $estudiante->save();
         return back()->with('message', 'Registro Exítoso');
@@ -82,7 +82,7 @@ class DocenteController extends Controller
         $estudiante->apellidos = strtoupper($request->get('apellidos'));
         $estudiante->dni = strtoupper($request->get('dni'));
         $estudiante->codigo = strtoupper($request->get('codigo'));
-        // $estudiante->idcontrato = $request->get('idcargo');
+        $estudiante->idcontrato = $request->get('idcargo');
         $estudiante->celular = strtoupper($request->get('celular'));
         $estudiante->update();
        

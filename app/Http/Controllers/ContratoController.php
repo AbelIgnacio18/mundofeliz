@@ -33,8 +33,8 @@ class ContratoController extends Controller
         $items=new Contrato();
     
         $items->cargo=$request->get('cargo');
-        $items->remuneracion=$request->get('remuneracion');  
-        $items->tiempo=$request->get('tiempo'); 
+        $items->horaentrada=$request->get('horaentrada');  
+        $items->nivel=$request->get('nivel'); 
   
         $items->save();
         return back()->with('message', 'Actualización Exítosa');
@@ -63,9 +63,9 @@ class ContratoController extends Controller
     {
         $items=Contrato::find($items);
           
-        $items->cargo=$request->get('cargo');
-        $items->remuneracion=$request->get('remuneracion');  
-        $items->tiempo=$request->get('tiempo'); 
+       $items->cargo=$request->get('cargo');
+        $items->horaentrada=$request->get('horaentrada');  
+        $items->nivel=$request->get('nivel'); 
      
         $items->update();
        

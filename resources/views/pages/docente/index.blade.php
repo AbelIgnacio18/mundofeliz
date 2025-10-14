@@ -99,17 +99,17 @@
                         </div>
                      </div>
 
-                     <!-- <div class="form-group">
-                        <label for="idaula" class="form-label">Contrato:</label>
-                        <select name="idcargo" class="form-control" required id="ex-search">
-                           <option value="" disable >Seleccionar</option>
+                     <div class="form-group">
+                        <label for="idaula" class="form-label">Cargo Nivel Hora Entrada:</label>
+                        <select name="idcargo" class="form-control" required >
+                           <option value="" disabled >Seleccionar</option>
                            @forelse($contrato as $au)
-                           <option value="{{$au->id}}"> {{$au->cargo}} </option>
+                           <option value="{{$au->id}}"> {{$au->cargo}}-{{$au->nivel}}  {{Carbon\Carbon::parse($au->horaentrada)->translatedFormat('h:i A')}} </option>
                            @empty
                            <option value="">No hay Datos</option>
                            @endforelse
                         </select>
-                     </div> -->
+                     </div>
 
                      <div class="form-group">
                         <label for="Codigo" class="form-label">Codigo:</label>

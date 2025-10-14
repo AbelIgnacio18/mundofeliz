@@ -11,23 +11,31 @@
                   @method('PUT')
                   @csrf
 
+               
                   <div class="form-group">
-                     <label for="cargoS" class="form-label">Cargo:</label>
-                     <input type="text" class="form-control" id="cargoS" aria-describedby="cargoS" placeholder="Docente" name="cargo" value="{{ $item->codigo }}">
-                  </div>
-
-                  <div class="form-group">
-                     <label for="tiempocontratoS" class="form-label">Tiempo de Contrato:</label>
-                     <input type="text" class="form-control" id="tiempocontratoS" aria-describedby="tiempocontratoS" placeholder="6 meses" name="tiempocontrato" value="{{ $item->concepto }}">
-                  </div>
-
-                  <div class="form-group">
-                     <label for="remuneracion" class="form-label">Remuneración por hora:</label>
-                     <div class="input-group col-md-12">
-                        <span class="input-group-text" id="basic-addon2">S/.</span>
-                        <input type="number" class="form-control" id="remuneracion" step="0.01" aria-describedby="remuneracion" placeholder="80" name="remuneracion" value="{{number_format($item->monto)}}>
+                        <label for="cargoS" class="form-label">Cargo:</label>
+                        <input type="text" class="form-control" id="cargoS" aria-describedby="cargoS" placeholder="Docente" name="cargo" value="{{ $item->cargo }}">
                      </div>
-                  </div>
+
+                     <div class="form-group">
+                        <label for="tiempo" class="form-label">Hota de Entrada:</label>
+                        <input type="time" class="form-control" id="" aria-describedby="nivelS" placeholder="Primaria" name="horaentrada" min="00:00:00" value="{{ $item->horaentrada}}" step="1">
+                     </div>
+
+                   <div class="form-group">
+                        <label for="modulo" class="form-label">Nivel:</label>
+                        <div class="input-group ">
+                    
+                           <select name="nivel"  class="form-control"  required  >
+                              <option value="{{$item->nivel}}">{{$item->nivel}}</option>
+                              <option value="inicial">Inicial</option>
+                              <option value="primaria">Primaria</option>
+                              <option value="secundaria">Secundaria</option>                            
+
+                           </select>
+
+                        </div>
+                     </div>
 
                   <div class="text-center mt-2">
                         <button type="submit" class="btn btn-info">Actualizar</button>
