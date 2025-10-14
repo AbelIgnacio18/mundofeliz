@@ -71,7 +71,7 @@
                            <select name="aula_id" type="search" class="form-control" required>
                               <option value="">Seleccionar</option>
                               @forelse($aula as $esp)
-                              <option value="{{$esp->id}}">{{$esp->nivel}} </option>
+                              <option value="{{$esp->id}}">{{$esp->nivel}} {{$esp->grado}} {{$esp->seccion}}</option>
                               @empty   
                               @endforelse
 
@@ -103,7 +103,8 @@
                <th>N°</th>
 
                <th>Estudiante</th>
-               <th>Turno</th>
+               <th>Nivel</th>
+               <th>Pensión</th>
                <th>Dni</th>
                <th>Código</th>
        
@@ -125,6 +126,17 @@
                <td>
                   <div class="d-flex align-items-center">
                      <h6>{{$matri->aula->nivel}}</h6>
+                  </div>
+               </td>
+               <td>
+                  <div class="iq-media-group iq-media-group-1">
+
+                     @forelse(($matri->meses->toArray()) as $me)
+                     <a href="#" class="iq-media-1">
+                        <div class="icon iq-icon-box-3 rounded-pill">{{$me['mes']}}</div>
+                     </a>
+                     @empty
+                     @endforelse
                   </div>
                </td>
 

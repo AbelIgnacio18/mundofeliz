@@ -44,7 +44,7 @@
 
 
       <div class="modal fade" id="staticBackdrop-1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-         <div class="modal-dialog">
+         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                <div class="modal-header">
                   <h5 class="modal-title" id="staticBackdropLabel">Nuevo Estudiante</h5>
@@ -54,36 +54,61 @@
                   <form action="{{ route('app.estudiantes.store') }}" method="POST">
                      @method('POST')
                      @csrf
+                     <div class="raw d-flex">
+                        <div class="form-group col-md-4 p-1">
+                           <label for="nombre" class="form-label">Nombre:</label>
+                           <input type="text" class="form-control" id="nombre" aria-describedby="nombre" placeholder="Matías" name="nombre" value="{{old('nombre')}}">
+                        </div>
 
-                     <div class="form-group">
-                        <label for="nombre" class="form-label">Nombre:</label>
-                        <input type="text" class="form-control" id="nombre" aria-describedby="nombre" placeholder="Matías" name="nombre" value="{{old('nombre')}}">
+                        <div class="form-group col-md-4 p-1">
+                           <label for="apellidop" class="form-label">Apellido Paterno:</label>
+                           <input type="text" class="form-control" id="apellidop" aria-describedby="apellidop" placeholder="Silva" name="apellidop" value="{{old('apellidop')}}">
+                        </div>
+
+                        <div class="form-group col-md-4  p-1">
+                           <label for="apellidom" class="form-label">Apellido Materno:</label>
+                           <input type="text" class="form-control" id="apellidom" aria-describedby="apellidom" placeholder="Fernández" name="apellidom" value="{{old('apellidom')}}">
+                        </div>
+
                      </div>
 
-                     <div class="form-group">
-                        <label for="apellidop" class="form-label">Apellido Paterno:</label>
-                        <input type="text" class="form-control" id="apellidop" aria-describedby="apellidop" placeholder="Silva" name="apellidop" value="{{old('apellidop')}}">
-                     </div>
 
-                     <div class="form-group">
-                        <label for="apellidom" class="form-label">Apellido Materno:</label>
-                        <input type="text" class="form-control" id="apellidom" aria-describedby="apellidom" placeholder="Fernández" name="apellidom" value="{{old('apellidom')}}">
-                     </div>
+
                      <div class="raw d-flex">
                         <div class="form-group col-md-6 p-1">
                            <label for="dni" class="form-label">DNI:</label>
                            <input type="text" class="form-control" id="dni" aria-describedby="dni" placeholder="87654321" name="dni" value="{{old('dni')}}">
                         </div>
                         <div class="form-group col-md-6 p-1">
-                           <label for="celular" class="form-label">Celular: <span class="badge bg-primary">Opcional</span></label>
-                           <input type="text" class="form-control" id="celular" aria-describedby="celular" placeholder="987654321" name="celular" value="{{old('celular')}}">
+                           <label for="Codigo" class="form-label">Codigo:</label>
+                           <input type="text" class="form-control" id="Codigo" aria-describedby="Codigo" placeholder="DXRTYUSF" name="codigo" value="{{old('Codigo')}}">
+                        </div>
+
+                     </div>
+
+                     <div class="raw d-flex">
+
+                        <div class="form-group col-md-6 p-1">
+                           <label for="celular" class="form-label">Celular Mama: <span class="badge bg-primary">Opcional</span></label>
+                           <input type="text" class="form-control" id="celular" aria-describedby="celular" placeholder="987654321" name="celularm" value="{{old('celular')}}">
+                        </div>
+                        <div class="form-group col-md-6 p-1">
+                           <label for="celular" class="form-label">Celular Papa: <span class="badge bg-primary">Opcional</span></label>
+                           <input type="text" class="form-control" id="celular" aria-describedby="celular" placeholder="987654321" name="celularp" value="{{old('celular')}}">
                         </div>
                      </div>
 
+                     <div class="form-group">
+                        <label for="apellidom" class="form-label">Apoderado:</label>
+                        <input type="text" class="form-control" id="apellidom" aria-describedby="apellidom" placeholder="nombres y apellidos completos" name="apoderado" value="{{old('apellidom')}}">
+                     </div>
+
+
+
 
                      <div class="form-group">
-                        <label for="Codigo" class="form-label">Codigo:</label>
-                        <input type="text" class="form-control" id="Codigo" aria-describedby="Codigo" placeholder="DXRTYUSF" name="codigo" value="{{old('Codigo')}}">
+                        <label for="apellidom" class="form-label">observaciones:</label>
+                        <input type="text" class="form-control" id="apellidom" aria-describedby="apellidom" placeholder="observaciones" name="observaciones" value="{{old('apellidom')}}">
                      </div>
 
                </div>
@@ -114,9 +139,13 @@
                <th>Nombre Completo</th>
 
                <th>Dni</th>
-               <th>Código</th>
+            
+               <th>Telefono</th>  
+                <th>Apoderado</th>            
+               <th>Dirección</th>
               
-
+                <th>Observaciones</th>
+               <th>Código</th>
                <th>Acciones</th>
 
             </tr>
@@ -137,34 +166,36 @@
                <td>
                   <p>{{$estud->dni}}</p>
                </td>
+             
+               <td>
+                  <p>{{$estud->celular}}</p>
+               </td>
+               <td>
+                  <p>{{$estud->nombreapoderado}}</p>
+               </td>
+               <td>
+                  <p>{{$estud->direccion}}</p>
+               </td>
+               <td>
+                  <p>{{$estud->observaciones}}</p>
+               </td>
                <td>
                   <p>{{$estud->codigo}}</p>
                </td>
-               <!-- <td>
-                  <div class="iq-media-group iq-media-group-1">
-
-                     @forelse(($estud->meses->toArray()) as $me)
-                     <a href="#" class="iq-media-1">
-                        <div class="icon iq-icon-box-3 rounded-pill">{{$me['mes']}}</div>
-                     </a>
-                     @empty
-                     @endforelse
-                  </div>
-               </td> -->
 
 
 
                <td>
                   <div class="flex align-items-center list-user-action">
 
-                     <!-- <a class="btn btn-sm btn-icon text-success" data-bs-original-title="Ver" href="{{route('app.estudiantes.show',$estud->id)}}">
+                     <a class="btn btn-sm btn-icon text-success" data-bs-original-title="Ver" href="{{route('app.estudiantes.show',$estud->id)}}">
                         <span class="btn-inner">
                            <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path fill-rule="evenodd" clip-rule="evenodd" d="M15.1614 12.0531C15.1614 13.7991 13.7454 15.2141 11.9994 15.2141C10.2534 15.2141 8.83838 13.7991 8.83838 12.0531C8.83838 10.3061 10.2534 8.89111 11.9994 8.89111C13.7454 8.89111 15.1614 10.3061 15.1614 12.0531Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                               <path fill-rule="evenodd" clip-rule="evenodd" d="M11.998 19.355C15.806 19.355 19.289 16.617 21.25 12.053C19.289 7.48898 15.806 4.75098 11.998 4.75098H12.002C8.194 4.75098 4.711 7.48898 2.75 12.053C4.711 16.617 8.194 19.355 12.002 19.355H11.998Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                            </svg>
                         </span>
-                     </a> -->
+                     </a>
 
                      <a class="btn btn-sm btn-icon text-warning" data-bs-toggle="modal" data-bs-original-title="Editar" data-bs-target="#model-edit-{{$estud->id}}">
                         <span class="btn-inner">

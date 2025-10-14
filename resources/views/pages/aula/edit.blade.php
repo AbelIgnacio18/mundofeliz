@@ -3,7 +3,7 @@
    <div class="modal-dialog">
       <div class="modal-content">
             <div class="modal-header">
-               <h5 class="modal-title" id="staticBackdropLabel">Actualizar Turno</h5>
+               <h5 class="modal-title" id="staticBackdropLabel">Actualizar Aula</h5>
                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -12,7 +12,7 @@
                   @csrf
 
                   <div class="form-group">
-                        <label for="nivelS" class="form-label">Turno:</label>
+                        <label for="nivelS" class="form-label">Nivel:</label>
                         <input type="text" class="form-control" id="nivelS" aria-describedby="nivelS"
                            placeholder="Primaria" name="nivel" value="{{ $item->nivel }}">
                   </div>

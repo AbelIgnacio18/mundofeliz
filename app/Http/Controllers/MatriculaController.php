@@ -18,7 +18,7 @@ class MatriculaController extends Controller
         // dd($estudiante);
         $anolect = Anolectivo::where('estado', 1)->first();
       
-        $matricula=Matricula::where('idanolectivo',$anolect->id)->with('estudiante')->with('aula')->get();
+        $matricula=Matricula::where('idanolectivo',$anolect->id)->with('estudiante')->with('aula')->with('meses')->get();
         // dd($matricula);
         $aula=Aula::get();
         return view('pages.matricula.index',compact('estudiante','aula','matricula'));

@@ -14,6 +14,11 @@ class Matricula extends Model
     
      }
 
+      public function meses(){
+        return $this->hasMany(Mese::class,'idmatricula','id');
+    ///esta funcionandooo
+     }
+
      public function aula(){
         return $this->hasOne(Aula::class,'id','idaula');
     

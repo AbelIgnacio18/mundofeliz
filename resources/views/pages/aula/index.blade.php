@@ -18,25 +18,25 @@
       @endif
    </div>
    <div class="header-title">
-      <h4 class="card-title mb-0">Lista de Turno</h4>
+      <h4 class="card-title mb-0">Lista de Aulas</h4>
    </div>
 
    <!-- modal para crear nuevos conceptos de pagooo -->
    <div class="">
 
-      <!-- <a href="#" class=" text-center btn btn-primary btn-icon mt-lg-0 mt-md-0 mt-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop-1">
+      <a href="#" class=" text-center btn btn-primary btn-icon mt-lg-0 mt-md-0 mt-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop-1">
          <i class="btn-inner">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
             </svg>
          </i>
-         <span>Nuevo Turno</span>
-      </a> -->
+         <span>Nueva Aula</span>
+      </a>
       <div class="modal fade" id="staticBackdrop-1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
          <div class="modal-dialog">
             <div class="modal-content">
                <div class="modal-header">
-                  <h5 class="modal-title" id="staticBackdropLabel">Nuevo Turno</h5>
+                  <h5 class="modal-title" id="staticBackdropLabel">Nuevo Aula</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                </div>
                <div class="modal-body">
@@ -45,7 +45,7 @@
                      @csrf
 
                      <div class="form-group">
-                        <label for="nivelS" class="form-label">Turno:</label>
+                        <label for="nivelS" class="form-label">Nivel:</label>
                         <input type="text" class="form-control" id="nivelS" aria-describedby="nivelS" placeholder="Primaria" name="nivel">
                      </div>
 
@@ -138,8 +138,9 @@
          <thead>
             <tr>
                <th>N°</th>
-               <th>Turno</th>
-          
+               <th>Nivel</th>
+               <th>Grado</th>
+               <th>Sección</th>          
                <th>Hra.Entrada</th>
                <th>Nº Vacantes</th>
                <th>Acciones</th>
@@ -156,6 +157,16 @@
                <td>
                   <div class="d-flex align-items-center">
                      <h6>{{$item->nivel}}</h6>
+                  </div>
+               </td>
+                  <td>
+                  <div class="d-flex align-items-center">
+                     <h6>{{$item->grado}}</h6>
+                  </div>
+               </td>
+                  <td>
+                  <div class="d-flex align-items-center">
+                     <h6>{{$item->seccion}}</h6>
                   </div>
                </td>
              

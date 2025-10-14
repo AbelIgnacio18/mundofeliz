@@ -16,13 +16,5 @@ class Estudiante extends Model
     
      }
 
-     public function meses(){
-        return $this->hasMany(Mese::class,'idestudiante','id');
-    ///esta funcionandooo
-     }
-
-     public function aula(){
-        return $this->belongsTo(Aula::class,'idaula','id');
-    ///esta funcionandooo
-     }
+    
 }

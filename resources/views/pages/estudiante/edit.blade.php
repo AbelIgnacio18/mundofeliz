@@ -1,5 +1,5 @@
 <div class="modal fade" id="model-edit-{{$estud->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-   <div class="modal-dialog">
+   <div class="modal-dialog modal-lg">
       <div class="modal-content">
          <div class="modal-header">
             <h5 class="modal-title" id="staticBackdropLabel">Actualizar Estudiante</h5>
@@ -9,32 +9,47 @@
             <form action="{{ route('app.estudiantes.update',$estud->id) }}" method="POST">
                @method('PUT')
                @csrf
+               <div class="row px-1">
+                  <div class="form-group col-md-6 p-1">
+                     <label for="nombre" class="form-label">Nombre:</label>
+                     <input type="text" class="form-control" id="nombre" aria-describedby="nombre" placeholder="Matías" name="nombre" value="{{$estud->nombre}}">
+                  </div>
 
-               <div class="form-group">
-                  <label for="nombre" class="form-label">Nombre:</label>
-                  <input type="text" class="form-control" id="nombre" aria-describedby="nombre" placeholder="Matías" name="nombre" value="{{$estud->nombre}}">
+                  <div class="form-group col-md-6 p-1">
+                     <label for="apellidos" class="form-label">Apellidos:</label>
+                     <input type="text" class="form-control" id="apellidos" aria-describedby="apellidos" placeholder="Silva" value="{{$estud->apellidos}}" name="apellidos">
+                  </div>
+
+
+                  <div class="form-group col-md-6 p-1">
+                     <label for="dni" class="form-label">DNI:</label>
+                     <input type="text" class="form-control" id="dni" aria-describedby="dni" placeholder="DNI" name="dni" value="{{$estud->dni}}">
+                  </div>
+                  <div class="form-group col-md-6 p-1">
+                     <label for="celular" class="form-label">Celular:</label>
+                     <input type="text" class="form-control" id="celular" aria-describedby="celular" value="{{$estud->celular}}" name="celular">
+                  </div>
+                  <div class="form-group">
+                     <label for="celular" class="form-label">Apoderado:</label>
+                     <input type="text" class="form-control" id="celular" aria-describedby="celular" value="{{$estud->nombreapoderado}}" name="apoderado">
+                  </div>
+                  <div class="form-group">
+                     <label for="celular" class="form-label">Direccion:</label>
+                     <input type="text" class="form-control" id="celular" aria-describedby="celular" value="{{$estud->direccion}}" name="direccion">
+                  </div>
+                  <div class="form-group">
+                     <label for="celular" class="form-label">Observaciones:</label>
+                     <input type="text" class="form-control" id="celular" aria-describedby="celular" value="{{$estud->observaciones}}" name="observaciones">
+                  </div>
+
+                  <div class="form-group">
+                     <label for="Codigo" class="form-label">Codigo:</label>
+                     <input type="text" class="form-control" id="Codigo" aria-describedby="Codigo" name="codigo" value="{{$estud->codigo}}">
+                  </div>
+
                </div>
 
-               <div class="form-group">
-                  <label for="apellidos" class="form-label">Apellido Paterno:</label>
-                  <input type="text" class="form-control" id="apellidos" aria-describedby="apellidos" placeholder="Silva" value="{{$estud->apellidos}}" name="apellidos">
-               </div>
 
-
-               <div class="form-group">
-                  <label for="dni" class="form-label">DNI:</label>
-                  <input type="text" class="form-control" id="dni" aria-describedby="dni" placeholder="DNI" name="dni" value="{{$estud->dni}}">
-               </div>
-               <div class="form-group">
-                  <label for="celular" class="form-label">Celular:</label>
-                  <input type="text" class="form-control" id="celular" aria-describedby="celular" value="{{$estud->celular}}" name="celular">
-               </div>
-
-             
-               <div class="form-group">
-                  <label for="Codigo" class="form-label">Codigo:</label>
-                  <input type="text" class="form-control" id="Codigo" aria-describedby="Codigo"  name="codigo"  value="{{$estud->codigo}}">
-               </div>
 
 
                <div class="text-start mt-2">

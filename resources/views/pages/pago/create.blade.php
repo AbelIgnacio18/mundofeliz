@@ -15,7 +15,7 @@
                   <select name="idestudiante" class="form-control" required onchange="mesespagado()" id="idestudiante">
                      <option value="">Seleccionar</option>
                      @forelse($estudiante as $estud)
-                     <option value="{{$estud->id}}/@forelse($estud->meses->toArray() as $me){{$me['mes']}}-@empty @endif"> {{$estud->nombre}} {{$estud->apellidos}} - {{$estud->dni}}</option>
+                     <option value="{{$estud->id}}/kokoko"> {{$estud->nombre}} {{$estud->apellidos}} - {{$estud->dni}}</option>
 
                      @empty
                      <option value="">No hay Datos</option>

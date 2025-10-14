@@ -33,7 +33,7 @@ class EstudianteController extends Controller
         
         if ($request) {
        
-             $items=Estudiante::with('meses')->with('aula')->get();
+             $items=Estudiante::get();
             //  dd($items);
       $aula=Aula::all();
       return view('pages.estudiante.index',compact('items','aula'));
@@ -86,12 +86,17 @@ class EstudianteController extends Controller
         $estudiante = new Estudiante;
         $apellidop = $request->get('apellidop');
         $apellidom = $request->get('apellidom');
+        $celularp = $request->get('celularp');
+        $celularm = $request->get('celularm');
+
         $estudiante->nombre = strtoupper($request->get('nombre'));
         $estudiante->apellidos = strtoupper($apellidop . ' ' . $apellidom);
-        $estudiante->dni = strtoupper($request->get('dni'));
-        $estudiante->codigo = strtoupper($request->get('codigo'));
-      
-        $estudiante->celular = strtoupper($request->get('celular'));
+        $estudiante->dni = strtoupper($request->get('dni'));      
+        $estudiante->celular = strtoupper($celularp . ' / ' . $celularm);
+        $estudiante->direccion = strtoupper($request->get('direccion')); 
+        $estudiante->nombreapoderado = strtoupper($request->get('apoderado')); 
+        $estudiante->observaciones = strtoupper($request->get('observaciones')); 
+        $estudiante->codigo = $request->get('codigo');
         $estudiante->save();
         session()->flash('swal',[
             'icon'=>'success',
@@ -129,16 +134,16 @@ class EstudianteController extends Controller
 
     public function update(UpdateEstudianteRequest $request,  $item)
     {
-        $estudiante=Estudiante::find($item);
+        $estudiante=Estudiante::find($item);      
       
-        $apellidop = $request->get('apellidos');
-        // $apellidom = $request->get('apellidom');
         $estudiante->nombre = strtoupper($request->get('nombre'));
-        $estudiante->apellidos = strtoupper($apellidop);
-        $estudiante->dni = strtoupper($request->get('dni'));
-        $estudiante->codigo = strtoupper($request->get('codigo'));
-     
-        $estudiante->celular = strtoupper($request->get('celular'));
+        $estudiante->apellidos = strtoupper($request->get('apellidos'));
+        $estudiante->dni = strtoupper($request->get('dni'));    
+        $estudiante->celular = strtoupper($request->get('celular'));      
+        $estudiante->direccion = strtoupper($request->get('direccion')); 
+        $estudiante->nombreapoderado = strtoupper($request->get('apoderado')); 
+        $estudiante->observaciones = strtoupper($request->get('observaciones')); 
+        $estudiante->codigo = $request->get('codigo');
        
         $estudiante->update();
         session()->flash('swal',[

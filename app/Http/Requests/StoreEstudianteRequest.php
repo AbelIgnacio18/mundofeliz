@@ -26,8 +26,11 @@ class StoreEstudianteRequest extends FormRequest
             'apellidoP'=>'string|max:50',
             'apellidoM'=>'string|max:50',
             'dni'=>'string|max:8|required',
-            'codigo'=>'string|max:8',
-            'celular'=>'max:9',
+            'celular'=>'max:25',
+            'direccion'=>'max:200',
+            'apoderado'=>'max:200',
+            'observaciones'=>'max:200',
+            
       
            
       
