@@ -32,16 +32,16 @@
             <div class="me">
                 <h3>
                     <strong>Colegio</strong><br>
-                    UNIÓN CIENTÍFICA<br>
-                    RUC: 10481893335<br>
+                    MUNDO FELIZ<br>
+                    RUC: 10752090625<br>
                 </h3>
             </div><!--.me-->
 
             <div class="info text-righ">
                 <h4>
-                    Web:<a href="">www.academiauc.com</a><br>
-                    E-mail:<a href="mailto:info@academiauc">info@unioncientifica.com</a><br>
-                    Cel: 983 686 131 - 942 751 919
+                    Web:<a href="">www.mundofeliz.edu.pe</a><br>
+                    E-mail:<a href="mailto:info@academiauc">info@mundofeliz.edu.pe</a><br>
+                    Cel: 961 141 838 - 922 916 052
                 </h4>
             </div><!-- .info -->
 
@@ -173,7 +173,7 @@
 
 
         <div class="piedepagina">
-            <img src="assets/images/piedepáginapdf.jpeg" alt="Pie de Página" width="100%">
+            <img src="assets/images/piedepáginapdf.png" alt="Pie de Página" width="121%">
         </div>
     </footer>
 

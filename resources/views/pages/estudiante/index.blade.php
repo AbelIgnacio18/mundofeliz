@@ -57,7 +57,7 @@
                      <div class="raw d-flex">
                         <div class="form-group col-md-4 p-1">
                            <label for="nombre" class="form-label">Nombre:</label>
-                           <input type="text" class="form-control" id="nombre" aria-describedby="nombre" placeholder="Matías" name="nombre" value="{{old('nombre')}}">
+                           <input type="text" class="form-control" id="nombre" aria-describedby="nombre" placeholder="Antonio" name="nombre" value="{{old('nombre')}}">
                         </div>
 
                         <div class="form-group col-md-4 p-1">
@@ -100,20 +100,20 @@
 
                      <div class="form-group">
                         <label for="apellidom" class="form-label">Apoderado:</label>
-                        <input type="text" class="form-control" id="apellidom" aria-describedby="apellidom" placeholder="nombres y apellidos completos" name="apoderado" value="{{old('apellidom')}}">
+                        <input type="text" class="form-control" id="apellidom" aria-describedby="apellidom" placeholder="Nombre completo" name="apoderado" value="{{old('apellidom')}}">
                      </div>
                      
                      <div class="form-group">
                         <label for="apellidom" class="form-label">Dirección:</label>
-                        <input type="text" class="form-control" id="apellidom" aria-describedby="apellidom" placeholder="nombres y apellidos completos" name="direccion" value="{{old('direccion')}}">
+                        <input type="text" class="form-control" id="apellidom" aria-describedby="apellidom" placeholder="Jr. Tacna N°358" name="direccion" value="{{old('direccion')}}">
                      </div>
 
 
 
 
                      <div class="form-group">
-                        <label for="apellidom" class="form-label">observaciones:</label>
-                        <input type="text" class="form-control" id="apellidom" aria-describedby="apellidom" placeholder="observaciones" name="observaciones" value="{{old('apellidom')}}">
+                        <label for="apellidom" class="form-label">Observaciones:</label>
+                        <input type="text" class="form-control" id="apellidom" aria-describedby="apellidom" name="observaciones" value="{{old('apellidom')}}">
                      </div>
 
                </div>

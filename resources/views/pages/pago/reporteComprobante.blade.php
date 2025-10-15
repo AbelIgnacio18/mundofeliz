@@ -18,9 +18,9 @@
 	<div id="showScroll" class="container">
 		<div class="receipt">
 			<h1 class="logo"><img src="../public/pdf/assets/img/logo.png" style="max-width:100px"></h1>
-			<div class="address">UNIÓN CIENTÍFICA</div>
-			<div class="address" style="font-size:80%;">Cel: 983 686 131<br>942 751 919<br>
-				unioncientifica.com <br>10481893335</div>
+			<div class="address">IEP MUNDO FELIZ</div>
+			<div class="address" style="font-size:80%;">Cel: 961 141 838<br>922 916 052<br>
+				mundofeliz.edu.pe <br>10752090625</div>
 			<div class="centerItem bold">
 				<div class="item">BOLETA DE VENTA ELECTRÓNICA</div>
 			</div>

@@ -152,7 +152,7 @@
                     </a>
                     <ul class="sub-nav collapse" id="Calificaciones-menus" data-bs-parent="#sidebar-menu">
                         <li class="nav-item">
-                            <a class="nav-link " href="{{ url('dashboard/articulos') }}">
+                            <a class="{{ request()->is('dashboard/articulos') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/articulos') }}">
                                 <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                                         <g>
@@ -165,7 +165,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="{{ url('dashboard/ingresos') }}">
+                            <a class="{{ request()->is('dashboard/ingresos') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/ingresos') }}">
                                 <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                                         <g>
@@ -352,7 +352,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link " href="{{ url('dashboard/administracion-contrato') }}">
+                            <a class="{{ request()->is('dashboard/administracion-contrato') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/administracion-contrato') }}">
                                 <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                         fill="currentColor">
@@ -366,7 +366,7 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
+<!--                         <li class="nav-item">
                             <a class="nav-link " href="{{ url('dashboard/administradores') }}">
                                 <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
@@ -379,9 +379,9 @@
                                 <i class="sidenav-mini-icon">S</i>
                                 <span class="item-sub-name">Seguridad</span>
                             </a>
-                        </li>
+                        </li> -->
 
-                        <li class="nav-item">
+<!--                         <li class="nav-item">
                             <a class="nav-link " href="{{ url('dashboard/administracion-caja') }}">
                                 <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
@@ -394,7 +394,7 @@
                                 <i class="sidenav-mini-icon">C</i>
                                 <span class="item-sub-name">Caja</span>
                             </a>
-                        </li>
+                        </li> -->
                     
               
                      
