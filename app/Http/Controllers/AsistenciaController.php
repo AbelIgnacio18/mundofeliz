@@ -41,7 +41,7 @@ class AsistenciaController extends Controller
         $entrada = $request->get('fecha-entrada');
 
     
-        $anolect = Anolectivo::where('estado', 0)->first();
+        $anolect = Anolectivo::where('estado', 1)->first();
 
 
           $cont = 0;

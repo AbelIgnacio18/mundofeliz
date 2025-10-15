@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 use App\Models\Aula;
 use App\Models\Anolectivo;
 use App\Models\Estudiante;
+use App\Models\Mese;
 use App\Models\Matricula;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;//importaciones a excel....EstudianteExport
 
 class MatriculaController extends Controller
 {
@@ -56,7 +60,30 @@ class MatriculaController extends Controller
         return back()->with('message', 'Registro Exítosa');
     }
 
-    
+     public function show($id)
+    {
+        $matricula = Matricula::where('id', $id)->with('estudiante')->first();
+        $mes = Mese::where('idmatricula', $id)->get();
+        $avancepen = count($mes);
+
+
+
+        $otros = DB::table('pagos as p')
+        ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
+        ->join('pensions as pen', 'p.id', '=', 'pen.idpago')
+        ->join('conceptos as c', 'pen.idconcepto', '=', 'c.id')
+        ->select('p.idestudiante', 'c.concepto', 'p.created_at as fecha', 'p.montototal', 'pen.cantidad', 'pen.monto')->where('p.idestudiante', $matricula->idestudiante)->get();
+
+        $articulo = DB::table('pagos as p')
+        ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
+        ->join('detallepagos as det', 'p.id', '=', 'det.idpago')
+        ->join('articulos as a', 'det.idarticulo', '=', 'a.id')
+        ->select('p.idestudiante', 'a.nombre as articulo', 'p.created_at as fecha', 'det.cantidadar as cantidad', 'det.montoar')->where('p.idestudiante', $matricula->idestudiante)->get();
+
+
+        //  dd($matricula);
+        return view("pages.matricula.show", compact('matricula', 'mes', 'avancepen', 'otros', 'articulo'));
+    }
 
     /**
      * Update the specified resource in storage.

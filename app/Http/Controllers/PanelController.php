@@ -31,7 +31,7 @@ class PanelController extends Controller
             $usuarios=User::all();
 
             $estudiante = Estudiante::all();// cantidad de estudiante
-            $mesesporcentaje=DB::table('meses as me')->join('estudiantes as est','me.idestudiante','=','est.id')->select('me.mes',DB::raw('count(*) as cantidad'),DB::raw('count(est.id) as estudiante'))->groupBy('mes')->orderBy('cantidad','desc')->get();
+            $mesesporcentaje=DB::table('meses as me')->join('matriculas as m','me.idmatricula','=','m.id')->join('estudiantes as est','m.idestudiante','=','est.id')->select('me.mes',DB::raw('count(*) as cantidad'),DB::raw('count(est.id) as estudiante'))->groupBy('mes')->orderBy('cantidad','desc')->get();
             //  dd($mesesporcentaje);
 
 

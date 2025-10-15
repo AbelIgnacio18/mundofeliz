@@ -362,7 +362,7 @@
                                     </svg>
                                 </i>
                                 <i class="sidenav-mini-icon">C</i>
-                                <span class="item-sub-name">Contratos</span>
+                                <span class="item-sub-name">Cargo</span>
                             </a>
                         </li>
 

@@ -126,13 +126,13 @@ class PagosController extends Controller
                             $id = $idestudiante[0];
                             $numeropension = $cantidad[$cont];
 
-                            $numeromesespagados = Mese::where('idestudiante', $id)->count();
+                            $numeromesespagados = Mese::where('idmatricula', $id)->count();
                             //  dd($numeropension,$numeromesespagados);
 
                             $meses = ['MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SET', 'OCT', 'NOV', 'DIC'];
                             for ($i = 0; $i <  $numeropension; $i++) {
                                 $mess = new Mese();
-                                $mess->idestudiante = $id;
+                                $mess->idmatricula = $id;
 
                                 $mess->mes = $meses[$numeromesespagados];
 
