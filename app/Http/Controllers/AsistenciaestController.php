@@ -230,12 +230,12 @@ class AsistenciaestController extends Controller
 
     public function reporteasistencia(Request $request)
     {
-         $request->validate([
-                'turno' => 'required'
+        $request->validate([
+            'turno' => 'required'
         ]);
 
         $anolect = Anolectivo::where('estado', 1)->first();
-        
+
         $fechaInicio = Carbon::parse($anolect->inicio);
         $fechaFin = Carbon::parse($anolect->fin);
         $dias = [];
@@ -254,17 +254,17 @@ class AsistenciaestController extends Controller
         //dd($meses);
 
         $idaula = trim($request->get('turno'));
-           
 
-            $aula = Aula::all();
-            $anolect = Anolectivo::where('estado', 1)->first();
-            $nombreaula = Aula::where('id',$idaula)->first();
-            $items = Matricula::where('idaula', 'LIKE', '%' . $idaula . '%')->where('idanolectivo', $anolect->id)->with('asistenciahoy')->with('asistenciahoy')
-                ->with('estudiantes')
-                ->get();
-//dd($items);
 
-        $pdf = Pdf::loadView('pages.asistenciaest.invocepdf', compact('items', 'dias', 'meses','nombreaula'));
+        $aula = Aula::all();
+        $anolect = Anolectivo::where('estado', 1)->first();
+        $nombreaula = Aula::where('id', $idaula)->first();
+        $items = Matricula::where('idaula', 'LIKE', '%' . $idaula . '%')->where('idanolectivo', $anolect->id)->with('asistenciahoy')->with('asistenciahoy')
+            ->with('estudiantes')
+            ->get();
+        //dd($items);
+
+        $pdf = Pdf::loadView('pages.asistenciaest.invocepdf', compact('items', 'dias', 'meses', 'nombreaula'));
         //$pdf->setPaper('A4', 'landscape');
         return $pdf->stream('lista_asistencia.pdf');
     }

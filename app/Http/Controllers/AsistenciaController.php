@@ -7,6 +7,9 @@ use App\Models\Docente;
 use App\Models\Anolectivo;
 use App\Http\Requests\StoreAsistenciaRequest;
 use App\Http\Requests\UpdateAsistenciaRequest;
+use Illuminate\Http\Request; // importacion
+use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AsistenciaController extends Controller
 {
@@ -15,7 +18,7 @@ class AsistenciaController extends Controller
      */
     public function index()
     {
-        $items=Asistencia::with('docentes')->get();
+        $items=Asistencia::with('docentes')->where('fechaentrada',date("Y-m-d"))->get();
         $docente = Docente::all();
 
     return view('pages.asistencia.index',compact('items','docente'));
@@ -24,9 +27,37 @@ class AsistenciaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function show($id)
     {
-        //
+         $anolect = Anolectivo::where('estado', 1)->first();
+
+        $fechaInicio = Carbon::parse($anolect->inicio);
+        $fechaFin = Carbon::parse(date("Y-m-d"));
+        $dias = [];
+        $meses = [];
+        $fechaActual = $fechaInicio->copy();
+        $fechaActual2 = $fechaInicio->copy();
+        while ($fechaActual->lte($fechaFin)) {
+            $dias[] = $fechaActual->format('Y-m-d'); // Formato día-mes-año
+            $fechaActual->addDay();
+        }
+        while ($fechaActual2->lte($fechaFin)) {
+
+            $meses[] = $fechaActual2->format('Y-m'); // Formato Mes Año
+            $fechaActual2->addMonth();
+        }
+        //dd($meses);
+
+
+        $anolect = Anolectivo::where('estado', 1)->first();
+      
+        $items = Docente::where('id',$id)->with('asistenciadocentehoy')
+            ->get();
+        //dd($items);
+
+       
+         return view('pages.asistencia.show',compact('items', 'dias', 'meses'));
+       
     }
 
     /**
@@ -82,5 +113,39 @@ class AsistenciaController extends Controller
         $item=Asistencia::find($asistencia);
         $item->delete();
         return back()->with('message', 'Archivo Eliminado ');
+    }
+
+     public function reporteasistencia(Request $request)
+    {
+       
+        $anolect = Anolectivo::where('estado', 1)->first();
+
+        $fechaInicio = Carbon::parse($anolect->inicio);
+        $fechaFin = Carbon::parse($anolect->fin);
+        $dias = [];
+        $meses = [];
+        $fechaActual = $fechaInicio->copy();
+        $fechaActual2 = $fechaInicio->copy();
+        while ($fechaActual->lte($fechaFin)) {
+            $dias[] = $fechaActual->format('Y-m-d'); // Formato día-mes-año
+            $fechaActual->addDay();
+        }
+        while ($fechaActual2->lte($fechaFin)) {
+
+            $meses[] = $fechaActual2->format('Y-m'); // Formato Mes Año
+            $fechaActual2->addMonth();
+        }
+        //dd($meses);
+
+
+        $anolect = Anolectivo::where('estado', 1)->first();
+      
+        $items = Docente::where('estado',1)->with('asistenciadocentehoy')
+            ->get();
+        //dd($items);
+
+        $pdf = Pdf::loadView('pages.asistencia.invocepdf', compact('items', 'dias', 'meses'));
+        //$pdf->setPaper('A4', 'landscape');
+        return $pdf->stream('lista_asistencia_docentes.pdf');
     }
 }

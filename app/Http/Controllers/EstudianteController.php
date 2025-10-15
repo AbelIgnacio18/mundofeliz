@@ -109,7 +109,7 @@ class EstudianteController extends Controller
     public function show($id)
     {
         $estudiante = Estudiante::where('id', $id)->first();
-        $mes = Mese::where('idestudiante', $id)->get();
+        $mes = Mese::where('idmatricula', $id)->get();
         $avancepen = count($mes);
 
 

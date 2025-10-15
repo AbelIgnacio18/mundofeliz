@@ -59,6 +59,7 @@ Route::get('home', [App\Http\Controllers\PanelController::class, 'index'])->name
     Route::resource('/asistencia-estudiantes',AsistenciaestController::class)->names('asist-estudiante');
      Route::post('/asistencia-actualizar',[App\Http\Controllers\AsistenciaestController::class, 'control'])->name('cambiarasistencia');
      Route::get('/reporte-asistencia',[App\Http\Controllers\AsistenciaestController::class, 'reporteasistencia'])->name('reporteasistencia');
+     Route::get('/reporte-asistencia-docente',[App\Http\Controllers\AsistenciaController::class, 'reporteasistencia'])->name('reporteasistenciadocente');
 
 
       Route::get('/asistencia-aula',[App\Http\Controllers\AsistenciaestController::class, 'filtrarasistencia'])->name('asistenciaaula');
