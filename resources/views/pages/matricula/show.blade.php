@@ -78,7 +78,7 @@
                                 </div>
                             </div>
                             
-                            <h6 class="mb-3">{{$otr->fecha}}</h6>
+                            <h6 class="mb-3">{{Carbon\Carbon::parse($otr->fecha)->translatedFormat('l, j F Y h:i A')}}</h6>
                             
                             <div class="iq-media-group-1">
                             
@@ -124,7 +124,7 @@
                                 </div>
                             </div>
                             
-                            <h6 class="mb-3">{{$art->fecha}}</h6>
+                            <h6 class="mb-3">{{Carbon\Carbon::parse($art->fecha)->translatedFormat('l, j F Y h:i A')}}</h6>
                             
                             <div class="iq-media-group-1">
                             

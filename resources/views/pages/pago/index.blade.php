@@ -72,7 +72,7 @@
 
 
                <td>
-                  <h6>{{$pag->fecha}}</h6>
+                  <h6>{{Carbon\Carbon::parse($pag->fecha)->translatedFormat('l, j F Y h:i A')}}</h6>
                </td>
                <td>
                   <h6>{{$pag->montototal}}</h6>
