@@ -107,4 +107,30 @@ class MatriculaController extends Controller
         $matricula->delete();
         return back()->with('message', 'Registro Eliminado ');
     }
+
+
+     public function reportematricula(Request $request)
+    {
+        $request->validate([
+            'aula' => 'required'
+        ]);
+         $idaula = $request->get('aula');
+        if($idaula=="todos"){
+//dd($idaula);
+        $anolect = Anolectivo::where('estado', 1)->first();
+        $matricula=Matricula::where('idanolectivo',$anolect->id)->with('estudiante')->with('aula')->with('meses')->orderBy('idaula','desc')->get();
+
+        $pdf = Pdf::loadView('pages.matricula.invocepdf', compact('matricula', 'anolect'));
+        //$pdf->setPaper('A4', 'landscape');
+        return $pdf->stream('lista_matriculado_'.' $anolect'.'.pdf');
+
+
+        }
+ $anolect = Anolectivo::where('estado', 1)->first();
+    $matricula=Matricula::where('idanolectivo',$anolect->id)->where('idaula',$idaula)->with('estudiante')->with('aula')->with('meses')->get();
+
+        $pdf = Pdf::loadView('pages.matricula.invocepdf', compact('matricula', 'anolect'));
+        //$pdf->setPaper('A4', 'landscape');
+        return $pdf->stream('lista_matriculado_'.' $anolect'.'.pdf');
+    }
 }
