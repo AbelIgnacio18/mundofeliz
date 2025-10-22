@@ -85,6 +85,19 @@ class MatriculaController extends Controller
         return view("pages.matricula.show", compact('matricula', 'mes', 'avancepen', 'otros', 'articulo'));
     }
 
+
+    public function showaula($id)
+    {
+         $anolect = Anolectivo::where('estado', 1)->first();
+         $aula=Aula::where('id',$id)->first();
+         $matricula=Matricula::where('idanolectivo',$anolect->id)->where('idaula', $id)->with('estudiante')->with('aula')->with('meses')->get();
+     
+     
+
+        //  dd($matricula);
+        return view("pages.matricula.showaula", compact('matricula','aula'));
+    }
+
     /**
      * Update the specified resource in storage.
      */

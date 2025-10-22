@@ -9,6 +9,7 @@ use App\Models\Asistenciaest;
 use App\Models\Asistencia;
 use App\Models\Estudiante;
 use App\Models\Control;
+use App\Models\Contrato;
 use App\Models\Personal_access_token;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -44,10 +45,15 @@ class AsistenciaController extends Controller
         $estudiante = Estudiante::where('codigo', $codigo)->first();
         $anolectivo = Anolectivo::where('estado', 1)->first();
         
-
+///poner la hor de entrada dinamic
         if(empty($estudiante)==true){
         $docente = Docente::where('codigo', $codigo)->first();
-              if (date("h:i:s") < "08:00:00") {
+          $cargo = Contrato::where('id', $docente->idcontrato)->first();
+          if (empty(Asistencia::where('iddocente', $docente->id)->where('fechaentrada', date("Y-m-d"))->first()) == true) 
+            {
+
+                 if (date("h:i:s") < $cargo->horaentrada) {
+
                     $asistencia = new Asistencia;
                     $asistencia->idanolectivo = $anolectivo->id;
                     $asistencia->iddocente = $docente->id;
@@ -64,8 +70,14 @@ class AsistenciaController extends Controller
                 }
         
             return response()->json($docente->nombre . ' ' . $codigo, 200);
+                
+            }
+
+             
 
         }
+
+
         
      
         $matricula = Matricula::where('idestudiante', $estudiante->id)->where('idanolectivo', $anolectivo->id)->first();

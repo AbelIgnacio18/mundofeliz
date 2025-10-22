@@ -16,10 +16,13 @@ class EstudianteImport implements ToModel
     {
         return new Estudiante([
             
-            'apellidos'=>$row[0].' '.$row[1],
-            'nombre'=>$row[2],
-            // 'dni'=>$row[3],
-            // 'celular'=>$row[5],
+            'apellidos'=>$row[0],
+            'nombre'=>$row[1],
+             'dni'=>$row[2],
+            'celular'=>$row[3],
+            'direccion'=>$row[4],
+        'nombreapderado'=>$row[5],
+        'observaciones'=>$row[6],
          
             
         ]);
