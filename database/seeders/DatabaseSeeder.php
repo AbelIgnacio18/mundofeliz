@@ -25,10 +25,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\User::create([
-            'name' => 'Academia Pre Policial',
-            'apellidos' => 'Latino',
-            'email' => 'latino@innovastaff.org',
-            'password' => \Illuminate\Support\Facades\Hash::make('latino'),
+            'name' => 'IEP',
+            'apellidos' => 'MundoFeliz',
+            'email' => 'dr_mercy@mundofeliz.edu.pe',
+            'password' => \Illuminate\Support\Facades\Hash::make('mercymundofeliz'),
             'foto' => '01.png',
         ]);
         
@@ -48,19 +48,19 @@ class DatabaseSeeder extends Seeder
     
   // Datos semilla de Nivel de Educación
         \App\Models\Aula::create([
-            'nivel' => 'Turno Mañana',
-            'grado' => '3años',
-            'seccion' => 'Verde',
+            'nivel' => 'Primaria',
+            'grado' => '1er',
+            'seccion' => 'A',
             'vacantes' => 20,
             'tarde' => '08:00:00',          
         ]);
 
         \App\Models\Aula::create([
-            'nivel' => 'Turno Tarde',
+            'nivel' => 'Secundaria',
             'grado' => '5to',
             'seccion' => 'A',
             'vacantes' => 20,
-            'tarde' => '15:00:00',          
+            'tarde' => '7:30:00',          
         ]);
 
         \App\Models\Control::create([
