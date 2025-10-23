@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('aulas', function (Blueprint $table) {
             $table->id();
             $table->string('nivel',50);
-            $table->string('grado',10);
-            $table->string('seccion',10)->nullable();;
+            $table->string('grado',50);
+            $table->string('seccion',50)->nullable();;
             $table->integer('vacantes');
             $table->time('tarde');
              

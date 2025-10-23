@@ -6,6 +6,7 @@ use App\Models\Anolectivo;
 use App\Models\Estudiante;
 use App\Models\Mese;
 use App\Models\Matricula;
+use App\Models\Concepto;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
@@ -21,11 +22,12 @@ class MatriculaController extends Controller
         $estudiante=Estudiante::all();
         // dd($estudiante);
         $anolect = Anolectivo::where('estado', 1)->first();
+         $concepto = Concepto::get();
       
-        $matricula=Matricula::where('idanolectivo',$anolect->id)->with('estudiante')->with('aula')->with('meses')->get();
+        $matricula=Matricula::where('idanolectivo',$anolect->id)->with('estudiante')->with('aula')->with('meses')->with('concepto')->get();
         // dd($matricula);
         $aula=Aula::get();
-        return view('pages.matricula.index',compact('estudiante','aula','matricula'));
+        return view('pages.matricula.index',compact('estudiante','aula','matricula','concepto'));
     }
 
     /**
@@ -44,6 +46,8 @@ class MatriculaController extends Controller
 
         $estudianteid = $request->get('estudiante_id');
         $aula = $request->get('aula_id');
+        $concepto = $request->get('concepto');
+
     
         $anolectivo = Anolectivo::where('estado', 1)->first();
         // dd($estudianteid, $aula,$anolectivo->id);
@@ -53,6 +57,7 @@ class MatriculaController extends Controller
             $matricula->idestudiante = $estudianteid[$cont];
             $matricula->idanolectivo = $anolectivo->id;
             $matricula->idaula = $aula;
+            $matricula->idconcepto = $concepto;
             $matricula->save();
             $cont = $cont + 1;
         }
@@ -90,7 +95,7 @@ class MatriculaController extends Controller
     {
          $anolect = Anolectivo::where('estado', 1)->first();
          $aula=Aula::where('id',$id)->first();
-         $matricula=Matricula::where('idanolectivo',$anolect->id)->where('idaula', $id)->with('estudiante')->with('aula')->with('meses')->get();
+         $matricula=Matricula::where('idanolectivo',$anolect->id)->where('idaula', $id)->with('estudiante')->with('aula')->with('meses')->with('concepto')->get();
      
      
 
@@ -106,6 +111,7 @@ class MatriculaController extends Controller
         $matricula=Matricula::find($matricula);  
    
         $matricula->idaula=$request->get('aula_id');  
+        $matricula->idconcepto=$request->get('concepto');  
         $matricula->update();
        
         return back()->with('message', 'Actualización Exítosa');

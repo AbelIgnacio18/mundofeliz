@@ -23,6 +23,10 @@ class Matricula extends Model
         return $this->hasOne(Aula::class,'id','idaula');
     
      }
+      public function concepto(){
+        return $this->hasOne(Concepto::class,'id','idconcepto');
+    
+     }
       public function estudiantes(){
         return $this->hasOne(Estudiante::class,'id','idestudiante');
     

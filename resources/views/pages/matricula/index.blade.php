@@ -86,6 +86,22 @@
 
                         </div>
                      </div>
+
+                     <div class="form-group">
+                        <label for="modulo" class="form-label">Concepto:</label>
+                        <div class="input-group ">
+                    
+                           <select name="concepto"  class="form-control"  required>
+                              <option value="">Seleccionar</option>
+                              @forelse($concepto as $con)
+                              <option value="{{$con->id}}"> {{$con->concepto}} </option>
+                              @empty
+                              @endforelse
+
+                           </select>
+
+                        </div>
+                     </div>
              
 
 
@@ -114,6 +130,7 @@
                <th>Estudiante</th>
                <th>Nivel</th>
                <th>Pensión</th>
+               <th>Concepto</th>
                <th>Dni</th>
                <th>Código</th>
        
@@ -146,6 +163,11 @@
                      </a>
                      @empty
                      @endforelse
+                  </div>
+               </td>
+               <td>
+                  <div class="d-flex align-items-center">
+                     <h6>{{$matri->concepto->concepto}}</h6>
                   </div>
                </td>
 
