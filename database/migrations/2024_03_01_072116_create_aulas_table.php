@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nivel',50);
             $table->string('grado',10);
-            $table->string('seccion',10);
+            $table->string('seccion',10)->nullable();;
             $table->integer('vacantes');
             $table->time('tarde');
              

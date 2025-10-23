@@ -48,6 +48,7 @@ class AsistenciaController extends Controller
 ///poner la hor de entrada dinamic
         if(empty($estudiante)==true){
         $docente = Docente::where('codigo', $codigo)->first();
+
           $cargo = Contrato::where('id', $docente->idcontrato)->first();
           if (empty(Asistencia::where('iddocente', $docente->id)->where('fechaentrada', date("Y-m-d"))->first()) == true) 
             {
@@ -71,6 +72,8 @@ class AsistenciaController extends Controller
         
             return response()->json($docente->nombre . ' ' . $codigo, 200);
                 
+            }else{
+              return response()->json('Ya marco asistencia'. ' ' . $codigo, 200);  
             }
 
              

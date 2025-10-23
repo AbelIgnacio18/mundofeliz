@@ -151,7 +151,7 @@
                                     </svg>
                                 </i>
                                 <i class="sidenav-mini-icon"> A </i>
-                                <span class="item-sub-name"> {{ $menu->nivel }} {{ $menu->grado }}</span>
+                                <span class="item-sub-name"> {{ $menu->nivel }} {{ $menu->grado }} {{ $menu->seccion }}</span>
                             </a>
                         </li>
                         @empty

@@ -24,7 +24,7 @@
         td {
             border: 1px solid #cccccc;
             /* Borde de celda */
-            padding: 2px;
+            padding: 0px;
             text-align: left;
         }
 
@@ -120,7 +120,7 @@
             <thead>
                 <tr>
                     <th>Nº</th>
-                    <th width="10%">Docente</th>
+                    <th width="20%">Docente</th>
                     @forelse($dias as $di)
 
                     @if(Carbon\Carbon::parse($di)->Format('Y-m')==$me)

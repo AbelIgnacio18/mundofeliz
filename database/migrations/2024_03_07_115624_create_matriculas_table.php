@@ -18,6 +18,8 @@ return new class extends Migration
 
             $table->unsignedBigInteger('idaula');
             $table->foreign('idaula')->references('id')->on('aulas')->onUpdate('cascade');
+              $table->unsignedBigInteger('idconcepto');
+            $table->foreign('idconcepto')->references('id')->on('conceptos')->onUpdate('cascade');
          
             $table->timestamps();
         });

@@ -27,7 +27,11 @@
 
 			@forelse($estudiante as $est)
 
-			<div class="detail" style="font-size:50%;">Cliente:</div>
+			<div class="detail" style="font-size:50%;">Apoderado:</div>
+			<div class="paymentDetails bold" style="font-size:60%;">
+				<div class="detail center">{{$est->nombreapoderado}}</div>
+			</div>
+			<div class="detail" style="font-size:50%;">Estudiante:</div>
 			<div class="paymentDetails bold" style="font-size:60%;">
 				<div class="detail center">{{$est->nombre}} {{$est->apellidos}}</div>
 			</div>

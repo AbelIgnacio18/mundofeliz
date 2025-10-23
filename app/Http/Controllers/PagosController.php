@@ -261,7 +261,7 @@ class PagosController extends Controller
 
         $estudiante = DB::table('pagos as p')
             ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
-            ->select('p.id', 'e.nombre', 'e.apellidos', 'e.dni', 'p.created_at as fecha', 'p.montototal')->where('p.id', $id)->get();
+            ->select('p.id', 'e.nombre', 'e.apellidos', 'e.dni','e.nombreapoderado', 'p.created_at as fecha', 'p.montototal')->where('p.id', $id)->get();
         //  dd($estudiante);
         $pension = DB::table('pagos as p')
             ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
@@ -288,7 +288,7 @@ class PagosController extends Controller
     {
         $estudiante = DB::table('pagos as p')
             ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
-            ->select('p.id', 'e.nombre', 'e.apellidos', 'e.dni', 'p.created_at as fecha', 'p.montototal')->where('p.id', $id)->get();
+            ->select('p.id', 'e.nombre', 'e.apellidos', 'e.dni','e.nombreapoderado', 'p.created_at as fecha', 'p.montototal')->where('p.id', $id)->get();
         //    dd($estudiante[0]->nombre);
         $pension = DB::table('pagos as p')
             ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')

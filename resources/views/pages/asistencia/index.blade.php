@@ -118,7 +118,7 @@
                            </svg>
                         </span>
                      </a>
- <a class="btn btn-sm btn-icon text-success" data-bs-original-title="Ver" href="{{route('app.asistencia.show',$item->id)}}">
+ <a class="btn btn-sm btn-icon text-success" data-bs-original-title="Ver" href="{{route('app.asistencia.show',$item->docentes->id)}}">
                         <span class="btn-inner">
                            <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path fill-rule="evenodd" clip-rule="evenodd" d="M15.1614 12.0531C15.1614 13.7991 13.7454 15.2141 11.9994 15.2141C10.2534 15.2141 8.83838 13.7991 8.83838 12.0531C8.83838 10.3061 10.2534 8.89111 11.9994 8.89111C13.7454 8.89111 15.1614 10.3061 15.1614 12.0531Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>

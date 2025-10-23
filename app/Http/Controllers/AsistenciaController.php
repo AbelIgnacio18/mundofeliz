@@ -145,7 +145,7 @@ class AsistenciaController extends Controller
         //dd($items);
 
         $pdf = Pdf::loadView('pages.asistencia.invocepdf', compact('items', 'dias', 'meses'));
-        //$pdf->setPaper('A4', 'landscape');
+        $pdf->setPaper('A4', 'landscape');
         return $pdf->stream('lista_asistencia_docentes.pdf');
     }
 }
