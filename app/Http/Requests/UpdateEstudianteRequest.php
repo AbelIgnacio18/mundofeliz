@@ -26,7 +26,7 @@ class UpdateEstudianteRequest extends FormRequest
             'apellidoP'=>'string|max:50',
             'apellidoM'=>'string|max:50',
             'dni'=>'string|max:8|required',
-            'celular'=>'max:9',
+            'celular'=>'max:25',
         
              'codigo'=>'max:8',
           
