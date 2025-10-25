@@ -38,14 +38,11 @@
  
     <div class="col-12 py-2">
         <header class="row">
-            <div class="col-md-4 text-center">
-                <img src="{{asset('assets/images/logo.png')}}" width="85px">
-            </div><!--.logoholder-->
+         
 
             <div class="col-md-4">
                 <h6>
-                    <strong>I.E.P.</strong><br>
-                     MUNDO FELIZ<br>
+                    
                    
                     Docente: @forelse($items as $item)  {{$item->nombre}}, {{$item->apellidos}}  @empty @endforelse
                 </h6>

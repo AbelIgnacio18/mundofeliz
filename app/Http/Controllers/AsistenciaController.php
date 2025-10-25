@@ -16,12 +16,21 @@ class AsistenciaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $items=Asistencia::with('docentes')->where('fechaentrada',date("Y-m-d"))->get();
+        if ($request) {
+           
+        $fecha = trim($request->get('fecha'));
+         if ($fecha == "") {
+                $fecha = date('Y-m-d');
+            }
+        $items=Asistencia::with('docentes')->where('fechaentrada',$fecha)->get();
         $docente = Docente::all();
 
-    return view('pages.asistencia.index',compact('items','docente'));
+    return view('pages.asistencia.index',compact('items','docente','fecha'));
+
+        }
+        
     }
 
     /**
@@ -147,5 +156,37 @@ class AsistenciaController extends Controller
         $pdf = Pdf::loadView('pages.asistencia.invocepdf', compact('items', 'dias', 'meses'));
         $pdf->setPaper('A4', 'landscape');
         return $pdf->stream('lista_asistencia_docentes.pdf');
+    }
+
+    public function registrarfalta(Request $request)
+    {
+
+        if ($request) {
+
+        
+
+            $anolectivo = Anolectivo::where('estado', 1)->first();
+            $docente = Docente::where('estado', 1)->with('asistenciadocentehoy')->get();
+
+
+            for ($i = 0; $i < count($docente); $i++) {
+
+                if (empty($docente[$i]->asistenciadocentehoy()->wheredate('fechaentrada', date('Y-m-d'))->first()) == true) {
+                    $asistencia = new Asistencia;
+                    $asistencia->idanolectivo = $anolectivo->id;
+                    $asistencia->iddocente = $docente[$i]->id;
+                    $asistencia->fechaentrada = date("Y-m-d");
+                    $asistencia->estado = null;
+
+                    $asistencia->save();
+                };
+            }
+
+
+
+
+
+            return back()->with('message', 'Actualización Exítosa');
+        }
     }
 }

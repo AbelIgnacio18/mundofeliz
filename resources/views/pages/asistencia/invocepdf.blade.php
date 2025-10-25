@@ -26,6 +26,7 @@
             /* Borde de celda */
             padding: 0px;
             text-align: left;
+            
         }
 
         th {

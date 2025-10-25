@@ -55,6 +55,7 @@ Route::get('home', [App\Http\Controllers\PanelController::class, 'index'])->name
     Route::resource('/articulos',ArticuloController::class);
     Route::resource('/ingresos',IngresoController::class);
     Route::resource('/asistencia-docentes',AsistenciaController::class)->names('asistencia');
+    Route::get('/registrar-falta-docente',[App\Http\Controllers\AsistenciaController::class, 'registrarfalta'])->name('registrarfaltadocente');
     
     Route::resource('/asistencia-estudiantes',AsistenciaestController::class)->names('asist-estudiante');
      Route::post('/asistencia-actualizar',[App\Http\Controllers\AsistenciaestController::class, 'control'])->name('cambiarasistencia');
