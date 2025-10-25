@@ -6,6 +6,7 @@ php artisan vendor:publish --provider="Barryvdh\DomPDF\ServiceProvider"
 
 4.Instalación de paqueteria de excel    composer require maatwebsite/excel:^3.1 --ignore-platform-reqs
 
+rror de time out:$ COMPOSER_PROCESS_TIMEOUT=2000 composer install
 
 Módulo BD:
 - Configuraciones
