@@ -34,7 +34,7 @@
         <br>
         @forelse($articulo as $art)
         <div class="row display-flex flex-wrap-wrap">
-            <p class="col-md-5">{{$art->articulo}}</p>
+            <p class="col-md-5">{{$art->categoria}} {{$art->articulo}}</p>
 
             <p class="col-md-2"> <b>{{$art->cantidad}} x {{$art->montoar}}</b> </p>
 

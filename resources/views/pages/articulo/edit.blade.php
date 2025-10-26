@@ -28,6 +28,21 @@
                         <input type="numeric" class="form-control" id="preciov" aria-describedby="preciov" placeholder="12.34" name="precioventa" value="{{$arti->precioventa}}">
                      </div>
 
+                        <div class="form-group">
+                        <label for="nombre" class="form-label">Seleciona Categoria:</label>
+
+                        <select name="idcategoria"  class="form-control" required id="ex-search">
+                           <option value="{{$arti->categoria->id}}" >{{$arti->categoria->nombre}}</option>
+                           @forelse($categoria as $cat)
+                           <option value="{{$cat->id}}">{{$cat->nombre}}</option>
+                           @empty
+                           @endforelse
+                        </select>
+
+
+
+                     </div>
+
 
 
                <div class="text-start mt-2">

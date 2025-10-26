@@ -95,7 +95,7 @@
 					<tbody>
 						@forelse($articulo as $art)
 						<tr style="font-size:55%;">
-							<td>{{$art->articulo}}</td>
+							<td>{{$art->categoria}} {{$art->articulo}}</td>
 							<td>{{$art->cantidad}}</td>
 							<td>s/.{{$art->montoar/$art->cantidad}}</td>
 							<td>s/.{{$art->montoar}}</td>

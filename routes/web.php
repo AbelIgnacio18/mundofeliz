@@ -17,6 +17,7 @@ use App\Http\Controllers\AsistenciaController;
 use App\Http\Controllers\AsistenciaestController;
 use App\Http\Controllers\EgresoController;
 use App\Http\Controllers\CajaController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RolPermissionController;
@@ -55,12 +56,12 @@ Route::get('home', [App\Http\Controllers\PanelController::class, 'index'])->name
     Route::resource('/admin-egresos',EgresoController::class);
     Route::resource('/pagos-realizados',PagosController::class);
     Route::resource('/administradores',UsuarioController::class);
+     Route::resource('/categoria',CategoriaController::class);
     Route::resource('/articulos',ArticuloController::class);
     Route::resource('/ingresos',IngresoController::class);
-
     Route::resource('/roles-permission',RolController::class);
-
     Route::resource('/permission',PermissionController::class);
+    
      Route::resource('/roles-permission-union',RolPermissionController::class)->names('unionrolespermission');;
     Route::resource('/asistencia-docentes',AsistenciaController::class)->names('asistencia');
     Route::get('/registrar-falta-docente',[App\Http\Controllers\AsistenciaController::class, 'registrarfalta'])->name('registrarfaltadocente');

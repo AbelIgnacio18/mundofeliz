@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Articulo;
 use App\Http\Requests\StoreArticuloRequest;
 use App\Http\Requests\UpdateArticuloRequest;
+use App\Models\Categoria;
 use Illuminate\Http\Request;// importacion 
 
 class ArticuloController extends Controller
@@ -16,9 +17,10 @@ class ArticuloController extends Controller
         if ($request) {
          
             $articulo=Articulo::all();
+              $categoria=Categoria::all();
 
 
-            return view('pages.articulo.index',compact('articulo'));
+            return view('pages.articulo.index',compact('articulo','categoria'));
         
         }
     
@@ -36,7 +38,8 @@ class ArticuloController extends Controller
         $articulo->nombre=$request->get('nombre');
         $articulo->stock=$request->get('stock');  
        $articulo->preciocosto=$request->get('preciocosto');   
-      $articulo->precioventa=$request->get('precioventa'); 
+      $articulo->precioventa=$request->get('precioventa');
+        $articulo->idcategoria=$request->get('idcategoria'); 
         $articulo->save();
         return back()->with('message', 'Actualización Exítosa');
     }
@@ -52,7 +55,7 @@ class ArticuloController extends Controller
         $articulo->stock=$request->get('stock');  
         $articulo->preciocosto=$request->get('preciocosto');   
         $articulo->precioventa=$request->get('precioventa');    
-        
+         $articulo->idcategoria=$request->get('idcategoria'); 
         $articulo->update();
        
         return back()->with('message', 'Actualización Exítosa');

@@ -11,8 +11,8 @@
                @csrf
                <div class="form-group">
                   <label for="nombre" class="form-label">Nombre del Estudiante:</label>
-                  <!-- id="ex-search" -->
-                  <select name="idestudiante" class="form-control" required onchange="mesespagado()" id="idestudiante">
+                  <!-- id="ex-search"  id="idestudiante"-->
+                  <select name="idestudiante" class="form-control" required onchange="mesespagado()"  id="ex-search">
                      <option value="">Seleccionar</option>
                      @forelse($estudiante as $estud)
                      <option value="{{$estud->id}}/kokoko"> {{$estud->nombre}} {{$estud->apellidos}} - {{$estud->dni}}</option>
@@ -94,7 +94,7 @@
                      <select name="idarticulo" id="idarticulo" class="form-control" onchange="articulos()">
                         <option value="">Seleccionar(Ninguno)</option>
                         @forelse($articulo as $art)
-                        <option value="{{$art->id}}-{{$art->nombre}}-{{$art->stock}}-{{$art->precioventa}}">{{$art->nombre}}</option>
+                        <option value="{{$art->id}}-{{$art->nombre}}-{{$art->stock}}-{{$art->precioventa}}-{{$art->categoria->nombre}}">{{$art->categoria->nombre}} {{$art->nombre}}</option>
                         @empty
                         <option value="">No hay Datos</option>
                         @endforelse
@@ -399,15 +399,16 @@
       idarticulo = datosarticulo[0];
       nombre = datosarticulo[1];
       stock = parseInt(datosarticulo[2]);
+        categoria = datosarticulo[4];
       cantidad = parseInt($("#pcantidad").val());
       monto = $("#pprecio").val();
 
 
-      if (stock > cantidad) {
+      if (stock >= cantidad) {
 
          subtotal[cont] = monto * cantidad;
          total = total + subtotal[cont];
-         var fila = '<tr class="selected" id="fila' + cont + '"><td><button type="button" class="btn btn-danger btn-xs" onclick="eliminarar(' + cont + ');">x</button></td><td><input type="hidden" name="idarticulo[]" value="' + idarticulo + '">' + nombre + '</td><td><input type="hidden" name="cantidadar[]" value="' + cantidad + '">' + cantidad + '</td><td><input type="hidden" name="montoar[]" value="' + monto + '">' + monto + '</td><td>' + subtotal[cont] + '</td></tr>';
+         var fila = '<tr class="selected" id="fila' + cont + '"><td><button type="button" class="btn btn-danger btn-xs" onclick="eliminarar(' + cont + ');">x</button></td><td><input type="hidden" name="idarticulo[]" value="' + idarticulo + '">'+ categoria+' ' +nombre+ '</td><td><input type="hidden" name="cantidadar[]" value="' + cantidad + '">' + cantidad + '</td><td><input type="hidden" name="montoar[]" value="' + monto + '">' + monto + '</td><td>' + subtotal[cont] + '</td></tr>';
          cont++;
 
          // limpiar();

@@ -66,5 +66,112 @@ class DatabaseSeeder extends Seeder
         \App\Models\Control::create([
             'estado' => true,
         ]);
+
+         \App\Models\Modulo::create([
+            'nombre' => 'estudiantes',
+        ]);
+         \App\Models\Modulo::create([
+              'nombre' =>'matricula',
+        ]); \App\Models\Modulo::create([
+              'nombre' =>'concepto',
+        ]); \App\Models\Modulo::create([
+               'nombre' => 'docentes',
+        ]); \App\Models\Modulo::create([
+              'nombre' => 'articulos',
+        ]); \App\Models\Modulo::create([
+            'nombre' => 'ingresos',
+        ]); \App\Models\Modulo::create([
+               'nombre' => 'comprobante',
+        ]);
+         \App\Models\Modulo::create([
+               'nombre' => 'asistencia',
+        ]);
+
+        \App\Models\Modulo::create([
+                'nombre' =>'usuario',
+        ]); \App\Models\Modulo::create([
+               'nombre' =>'role y permisos',
+        ]);   
+
+
+        \App\Models\Rol::create([
+               'nombre' =>'Admin',
+        ]);  
+         \App\Models\UserRol::create([
+               'iduser' =>1,
+               'idrol' =>1,
+        ]); 
+
+
+         \App\Models\Permission::create([
+             'idmodulo'=>1,
+               'nombre'=>'VER ESTUDIANTES',
+                 'status'=>1,  
+        ]);
+        
+          \App\Models\Permission::create([
+               'idmodulo'=>2,
+                'nombre'=>'VER MATRICUCLA',
+
+                 'status'=>1,
+                 
+        ]);  
+        \App\Models\Permission::create([
+              'idmodulo'=>3,
+                'nombre'=>'VER CONCEPTO',
+                 'status'=>1, 
+        ]); 
+         \App\Models\Permission::create([
+               'idmodulo'=>4,
+                'nombre'=>'VER DOCENTE',
+                 'status'=>1,
+        ]); 
+         \App\Models\Permission::create([
+               'idmodulo'=>5,
+                'nombre'=>'VER INVENTARIO ARTICULOS',
+                 'status'=>1,
+        ]); 
+         \App\Models\Permission::create([
+               'idmodulo'=>6,
+                'nombre'=>'VER INVENTARIO INGRESOS',
+                 'status'=>1,
+        ]); 
+         \App\Models\Permission::create([
+              'idmodulo'=>7,
+                'nombre'=>'VER COMPROBANTES',
+                 'status'=>1, 
+        ]); 
+         \App\Models\Permission::create([
+               'idmodulo'=>8,
+                'nombre'=>'VER ASISTENCIA',
+                 'status'=>1,
+        ]); 
+         \App\Models\Permission::create([
+              'idmodulo'=>9,
+                'nombre'=>'VER USUSARIOS',
+                 'status'=>1, 
+        ]); 
+         \App\Models\Permission::create([
+               'idmodulo'=>10,
+                'nombre'=>'VER ROL & PERMISOS',
+                 'status'=>1,
+        ]);
+     
+\App\Models\RolPermission::create([
+               'idrol'=>1, 
+               'idpermission'=>9
+        ]);
+        \App\Models\RolPermission::create([
+               'idrol'=>1, 
+               'idpermission'=>10
+        ]);
+      
+  
+    
+    
+       
+       
+     
+      
     }
 }

@@ -34,7 +34,8 @@ class PagosController extends Controller
                 ->orderBy('id', 'desc')->get();
 
 
-            $articulo = Articulo::all();
+            $articulo = Articulo::with('categoria')->get();
+           // dd($articulo);
 
             $estudiante = Estudiante::all();
             $concepto = Concepto::all();
@@ -193,7 +194,8 @@ class PagosController extends Controller
             ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
             ->join('detallepagos as det', 'p.id', '=', 'det.idpago')
             ->join('articulos as a', 'det.idarticulo', '=', 'a.id')
-            ->select('p.id', 'p.idestudiante', 'a.nombre as articulo', 'p.created_at as fecha', 'det.cantidadar as cantidad', 'det.montoar')->where('p.id', $id)->get();
+            ->join('categorias as c', 'a.idcategoria', '=', 'c.id')
+            ->select('p.id', 'p.idestudiante', 'a.nombre as articulo', 'c.nombre as categoria', 'p.created_at as fecha', 'det.cantidadar as cantidad', 'det.montoar')->where('p.id', $id)->get();
 
 
         //  dd($articulo);
@@ -274,7 +276,8 @@ class PagosController extends Controller
             ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
             ->join('detallepagos as det', 'p.id', '=', 'det.idpago')
             ->join('articulos as a', 'det.idarticulo', '=', 'a.id')
-            ->select('p.id', 'p.idestudiante', 'a.nombre as articulo', 'p.created_at as fecha', 'det.cantidadar as cantidad', 'det.montoar')->where('p.id', $id)->get();
+            ->join('categorias as c', 'a.idcategoria', '=', 'c.id')
+            ->select('p.id', 'p.idestudiante', 'a.nombre as articulo', 'c.nombre as categoria', 'p.created_at as fecha', 'det.cantidadar as cantidad', 'det.montoar')->where('p.id', $id)->get();
 
         $pdf = Pdf::loadView('pages.pago.reportecomprobanteA4', compact('pension', 'articulo', 'estudiante'));
 
@@ -301,7 +304,8 @@ class PagosController extends Controller
             ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
             ->join('detallepagos as det', 'p.id', '=', 'det.idpago')
             ->join('articulos as a', 'det.idarticulo', '=', 'a.id')
-            ->select('p.id', 'p.idestudiante', 'a.nombre as articulo', 'p.created_at as fecha', 'det.cantidadar as cantidad', 'det.montoar')->where('p.id', $id)->get();
+            ->join('categorias as c', 'a.idcategoria', '=', 'c.id')
+            ->select('p.id', 'p.idestudiante', 'a.nombre as articulo', 'c.nombre as categoria', 'p.created_at as fecha', 'det.cantidadar as cantidad', 'det.montoar')->where('p.id', $id)->get();
         // dd($articulo);
 
         $pdf = Pdf::loadView('pages.pago.reporteComprobante', compact('pension', 'articulo', 'estudiante'));

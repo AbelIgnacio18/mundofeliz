@@ -177,8 +177,8 @@
                         <span class="item-name">Concepto</span>
                     </a>
                 </li>
-                 @endif
-                 @if(auth()->user()->hasPermission('VER DOCENTE'))
+                @endif
+                @if(auth()->user()->hasPermission('VER DOCENTE'))
                 <li class="nav-item">
                     <a class="{{ request()->is('dashboard/docentes') ? 'nav-link active' : 'nav-link' }}" aria-current="page" href="{{ url('dashboard/docentes') }}">
                         <i class="icon">
@@ -190,7 +190,7 @@
                         <span class="item-name">Docentes</span>
                     </a>
                 </li>
-                 @endif
+                @endif
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#Calificaciones-menus" role="button" aria-expanded="false" aria-controls="Calificaciones-menus">
                         <i class="icon">
@@ -208,7 +208,7 @@
                         </i>
                     </a>
                     <ul class="sub-nav collapse" id="Calificaciones-menus" data-bs-parent="#sidebar-menu">
-                         @if(auth()->user()->hasPermission('VER INVENTARIO ARTICULOS'))
+                        @if(auth()->user()->hasPermission('VER INVENTARIO ARTICULOS'))
                         <li class="nav-item">
                             <a class="{{ request()->is('dashboard/articulos') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/articulos') }}">
                                 <i class="icon">
@@ -223,7 +223,7 @@
                             </a>
                         </li>
                         @endif
-                         @if(auth()->user()->hasPermission('VER INVENTARIO INGRESOS'))
+                        @if(auth()->user()->hasPermission('VER INVENTARIO INGRESOS'))
                         <li class="nav-item">
                             <a class="{{ request()->is('dashboard/ingresos') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/ingresos') }}">
                                 <i class="icon">
@@ -238,6 +238,20 @@
                             </a>
                         </li>
                         @endif
+                        <li class="nav-item">
+                            <a class="nav-link " href="{{ url('dashboard/categoria') }}">
+                                <i class="icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
+                                        fill="currentColor">
+                                        <g>
+                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                        </g>
+                                    </svg>
+                                </i>
+                                <i class="sidenav-mini-icon">C</i>
+                                <span class="item-sub-name">Categoria</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 @if(auth()->user()->hasPermission('VER COMPROBANTES'))
@@ -253,7 +267,7 @@
                     </a>
                 </li>
                 @endif
- @if(auth()->user()->hasPermission('VER ASISTENCIA'))
+                @if(auth()->user()->hasPermission('VER ASISTENCIA'))
                 <li class="nav-item">
                     <a class="nav-link"
                         data-bs-toggle="collapse" href="#Calificaciones-menu" role="button" aria-expanded="false"
@@ -337,7 +351,7 @@
                         </li>
                     </ul>
                 </li>
- @endif
+                @endif
 
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#Administracion" role="button"
@@ -404,7 +418,7 @@
                                 <span class="item-sub-name">Aulas</span>
                             </a>
                         </li>
-@if(auth()->user()->hasPermission('VER USUSARIOS'))
+                        @if(auth()->user()->hasPermission('VER USUSARIOS'))
                         <li class="nav-item">
                             <a class="{{ request()->is('dashboard/administradores') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/administradores') }}">
                                 <i class="icon">
@@ -418,7 +432,7 @@
                                 <span class="item-sub-name"> Lista de Usuarios </span>
                             </a>
                         </li>
-@endif
+                        @endif
                         <li class="nav-item">
                             <a class="{{ request()->is('dashboard/administracion-contrato') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/administracion-contrato') }}">
                                 <i class="icon">
@@ -433,7 +447,7 @@
                                 <span class="item-sub-name">Cargo</span>
                             </a>
                         </li>
-                       @if(auth()->user()->hasPermission('VER ROL & PERMISOS'))
+                        @if(auth()->user()->hasPermission('VER ROL & PERMISOS'))
                         <li class="nav-item">
                             <a class="{{ request()->is('dashboard/roles-permission') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/roles-permission') }}">
                                 <i class="icon">
@@ -465,7 +479,7 @@
                             </a>
                         </li> -->
 
-                        <!--                         <li class="nav-item">
+                    <!-- <li class="nav-item">
                             <a class="nav-link " href="{{ url('dashboard/administracion-caja') }}">
                                 <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
@@ -486,13 +500,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-item" with="100px">
-                    <a class="{{ request()->is('dashboard/pagos-realizados') ? 'nav-link active' : 'nav-link' }}" aria-current="page" href="{{ url('dashboard/pagos-realizados') }}">
-
-                        <span class="item-name"></span>
-                    </a>
-
-                </li>
+               
 
 
                 <div class="sidebar-footer"></div>
