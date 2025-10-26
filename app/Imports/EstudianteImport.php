@@ -18,13 +18,11 @@ class EstudianteImport implements ToModel
             
             'apellidos'=>$row[0],
             'nombre'=>$row[1],
-             'dni'=>$row[2],
+            'dni'=>$row[2],
             'celular'=>$row[3],
             'direccion'=>$row[4],
-        'nombreapderado'=>$row[5],
-        'observaciones'=>$row[6],
-         
-            
+            'nombreapoderado'=>$row[5],
+            'observaciones'=>$row[6]            
         ]);
     }
 }

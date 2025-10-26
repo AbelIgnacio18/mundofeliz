@@ -22,13 +22,15 @@ class UpdateEstudianteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nombre'=>'string|max:50',
-            'apellidoP'=>'string|max:50',
-            'apellidoM'=>'string|max:50',
+            'nombre'=>'string|max:50|required',
+            'apellidos'=>'string|max:50',
+
             'dni'=>'string|max:8|required',
             'celular'=>'max:25',
-        
-             'codigo'=>'max:8',
+            'direccion'=>'max:200',
+            'apoderado'=>'max:200',
+            'observaciones'=>'max:200',
+            'codigo'=>'max:8',
           
         ];
     }
