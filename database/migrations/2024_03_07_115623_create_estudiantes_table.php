@@ -13,12 +13,12 @@ return new class extends Migration
             $table->string('nombre',50);
             $table->string('apellidos',100);
             $table->string('dni',8);          
-            $table->string('celular',25)->nullable();
+            $table->string('celular',50)->nullable();
             $table->string('direccion',200)->nullable(); 
-            $table->string('nombreapoderado')->nullable();        
-            $table->string('observaciones')->nullable();       
+            $table->string('nombreapoderado',200)->nullable();        
+            $table->string('observaciones',200)->nullable();       
             $table->string('codigo',8)->nullable();
-              $table->boolean('estado')->nullable()->default(1);
+            $table->boolean('estado')->nullable()->default(1);
             $table->timestamps();
         });
     }
