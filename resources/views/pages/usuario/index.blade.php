@@ -77,6 +77,22 @@
                            </span>
                            @endif
                         </div>
+
+                         <div class="form-group">
+                        <label for="modulo" class="form-label">Roles:</label>
+                        <div class="input-group ">
+                    
+                           <select name="userrol_id[]"  class="form-control"   id="ex-search" multiple>
+                              <option value="">Seleccionar</option>
+                              @forelse($rol as $ro)
+                              <option value="{{$ro->id}}"> {{$ro->nombre}} {{$ro->id}}</option>
+                              @empty
+                              @endforelse
+
+                           </select>
+
+                        </div>
+                     </div>
                         
                         <div class="form-group">
                            <label for="imagen" class="form-label">Imagen:</label>

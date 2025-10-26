@@ -5,6 +5,8 @@ use Illuminate\Http\Request;// importacion
 
 
 use App\Models\User;
+use App\Models\Rol;
+use App\Models\UserRol;
 use App\Http\Requests\StoreUsuarioRequest;
 use App\Http\Requests\UpdateUsuarioRequest;
 
@@ -17,10 +19,10 @@ class UsuarioController extends Controller
    {
        
        if ($request) {
-        
+          $rol=Rol::all();
            $usuario=User::all();
 
-           return view('pages.usuario.index',compact('usuario'));
+           return view('pages.usuario.index',compact('usuario','rol'));
        
        }
    
@@ -35,6 +37,9 @@ class UsuarioController extends Controller
    {
        $usuario=new User;
 
+        $userrol = $request->get('userrol_id');
+       
+
        $usuario = new User;
         $usuario->name= $request->get('name');
         $usuario->apellidos = $request->get('apellidos');
@@ -44,9 +49,22 @@ class UsuarioController extends Controller
             $file = $request->file('imagen');
             $file->move(public_path() . '/imagenes/avatar/', $file->getClientOriginalName());
             $usuario->foto = $file->getClientOriginalName();
-        }
-     
+        }     
        $usuario->save();
+            if(empty($userrol)==false){
+            $cont = 0;
+            while ($cont < count($userrol)) {
+
+                $matricula = new UserRol;
+             
+                // dd($split_url);
+                $matricula->iduser = $usuario->id;
+                $matricula->idrol = $userrol[$cont];
+
+                $matricula->save();
+                $cont = $cont + 1;
+            }
+            }
        return back()->with('message', 'Actualización Exítosa');
    }
  

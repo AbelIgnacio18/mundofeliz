@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorerolRequest extends FormRequest
+class StoreRolRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class StorerolRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nombre'=>'required|max:100'
         ];
     }
 }

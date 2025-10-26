@@ -62,6 +62,7 @@
 
 
                 {{-- *** Estudiante *** --}}
+                @if(auth()->user()->hasPermission('VER ESTUDIANTES'))
                 <li class="nav-item">
                     <a class="{{ request()->is('dashboard/estudiantes') ? 'nav-link active' : 'nav-link' }}"
                         aria-current="page" href="{{ url('dashboard/estudiantes') }}">
@@ -91,15 +92,16 @@
                         <span class="item-name">Estudiantes</span>
                     </a>
                 </li>
+                @endif
 
                 {{-- *** Matrícula *** --}}
-            
 
+                @if(auth()->user()->hasPermission('VER MATRICULA'))
                 <!-- matricula -->
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#matricula" role="button" aria-expanded="false" aria-controls="Calificaciones-menus">
                         <i class="icon">
-                           <svg class="icon-32" width="24" viewBox="0 0 24 24" fill="none"
+                            <svg class="icon-32" width="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path opacity="0.4"
                                     d="M18.8088 9.021C18.3573 9.021 17.7592 9.011 17.0146 9.011C15.1987 9.011 13.7055 7.508 13.7055 5.675V2.459C13.7055 2.206 13.5036 2 13.253 2H7.96363C5.49517 2 3.5 4.026 3.5 6.509V17.284C3.5 19.889 5.59022 22 8.16958 22H16.0463C18.5058 22 20.5 19.987 20.5 17.502V9.471C20.5 9.217 20.299 9.012 20.0475 9.013C19.6247 9.016 19.1177 9.021 18.8088 9.021Z"
@@ -140,13 +142,13 @@
                         @forelse($menus as $menu)
 
 
-            
-                         <li class="nav-item">
+
+                        <li class="nav-item">
                             <a class="{{ request()->is('dashboard/articulos') ? 'nav-link active' : 'nav-link' }}" href="{{route('app.showaula',$menu->id)}}">
                                 <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                                         <g>
-                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>  
+                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
                                         </g>
                                     </svg>
                                 </i>
@@ -162,7 +164,8 @@
 
                     </ul>
                 </li>
-
+                @endif
+                @if(auth()->user()->hasPermission('VER CONCEPTO'))
                 <li class="nav-item">
                     <a class="{{ request()->is('dashboard/concepto-pago') ? 'nav-link active' : 'nav-link' }}" aria-current="page" href="{{ url('dashboard/concepto-pago') }}">
                         <i class="icon">
@@ -174,6 +177,8 @@
                         <span class="item-name">Concepto</span>
                     </a>
                 </li>
+                 @endif
+                 @if(auth()->user()->hasPermission('VER DOCENTE'))
                 <li class="nav-item">
                     <a class="{{ request()->is('dashboard/docentes') ? 'nav-link active' : 'nav-link' }}" aria-current="page" href="{{ url('dashboard/docentes') }}">
                         <i class="icon">
@@ -185,7 +190,7 @@
                         <span class="item-name">Docentes</span>
                     </a>
                 </li>
-
+                 @endif
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#Calificaciones-menus" role="button" aria-expanded="false" aria-controls="Calificaciones-menus">
                         <i class="icon">
@@ -203,6 +208,7 @@
                         </i>
                     </a>
                     <ul class="sub-nav collapse" id="Calificaciones-menus" data-bs-parent="#sidebar-menu">
+                         @if(auth()->user()->hasPermission('VER INVENTARIO ARTICULOS'))
                         <li class="nav-item">
                             <a class="{{ request()->is('dashboard/articulos') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/articulos') }}">
                                 <i class="icon">
@@ -216,6 +222,8 @@
                                 <span class="item-sub-name"> Artículos </span>
                             </a>
                         </li>
+                        @endif
+                         @if(auth()->user()->hasPermission('VER INVENTARIO INGRESOS'))
                         <li class="nav-item">
                             <a class="{{ request()->is('dashboard/ingresos') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/ingresos') }}">
                                 <i class="icon">
@@ -229,9 +237,10 @@
                                 <span class="item-sub-name"> Ingresos </span>
                             </a>
                         </li>
+                        @endif
                     </ul>
                 </li>
-
+                @if(auth()->user()->hasPermission('VER COMPROBANTES'))
                 <li class="nav-item">
                     <a class="{{ request()->is('dashboard/pagos-realizados') ? 'nav-link active' : 'nav-link' }}" aria-current="page" href="{{ url('dashboard/pagos-realizados') }}">
                         <i class="icon">
@@ -243,7 +252,8 @@
                         <span class="item-name">Comprobantes</span>
                     </a>
                 </li>
-
+                @endif
+ @if(auth()->user()->hasPermission('VER ASISTENCIA'))
                 <li class="nav-item">
                     <a class="nav-link"
                         data-bs-toggle="collapse" href="#Calificaciones-menu" role="button" aria-expanded="false"
@@ -327,7 +337,7 @@
                         </li>
                     </ul>
                 </li>
-
+ @endif
 
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#Administracion" role="button"
@@ -394,7 +404,7 @@
                                 <span class="item-sub-name">Aulas</span>
                             </a>
                         </li>
-
+@if(auth()->user()->hasPermission('VER USUSARIOS'))
                         <li class="nav-item">
                             <a class="{{ request()->is('dashboard/administradores') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/administradores') }}">
                                 <i class="icon">
@@ -408,7 +418,7 @@
                                 <span class="item-sub-name"> Lista de Usuarios </span>
                             </a>
                         </li>
-
+@endif
                         <li class="nav-item">
                             <a class="{{ request()->is('dashboard/administracion-contrato') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/administracion-contrato') }}">
                                 <i class="icon">
@@ -423,6 +433,22 @@
                                 <span class="item-sub-name">Cargo</span>
                             </a>
                         </li>
+                       @if(auth()->user()->hasPermission('VER ROL & PERMISOS'))
+                        <li class="nav-item">
+                            <a class="{{ request()->is('dashboard/roles-permission') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/roles-permission') }}">
+                                <i class="icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
+                                        fill="currentColor">
+                                        <g>
+                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                        </g>
+                                    </svg>
+                                </i>
+                                <i class="sidenav-mini-icon">R&P</i>
+                                <span class="item-sub-name">Roles Permission</span>
+                            </a>
+                        </li>
+                        @endif
 
                         <!--                         <li class="nav-item">
                             <a class="nav-link " href="{{ url('dashboard/administradores') }}">

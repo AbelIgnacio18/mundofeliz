@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;//importa para que f uncione
 // use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -45,4 +46,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+     public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Rol::class, 'user_rols', 'iduser', 'idrol');
+    }
+
+     public function hasPermission($permissionName)
+    {
+        // Obtener todos los permisos asociados al usuario por sus roles
+        $permisos = $this->roles()
+            ->with('permissions')
+            ->get()
+            ->pluck('permissions')
+            ->flatten()
+            ->pluck('nombre')
+            ->toArray();
+
+        return in_array($permissionName, $permisos);
+    }
 }
