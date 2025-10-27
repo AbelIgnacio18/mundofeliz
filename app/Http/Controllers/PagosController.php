@@ -257,15 +257,15 @@ class PagosController extends Controller
         if (count($pensionescont) != 0) {
 
             for ($i = 0; $i < count($pensionescont); $i++) {
-                $pensiones = Pension::where('idpago', $pagoid)->where('idconcepto', 1)->count();
+                $pensiones = Pension::where('idpago', $pagoid)->count();
                 if ($pensiones != 0) {
-                    $pensiones = Pension::where('idpago', $pagoid)->where('idconcepto', 1)->first();
+                    $pensiones = Pension::where('idpago', $pagoid)->first();
                     $cantidadpenciones = $pensiones->cantidad; //cantidad de penciones pagadas
                     $idestudiante = $pago->idestudiante; //estudiantee      
 
-
+                    $idmatriula = Matricula::where('idestudiante', $idestudiante)->first();
                     for ($i = 0; $i <  $cantidadpenciones; $i++) {
-                        $meses = Mese::where('idestudiante', $idestudiante)->get();
+                        $meses = Mese::where('idmatricula', $idmatriula)->get();
                         $idmeses = $meses[count($meses) - 1]->id;
                         $mess = Mese::find($idmeses);
                         $mess->delete();

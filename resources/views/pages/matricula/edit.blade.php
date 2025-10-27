@@ -28,10 +28,10 @@
                               </svg>
                            </span>
                            <select name="aula_id" type="search" class="form-control" required>
-                              <option value="{{$matri->aula->id}}" selected>{{$matri->aula->nivel}}
+                              <option value="{{$matri->aula->id}}" selected>{{$matri->aula->nivel}}  {{$matri->aula->grado}}    {{$matri->aula->secion}}
                               </option>
                               @forelse($aula as $esp)
-                              <option value="{{$esp->id}}">{{$esp->nivel}}</option>
+                              <option value="{{$esp->id}}">{{$esp->nivel}} {{$esp->grado}} {{$esp->seccion}}</option>
                               @empty   
                               @endforelse
 

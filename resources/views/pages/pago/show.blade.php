@@ -20,7 +20,7 @@
        <p class="col-md-5">Estudiante: <b>{{$est->nombre}} {{$est->apellidos}} </b> </p>
             <p class="col-md-12">Número Comprobante: <b>{{$est->numcomprobante}}</b> </p>
             <p class="col-md-12">Fecha: <b>{{$est->fecha}}</b> </p>
-            <p class="col-md-12">Monto Total: <b>{{$est->montototal}}</b> </p>
+            <p class="col-md-12">Monto Total: <b> s/.{{$est->montototal}}</b> </p>
             </div>
             <div class="col-md-6">
             <p class="col-md-12">Imagen(ARCHIVO):</p>
@@ -53,7 +53,7 @@
         <div class="row display-flex flex-wrap-wrap">
             <p class="col-md-5">{{$art->categoria}} {{$art->articulo}}</p>
 
-            <p class="col-md-2"> <b>{{$art->cantidad}} x {{$art->montoar}}</b> </p>
+            <p class="col-md-2"> <b>{{$art->cantidad}} x s/{{$art->montoar}}</b> </p>
 
 
         </div>
@@ -64,7 +64,7 @@
         @forelse($pension as $p)
         <div class="row display-flex flex-wrap-wrap">
             <p class="col-md-5">{{$p->concepto}}</p>
-            <p class="col-md-2"> <b>{{$p->cantidad}} x {{$p->monto}}</b> </p>
+            <p class="col-md-2"> <b>{{$p->cantidad}} x s/{{$p->monto}}</b> </p>
 
         </div>
 
