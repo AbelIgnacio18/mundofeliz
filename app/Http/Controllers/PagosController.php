@@ -10,6 +10,7 @@ use App\Http\Requests\UpdatePagosRequest;
 use App\Models\Concepto;
 use App\Models\Articulo;
 use App\Models\Matricula;
+use App\Models\Anolectivo;
 use App\Models\Pension;
 use App\Models\Pago;
 use App\Models\Detallepago;
@@ -59,6 +60,7 @@ class PagosController extends Controller
             DB::beginTransaction();
             $pago = new Pagos;
             $mytime = Carbon::now('America/Lima');
+            $anolect = Anolectivo::where('estado', 1)->first();
             $ultimoRegistro = Pagos::orderBy('id','desc')->first();
             
            
@@ -82,7 +84,7 @@ class PagosController extends Controller
                 $pago->numcomprobante = $ultimoRegistro->numcomprobante +1;
             }
             
-            
+             $pago->idanolectivo = $anolect->id;
             $pago->save();
 
 

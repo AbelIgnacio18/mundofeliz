@@ -21,6 +21,9 @@ return new class extends Migration
             $table->string('archivo', 50)->nullable();
             $table->unsignedBigInteger('numcomprobante');
             $table->date('fecha');
+             $table->unsignedBigInteger('idanolectivo');
+            $table->foreign('idanolectivo')->references('id')->on('anolectivos')->onUpdate('cascade')
+            ->onDelete('cascade');
        
             $table->timestamps();
         });

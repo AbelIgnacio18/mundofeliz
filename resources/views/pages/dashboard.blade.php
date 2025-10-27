@@ -215,7 +215,7 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="counter">{{ count($usuarios) }}</h3>
+                                <h3 class="counter">{{ count($usuarios) -1}}</h3>
                                 <p class="mb-0">Usuarios</p>
                             </div>
                         </div>

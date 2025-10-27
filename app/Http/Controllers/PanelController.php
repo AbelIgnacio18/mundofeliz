@@ -52,19 +52,26 @@ class PanelController extends Controller
             ->join('detallepagos as dt','p.id','=','dt.idpago')
             ->join('articulos as art','dt.idarticulo','=','art.id')
             ->join('categorias as c', 'art.idcategoria', '=', 'c.id')
-            ->select('art.nombre','c.nombre as categoria',DB::raw('sum(dt.cantidadar) as cantidad'),DB::raw('sum(dt.montoar) as monto'))->groupBy('art.nombre','c.nombre')->get();//ventas de productos de todos los products General
+            ->select('p.idanolectivo','art.nombre','c.nombre as categoria',DB::raw('sum(dt.cantidadar) as cantidad'),DB::raw('sum(dt.montoar) as monto'))
+            ->where('p.idanolectivo',$anolect->id)
+            ->groupBy('art.nombre','c.nombre','p.idanolectivo')->get();//ventas de productos de todos los products General
 
 
             $pagosadministrativos = DB::table('pagos as p')
             ->join('pensions as pen','p.id','=','pen.idpago')
             ->join('conceptos as con','pen.idconcepto','=','con.id')
-            ->select('con.concepto',DB::raw('sum(pen.cantidad) as cantidad'),DB::raw('sum(pen.monto) as monto'))->groupBy('con.concepto')->get();//pagos de todos los concepts administrativ incluyendo pensiones general
+            ->select('p.idanolectivo','con.concepto',DB::raw('sum(pen.cantidad) as cantidad'),DB::raw('sum(pen.monto) as monto'))
+            ->where('p.idanolectivo',$anolect->id)
+            ->groupBy('con.concepto','p.idanolectivo')->get();//pagos de todos los concepts administrativ incluyendo pensiones general
     
     
             $pagospensiones = DB::table('pagos as p')
             ->join('pensions as pen','p.id','=','pen.idpago')
             ->join('conceptos as con','pen.idconcepto','=','con.id')
-            ->select('con.id','con.concepto',DB::raw('sum(pen.cantidad) as cantidad'),DB::raw('sum(pen.monto) as monto'))->where('con.id',1)->groupBy('con.concepto','con.id')->get();//pagos de pensiones-------
+            ->select('p.idanolectivo','con.id','con.concepto',DB::raw('sum(pen.cantidad) as cantidad'),DB::raw('sum(pen.monto) as monto'))
+            ->where('con.id',1)
+            ->where('p.idanolectivo',$anolect->id)
+            ->groupBy('con.concepto','con.id','p.idanolectivo')->get();//pagos de pensiones-------
             
          
             $pagosventas = DB::table('pagos as p')->select(DB::raw('sum(p.montototal) as montototal'))->get();
