@@ -19,6 +19,8 @@ return new class extends Migration
             $table->decimal('montototal',11,2);
         
             $table->date('fecha');
+             $table->unsignedBigInteger('idanolectivo');
+            $table->foreign('idanolectivo')->references('id')->on('anolectivos')->onUpdate('cascade');
        
             $table->timestamps();
         });

@@ -44,12 +44,14 @@ class IngresoController extends Controller
             DB::beginTransaction();
             $id=Auth::user()->id;
             $ingreso = new Ingreso;
+            $anolect = Anolectivo::where('estado', 1)->first();
             $ingreso->iduser =$id;
             $ingreso->montototal = $request->get('total_venta');
            
 
             $mytime=Carbon::now('America/Lima');
             $ingreso->fecha=$mytime->toDateTimeString(); 
+             $pago->idanolectivo = $anolect->id;
             $ingreso->save();
 
             $idarticulo = $request->get('idarticulo');
