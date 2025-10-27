@@ -57,32 +57,32 @@
                         <label for="email" class="form-label">Email:</label>
                         <input type="email" class="form-control" id="email" aria-describedby="email" placeholder="Email" name="email" value="{{old('email')}}">
                      </div>
-                  
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                           <label for="password" class="col-md-12 form-label">Contraseña:</label>
-                           <input id="password" type="password" class="form-control" name="password">
-                           @if ($errors->has('password'))
-                           <span class="help-block">
-                              <strong>{{ $errors->first('password') }}</strong>
-                           </span>
-                           @endif
-                        </div>
-                        
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                           <label for="password-confirm" class="col-md-12 form-label">Confirmar Contraseña:</label>
-                           <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
-                           @if ($errors->has('password_confirmation'))
-                           <span class="help-block">
-                              <strong>{{ $errors->first('password_confirmation') }}</strong>
-                           </span>
-                           @endif
-                        </div>
 
-                         <div class="form-group">
+                     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                        <label for="password" class="col-md-12 form-label">Contraseña:</label>
+                        <input id="password" type="password" class="form-control" name="password">
+                        @if ($errors->has('password'))
+                        <span class="help-block">
+                           <strong>{{ $errors->first('password') }}</strong>
+                        </span>
+                        @endif
+                     </div>
+
+                     <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                        <label for="password-confirm" class="col-md-12 form-label">Confirmar Contraseña:</label>
+                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
+                        @if ($errors->has('password_confirmation'))
+                        <span class="help-block">
+                           <strong>{{ $errors->first('password_confirmation') }}</strong>
+                        </span>
+                        @endif
+                     </div>
+
+                     <div class="form-group">
                         <label for="modulo" class="form-label">Roles:</label>
                         <div class="input-group ">
-                    
-                           <select name="userrol_id[]"  class="form-control"   id="ex-search" multiple>
+
+                           <select name="userrol_id[]" class="form-control" id="ex-search">
                               <option value="">Seleccionar</option>
                               @forelse($rol as $ro)
                               <option value="{{$ro->id}}"> {{$ro->nombre}} {{$ro->id}}</option>
@@ -93,11 +93,11 @@
 
                         </div>
                      </div>
-                        
-                        <div class="form-group">
-                           <label for="imagen" class="form-label">Imagen:</label>
-                           <input type="file" name="imagen" class="form-control">
-                        </div>
+
+                     <div class="form-group">
+                        <label for="imagen" class="form-label">Imagen:</label>
+                        <input type="file" name="imagen" class="form-control">
+                     </div>
 
                      <div class="text-start mt-2">
                         <button class="btn btn-info" type="submit">Guardar</button>
@@ -120,6 +120,7 @@
                <th>N°</th>
                <th>Nombre Completo</th>
                <th>Email</th>
+                 <th>Rol</th>
                <th>Imagen</th>
                <th>Acciones</th>
 
@@ -143,16 +144,22 @@
                <td>
                   <h6>{{$usu->email}}</h6>
                </td>
+               <td> 
+                  @forelse($usu->roles as $role)
+                        <span class="badge bg-primary">{{ $role->nombre }}</span>
+                    @empty
+                    @endforelse
+                  </td>
 
                <td>
                   @if(($usu->foto) !="")
                   <img class="bg-soft-primary rounded img-fluid avatar-40 me-3" src="{{asset('imagenes/avatar/'.$usu->foto)}}" alt="{{$usu->id}}" class="img-thumbnail" style="width: 50px;height: 50px">
-               
+
                   @else
                   <p>Ninguno</p>
-                
+
                   @endif
-              
+
                </td>
 
                <td>

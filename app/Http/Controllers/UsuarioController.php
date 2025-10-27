@@ -20,7 +20,7 @@ class UsuarioController extends Controller
        
        if ($request) {
           $rol=Rol::all();
-           $usuario=User::all();
+           $usuario=User::with('roles')->get();
 
            return view('pages.usuario.index',compact('usuario','rol'));
        

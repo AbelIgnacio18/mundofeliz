@@ -18,4 +18,5 @@ class rol extends Model
     {
         return $this->belongsToMany(User::class, 'user_rols', 'idrol', 'iduser');
     }
+    
 }
