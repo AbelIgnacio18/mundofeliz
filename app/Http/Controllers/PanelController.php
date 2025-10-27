@@ -30,12 +30,21 @@ class PanelController extends Controller
       
             $date = Carbon::now()->locale('es');
             // dd(date('m'));
-           $anolect = Anolectivo::where('estado', 1)->first();
-            $usuarios=User::all();
-
+             $usuarios=User::all();
+         
+           
+  $anolect = Anolectivo::where('estado', 1)->first();
             $estudiante = Matricula::where('idanolectivo',$anolect->id)->get();
+            
            // dd($estudiante); cantidad de estudiante
-            $mesesporcentaje=DB::table('meses as me')->join('matriculas as m','me.idmatricula','=','m.id')->join('estudiantes as est','m.idestudiante','=','est.id')->select('me.mes',DB::raw('count(*) as cantidad'),DB::raw('count(est.id) as estudiante'))->groupBy('mes')->orderBy('cantidad','desc')->get();
+            $mesesporcentaje=DB::table('meses as me')
+            ->join('matriculas as m','me.idmatricula','=','m.id')
+            ->join('estudiantes as est','m.idestudiante','=','est.id')
+            ->select('m.idanolectivo','me.mes',DB::raw('count(*) as cantidad'),DB::raw('count(est.id) as estudiante'))
+            ->where('m.idanolectivo',$anolect->id)
+            ->groupBy('me.mes','m.idanolectivo')
+            ->orderBy('cantidad','desc')
+            ->get();
             //  dd($mesesporcentaje);
 
 

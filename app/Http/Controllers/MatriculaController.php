@@ -36,7 +36,7 @@ class MatriculaController extends Controller
          $concepto = Concepto::get();
       
         $matricula=Matricula::where('idanolectivo',$anolect->id)->with('estudiante')->with('aula')->with('meses')->with('concepto')->get();
-        // dd($matricula);
+        /// dd($matricula);
         $aula=Aula::get();
         return view('pages.matricula.index',compact('estudiante','aula','matricula','concepto'));
     }

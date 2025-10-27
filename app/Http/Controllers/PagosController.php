@@ -9,6 +9,7 @@ use App\Http\Requests\StorePagosRequest;
 use App\Http\Requests\UpdatePagosRequest;
 use App\Models\Concepto;
 use App\Models\Articulo;
+use App\Models\Matricula;
 use App\Models\Pension;
 use App\Models\Pago;
 use App\Models\Detallepago;
@@ -124,6 +125,7 @@ class PagosController extends Controller
             $cantidad = $request->get('cantidad');
             $monto = $request->get('monto');
             $descripcion = $request->get('idconcepto');
+            $idmatriula=Matricula::where('idestudiante',$idestudiante[0])->first();
             // dd(is_string($idconcepto));
             if (is_string($idconcepto) == false) {
                 if ($idconcepto != null) {
@@ -136,7 +138,7 @@ class PagosController extends Controller
                         $detalle->cantidad = $cantidad[$cont];
 
                         if ($idconcepto[$cont] == 1) {
-                            $id = $idestudiante[0];
+                            $id = $idmatriula->id;
                             $numeropension = $cantidad[$cont];
 
                             $numeromesespagados = Mese::where('idmatricula', $id)->count();

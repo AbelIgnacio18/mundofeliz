@@ -266,7 +266,8 @@
 
                     <div class="mt-3">
                         @forelse($mesesporcentaje as $mespor)
-                        <div class="pb-3">
+                        @if(count($estudiante)!=0)
+                         <div class="pb-3">
                             <div class="d-flex align-items-center justify-content-between mb-2">
                                 <p class="mb-0">{{$mespor->mes}} <b></b> </p>
                                <h4>{{ number_format(($mespor->cantidad/count($estudiante)*100),1)}}%</h4>
@@ -275,6 +276,8 @@
                                 <div class="progress-bar bg-danger" data-toggle="progress-bar" role="progressbar" aria-valuenow="{{($mespor->cantidad/count($estudiante)*100)}}" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
+                        @endif
+                       
                         @empty
                         <span class="badge bg-danger">No hay Pensiones pagadas</span>
                       
