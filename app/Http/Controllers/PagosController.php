@@ -53,9 +53,16 @@ class PagosController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePagosRequest $request)
+    public function store(Request $request)
     {
 
+
+        $validated = $request->validate([
+        'idestudiante' => 'required',  
+        
+        'montototal' => 'required|numeric|min:0',
+        'imagen' => 'nullable|image|mimes:jpeg,jpg,png|max:5120', // <= 5MB
+    ]);
         try {
             DB::beginTransaction();
             $pago = new Pagos;
