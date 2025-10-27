@@ -144,7 +144,7 @@
 
 
                         <li class="nav-item">
-                            <a class="{{ request()->is('dashboard/articulos') ? 'nav-link active' : 'nav-link' }}" href="{{route('app.showaula',$menu->id)}}">
+                            <a class="{{ request()->is('dashboard/matricula-aula') ? 'nav-link active' : 'nav-link' }}" href="{{route('app.showaula',$menu->id)}}">
                                 <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                                         <g>
@@ -239,7 +239,7 @@
                         </li>
                         @endif
                         <li class="nav-item">
-                            <a class="nav-link " href="{{ url('dashboard/categoria') }}">
+                            <a class="{{ request()->is('dashboard/categoria') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/categoria') }}">
                                 <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                         fill="currentColor">
@@ -249,7 +249,7 @@
                                     </svg>
                                 </i>
                                 <i class="sidenav-mini-icon">C</i>
-                                <span class="item-sub-name">Categoria</span>
+                                <span class="item-sub-name">Categoría</span>
                             </a>
                         </li>
                     </ul>
@@ -459,7 +459,7 @@
                                     </svg>
                                 </i>
                                 <i class="sidenav-mini-icon">R&P</i>
-                                <span class="item-sub-name">Roles Permission</span>
+                                <span class="item-sub-name">Roles y Permisos</span>
                             </a>
                         </li>
                         @endif

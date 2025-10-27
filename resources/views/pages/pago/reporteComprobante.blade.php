@@ -18,15 +18,15 @@
 	<div id="showScroll" class="container">
 		<div class="receipt">
 			<h1 class="logo"><img src="../public/pdf/assets/img/logo.png" style="max-width:100px"></h1>
-			<div class="address">IEP MUNDO FELIZ</div>
+<!-- 			<div class="address">IEP MUNDO FELIZ</div> -->
 			<div class="address" style="font-size:80%;">Cel: 961 141 838<br>922 916 052<br>
-				mundofeliz.edu.pe <br>10752090625</div>
+				mundofeliz.edu.pe <br><!-- 10752090625 --></div>
 			<div class="centerItem bold">
 				<div class="item">BOLETA DE VENTA ELECTRÓNICA</div>
 			</div>
 
 			@forelse($estudiante as $est)
-			<div class="detail" style="font-size:50%;">Número Comprobante:</div>
+			<div class="detail" style="font-size:50%;">N°:</div>
 			<div class="paymentDetails bold" style="font-size:60%;">
 				<div class="detail center">{{$est->numcomprobante}}</div>
 			</div>

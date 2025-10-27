@@ -80,7 +80,7 @@
                            <input type="text" class="form-control" id="dni" aria-describedby="dni" placeholder="87654321" name="dni" value="{{old('dni')}}">
                         </div>
                         <div class="form-group col-md-6 p-1">
-                           <label for="Codigo" class="form-label">Codigo:</label>
+                           <label for="Codigo" class="form-label">Código:</label>
                            <input type="text" class="form-control" id="Codigo" aria-describedby="Codigo" placeholder="DXRTYUSF" name="codigo" value="{{old('Codigo')}}">
                         </div>
 
@@ -145,7 +145,7 @@
 
                <th>Dni</th>
             
-               <th>Telefono</th>  
+               <th>Teléfono</th>  
                 <th>Apoderado</th>            
                <th>Dirección</th>
               
