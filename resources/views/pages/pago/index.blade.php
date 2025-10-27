@@ -46,6 +46,7 @@
                <th>Nombre Completo</th>
                <th>Fecha</th>
                <th>Monto</th>
+               <th>Imagen</th>
 
                <th>Acciones</th>
 
@@ -83,6 +84,16 @@
                   <h6>{{$pag->montototal}}</h6>
                </td>
 
+               <td>
+                  @if(($pag->archivo) !="")
+                  <img class="bg-soft-primary rounded img-fluid avatar-40 me-3" src="{{asset('imagenes/pagos/'.$pag->archivo)}}" alt="{{$pag->id}}" class="img-thumbnail" style="width: 50px;height: 50px">
+
+                  @else
+                  <p>Ninguno</p>
+
+                  @endif
+
+               </td>
 
 
                <td>

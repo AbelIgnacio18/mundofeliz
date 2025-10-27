@@ -16,21 +16,38 @@
         <h5 class="py-3">Datos Personales</h5>
         @forelse($estudiante as $est)
         <div class="row ">
-            <p class="col-md-5">Estudiante: <b>{{$est->nombre}} {{$est->apellidos}} </b> </p>
-<p class="col-md-12">Número Comprobante: <b>{{$est->numcomprobante}}</b> </p>
+            <div class="row col-md-6">
+       <p class="col-md-5">Estudiante: <b>{{$est->nombre}} {{$est->apellidos}} </b> </p>
+            <p class="col-md-12">Número Comprobante: <b>{{$est->numcomprobante}}</b> </p>
             <p class="col-md-12">Fecha: <b>{{$est->fecha}}</b> </p>
             <p class="col-md-12">Monto Total: <b>{{$est->montototal}}</b> </p>
+            </div>
+            <div class="col-md-6">
+            <p class="col-md-12">Imagen(ARCHIVO):</p>
+                @if(($est->archivo) !="")
+                <img class="bg-soft-primary rounded img-fluid avatar-40 me-3" src="{{asset('imagenes/pagos/'.$est->archivo)}}" alt="{{$est->id}}" class="img-thumbnail" style="width: 30vh;height: 35vh">
+
+                @else
+            <p>Ninguno</p>
+
+            @endif
+            
+
+            </div>
+     
+         
+
 
 
         </div>
         @empty
         @endforelse
-       
 
-   
+
+
     </div>
     <div class="card-header">
-         <h5>Detalles de pagos</h5>
+        <h5>Detalles de pagos</h5>
         <br>
         @forelse($articulo as $art)
         <div class="row display-flex flex-wrap-wrap">
