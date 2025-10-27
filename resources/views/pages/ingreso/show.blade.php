@@ -32,7 +32,7 @@
             <tr>
                 <td>
                     <div class="d-flex align-items-center">
-                        <h6>{{$dt->nombre}}</h6>
+                        <h6>{{$dt->categoria}} {{$dt->nombre}}</h6>
                     </div>
                 </td>
 

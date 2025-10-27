@@ -54,7 +54,7 @@
                         <select name="idarticulo" id="pidarticulo" type="search" class="form-control" onchange="myFunction()">
                         <option value="">Seleccionar</option>
                            @forelse($articulo as $art)
-                           <option value="{{$art->id}}-{{$art->nombre}}-{{$art->stock}}-{{$art->precioventa}}">{{$art->nombre}}</option>
+                           <option value="{{$art->id}}-{{$art->nombre}}-{{$art->stock}}-{{$art->precioventa}}-{{$art->categoria->nombre}}"> {{$art->categoria->nombre}} {{$art->nombre}}</option>
                            @empty
                            @endforelse
 
@@ -256,7 +256,7 @@
    function myFunction() {
       datosArticulo = document.getElementById('pidarticulo').value.split('-');
 
-      nombre = $("#pnombre").val(datosArticulo[1]);
+      nombre = $("#pnombre").val(datosArticulo[4]+' '+ datosArticulo[1]);
       stock = $("#pstock").val(datosArticulo[2]);
       precio = $("#pprecio").val(datosArticulo[3]);
 
@@ -265,6 +265,7 @@
    function agregar() {
       datosArticulo = document.getElementById('pidarticulo').value.split('-');
       idarticulo = datosArticulo[0];
+      
 
       nombre = $("#pnombre").val();
       cantidad = $("#pcantidad").val();

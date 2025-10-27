@@ -24,7 +24,7 @@ class IngresoController extends Controller
          
             $ingreso=Ingreso::with('detalleingresos')->get();
      
-            $articulo=Articulo::all();
+            $articulo=Articulo::with('categoria')->get();
 
 
             return view('pages.ingreso.index',compact('ingreso','articulo'));
@@ -101,7 +101,10 @@ class IngresoController extends Controller
             ->join('users as u', 'i.iduser', '=', 'u.id')
             ->select('i.fecha','u.name','montototal')->where('i.id',$id)->first();
            
-            $detalleingreso=DB::table('detalleingresos as d')->join('articulos as a', 'd.idarticulo','=','a.id')->select('d.idingreso','a.nombre','a.preciocosto','d.cantidad','d.montototal')->where('d.idingreso',$id)->get();
+            $detalleingreso=DB::table('detalleingresos as d')
+            ->join('articulos as a', 'd.idarticulo','=','a.id')
+            ->join('categorias as c', 'a.idcategoria','=','c.id')
+            ->select('d.idingreso','a.nombre','a.preciocosto','d.cantidad','d.montototal','c.nombre as categoria')->where('d.idingreso',$id)->get();
 // dd($ingreso,$detalleingreso);
 
         return view("pages.ingreso.show", compact('ingreso','detalleingreso'));
