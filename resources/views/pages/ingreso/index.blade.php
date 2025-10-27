@@ -140,7 +140,7 @@
                      <div class="text-start mt-2" id="guardar">
                         <div class="form-group">
                            <input name="token" value="{{csrf_token()}}" type="hidden" ></input>
-                           <button class="btn btn-info" type="submit">Guardar</button>
+                           <button class="btn btn-secondary" type="submit">Guardar</button>
                            <button class="btn btn-danger" type="reset" data-bs-dismiss="modal">Cancelar</button>
                         </div>
                      </div>

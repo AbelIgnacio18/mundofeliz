@@ -62,7 +62,7 @@
                      </div>
 
                      <div class="text-start mt-2">
-                        <button class="btn btn-info" type="submit">Guardar</button>
+                        <button class="btn btn-secondary" type="submit">Guardar</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                      </div>
                   </form>

@@ -22,7 +22,7 @@
                     <h5 class="mt-3">¿Desea ELIMINAR el registro?</h5>
 
                      <div class="mt-3 text-center">
-                        <button type="submit" class="btn btn-info">SÍ</button>
+                        <button type="submit" class="btn btn-secondary">SÍ</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NO</button>
                      </div>
                   </form>

@@ -51,6 +51,21 @@ body {
 --bs-info-tint-20: #37D3DD;
 --bs-info-rgb: 11, 201, 214;
 
+
+--bs-heading-color: #072655;
+--bs-secondary: #0F55BD;
+--bs-secondary-shade-80: #072655;
+--bs-secondary-shade-60: #09306C;
+--bs-secondary-shade-40: #0B3C86;
+--bs-secondary-shade-20: #0D48A1;
+--bs-secondary-tint-90: #E7EEF8;
+--bs-secondary-tint-80: #C5D6EF;
+--bs-secondary-tint-60: #98B6E3;
+--bs-secondary-tint-40: #6894D5;
+--bs-secondary-tint-20: #0F55BD;
+--bs-secondary-rgb: 15, 85, 189;
+
+
 --bs-dark-primary: #010B13;
 }
 
@@ -315,6 +330,51 @@ body {
 .btn.btn-soft-info:hover, .btn.btn-soft-info:focus, .btn.btn-soft-info:active {
   color: var(--bs-info-tint-20);
   background-color: rgba(var(--bs-info-rgb), 0.2);
+  border-color: transparent;
+}
+
+.btn.btn-secondary {
+  color: var(--bs-white);
+  background-color: var(--bs-secondary);
+  border-color: var(--bs-secondary);
+}
+.btn.btn-secondary:hover {
+  color: var(--bs-white);
+  background-color: var(--bs-secondary-shade-20);
+  border-color: var(--bs-secondary-shade-20);
+}
+.btn.btn-secondary:focus {
+  color: var(--bs-white);
+  background-color: var(--bs-secondary-shade-20);
+  border-color: var(--bs-secondary-shade-20);
+}
+.btn.btn-secondary:active, .btn.btn-secondary.active {
+  color: var(--bs-white);
+  background-color: var(--bs-secondary-shade-20);
+  border-color: var(--bs-secondary-shade-20);
+}
+.btn.btn-outline-secondary {
+  color: var(--bs-secondary-shade-20);
+  border-color: var(--bs-secondary-shade-20);
+}
+.btn.btn-outline-secondary:hover {
+  color: var(--bs-white);
+  background-color: var(--bs-secondary);
+  border-color: var(--bs-secondary);
+}
+.btn.btn-outline-secondary:active, .btn.btn-outline-secondary.active {
+  color: var(--bs-white);
+  background-color: var(--bs-secondary-shade-20);
+  border-color: var(--bs-secondary-shade-20);
+}
+.btn.btn-soft-secondary {
+  color: var(--bs-secondary);
+  background-color: rgba(var(--bs-secondary-rgb), 0.1);
+  border-color: transparent;
+}
+.btn.btn-soft-secondary:hover, .btn.btn-soft-secondary:focus, .btn.btn-soft-secondary:active {
+  color: var(--bs-secondary-tint-20);
+  background-color: rgba(var(--bs-secondary-rgb), 0.2);
   border-color: transparent;
 }
 

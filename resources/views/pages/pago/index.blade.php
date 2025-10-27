@@ -42,7 +42,7 @@
          <thead>
             <tr>
                <th>N°</th>
-                 <th>Número Comprabante.</th>
+               <th>N° Boleto</th>
                <th>Nombre Completo</th>
                <th>Fecha</th>
                <th>Monto</th>
@@ -81,7 +81,7 @@
                   <h6>{{Carbon\Carbon::parse($pag->fecha)->translatedFormat('l, j F Y h:i A')}}</h6>
                </td>
                <td>
-                  <h6>{{$pag->montototal}}</h6>
+                  <h4 class="badge bg-secondary" style="font-size: 1em;">{{$pag->montototal}}</h4>
                </td>
 
                <td>

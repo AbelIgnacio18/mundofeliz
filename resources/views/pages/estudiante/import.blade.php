@@ -21,7 +21,7 @@
                   <h5 class="py-3">¿Importar registros?</h5>
                   <input type="file" class="form-control" name="file">
                   <div class="text-center mt-3">
-                        <button type="submit" class="btn btn-info">Guardar</button>
+                        <button type="submit" class="btn btn-secondary">Guardar</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                   </div>
                </form>

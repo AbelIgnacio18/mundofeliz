@@ -11,7 +11,7 @@
                  @csrf
 
                  <div class="form-group">
-                    <label for="nombre" class="form-label"> Registrar a los Docentes que no marcaron ASISTENCIA hoy como <span class="badge bg-danger">Falta</span></label>
+                    <label for="nombre" class="form-label"> Registrar a los Docentes que no marcaron ASISTENCIA hoy como <span class="badge bg-danger">Faltó</span></label>
                     <!-- id="ex-search" -->
 
                  </div>
@@ -30,7 +30,7 @@
 
 
                  <div class="text-start mt-2">
-                    <button class="btn btn-info" type="submit">Guardar</button>
+                    <button class="btn btn-secondary" type="submit">Guardar</button>
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                  </div>
               </form>
