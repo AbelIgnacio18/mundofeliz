@@ -9,6 +9,7 @@ use App\Models\Rol;
 use App\Models\UserRol;
 use App\Http\Requests\StoreUsuarioRequest;
 use App\Http\Requests\UpdateUsuarioRequest;
+use Illuminate\Support\Facades\Auth;
 
 
 class UsuarioController extends Controller
@@ -20,7 +21,15 @@ class UsuarioController extends Controller
        
        if ($request) {
           $rol=Rol::all();
-           $usuario=User::with('roles')->get();
+
+         
+          
+if(Auth::user()->roles[0]->nombre=="Admin"){
+ $usuario=User::with('roles')->get();
+}else{
+$id=Auth::user()->id;
+ $usuario=User::where('id',$id)->with('roles')->get();
+};
 
            return view('pages.usuario.index',compact('usuario','rol'));
        

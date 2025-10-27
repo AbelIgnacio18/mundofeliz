@@ -23,7 +23,7 @@
 
    <!-- modal para crear nuevos conceptos de pagooo -->
    <div class="">
-
+@if(Auth::user()->roles[0]->nombre=="Admin")
       <a href="#" class=" text-center btn btn-primary btn-icon mt-lg-0 mt-md-0 mt-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop-1">
          <i class="btn-inner">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -32,6 +32,7 @@
          </i>
          <span>Nuevo Usuario</span>
       </a>
+      @endif
       <div class="modal fade" id="staticBackdrop-1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
          <div class="modal-dialog">
             <div class="modal-content">
@@ -127,13 +128,16 @@
             </tr>
          </thead>
          <tbody>
+               <?php $contadorusuario = 1; ?>
             @forelse($usuario as $usu)
             @if($usu->id!=1)
             <tr>
-               <td>
+                  <td>
                   <div class="d-flex align-items-center">
 
-                     <h6>{{$usu->id}}</h6>
+                     <?php echo $contadorusuario; ?>
+
+
                   </div>
                </td>
 
@@ -190,7 +194,7 @@
             @endif
             @include('pages.usuario.modal')
             @include('pages.usuario.edit')
-
+  <?php $contadorusuario++; ?>
             @empty
             <div class="alert alert-danger d-flex align-items-center" role="alert">
                <svg class="flex-shrink-0 bi me-2 icon-24" width="24" height="24">
