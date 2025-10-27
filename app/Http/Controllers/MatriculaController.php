@@ -19,7 +19,18 @@ class MatriculaController extends Controller
      */ 
     public function index()
     {
-        $estudiante=Estudiante::all();
+ $anolect = Anolectivo::where('estado', 1)->first();
+        // Obtener solo los estudiantes sin matrícula
+    //$estudiantes = Estudiante::whereDoesntHave('matricula')->get();
+        // $estudiante=Estudiante::all();
+    $estudiantesMatriculados = Matricula::where('idanolectivo',$anolect->id)->pluck('idestudiante');
+
+    // Obtener los que NO están en esa lista
+    $estudiantesDisponibles = Estudiante::whereNotIn('id', $estudiantesMatriculados)->get();
+         // Obtener los que NO están en esa lista
+    $estudiante = Estudiante::whereNotIn('id', $estudiantesMatriculados)->get();
+
+    
         // dd($estudiante);
         $anolect = Anolectivo::where('estado', 1)->first();
          $concepto = Concepto::get();

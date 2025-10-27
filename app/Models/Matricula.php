@@ -35,4 +35,5 @@ class Matricula extends Model
         return $this->hasmany(Asistenciaest::class,'idmatricula','id');
     
      }
+    
 }

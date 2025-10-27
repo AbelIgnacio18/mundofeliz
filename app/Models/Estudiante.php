@@ -15,6 +15,10 @@ class Estudiante extends Model
         return $this->hasMany(Pagos::class,'id','idestudiante');
     
      }
+     public function matricula()
+    {
+        return $this->hasOne(Matricula::class, 'idestudiante');
+    }
 
     
 }
