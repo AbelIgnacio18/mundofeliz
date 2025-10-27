@@ -33,7 +33,8 @@ class PanelController extends Controller
            $anolect = Anolectivo::where('estado', 1)->first();
             $usuarios=User::all();
 
-            $estudiante = Matricula::where('idanolectivo',$anolect)->get();// cantidad de estudiante
+            $estudiante = Matricula::where('idanolectivo',$anolect->id)->get();
+           // dd($estudiante); cantidad de estudiante
             $mesesporcentaje=DB::table('meses as me')->join('matriculas as m','me.idmatricula','=','m.id')->join('estudiantes as est','m.idestudiante','=','est.id')->select('me.mes',DB::raw('count(*) as cantidad'),DB::raw('count(est.id) as estudiante'))->groupBy('mes')->orderBy('cantidad','desc')->get();
             //  dd($mesesporcentaje);
 
