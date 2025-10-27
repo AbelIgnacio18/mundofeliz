@@ -84,6 +84,7 @@ class UsuarioController extends Controller
         $usuario->name = $request->get('name');
         $usuario->apellidos = $request->get('apellidos');
         $usuario->email = $request->get('email');
+       
         if ($request->get('password') != '') $usuario->password = bcrypt($request->get('password'));     
 
         if ($request->hasFile('imagen')) {
@@ -93,6 +94,18 @@ class UsuarioController extends Controller
         }
 
         $usuario->update();
+  $userrol = $request->get('userrol_id');
+          if(empty($userrol)==false){
+            $cont = 0;
+            while ($cont < count($userrol)) {
+
+                $usuario = UserRol::where('iduser',$usuario->id)->first();
+                $usuario->idrol = $userrol[$cont];
+
+                $usuario->update();
+                $cont = $cont + 1;
+            }
+            }
       
        return back()->with('message', 'Actualización Exítosa');
    }

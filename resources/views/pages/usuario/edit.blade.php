@@ -63,7 +63,7 @@
                         <label for="modulo" class="form-label">Roles:</label>
                         <div class="input-group ">
 
-                            <select name="userrol_id" class="form-control" id="ex-search">
+                            <select name="userrol_id[]" class="form-control" id="ex-search">
                                 @forelse($usu->roles as $role)
                                 <option value="{{$role->id}}" selected> {{$role->nombre}}</option>
                                 @empty
