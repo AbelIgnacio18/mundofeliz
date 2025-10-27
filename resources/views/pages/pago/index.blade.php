@@ -42,9 +42,8 @@
          <thead>
             <tr>
                <th>N°</th>
+                 <th>Número Comprabante.</th>
                <th>Nombre Completo</th>
-
-
                <th>Fecha</th>
                <th>Monto</th>
 
@@ -62,12 +61,18 @@
                      <h6>{{$pag->id}}</h6>
                   </div>
                </td>
+                 <td>
+                  <div class="d-flex align-items-center">
+
+                     <h6>{{$pag->numcomprobante}}</h6>
+                  </div>
+               </td>
 
                <td>
                   <div class="icon iq-icon-box-3">{{$pag->nombre}} {{$pag->apellidos}}</div>
                </td>
 
-
+ 
 
 
 

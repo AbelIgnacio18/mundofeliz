@@ -242,7 +242,7 @@
                         @forelse($pagosarticulos as $part)
                         <div class="pb-3">
                             <div class="d-flex align-items-center justify-content-between mb-2">
-                                <p class="mb-0">{{$part->nombre}} <b>s/{{$part->monto}}</b> </p>
+                                <p class="mb-0">{{$part->categoria}} <b>s/{{$part->monto}}</b> </p>
                                 <h4>{{$part->cantidad}}</h4>
                             </div>
                             <div class="progress bg-soft-info shadow-none w-100" style="height: 10px">

@@ -111,7 +111,7 @@ class DatabaseSeeder extends Seeder
         
           \App\Models\Permission::create([
                'idmodulo'=>2,
-                'nombre'=>'VER MATRICUCLA',
+                'nombre'=>'VER MATRICULA',
 
                  'status'=>1,
                  

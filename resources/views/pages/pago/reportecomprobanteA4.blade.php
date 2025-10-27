@@ -60,7 +60,7 @@
             <div class="fecha text-right details">
                 @forelse($estudiante as $est)
                 <h4>
-                    N° de Boleta: <input type="text" value="{{$est->id}}" /><br>
+                    N° de Boleta: <input type="text" value="{{$est->numcomprobante}}" /><br>
                     Fecha:{{$est->fecha}} <input type="text" class="datePicker" /><br>
                 </h4>
                 @empty

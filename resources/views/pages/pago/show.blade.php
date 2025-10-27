@@ -17,8 +17,8 @@
         @forelse($estudiante as $est)
         <div class="row ">
             <p class="col-md-5">Estudiante: <b>{{$est->nombre}} {{$est->apellidos}} </b> </p>
-
-            <p class="col-md-12">Fecha: <b>{{$est->fecha}}</b> </p>
+<p class="col-md-12">Número Comprobante: <b>{{$est->numcomprobante}}</b> </p>
+            <p class="col-md-12">Fecha: <b>{{$est->fecha}}</b> </p> ,'p.'
             <p class="col-md-12">Monto Total: <b>{{$est->montototal}}</b> </p>
 
 

@@ -6,6 +6,9 @@ use App\Models\Concepto;
 use App\Models\Pagos;
 use App\Models\User;
 use App\Models\Estudiante;
+use App\Models\Matricula;
+use App\Models\Anolectivo;
+
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use carbon\Carbon;
@@ -27,10 +30,10 @@ class PanelController extends Controller
       
             $date = Carbon::now()->locale('es');
             // dd(date('m'));
-          
+           $anolect = Anolectivo::where('estado', 1)->first();
             $usuarios=User::all();
 
-            $estudiante = Estudiante::all();// cantidad de estudiante
+            $estudiante = Matricula::where('idanolectivo',$anolect)->get();// cantidad de estudiante
             $mesesporcentaje=DB::table('meses as me')->join('matriculas as m','me.idmatricula','=','m.id')->join('estudiantes as est','m.idestudiante','=','est.id')->select('me.mes',DB::raw('count(*) as cantidad'),DB::raw('count(est.id) as estudiante'))->groupBy('mes')->orderBy('cantidad','desc')->get();
             //  dd($mesesporcentaje);
 
@@ -38,7 +41,8 @@ class PanelController extends Controller
             $pagosarticulos = DB::table('pagos as p')
             ->join('detallepagos as dt','p.id','=','dt.idpago')
             ->join('articulos as art','dt.idarticulo','=','art.id')
-            ->select('art.nombre',DB::raw('sum(dt.cantidadar) as cantidad'),DB::raw('sum(dt.montoar) as monto'))->groupBy('art.nombre')->get();//ventas de productos de todos los products General
+            ->join('categorias as c', 'art.idcategoria', '=', 'c.id')
+            ->select('art.nombre','c.nombre as categoria',DB::raw('sum(dt.cantidadar) as cantidad'),DB::raw('sum(dt.montoar) as monto'))->groupBy('art.nombre','c.nombre')->get();//ventas de productos de todos los products General
 
 
             $pagosadministrativos = DB::table('pagos as p')

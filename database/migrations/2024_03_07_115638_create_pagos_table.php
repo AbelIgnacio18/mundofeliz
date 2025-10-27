@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('montototal',11,2);
             $table->string('descripcion', 50)->nullable();
             $table->string('archivo', 50)->nullable();
+            $table->unsignedBigInteger('numcomprobante');
             $table->date('fecha');
        
             $table->timestamps();
