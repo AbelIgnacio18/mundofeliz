@@ -99,7 +99,11 @@
                 @if(auth()->user()->hasPermission('VER MATRICULA'))
                 <!-- matricula -->
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#matricula" role="button" aria-expanded="false" aria-controls="Calificaciones-menus">
+                    <a class="nav-link {{ 
+        request()->is('dashboard/matriculas*') || 
+        request()->is('dashboard/matricula-aula*') || 
+        Route::is('app.showaula*') ? 'active' : '' 
+    }}" data-bs-toggle="collapse" href="#matricula" role="button" aria-expanded="false" aria-controls="Calificaciones-menus">
                         <i class="icon">
                             <svg class="icon-32" width="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -122,7 +126,11 @@
 
                         </i>
                     </a>
-                    <ul class="sub-nav collapse" id="matricula" data-bs-parent="#sidebar-menu">
+                    <ul class="sub-nav collapse {{ 
+        request()->is('dashboard/matriculas*') || 
+        request()->is('dashboard/matricula-aula*') || 
+        Route::is('app.showaula*') ? 'show' : '' 
+    }}" id="matricula" data-bs-parent="#sidebar-menu">
 
 
 
@@ -144,7 +152,7 @@
 
 
                         <li class="nav-item">
-                            <a class="{{ request()->is('dashboard/matricula-aula') ? 'nav-link active' : 'nav-link' }}" href="{{route('app.showaula',$menu->id)}}">
+                            <a class="{{ request()->routeIs('app.showaula') && request()->route('id') == $menu->id ? 'nav-link active' : 'nav-link' }}" href="{{route('app.showaula',$menu->id)}}">
                                 <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                                         <g>
