@@ -33,8 +33,8 @@ class PagosController extends Controller
 
             $pago = DB::table('pagos as p')
                 ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
-                ->select('p.id', 'p.idestudiante', 'p.descripcion', 'p.fecha','p.numcomprobante', 'p.montototal','p.archivo', 'e.nombre', 'e.apellidos','e.dni')
-                ->orderBy('id', 'desc')->get();
+                ->select('p.id', 'p.idestudiante', 'p.descripcion', 'p.fecha','p.created_at','p.numcomprobante', 'p.montototal','p.archivo', 'e.nombre', 'e.apellidos','e.dni')
+                ->orderBy('id', 'asc')->get();
 
 
             $articulo = Articulo::with('categoria')->get();
@@ -61,7 +61,10 @@ class PagosController extends Controller
         'idestudiante' => 'required',  
         
         'montototal' => 'required|numeric|min:0',
-        'imagen' => 'nullable|image|mimes:jpeg,jpg,png|max:5120', // <= 5MB
+      //  'imagen' => 'nullable|image|mimes:jpg,png,jpeg|max:5120', // <= 5MB
+        'imagen' => 'nullable|image|max:5120',
+
+
     ]);
         try {
             DB::beginTransaction();
@@ -79,7 +82,7 @@ class PagosController extends Controller
             $pago->descripcion = $request->get('montototal');
             if ($request->hasFile('imagen')) {
                 $file = $request->file('imagen');
-                $name = time() . $file->getClientOriginalName();
+              $name = time() . '.jpg'; // fuerza extensión jpg
                 $file->move(public_path() . '/imagenes/pagos/', $name);
                 $pago->archivo = $name;
             }

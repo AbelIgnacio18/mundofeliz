@@ -54,12 +54,15 @@
             </tr>
          </thead>
          <tbody>
+            <?php $contadorpago = 1; ?>
             @forelse($pago as $pag)
             <tr>
-               <td>
+                 <td>
                   <div class="d-flex align-items-center">
 
-                     <h6>{{$pag->id}}</h6>
+                     <?php echo $contadorpago; ?>
+
+
                   </div>
                </td>
                  <td>
@@ -78,7 +81,7 @@
 
 
                <td>
-                  <h6>{{Carbon\Carbon::parse($pag->fecha)->translatedFormat('l, j F Y h:i A')}}</h6>
+                  <h6>{{Carbon\Carbon::parse($pag->created_at)->translatedFormat('l, j F Y h:i A')}}</h6>
                </td>
                <td>
                   <h4 class="badge bg-secondary" style="font-size: 1em;">{{$pag->montototal}}</h4>
@@ -143,7 +146,7 @@
             </tr>
             @include('pages.pago.modal')
             @include('pages.pago.edit')
-
+  <?php $contadorpago++; ?>
             @empty
             <div class="alert alert-danger d-flex align-items-center" role="alert">
                <svg class="flex-shrink-0 bi me-2 icon-24" width="24" height="24">
