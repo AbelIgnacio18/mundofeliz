@@ -375,6 +375,8 @@
                         </i>
                     </a>
                     <ul class="sub-nav collapse" id="Administracion" data-bs-parent="#sidebar-menu">
+
+                    @if(auth()->user()->hasPermission('VER AÑO LECTIVO'))
                         <li class="nav-item">
                             <a class="{{ request()->is('dashboard/administracion-anolectivo') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/administracion-anolectivo') }}">
                                 <i class="icon">
@@ -389,6 +391,7 @@
                                 <span class="item-sub-name">Año Lectivo</span>
                             </a>
                         </li>
+                        @endif
                         <!-- <li class="nav-item">
                             <a class="nav-link " href="{{ url('dashboard/concepto-pago') }}">
                                 <i class="icon">
@@ -403,7 +406,7 @@
                                 <span class="item-sub-name">Concepto</span>
                             </a>
                         </li> -->
-
+@if(auth()->user()->hasPermission('VER AULAS'))
                         <li class="nav-item">
                             <a class="{{ request()->is('dashboard/administracion-aulas') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/administracion-aulas') }}">
                                 <i class="icon">
@@ -418,7 +421,8 @@
                                 <span class="item-sub-name">Aulas</span>
                             </a>
                         </li>
-                        @if(auth()->user()->hasPermission('VER USUSARIOS'))
+                        @endif
+                        @if(auth()->user()->hasPermission('VER USUARIOS'))
                         <li class="nav-item">
                             <a class="{{ request()->is('dashboard/administradores') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/administradores') }}">
                                 <i class="icon">
@@ -428,11 +432,12 @@
                                         </g>
                                     </svg>
                                 </i>
-                                <i class="sidenav-mini-icon"> LU </i>
-                                <span class="item-sub-name"> Lista de Usuarios </span>
+                                <i class="sidenav-mini-icon"> U </i>
+                                <span class="item-sub-name"> Usuario </span>
                             </a>
                         </li>
                         @endif
+                        @if(auth()->user()->hasPermission('VER CARGO'))
                         <li class="nav-item">
                             <a class="{{ request()->is('dashboard/administracion-contrato') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/administracion-contrato') }}">
                                 <i class="icon">
@@ -447,6 +452,7 @@
                                 <span class="item-sub-name">Cargo</span>
                             </a>
                         </li>
+                        @endif
                         @if(auth()->user()->hasPermission('VER ROL & PERMISOS'))
                         <li class="nav-item">
                             <a class="{{ request()->is('dashboard/roles-permission') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/roles-permission') }}">

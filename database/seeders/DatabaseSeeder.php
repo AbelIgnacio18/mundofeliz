@@ -86,6 +86,16 @@ class DatabaseSeeder extends Seeder
          \App\Models\Modulo::create([
                'nombre' => 'asistencia',
         ]);
+         \App\Models\Modulo::create([
+               'nombre' => 'año lectivo',
+        ]);
+         \App\Models\Modulo::create([
+               'nombre' => 'aula',
+        ]);
+         \App\Models\Modulo::create([
+               'nombre' => 'cargo',
+        ]);
+        
 
         \App\Models\Modulo::create([
                 'nombre' =>'usuario',
@@ -152,22 +162,38 @@ class DatabaseSeeder extends Seeder
         ]); 
          \App\Models\Permission::create([
               'idmodulo'=>9,
-                'nombre'=>'VER USUSARIOS',
+                'nombre'=>'VER AÑO LECTIVO',
+                 'status'=>1, 
+        ]);
+         \App\Models\Permission::create([
+              'idmodulo'=>10,
+                'nombre'=>'VER AULAS',
+                 'status'=>1, 
+        ]);
+         \App\Models\Permission::create([
+              'idmodulo'=>11,
+                'nombre'=>'VER CARGO',
+                 'status'=>1, 
+        ]);
+         \App\Models\Permission::create([
+              'idmodulo'=>12,
+                'nombre'=>'VER USUARIOS',
                  'status'=>1, 
         ]); 
          \App\Models\Permission::create([
-               'idmodulo'=>10,
+               'idmodulo'=>13,
                 'nombre'=>'VER ROL & PERMISOS',
                  'status'=>1,
         ]);
+
      
 \App\Models\RolPermission::create([
                'idrol'=>1, 
-               'idpermission'=>9
+               'idpermission'=>12
         ]);
         \App\Models\RolPermission::create([
                'idrol'=>1, 
-               'idpermission'=>10
+               'idpermission'=>13
         ]);
       
   

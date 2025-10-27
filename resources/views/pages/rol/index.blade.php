@@ -23,14 +23,14 @@
 
    <!-- modal para crear nuevos conceptos de pagooo -->
    <div class="">
-      <a href="#" class=" text-center btn btn-primary btn-icon mt-lg-0 mt-md-0 mt-3" data-bs-toggle="modal" data-bs-target="#permission-1">
+      <!-- <a href="#" class=" text-center btn btn-primary btn-icon mt-lg-0 mt-md-0 mt-3" data-bs-toggle="modal" data-bs-target="#permission-1">
          <i class="btn-inner">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
             </svg>
          </i>
          <span>Nuevo Permiso</span>
-      </a>
+      </a> -->
       <a href="#" class=" text-center btn btn-primary btn-icon mt-lg-0 mt-md-0 mt-3" data-bs-toggle="modal" data-bs-target="#rol-1">
          <i class="btn-inner">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -130,7 +130,7 @@
             <tbody>
                @forelse($permission as $per)
                <tr class="">
-                  <td class="">{{$per->nombre}}->{{$per->modulo->nombre}}
+                  <td class="">{{$per->nombre}}
                      <div style="float:right;">
                         <!-- <a class="btn btn-sm btn-icon text-primary flex-end" data-bs-toggle="tooltip" title="" href="#" data-bs-original-title="Edit User">
                            <span class="btn-inner">
