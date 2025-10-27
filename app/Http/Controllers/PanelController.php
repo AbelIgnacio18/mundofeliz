@@ -74,9 +74,9 @@ class PanelController extends Controller
             ->groupBy('con.concepto','con.id','p.idanolectivo')->get();//pagos de pensiones-------
             
          
-            $pagosventas = DB::table('pagos as p')->select(DB::raw('sum(p.montototal) as montototal'))->get();
+            $pagosventas = DB::table('pagos as p')->select(DB::raw('sum(p.montototal) as montototal'))->where('p.idanolectivo',$anolect->id)->get();
 
-            $pagosventasmes = DB::table('pagos as p')->select(DB::raw('sum(p.montototal) as montototal'))->whereMonth('created_at', date('m'))->get();
+            $pagosventasmes = DB::table('pagos as p')->select(DB::raw('sum(p.montototal) as montototal'))->where('p.idanolectivo',$anolect->id)->whereMonth('created_at', date('m'))->get();
             //  dd($pagosventas);
 
             $pagosingresos = DB::table('ingresos as i')->select(DB::raw('sum(i.montototal) as montototal'))->get();
