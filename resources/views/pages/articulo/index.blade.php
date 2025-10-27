@@ -44,7 +44,7 @@
                      @csrf
 
                      <div class="form-group">
-                        <label for="nombre" class="form-label">Seleciona Categoria:</label>
+                        <label for="nombre" class="form-label">Categoría:</label>
 
                         <select name="idcategoria"  class="form-control" required id="ex-search">
                            <option value="" disabled>Seleccione</option>
@@ -58,7 +58,7 @@
 
                      </div>
                      <div class="form-group">
-                        <label for="nombre" class="form-label">talla:</label>
+                        <label for="nombre" class="form-label">Talla:</label>
                         <input type="text" class="form-control" id="nombre" aria-describedby="nombre" placeholder="Matematicas" name="nombre" value="{{old('nombre')}}">
                      </div>
 

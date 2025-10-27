@@ -18,7 +18,7 @@
       @endif
    </div>
    <div class="header-title">
-      <h4 class="card-title mb-0">Lista de Categoria</h4>
+      <h4 class="card-title mb-0">Lista de Categoría</h4>
    </div>
 
    <!-- modal para crear nuevos conceptos de pagooo -->
@@ -30,13 +30,13 @@
                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
             </svg>
          </i>
-         <span>Nuevo Categoria</span>
+         <span>Nuevo Categoría</span>
       </a>
       <div class="modal fade" id="staticBackdrop-1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
          <div class="modal-dialog">
             <div class="modal-content">
                <div class="modal-header">
-                  <h5 class="modal-title" id="staticBackdropLabel">Nuevo Categoria</h5>
+                  <h5 class="modal-title" id="staticBackdropLabel">Nueva Categoría</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                </div>
                <div class="modal-body">
@@ -47,7 +47,7 @@
                    
 
                      <div class="form-group">
-                        <label for="conceptoS" class="form-label">Nombre de Categoria:</label>
+                        <label for="conceptoS" class="form-label">Nombre de Categoría:</label>
                         <input type="text" class="form-control" id="nombre" aria-describedby="nombre" placeholder="Articulo" name="nombre">
                      </div>
                

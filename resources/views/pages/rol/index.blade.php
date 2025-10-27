@@ -18,7 +18,7 @@
       @endif
    </div>
    <div class="header-title">
-      <h4 class="card-title mb-0">Lista de Permisos & Roles</h4>
+      <h4 class="card-title mb-0">Lista de Permisos y Roles</h4>
    </div>
 
    <!-- modal para crear nuevos conceptos de pagooo -->
