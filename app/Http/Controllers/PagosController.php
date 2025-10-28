@@ -234,6 +234,7 @@ class PagosController extends Controller
     {
 
         $pago = Pagos::find($pagoid);
+      
         $detallecont = Detallepago::where('idpago', $pagoid)->get();
         //    dd(count($detallecont));
         if (count($detallecont) != 0) {
@@ -266,7 +267,8 @@ class PagosController extends Controller
                     $idestudiante = $pago->idestudiante; //estudiantee  
                     $idmatriula = Matricula::where('idestudiante', $idestudiante)->first();
                      for ($i = 0; $i <  $cantidadpenciones; $i++) {
-                        $meses = Mese::where('idmatricula', $idmatriula)->get();
+                        $meses = Mese::where('idmatricula', $idmatriula->id)->get();
+
                         $idmeses = $meses[count($meses) - 1]->id;
                         $mess = Mese::find($idmeses);
                         $mess->delete();

@@ -12,7 +12,7 @@
                <div class="form-group">
                   <label for="nombre" class="form-label">Nombre del Estudiante:</label>
                   <!-- id="ex-search"  id="idestudiante"-->
-                  <select name="idestudiante" class="form-control" required onchange="mesespagado()"  id="ex-search">
+                  <select name="idestudiante" class="form-control" required onchange="mesespagado()" id="ex-search">
                      <option value="">Seleccionar</option>
                      @forelse($estudiante as $estud)
                      <option value="{{$estud->id}}/{{$estud->id}}"> {{$estud->nombre}} {{$estud->apellidos}} - {{$estud->dni}}</option>

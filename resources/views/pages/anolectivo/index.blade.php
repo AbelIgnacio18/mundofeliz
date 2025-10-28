@@ -98,23 +98,23 @@
                   </div>
                </td>
                <td>
-                  <h6>{{ $item->años }}</h6>
+                  <h6>{{Carbon\Carbon::parse($item->años)->translatedFormat('Y')}}</h6>
                </td>
                <td>
-                  <h6>{{ $item->inicio }}</h6>
+                  <h6>{{Carbon\Carbon::parse($item->inicio)->translatedFormat('l, j F Y')}}</h6>
                </td>
 
                <td>
-                  <h6>{{ $item->fin }}</h6>
+                  <h6> {{Carbon\Carbon::parse($item->fin)->translatedFormat('l, j F Y')}}</h6>
                </td>
 
                <td>
                   <h6>
-                     @if($item->estado===1)
+                     @if($item->estado==1)
                   <span class="badge bg-success">Activo</span>
                      
                      @endif
-                     @if($item->estado===0)
+                     @if($item->estado==0)
                       <span class="badge bg-danger">Desact.</span>
                      
                      @endif
