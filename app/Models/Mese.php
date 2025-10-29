@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Mese extends Model
 {
     use HasFactory;
-    protected $fillable=['idestudiante','mes'];
+    protected $fillable=['idmatricula','mes'];
 
     
 }

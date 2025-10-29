@@ -234,6 +234,7 @@ class PagosController extends Controller
     {
 
         $pago = Pagos::find($pagoid);
+      
         $detallecont = Detallepago::where('idpago', $pagoid)->get();
         //    dd(count($detallecont));
         if (count($detallecont) != 0) {

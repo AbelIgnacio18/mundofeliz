@@ -39,10 +39,10 @@ class DatabaseSeeder extends Seeder
         
         ]);
 
-                \App\Models\Anolectivo::create([
+        \App\Models\Anolectivo::create([
             'años' => '2025',
-            'inicio' => '03-03-2025',
-            'fin' => '19-12-2025',           
+            'inicio' => '2025-03-03',
+            'fin' => '2025-12-19',           
         ]);
 
     
