@@ -46,7 +46,6 @@ Route::get('home', [App\Http\Controllers\PanelController::class, 'index'])->name
     Route::resource('/concepto-pago',ConceptoController::class);
     Route::resource('/administracion-aulas',AulaController::class)->names('config-aulas');
     Route::resource('/administracion-contrato',ContratoController::class);
-   
     Route::resource('/administracion-anolectivo',AnolectivoController::class)->names('config-lectivo');
     Route::resource('/administracion-caja',CajaController::class)->names('config-caja');
     Route::resource('/estudiantes',EstudianteController::class);
@@ -56,27 +55,27 @@ Route::get('home', [App\Http\Controllers\PanelController::class, 'index'])->name
     Route::resource('/admin-egresos',EgresoController::class);
     Route::resource('/pagos-realizados',PagosController::class);
     Route::resource('/administradores',UsuarioController::class);
-     Route::resource('/categoria',CategoriaController::class);
+    Route::resource('/categoria',CategoriaController::class);
     Route::resource('/articulos',ArticuloController::class);
     Route::resource('/ingresos',IngresoController::class);
     Route::resource('/roles-permission',RolController::class);
     Route::resource('/permission',PermissionController::class);
     
-     Route::resource('/roles-permission-union',RolPermissionController::class)->names('unionrolespermission');;
+    Route::resource('/roles-permission-union',RolPermissionController::class)->names('unionrolespermission');;
     Route::resource('/asistencia-docentes',AsistenciaController::class)->names('asistencia');
     Route::get('/registrar-falta-docente',[App\Http\Controllers\AsistenciaController::class, 'registrarfalta'])->name('registrarfaltadocente');
     
     Route::resource('/asistencia-estudiantes',AsistenciaestController::class)->names('asist-estudiante');
-     Route::post('/asistencia-actualizar',[App\Http\Controllers\AsistenciaestController::class, 'control'])->name('cambiarasistencia');
-     Route::get('/reporte-asistencia',[App\Http\Controllers\AsistenciaestController::class, 'reporteasistencia'])->name('reporteasistencia');
-     Route::get('/reporte-asistencia-docente',[App\Http\Controllers\AsistenciaController::class, 'reporteasistencia'])->name('reporteasistenciadocente');
+    Route::post('/asistencia-actualizar',[App\Http\Controllers\AsistenciaestController::class, 'control'])->name('cambiarasistencia');
+    Route::get('/reporte-asistencia',[App\Http\Controllers\AsistenciaestController::class, 'reporteasistencia'])->name('reporteasistencia');
+    Route::get('/reporte-asistencia-docente',[App\Http\Controllers\AsistenciaController::class, 'reporteasistencia'])->name('reporteasistenciadocente');
     Route::get('/reporte-matricula',[App\Http\Controllers\MatriculaController::class, 'reportematricula'])->name('reportematricula');
-     Route::get('/matricula-aula/{id}',[App\Http\Controllers\MatriculaController::class, 'showaula'])->name('showaula');
+    Route::get('/matricula-aula/{id}', [App\Http\Controllers\MatriculaController::class, 'showaula'])->name('showaula');
 
 
-      Route::get('/asistencia-aula',[App\Http\Controllers\AsistenciaestController::class, 'filtrarasistencia'])->name('asistenciaaula');
-       Route::get('/registrar-falta',[App\Http\Controllers\AsistenciaestController::class, 'registrarfalta'])->name('registrarfalta');
-       Route::get('/listar-falta',[App\Http\Controllers\AsistenciaestController::class, 'listarfalta'])->name('listarfalta');
+    Route::get('/asistencia-aula',[App\Http\Controllers\AsistenciaestController::class, 'filtrarasistencia'])->name('asistenciaaula');
+    Route::get('/registrar-falta',[App\Http\Controllers\AsistenciaestController::class, 'registrarfalta'])->name('registrarfalta');
+    Route::get('/listar-falta',[App\Http\Controllers\AsistenciaestController::class, 'listarfalta'])->name('listarfalta');
     
 
     Route::get('estudents-list',[App\Http\Controllers\EstudianteController::class, 'exportsexcel'])->name('estudents-list');
