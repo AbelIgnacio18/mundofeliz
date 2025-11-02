@@ -268,7 +268,6 @@ class PagosController extends Controller
                     $idmatriula = Matricula::where('idestudiante', $idestudiante)->first();
                      for ($i = 0; $i <  $cantidadpenciones; $i++) {
                         $meses = Mese::where('idmatricula', $idmatriula->id)->get();
-
                         $idmeses = $meses[count($meses) - 1]->id;
                         $mess = Mese::find($idmeses);
                         $mess->delete();
