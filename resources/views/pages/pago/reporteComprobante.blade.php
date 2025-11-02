@@ -70,7 +70,7 @@
 							<td>{{$p->concepto}}</td>
 							<td>{{$p->cantidad}}</td>
 							<td>s/.{{$p->monto/$p->cantidad}}</td>
-							<td>s/.{{$p->monto*$p->cantidad}}</td>
+							<td>s/.{{$p->monto}}</td>
 						</tr>
 						@empty
 						@endforelse
