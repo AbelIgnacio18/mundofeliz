@@ -59,22 +59,22 @@
                      </div>
                      <div class="form-group">
                         <label for="nombre" class="form-label">Talla:</label>
-                        <input type="text" class="form-control" id="nombre" aria-describedby="nombre" placeholder="Matematicas" name="nombre" value="{{old('nombre')}}">
+                        <input type="text" class="form-control" id="nombre" aria-describedby="nombre" placeholder="16" name="nombre" value="{{old('nombre')}}">
                      </div>
 
                      <div class="form-group">
                         <label for="stock" class="form-label">Cantidad:</label>
-                        <input type="numeric" class="form-control" id="stock" aria-describedby="stock" placeholder="0" name="stock" value="{{old('nombre')}}">
+                        <input type="numeric" class="form-control" id="stock" aria-describedby="stock" placeholder="100" name="stock" value="{{old('nombre')}}">
                      </div>
 
                      <div class="form-group">
                         <label for="precioc" class="form-label">Precio Compra:</label>
-                        <input type="numeric" class="form-control" id="precioc" aria-describedby="precioc" placeholder="12.34" name="preciocosto" value="{{old('preciocosto')}}">
+                        <input type="numeric" class="form-control" id="precioc" aria-describedby="precioc" placeholder="50" name="preciocosto" value="{{old('preciocosto')}}">
                      </div>
 
                      <div class="form-group">
                         <label for="preciov" class="form-label">Precio Venta:</label>
-                        <input type="numeric" class="form-control" id="preciov" aria-describedby="preciov" placeholder="12.34" name="precioventa" value="{{old('precioventa')}}">
+                        <input type="numeric" class="form-control" id="preciov" aria-describedby="preciov" placeholder="80" name="precioventa" value="{{old('precioventa')}}">
                      </div>
 
 
@@ -118,14 +118,14 @@
                </td>
 
                <td>
+                  <h6>{{$arti->categoria->nombre}}</h6>
+               </td>
+               <td>
                   <h6>{{$arti->nombre}}</h6>
                </td>
 
                <td>
                   <h6>{{$arti->stock}}</h6>
-               </td>
-               <td>
-                  <h6>{{$arti->categoria->nombre}}</h6>
                </td>
                <td>
                   <h6>{{number_format($arti->preciocosto,2)}}</h6>

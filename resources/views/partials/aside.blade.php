@@ -3,8 +3,8 @@
         {{-- *** Logo *** --}}
         <a href="{{ route('home') }}" class="navbar-brand">
 
-            <img src="{{ asset('assets/images/logo.png') }}" width="60px" alt="Isotipo Colegio Mundo Feliz">
-            <img class="logo-title" src="{{ asset('assets/images/logo_nombre.png') }}" width="69px" height="51px" alt="Nombre Colegio Mundo Feliz">
+            <img src="{{ asset('assets/images/logo.svg') }}" width="60px" alt="Isotipo Colegio Santa Bárbara">
+            <img class="logo-title mb-n3" src="{{ asset('assets/images/logo_nombre.svg') }}" width="140px" alt="Nombre Colegio Santa Bárbara">
         </a>
         <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
             <i class="icon">
@@ -30,7 +30,7 @@
                         <img src="{{ asset('imagenes/avatar/' . auth()->user()->foto) }}" alt="User-Profile"
                             class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded">
                         @else
-                        <img src="{{ asset('assets/images/avatars/01.png') }}" alt="User-Profile"
+                        <img src="{{ asset('assets/images/avatars/01.webp') }}" alt="User-Profile"
                             class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded">
                         @endif
                         <div class="container upload-icone bg-green">
@@ -216,6 +216,20 @@
                         </i>
                     </a>
                     <ul class="sub-nav collapse" id="Calificaciones-menus" data-bs-parent="#sidebar-menu">
+                        <li class="nav-item">
+                            <a class="{{ request()->is('dashboard/categoria') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/categoria') }}">
+                                <i class="icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
+                                        fill="currentColor">
+                                        <g>
+                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                        </g>
+                                    </svg>
+                                </i>
+                                <i class="sidenav-mini-icon">C</i>
+                                <span class="item-sub-name">Categoría</span>
+                            </a>
+                        </li>
                         @if(auth()->user()->hasPermission('VER INVENTARIO ARTICULOS'))
                         <li class="nav-item">
                             <a class="{{ request()->is('dashboard/articulos') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/articulos') }}">
@@ -246,20 +260,7 @@
                             </a>
                         </li>
                         @endif
-                        <li class="nav-item">
-                            <a class="{{ request()->is('dashboard/categoria') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/categoria') }}">
-                                <i class="icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
-                                        fill="currentColor">
-                                        <g>
-                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                        </g>
-                                    </svg>
-                                </i>
-                                <i class="sidenav-mini-icon">C</i>
-                                <span class="item-sub-name">Categoría</span>
-                            </a>
-                        </li>
+
                     </ul>
                 </li>
                 @if(auth()->user()->hasPermission('VER COMPROBANTES'))
@@ -277,7 +278,12 @@
                 @endif
                 @if(auth()->user()->hasPermission('VER ASISTENCIA'))
                 <li class="nav-item">
-                    <a class="nav-link"
+                    <a class="nav-link {{ 
+        request()->is('dashboard/asistencia-estudiantes*') || 
+        request()->is('dashboard/asistencia-aula*') || 
+        request()->is('dashboard/listar-falta*')|| 
+        request()->is('dashboard/asistencia-docentes*') ? 'active' : '' 
+    }}"
                         data-bs-toggle="collapse" href="#Calificaciones-menu" role="button" aria-expanded="false"
                         aria-controls="Calificaciones-menu">
                         <i class="icon">
@@ -298,9 +304,14 @@
 
                         </i>
                     </a>
-                    <ul class="sub-nav collapse" id="Calificaciones-menu" data-bs-parent="#sidebar-menu">
+                    <ul class="sub-nav collapse {{ 
+        request()->is('dashboard/asistencia-estudiantes*') || 
+        request()->is('dashboard/asistencia-aula*') || 
+        request()->is('dashboard/listar-falta*')|| 
+        request()->is('dashboard/asistencia-docentes*') ? 'active' : '' 
+    }}" id="Calificaciones-menu" data-bs-parent="#sidebar-menu">
 
-                        <!-- <li class="nav-item">
+                        <li class="nav-item">
                             <a class="{{ request()->is('dashboard/asistencia-estudiantes') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/asistencia-estudiantes') }}">
                                 <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
@@ -313,8 +324,8 @@
                                 <i class="sidenav-mini-icon">LU</i>
                                 <span class="item-sub-name">Estudiante</span>
                             </a>
-                        </li> -->
-                        <!-- <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
                             <a class="{{ request()->is('dashboard/asistencia-aula') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/asistencia-aula') }}">
                                 <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
@@ -327,9 +338,9 @@
                                 <i class="sidenav-mini-icon">LU</i>
                                 <span class="item-sub-name">Asistencia por Aulas</span>
                             </a>
-                        </li> -->
+                        </li>
 
-                        <!-- <li class="nav-item">
+                        <li class="nav-item">
                             <a class="{{ request()->is('dashboard/listar-falta') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/listar-falta') }}">
                                 <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
@@ -342,7 +353,7 @@
                                 <i class="sidenav-mini-icon">LU</i>
                                 <span class="item-sub-name">Faltantes</span>
                             </a>
-                        </li> -->
+                        </li>
                         <li class="nav-item">
                             <a class="{{ request()->is('dashboard/asistencia-docentes') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/asistencia-docentes') }}">
                                 <i class="icon">
@@ -384,7 +395,7 @@
                     </a>
                     <ul class="sub-nav collapse" id="Administracion" data-bs-parent="#sidebar-menu">
 
-                    @if(auth()->user()->hasPermission('VER AÑO LECTIVO'))
+                        @if(auth()->user()->hasPermission('VER AÑO LECTIVO'))
                         <li class="nav-item">
                             <a class="{{ request()->is('dashboard/administracion-anolectivo') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/administracion-anolectivo') }}">
                                 <i class="icon">
@@ -414,7 +425,7 @@
                                 <span class="item-sub-name">Concepto</span>
                             </a>
                         </li> -->
-@if(auth()->user()->hasPermission('VER AULAS'))
+                        @if(auth()->user()->hasPermission('VER AULAS'))
                         <li class="nav-item">
                             <a class="{{ request()->is('dashboard/administracion-aulas') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/administracion-aulas') }}">
                                 <i class="icon">
@@ -493,7 +504,7 @@
                             </a>
                         </li> -->
 
-                    <!-- <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link " href="{{ url('dashboard/administracion-caja') }}">
                                 <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
@@ -514,7 +525,7 @@
                     </ul>
                 </li>
 
-               
+
 
 
                 <div class="sidebar-footer"></div>

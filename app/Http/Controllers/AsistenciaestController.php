@@ -26,7 +26,7 @@ class AsistenciaestController extends Controller
         $items = DB::table('matriculas as m')
             ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
             ->join('asistenciaests as a', 'm.id', '=', 'a.idmatricula')
-            ->select('a.id', 'e.nombre', 'e.apellidos', 'a.created_at', 'a.updated_at', 'a.fechaentrada', 'a.estado', 'a.idanolectivo')->where('a.fechaentrada', date('Y-m-d'))->where('a.idanolectivo', $anolect->id)
+            ->select('a.id', 'e.nombre', 'e.apellidos','e.id as idestudiante', 'a.created_at', 'a.updated_at', 'a.fechaentrada', 'a.estado', 'a.idanolectivo')->where('a.fechaentrada', date('Y-m-d'))->where('a.idanolectivo', $anolect->id)
             ->orderBy('e.apellidos', 'asc')
             ->get();
 
@@ -78,10 +78,37 @@ class AsistenciaestController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Asistenciaest $asistencia)
+    public function show($id)
     {
-        //
+         $anolect = Anolectivo::where('estado', 1)->first();
+
+        $fechaInicio = Carbon::parse($anolect->inicio);
+        $fechaFin = Carbon::parse(date("Y-m-d"));
+        $dias = [];
+        $meses = [];
+        $fechaActual = $fechaInicio->copy();
+        $fechaActual2 = $fechaInicio->copy();
+        while ($fechaActual->lte($fechaFin)) {
+            $dias[] = $fechaActual->format('Y-m-d'); // Formato día-mes-año
+            $fechaActual->addDay();
+        }
+        while ($fechaActual2->lte($fechaFin)) {
+
+            $meses[] = $fechaActual2->format('Y-m'); // Formato Mes Año
+            $fechaActual2->addMonth();
+        }
+        //dd($meses);
+
+      
+             $items = Matricula::where('idestudiante',$id )->where('idanolectivo', $anolect->id)->with('asistenciahoy')->with('estudiantes')
+            ->get();
+        //dd($items);
+
+       
+         return view('pages.asistenciaest.show',compact('items', 'dias', 'meses'));
+       
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -141,7 +168,7 @@ class AsistenciaestController extends Controller
             $items = DB::table('matriculas as m')
                 ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
                 ->join('asistenciaests as a', 'm.id', '=', 'a.idmatricula')
-                ->select('a.id', 'e.nombre', 'e.apellidos', 'a.created_at', 'a.updated_at', 'a.fechaentrada', 'a.estado', 'a.idanolectivo')
+                ->select('a.id', 'e.nombre', 'e.apellidos','e.id as idestudiante', 'a.created_at', 'a.updated_at', 'a.fechaentrada', 'a.estado', 'a.idanolectivo')
                 ->where('idaula', 'LIKE', '%' . $query . '%')
                 ->where('a.fechaentrada', 'LIKE', '%' . $fecha . '%')
                 ->where('a.idanolectivo', $anolect->id)
@@ -215,7 +242,7 @@ class AsistenciaestController extends Controller
             $items = DB::table('matriculas as m')
                 ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
                 ->join('asistenciaests as a', 'm.id', '=', 'a.idmatricula')
-                ->select('m.id', 'e.nombre', 'e.apellidos', 'e.celular', 'a.created_at', 'a.updated_at', 'a.fechaentrada', 'a.estado', 'a.idanolectivo')
+                ->select('m.id', 'e.nombre', 'e.apellidos', 'e.id as idestudiante','e.celular', 'a.created_at', 'a.updated_at', 'a.fechaentrada', 'a.estado', 'a.idanolectivo')
                 ->where('idaula', 'LIKE', '%' . $query . '%')
                 ->where('a.fechaentrada', 'LIKE', '%' . $fecha . '%')
                 ->where('a.idanolectivo', $anolect->id)

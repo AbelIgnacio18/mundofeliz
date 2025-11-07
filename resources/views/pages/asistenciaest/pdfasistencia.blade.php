@@ -13,7 +13,7 @@
                
                  <div class="col-md-12 col-6">
                     <div>
-                       <span>Escoger el Turno:</span>
+                       <span>Escoger Aula:</span>
                        <div>
                         @forelse($turno as $tu)
                          <div class="form-check">

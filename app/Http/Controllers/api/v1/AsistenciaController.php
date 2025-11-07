@@ -50,6 +50,9 @@ class AsistenciaController extends Controller
         $docente = Docente::where('codigo', $codigo)->first();
 
           $cargo = Contrato::where('id', $docente->idcontrato)->first();
+        
+          if ($control->estado == 1) {
+
           if (empty(Asistencia::where('iddocente', $docente->id)->where('fechaentrada', date("Y-m-d"))->first()) == true) 
             {
 
@@ -75,6 +78,18 @@ class AsistenciaController extends Controller
             }else{
               return response()->json('Ya marco asistencia'. ' ' . $codigo, 200);  
             }
+
+        }
+
+        if ($control->estado == 0) {
+            $asistencia = Asistencia::where('iddocente', $docente->id)->where('fechaentrada', date("Y-m-d"))->first();
+
+            $asistencia->updated_at = now();
+            $asistencia->update();
+
+            return response()->json("salida" . $docente->nombre, 200);
+
+        }
 
              
 

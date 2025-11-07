@@ -33,14 +33,14 @@
                   d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
             </svg>
          </i>
-         <span>Ciclo Lectivo</span>
+         <span>Año Lectivo</span>
       </a>
       <div class="modal fade" id="staticBackdrop-1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
          aria-labelledby="staticBackdropLabel" aria-hidden="true">
          <div class="modal-dialog">
             <div class="modal-content">
                <div class="modal-header">
-                  <h5 class="modal-title" id="staticBackdropLabel">Nuevo Ciclo Lectivo</h5>
+                  <h5 class="modal-title" id="staticBackdropLabel">Nuevo Año Lectivo</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                </div>
                <div class="modal-body">
@@ -49,7 +49,7 @@
                      @csrf
 
                      <div class="form-group">
-                        <label for="años" class="form-label">Ciclo Lectivo:</label>
+                        <label for="años" class="form-label">Año Lectivo:</label>
                         <input type="text" class="form-control" id="años" aria-describedby="años"
                            placeholder="2024" name="años">
                      </div>
@@ -65,7 +65,7 @@
                      </div>
 
                      <div class="text-start mt-2">
-                        <button class="btn btn-info" type="submit">Guardar</button>
+                        <button class="btn btn-secondary" type="submit">Guardar</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                      </div>
                   </form>
@@ -82,7 +82,7 @@
          <thead>
             <tr>
                <th>N°</th>
-               <th>Ciclo Lectivo</th>
+               <th>Año Lectivo</th>
                <th>Inicio del Período</th>
                <th>Final del Período</th>
                <th>Estado</th>
@@ -98,7 +98,7 @@
                   </div>
                </td>
                <td>
-                  <h6>{{Carbon\Carbon::parse($item->años)->translatedFormat('Y')}}</h6>
+                  <h6>{{$item->años}}</h6>
                </td>
                <td>
                   <h6>{{Carbon\Carbon::parse($item->inicio)->translatedFormat('l, j F Y')}}</h6>

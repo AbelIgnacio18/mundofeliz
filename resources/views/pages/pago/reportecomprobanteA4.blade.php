@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -26,22 +26,22 @@
     <div class="col-1">
         <header class="row">
             <div class="logoholder text-center">
-                <img src="assets/images/logo.png" width="85px">
+                <img src="assets/images/logo.svg" alt="" width="85px">
             </div><!--.logoholder-->
 
             <div class="me">
                 <h3>
-                    <strong>Colegio</strong><br>
-                    MUNDO FELIZ<br>
-                    RUC: 10752090625<br>
+                    <strong>I.E.P.</strong><br>
+                    SANTA BÁRBARA<br>
+                    RUC: 20401727001<br>
                 </h3>
             </div><!--.me-->
 
             <div class="info text-righ">
                 <h4>
-                    Web:<a href="">www.mundofeliz.edu.pe</a><br>
-                    E-mail:<a href="mailto:info@academiauc">info@mundofeliz.edu.pe</a><br>
-                    Cel: 961 141 838 - 922 916 052
+                    Web:<a href="">www.santabarbara.edu.pe</a><br>
+                    E-mail:<a href="mailto:info@santabarbara.edu.pe">info@santabarbara.edu.pe</a><br>
+                    Cel: 923 294 903 - 922 223 924
                 </h4>
             </div><!-- .info -->
 
@@ -173,7 +173,7 @@
 
 
         <div class="piedepagina">
-            <img src="assets/images/piedepáginapdf.png" alt="Pie de Página" width="121%">
+            <img src="assets/images/piedepáginapdf.webp" alt="Pie de Página" width="121%">
         </div>
     </footer>
 

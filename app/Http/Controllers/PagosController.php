@@ -18,6 +18,7 @@ use App\Models\Estudiante;
 use Illuminate\Support\Facades\DB;
 use carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
 
 
 class PagosController extends Controller
@@ -80,16 +81,23 @@ class PagosController extends Controller
             
             $pago->montototal = $request->get('montototal');
             $pago->descripcion = $request->get('montototal');
-            if ($request->hasFile('imagen')) {
-                $file = $request->file('imagen');
-              $name = time() . '.jpg'; // fuerza extensión jpg
-                $file->move(public_path() . '/imagenes/pagos/', $name);
-                $pago->archivo = $name;
-            }
+
+
+             if ($request->file('imagen')) {
+            $file = $request->file('imagen');
+          $name = time() . '.jpg'; // fuerza extensión jpg
+            $extension = $file->getClientOriginalExtension();
+
+            $path = Storage::putFileAs('pagos', $request->file('imagen'), $name);
+            
+            $pago->archivo = $name;
+        }
+
+
             $pago->fecha = $mytime->toDateTimeString();
             if(empty($ultimoRegistro)==true){
 
-            $pago->numcomprobante = 8100;
+            $pago->numcomprobante = 1000;
             }else{
                 $pago->numcomprobante = $ultimoRegistro->numcomprobante +1;
             }
@@ -268,6 +276,7 @@ class PagosController extends Controller
                     $idmatriula = Matricula::where('idestudiante', $idestudiante)->first();
                      for ($i = 0; $i <  $cantidadpenciones; $i++) {
                         $meses = Mese::where('idmatricula', $idmatriula->id)->get();
+
                         $idmeses = $meses[count($meses) - 1]->id;
                         $mess = Mese::find($idmeses);
                         $mess->delete();

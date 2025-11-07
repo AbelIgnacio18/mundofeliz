@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.master')
 
-<head>
-    <meta charset="UTF-8">
-    <title>Registro de asistencia
-    </title>
-    <link rel="stylesheet" href="../public/pdf/assets/css/comprobantepdf.css">
-</head>
+@section('tab_tittle','Registro de asistencia')
 
-<body>
+@section('content')
+
+
     <style>
         .page_break {
             page-break-before: always;
@@ -24,9 +20,8 @@
         td {
             border: 1px solid #cccccc;
             /* Borde de celda */
-            padding: 0px;
+            padding: 2px;
             text-align: left;
-            
         }
 
         th {
@@ -40,52 +35,34 @@
             /* Color alterno para filas */
         }
     </style>
-    <div class="control-bar">
-        <div class="container">
-            <div class="row">
-                <div class="col-1">
-                    <div class="slogan text-center">Hoja de Asistencia
-                    </div>
-                </div>
-            </div><!--.row-->
-        </div><!--.container-->
-    </div><!--.control-bar-->
-    <div class="col-1">
+ 
+    <div class="col-12 p-2">
         <header class="row">
-            <div class="logoholder text-center">
-                <img src="assets/images/logo.svg" alt="Isotipo Colegio Santa Bárbara" width="85px">
-            </div><!--.logoholder-->
+         
 
-            <div class="me">
-                <h3>
-                    <strong>I.E.P.</strong><br>
-                    SANTA BÁRBARA<br>
-                    RUC: 20401727001<br>
-                    Docente
-                </h3>
+            <div class="col-md-4">
+                <h6>
+                    
+                   
+                    Alumno: @forelse($items as $item)  {{$item->estudiante->nombre}}, {{$item->estudiante->apellidos}}  @empty @endforelse
+                </h6>
             </div><!--.me-->
             
 
-            <div class="info text-righ">
-                <h4>
-                    Web:<a href="">www.santabarbara.edu.pe</a><br>
-                    E-mail:<a href="mailto:info@santabarbara.edu.pe">info@santabarbara.edu.pe</a><br>
-                    Cel: 923 294 903 - 922 223 924
-                </h4>
-            </div><!-- .info -->
-             <div class="me">
+            
+             <div class="col-md-12">
                 <div style=" display: flex;;flex-direction: row;">
-                    <div style="width: 40px;">Temprano:</div>
+                    <div class="col-md-1">Temprano:</div>
                     <div style="background-color: green;width: 40px;color: green">ll</div>
                     
                 </div>
                   <div style=" display: flex;;flex-direction: row;">
-                    <div style="width: 40px;">Tarde:</div>
+                    <div class="col-md-1">Tarde:</div>
                     <div style="background-color: orange;width: 40px;color: orange">ll</div>
                     
                 </div>
                   <div style=" display: flex;;flex-direction: row;">
-                    <div style="width: 40px;">Faltó:</div>
+                    <div class="col-md-1">Faltó:</div>
                     <div style="background-color: red;width: 40px;color: red">ll</div>
                     
                 </div>
@@ -107,10 +84,10 @@
         @forelse($meses as $me)
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <h1 width="50%">Mes</h1>
+                <h6 width="50%">Mes</h6>
             </div>
             <div class="col-md-6">
-                <h1 width="50%">{{Carbon\Carbon::parse($me)->translatedFormat('F')}}</h1>
+                <h6 width="50%">{{Carbon\Carbon::parse($me)->translatedFormat('F')}}</h6>
             </div>
 
 
@@ -121,7 +98,7 @@
             <thead>
                 <tr>
                     <th>Nº</th>
-                    <th width="20%">Docente</th>
+                  
                     @forelse($dias as $di)
 
                     @if(Carbon\Carbon::parse($di)->Format('Y-m')==$me)
@@ -143,19 +120,12 @@
                             <?php echo $contadorgallo; ?>
                         </div>
                     </td>
-                    <td>
-                        <h6>{{$item->nombre}}, {{$item->apellidos}}</h6>
-                    </td>
-
-
-
-
-
+                   
                     @forelse($dias as $di)
                         @if(Carbon\Carbon::parse($di)->Format('Y-m')==$me)
                         <?php $contador = 1; ?>
 
-                            @forelse($item->asistenciadocentehoy->toArray() as $asis)
+                            @forelse($item->asistenciahoy->toArray() as $asis)
                                 @if(Carbon\Carbon::parse($di)->Format('Y-m-d')== Carbon\Carbon::parse($asis['fechaentrada'])->Format('Y-m-d'))
                                     @if($asis['estado']===1)
                                     <td style="background-color: green;">
@@ -229,19 +199,7 @@
         <h2>Nota:</h2>
     </div><!--.note-->
 
-    <footer class="row">
-        <div class="col-1 text-center">
-            <p class="notaxrelated">Gracias por su preferencia.</p>
-        </div>
+   
+@endsection
 
 
-        <div class="piedepagina">
-            <img src="assets/images/piedepáginapdf.webp" alt="Pie de Página" width="100%">
-        </div>
-    </footer>
-
-
-
-</body>
-
-</html>

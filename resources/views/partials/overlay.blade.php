@@ -101,10 +101,10 @@
                 <h5 class="mb-3 mt-4">Scheme Direction</h5>
                 <div class="d-grid gap-x-3 grid-cols-2 mb-4">
                     <div class="text-center">
-                        <img src="../assets/images/settings/dark/01.png" alt="ltr"
+                        <img src="../assets/images/settings/dark/01.webp" alt="ltr"
                             class="mode dark-img img-fluid btn-border p-0 flex-column active" data-setting="dir-mode"
                             data-name="dir" data-value="ltr">
-                        <img src="../assets/images/settings/light/01.png" alt="ltr"
+                        <img src="../assets/images/settings/light/01.webp" alt="ltr"
                             class="mode light-img img-fluid btn-border p-0 flex-column active" data-setting="dir-mode"
                             data-name="dir" data-value="ltr">
                         <span class=" mt-2"> LTR </span>

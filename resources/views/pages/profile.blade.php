@@ -17,7 +17,7 @@
 
                                         <img src="{{asset('imagenes/avatar/'.auth()->user()->foto)}}" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-100 avatar-rounded" >
                                         @else
-                                        <img src="{{ asset('assets/images/avatars/01.png') }}" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-100 avatar-rounded">
+                                        <img src="{{ asset('assets/images/avatars/01.webp') }}" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-100 avatar-rounded">
                 
                                         @endif
                                  

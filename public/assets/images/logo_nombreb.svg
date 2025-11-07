@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1025.79 194.75">
+  <defs>
+    <style>
+      .cls-1 {
+        letter-spacing: 0em;
+      }
+
+      .cls-2 {
+        letter-spacing: -.06em;
+      }
+
+      .cls-3 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-4 {
+        font-family: Montserrat-SemiBold, Montserrat;
+        font-size: 115px;
+        font-weight: 600;
+      }
+
+      .cls-4, .cls-5 {
+        fill: #fff;
+      }
+
+      .cls-6 {
+        letter-spacing: -.08em;
+      }
+
+      .cls-7 {
+        letter-spacing: 0em;
+      }
+
+      .cls-8 {
+        letter-spacing: 0em;
+      }
+
+      .cls-9 {
+        letter-spacing: -.06em;
+      }
+
+      .cls-10 {
+        letter-spacing: -.07em;
+      }
+
+      .cls-11 {
+        letter-spacing: 0em;
+      }
+
+      .cls-5 {
+        font-family: Montserrat-Regular, Montserrat;
+        font-size: 50px;
+      }
+
+      .cls-12 {
+        letter-spacing: -.03em;
+      }
+    </style>
+  </defs>
+  <g id="Solo_Nombre" data-name="Solo Nombre">
+    <text class="cls-4" transform="translate(0 160.25)"><tspan class="cls-8" x="0" y="0">S</tspan><tspan x="72.79" y="0">AN</tspan><tspan class="cls-10" x="250.7" y="0">T</tspan><tspan class="cls-11" x="311.42" y="0">A BÁRBARA</tspan></text>
+    <text class="cls-5" transform="translate(81.67 46.25)"><tspan class="cls-7" x="0" y="0">INSTITUCIÓN EDU</tspan><tspan class="cls-3" x="444.29" y="0">C</tspan><tspan class="cls-6" x="478.39" y="0">A</tspan><tspan class="cls-7" x="511.34" y="0">TI</tspan><tspan class="cls-9" x="554.39" y="0">V</tspan><tspan class="cls-1" x="585.94" y="0">A PRI</tspan><tspan class="cls-2" x="720.24" y="0">V</tspan><tspan class="cls-7" x="751.79" y="0">A</tspan><tspan class="cls-12" x="788.19" y="0">D</tspan><tspan class="cls-7" x="825.54" y="0">A</tspan></text>
+  </g>
+</svg>

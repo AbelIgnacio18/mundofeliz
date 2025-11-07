@@ -2,9 +2,8 @@
     <div class="container-fluid navbar-inner">
         {{-- *** Logo *** --}}
         <a href="{{ route('home') }}" class="navbar-brand">
-            <img src="{{ asset('assets/images/logob.png') }}" width="60px" alt="Isotipo Colegio Mundo Feliz">
-            <img class="logo-title" src="{{ asset('assets/images/logo_nombreb.png') }}" width="63px"
-                height="47px" alt="Texto Colegio Academia Unión Científica">
+            <img src="{{ asset('assets/images/logob.svg') }}" width="60px" alt="Isotipo Colegio Santa Bárbara">
+            <img class="logo-title mb-n3" src="{{ asset('assets/images/logo_nombreb.svg') }}" width="140px" alt="Texto Colegio Santa Bárbara">
         </a>
         <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
             <i class="icon">

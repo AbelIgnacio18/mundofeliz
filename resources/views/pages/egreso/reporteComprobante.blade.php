@@ -17,10 +17,10 @@
 	<!-- partial:index.partial.html -->
 	<div id="showScroll" class="container">
 		<div class="receipt">
-			<h1 class="logo"><img src="../public/pdf/assets/img/logo.png" style="max-width:100px"></h1>
-			<div class="address">UNIÓN CIENTÍFICA</div>
-			<div class="address" style="font-size:80%;">Cel: 983 686 131<br>942 751 919<br>
-				unioncientifica.com <br>10481893335</div>
+			<h1 class="logo"><img src="../public/pdf/assets/img/logo.svg" style="max-width:100px"></h1>
+			<div class="address">SANTA BÁRBARA</div>
+			<div class="address" style="font-size:80%;">Cel: 923 294 903<br>922 223 924<br>
+				santabarbara.edu.pe <br>20401727001</div>
 			<div class="centerItem bold">
 				<div class="item">BOLETA DE VENTA ELECTRÓNICA</div>
 			</div>
