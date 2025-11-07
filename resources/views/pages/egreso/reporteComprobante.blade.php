@@ -17,10 +17,10 @@
 	<!-- partial:index.partial.html -->
 	<div id="showScroll" class="container">
 		<div class="receipt">
-			<h1 class="logo"><img src="../public/pdf/assets/img/logo.svg" style="max-width:100px"></h1>
-			<div class="address">SANTA BÁRBARA</div>
-			<div class="address" style="font-size:80%;">Cel: 923 294 903<br>922 223 924<br>
-				santabarbara.edu.pe <br>20401727001</div>
+			<h1 class="logo"><img src="../public/pdf/assets/img/logo_pdf.webp" style="max-width:100px"></h1>
+			<div class="address">MUNDO FELIZ</div>
+			<div class="address" style="font-size:80%;">Cel: 961 141 838<br>922 916 052<br>
+				mundofeliz.edu.pe <br>10752090625</div>
 			<div class="centerItem bold">
 				<div class="item">BOLETA DE VENTA ELECTRÓNICA</div>
 			</div>

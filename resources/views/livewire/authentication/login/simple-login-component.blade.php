@@ -78,7 +78,7 @@
                                             <label class="form-check-label" for="customCheck1">Recordar
                                                 contraseña</label>
                                         </div>
-                                        <a href="recoverpw.html">Olvidaste tu contraseña?</a>
+                                        <!-- <a href="recoverpw.html">Olvidaste tu contraseña?</a> -->
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center">

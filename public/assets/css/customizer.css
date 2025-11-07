@@ -24,20 +24,20 @@ body {
 
 :root {
 /* Colores de Header ROJO - Principal */
---bs-heading-color: #092819;
---bs-primary: #145838;
---bs-primary-shade-80: #092819;
---bs-primary-shade-60: #0B3220;
---bs-primary-shade-40: #0E3E28;
---bs-primary-shade-20: #114B30;
---bs-primary-tint-90: #E8EEEB;
---bs-primary-tint-80: #C7D7CF;
---bs-primary-tint-60: #9AB7A9;
---bs-primary-tint-40: #6B9682;
---bs-primary-tint-20: #3E765C;
---bs-primary-rgb: 20, 88, 56;
+--bs-heading-color: #61131B;
+--bs-primary: #D72B3B;
+--bs-primary-shade-80: #61131B;
+--bs-primary-shade-60: #7B1922;
+--bs-primary-shade-40: #991F2A;
+--bs-primary-shade-20: #B72532;
+--bs-primary-tint-90: #FBEAEB;
+--bs-primary-tint-80: #F5CCD0;
+--bs-primary-tint-60: #EEA4AB;
+--bs-primary-tint-40: #E67984;
+--bs-primary-tint-20: #DE515E;
+--bs-primary-rgb: 215, 43, 59;
 
-/* Colores de Header ROJO - Secundario */
+/* Colores de Info verde ESMERALDA - Secundario */
 --bs-heading-color: #055A60;
 --bs-info: #0BC9D6;
 --bs-info-shade-80: #055A60;
@@ -51,19 +51,19 @@ body {
 --bs-info-tint-20: #37D3DD;
 --bs-info-rgb: 11, 201, 214;
 
-
---bs-heading-color: #66490E;
---bs-secondary: #E3A320;
---bs-secondary-shade-80: #66490E;
---bs-secondary-shade-60: #815D12;
---bs-secondary-shade-40: #A17417;
---bs-secondary-shade-20: #C18B1B;
---bs-secondary-tint-90: #FCF6E9;
---bs-secondary-tint-80: #F8E9C9;
---bs-secondary-tint-60: #F3D79F;
---bs-secondary-tint-40: #EDC573;
---bs-secondary-tint-20: #E8B448;
---bs-secondary-rgb: 227, 163, 32;
+/* Colores de Header AZUL - Secundario */
+--bs-heading-color: #082A5E;
+--bs-secondary: #115DD0;
+--bs-secondary-shade-80: #082A5E;
+--bs-secondary-shade-60: #0A3577;
+--bs-secondary-shade-40: #0C4294;
+--bs-secondary-shade-20: #0E4FB1;
+--bs-secondary-tint-90: #E7EFFA;
+--bs-secondary-tint-80: #C6D8F4;
+--bs-secondary-tint-60: #99B9EB;
+--bs-secondary-tint-40: #6999E1;
+--bs-secondary-tint-20: #3C7AD8;
+--bs-secondary-rgb: 17, 93, 208;
 
 
 --bs-dark-primary: #010B13;
