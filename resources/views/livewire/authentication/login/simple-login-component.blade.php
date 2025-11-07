@@ -32,7 +32,7 @@
                         <div class="card-body">
                             <a href="{{ route('home') }}" class="navbar-brand d-flex justify-content-center mb-3">
                                 <!--Logo start-->
-                                <img src="{{ asset('assets/images/alumko.png') }}" width="300px" alt="Logo Colegio Mundo Feliz">
+                                <img src="{{ asset('assets/images/alumko.webp') }}" width="300px" alt="Logo Colegio Santa Bárbara">
                                 <!--logo End-->
                                 {{-- <h5 class="logo-title ms-3">ALUMKO</h5> --}}
                             </a>

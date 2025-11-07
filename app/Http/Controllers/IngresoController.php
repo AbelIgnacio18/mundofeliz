@@ -11,6 +11,7 @@ use Illuminate\Http\Request;// importacion
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use carbon\Carbon;
+use App\Models\Anolectivo;
 
 class IngresoController extends Controller
 {
@@ -51,7 +52,7 @@ class IngresoController extends Controller
 
             $mytime=Carbon::now('America/Lima');
             $ingreso->fecha=$mytime->toDateTimeString(); 
-             $pago->idanolectivo = $anolect->id;
+            $ingreso->idanolectivo = $anolect->id;
             $ingreso->save();
 
             $idarticulo = $request->get('idarticulo');

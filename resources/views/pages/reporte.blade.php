@@ -15,7 +15,7 @@
 </head>
 
 <body>
-   <img src="assets/images/logo.png" alt="logo Unión Científica" height="60px">
+   <img src="assets/images/logo.svg" alt="Isotipo Colegio Santa Bárbara" height="60px">
    <h2 class="text-center">Lista de Deudores {{$fecha}}</h2>
    <div class="card-body p-0">
    <div class="table-responsive mt-4">

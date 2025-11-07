@@ -9,6 +9,7 @@ use App\Http\Requests\StoreAsistenciaRequest;
 use App\Http\Requests\UpdateAsistenciaRequest;
 use Illuminate\Http\Request; // importacion
 use Carbon\Carbon;
+use App\Models\Control;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class AsistenciaController extends Controller
@@ -19,7 +20,8 @@ class AsistenciaController extends Controller
     public function index(Request $request)
     {
         if ($request) {
-           
+
+        $control = Control::first();
         $fecha = trim($request->get('fecha'));
          if ($fecha == "") {
                 $fecha = date('Y-m-d');
@@ -27,7 +29,7 @@ class AsistenciaController extends Controller
         $items=Asistencia::with('docentes')->where('fechaentrada',$fecha)->get();
         $docente = Docente::all();
 
-    return view('pages.asistencia.index',compact('items','docente','fecha'));
+    return view('pages.asistencia.index',compact('items','docente','fecha','control'));
 
         }
         

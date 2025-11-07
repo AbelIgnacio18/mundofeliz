@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="iq-header-img">
-                    <img src="{{asset('assets/images/dashboard/top-header.png')}}" alt="header"
+                    <img src="{{asset('assets/images/dashboard/top-header.webp')}}" alt="header"
                         class="theme-color-default-img img-fluid w-100 h-100 animated-scaleX">
                 </div>
             </div> <!-- Nav Header Component End -->

@@ -31,7 +31,7 @@ class SimpleLoginComponent extends Component
 
 
         if (!app()->environment('production')) {
-            $this->email = "test_alumko@innovastaff.org";
+            $this->email = "test_athon@innovastaff.org";
             $this->password = "";
         }
     }

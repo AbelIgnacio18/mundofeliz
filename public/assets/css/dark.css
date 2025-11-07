@@ -1290,7 +1290,7 @@
 }
 
 .dark .login {
-  background-image: url(../images/auth/fondo-login.png) !important;
+  background-image: url(../images/auth/fondo-login.webp) !important;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

@@ -25,7 +25,7 @@
             <div class="col-md-6">
             <p class="col-md-12">Imagen(ARCHIVO):</p>
                 @if(($est->archivo) !="")
-                <img class="bg-soft-primary rounded img-fluid avatar-40 me-3" src="{{asset('imagenes/pagos/'.$est->archivo)}}" alt="{{$est->id}}" class="img-thumbnail" style="width: 30vh;height: 35vh">
+                <img class="bg-soft-primary rounded img-fluid avatar-40 me-3" src="{{ asset('storage/pagos/' . $est->archivo) }}" alt="{{$est->id}}" class="img-thumbnail" style="width: 30vh;height: 35vh">
 
                 @else
             <p>Ninguno</p>
