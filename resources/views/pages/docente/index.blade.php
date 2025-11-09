@@ -100,7 +100,7 @@
                      </div>
 
                      <div class="form-group">
-                        <label for="idaula" class="form-label">Cargo Nivel Hora Entrada:</label>
+                        <label for="idaula" class="form-label">Cargo/Nivel/Hora de Entrada:</label>
                         <select name="idcargo" class="form-control" required >
                            <option value="" disabled >Seleccionar</option>
                            @forelse($contrato as $au)
@@ -112,8 +112,8 @@
                      </div>
 
                      <div class="form-group">
-                        <label for="Codigo" class="form-label">Codigo:</label>
-                        <input type="text" class="form-control" id="Codigo" aria-describedby="Codigo" placeholder="DXRTYUSF" name="codigo" value="{{old('Codigo')}}">
+                        <label for="Codigo" class="form-label">Codigo Alumko: <span class="badge bg-secondary">InnovaStaff</span></label>
+                        <input type="text" class="form-control" id="Codigo" aria-describedby="Codigo" placeholder="ATHON678" name="codigo" value="{{old('Codigo')}}">
                      </div>
 
 

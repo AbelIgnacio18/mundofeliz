@@ -57,7 +57,7 @@
                      <div class="raw d-flex">
                         <div class="form-group col-md-4 p-1">
                            <label for="nombre" class="form-label">Nombre:</label>
-                           <input type="text" class="form-control" id="nombre" aria-describedby="nombre" placeholder="Antonio" name="nombre" value="{{old('nombre')}}">
+                           <input type="text" class="form-control" id="nombre" aria-describedby="nombre" placeholder="Carlos Antonio" name="nombre" value="{{old('nombre')}}">
                         </div>
 
                         <div class="form-group col-md-4 p-1">
@@ -80,7 +80,7 @@
                            <input type="text" class="form-control" id="dni" aria-describedby="dni" placeholder="87654321" name="dni" value="{{old('dni')}}">
                         </div>
                         <div class="form-group col-md-6 p-1">
-                           <label for="Codigo" class="form-label">Código:</label>
+                           <label for="Codigo" class="form-label">Código Alumko: <span class="badge bg-secondary">InnovaStaff</span></label>
                            <input type="text" class="form-control" id="Codigo" aria-describedby="Codigo" placeholder="DXRTYUSF" name="codigo" value="{{old('Codigo')}}">
                         </div>
 
@@ -107,9 +107,6 @@
                         <label for="apellidom" class="form-label">Dirección:</label>
                         <input type="text" class="form-control" id="apellidom" aria-describedby="apellidom" placeholder="Jr. Tacna N°358" name="direccion" value="{{old('direccion')}}">
                      </div>
-
-
-
 
                      <div class="form-group">
                         <label for="apellidom" class="form-label">Observaciones:</label>

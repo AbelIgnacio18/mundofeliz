@@ -51,7 +51,7 @@
 
                      <div class="form-group">
                         <label for="gradoS" class="form-label">Grado:</label>
-                        <input type="text" class="form-control" id="gradoS" aria-describedby="gradoS" placeholder="4to" name="grado">
+                        <input type="text" class="form-control" id="gradoS" aria-describedby="gradoS" placeholder="6to grado" name="grado">
                      </div>
 
                      <div class="form-group">

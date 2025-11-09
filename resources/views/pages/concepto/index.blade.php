@@ -45,7 +45,7 @@
                      @csrf
 
                      <div class="form-group">
-                        <label for="codigoS" class="form-label">Código:</label>
+                        <label for="codigoS" class="form-label">Código del Concepto:</label>
                         <input type="text" class="form-control" id="codigoS" aria-describedby="codigoS" placeholder="P001" name="codigo">
                      </div>
 
@@ -56,7 +56,7 @@
                      <div class="form-group">
                         <label for="monto" class="form-label">Monto:</label>
                         <div class="input-group col-md-12">
-                           <span class="input-group-text" id="basic-addon2">S/.</span>
+                           <span class="input-group-text" id="basic-addon2"><b>S/.</b></span>
                            <input type="number" class="form-control" id="monto" step="0.01" aria-describedby="monto" placeholder="350" name="monto">
                         </div>
                      </div>

@@ -58,25 +58,34 @@
 
                      </div>
                      <div class="form-group">
-                        <label for="nombre" class="form-label">Talla:</label>
-                        <input type="text" class="form-control" id="nombre" aria-describedby="nombre" placeholder="16" name="nombre" value="{{old('nombre')}}">
+                        <label for="nombre" class="form-label">Talla o Nombre:</label>
+                        <input type="text" class="form-control" id="nombre" aria-describedby="nombre" placeholder="16 / Matemática" name="nombre" value="{{old('nombre')}}">
                      </div>
 
                      <div class="form-group">
                         <label for="stock" class="form-label">Cantidad:</label>
-                        <input type="numeric" class="form-control" id="stock" aria-describedby="stock" placeholder="100" name="stock" value="{{old('nombre')}}">
+                        <div class="input-group col-md-12">
+                           <input type="numeric" class="form-control" id="stock" aria-describedby="stock" placeholder="100" name="stock" value="{{old('nombre')}}">
+                           <span class="input-group-text" id="basic-addon2"><b>Unidades</b></span>
+                        </div>
                      </div>
+
 
                      <div class="form-group">
                         <label for="precioc" class="form-label">Precio Compra:</label>
+                        <div class="input-group col-md-12">
+                           <span class="input-group-text" id="basic-addon2"><b>S/.</b></span>
                         <input type="numeric" class="form-control" id="precioc" aria-describedby="precioc" placeholder="50" name="preciocosto" value="{{old('preciocosto')}}">
+                        </div>
                      </div>
 
                      <div class="form-group">
                         <label for="preciov" class="form-label">Precio Venta:</label>
+                        <div class="input-group col-md-12">
+                           <span class="input-group-text" id="basic-addon2"><b>S/.</b></span>
                         <input type="numeric" class="form-control" id="preciov" aria-describedby="preciov" placeholder="80" name="precioventa" value="{{old('precioventa')}}">
+                        </div>
                      </div>
-
 
                      <div class="text-start mt-2">
                         <button class="btn btn-secondary" type="submit">Guardar</button>
