@@ -80,7 +80,7 @@ class AsistenciaestController extends Controller
      */
     public function show($id)
     {
-         $anolect = Anolectivo::where('estado', 1)->first();
+        $anolect = Anolectivo::where('estado', 1)->first();
 
         $fechaInicio = Carbon::parse($anolect->inicio);
         $fechaFin = Carbon::parse(date("Y-m-d"));
@@ -99,14 +99,13 @@ class AsistenciaestController extends Controller
         }
         //dd($meses);
 
-      
-             $items = Matricula::where('idestudiante',$id )->where('idanolectivo', $anolect->id)->with('asistenciahoy')->with('estudiantes')
+            $items = Matricula::where('idestudiante',$id )->where('idanolectivo', $anolect->id)->with('asistenciahoy')->with('estudiantes')
             ->get();
         //dd($items);
 
-       
-         return view('pages.asistenciaest.show',compact('items', 'dias', 'meses'));
-       
+
+        return view('pages.asistenciaest.show',compact('items', 'dias', 'meses'));
+
     }
 
 
@@ -176,10 +175,6 @@ class AsistenciaestController extends Controller
                 ->paginate(50);
 
 
-
-
-
-
             return view('pages.asistenciaest.asistenciaest', compact('items', 'aula', 'control', 'fecha', 'query', 'turno'));
         }
     }
@@ -213,9 +208,6 @@ class AsistenciaestController extends Controller
                     $asistencia->save();
                 };
             }
-
-
-
 
 
             return back()->with('message', 'Actualización Exítosa');
@@ -254,7 +246,6 @@ class AsistenciaestController extends Controller
         }
     }
 
-
     public function reporteasistencia(Request $request)
     {
         $request->validate([
@@ -292,7 +283,7 @@ class AsistenciaestController extends Controller
         //dd($items);
 
         $pdf = Pdf::loadView('pages.asistenciaest.invocepdf', compact('items', 'dias', 'meses', 'nombreaula'));
-        //$pdf->setPaper('A4', 'landscape');
+        $pdf->setPaper('A4', 'landscape'); //Formato de hoha A4 en horizontal
         return $pdf->stream('lista_asistencia.pdf');
     }
 }

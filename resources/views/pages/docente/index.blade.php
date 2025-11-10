@@ -76,7 +76,7 @@
 
                      <div class="form-group">
                         <label for="nombre" class="form-label">Nombre:</label>
-                        <input type="text" class="form-control" id="nombre" aria-describedby="nombre" placeholder="Matías" name="nombre" value="{{old('nombre')}}">
+                        <input type="text" class="form-control" id="nombre" aria-describedby="nombre" placeholder="Carlos Antonio" name="nombre" value="{{old('nombre')}}">
                      </div>
 
                      <div class="form-group">

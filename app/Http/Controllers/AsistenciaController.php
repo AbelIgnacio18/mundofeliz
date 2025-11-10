@@ -23,7 +23,7 @@ class AsistenciaController extends Controller
 
         $control = Control::first();
         $fecha = trim($request->get('fecha'));
-         if ($fecha == "") {
+        if ($fecha == "") {
                 $fecha = date('Y-m-d');
             }
         $items=Asistencia::with('docentes')->where('fechaentrada',$fecha)->get();
@@ -40,7 +40,7 @@ class AsistenciaController extends Controller
      */
     public function show($id)
     {
-         $anolect = Anolectivo::where('estado', 1)->first();
+        $anolect = Anolectivo::where('estado', 1)->first();
 
         $fechaInicio = Carbon::parse($anolect->inicio);
         $fechaFin = Carbon::parse(date("Y-m-d"));
@@ -61,14 +61,14 @@ class AsistenciaController extends Controller
 
 
         $anolect = Anolectivo::where('estado', 1)->first();
-      
+
         $items = Docente::where('id',$id)->with('asistenciadocentehoy')
             ->get();
         //dd($items);
 
-       
-         return view('pages.asistencia.show',compact('items', 'dias', 'meses'));
-       
+
+        return view('pages.asistencia.show',compact('items', 'dias', 'meses'));
+
     }
 
     /**
@@ -76,17 +76,15 @@ class AsistenciaController extends Controller
      */
     public function store(StoreAsistenciaRequest $request)
     {
-       
-
 
         $iddocente = $request->get('docente');
         $entrada = $request->get('fecha-entrada');
 
-    
+
         $anolect = Anolectivo::where('estado', 1)->first();
 
 
-          $cont = 0;
+        $cont = 0;
         while ($cont < count($iddocente)) {
             $asistencia = new Asistencia();
             $asistencia->idanolectivo = $anolect->id;
@@ -109,12 +107,12 @@ class AsistenciaController extends Controller
     /**
      * Display the specified resource.
      */
-  
+
 
     /**
      * Update the specified resource in storage.
      */
-  
+
 
     /**
      * Remove the specified resource from storage.
@@ -126,9 +124,9 @@ class AsistenciaController extends Controller
         return back()->with('message', 'Archivo Eliminado ');
     }
 
-     public function reporteasistencia(Request $request)
+    public function reporteasistencia(Request $request)
     {
-       
+
         $anolect = Anolectivo::where('estado', 1)->first();
 
         $fechaInicio = Carbon::parse($anolect->inicio);
@@ -148,15 +146,14 @@ class AsistenciaController extends Controller
         }
         //dd($meses);
 
-
         $anolect = Anolectivo::where('estado', 1)->first();
-      
+
         $items = Docente::where('estado',1)->with('asistenciadocentehoy')
             ->get();
         //dd($items);
 
         $pdf = Pdf::loadView('pages.asistencia.invocepdf', compact('items', 'dias', 'meses'));
-        $pdf->setPaper('A4', 'landscape');
+        $pdf->setPaper('A4', 'landscape'); //Formato de hoha A4 en horizontal
         return $pdf->stream('lista_asistencia_docentes.pdf');
     }
 
@@ -183,9 +180,6 @@ class AsistenciaController extends Controller
                     $asistencia->save();
                 };
             }
-
-
-
 
 
             return back()->with('message', 'Actualización Exítosa');
