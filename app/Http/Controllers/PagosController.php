@@ -97,7 +97,7 @@ class PagosController extends Controller
             $pago->fecha = $mytime->toDateTimeString();
             if(empty($ultimoRegistro)==true){
 
-            $pago->numcomprobante = 8100;
+            $pago->numcomprobante = 1;
             }else{
                 $pago->numcomprobante = $ultimoRegistro->numcomprobante +1;
             }
