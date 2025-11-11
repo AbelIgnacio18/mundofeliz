@@ -23,11 +23,10 @@ class StoreConceptoRequest extends FormRequest
     {
    
             return [
-                'codigo'=>'unique:conceptos|required',
+                'codigo'=>'required',
                 'concepto'=>'string|required',
                 'monto'=>'required'
-               
+            
             ];
-       
     }
 }
