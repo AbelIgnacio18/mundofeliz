@@ -61,48 +61,34 @@
                     <strong>I.E.P.</strong><br>
                     MUNDO FELIZ<br>
                     RUC: 10752090625<br>
-                    Docente
+                    Lista de Docentes
                 </h3>
             </div><!--.me-->
             
 
             <div class="info text-righ">
-                <h4>
-                    Web:<a href="">www.mundofeliz.edu.pe</a><br>
-                    E-mail:<a href="mailto:info@mundofeliz.edu.pe">info@mundofeliz.edu.pe</a><br>
-                    Cel: 961 141 838 - 922 916 052
-                </h4>
-            </div><!-- .info -->
-             <div class="me">
                 <div style=" display: flex;;flex-direction: row;">
                     <div style="width: 40px;">Temprano:</div>
                     <div style="background-color: green;width: 40px;color: green">ll</div>
                     
                 </div>
-                  <div style=" display: flex;;flex-direction: row;">
+                <div style=" display: flex;;flex-direction: row;">
                     <div style="width: 40px;">Tarde:</div>
                     <div style="background-color: orange;width: 40px;color: orange">ll</div>
                     
                 </div>
-                  <div style=" display: flex;;flex-direction: row;">
+                <div style=" display: flex;;flex-direction: row;">
                     <div style="width: 40px;">Faltó:</div>
                     <div style="background-color: red;width: 40px;color: red">ll</div>
                     
                 </div>
-            </div><!--.me-->
-           
+            </div><!-- .info -->
 
         </header>
     </div>
 
 
-
-   
-
-
-
     <div class="container">
-
 
         @forelse($meses as $me)
         <div class="row justify-content-center">
@@ -112,7 +98,6 @@
             <div class="col-md-6">
                 <h1 width="50%">{{Carbon\Carbon::parse($me)->translatedFormat('F')}}</h1>
             </div>
-
 
         </div>
 
@@ -148,9 +133,6 @@
                     </td>
 
 
-
-
-
                     @forelse($dias as $di)
                         @if(Carbon\Carbon::parse($di)->Format('Y-m')==$me)
                         <?php $contador = 1; ?>
@@ -175,7 +157,7 @@
                                     </td>
 
                                     @endif
-                               
+                            
                                 <?php $contador = 0; ?>
                                 @endif
 
@@ -197,7 +179,6 @@
                     </td>
 
 
-
                 </tr>
 
                 <?php $contadorgallo++; ?>
@@ -212,35 +193,6 @@
         </div>
         @empty
         @endforelse
-
-
-
-
-
-
-    </div><!--.invoice-body-->
-    <div class="invoicelist-body">
-
-    </div>
-
-
-
-    <div class="note" contenteditable>
-        <h2>Nota:</h2>
-    </div><!--.note-->
-
-    <footer class="row">
-        <div class="col-1 text-center">
-            <p class="notaxrelated">Gracias por su preferencia.</p>
-        </div>
-
-
-        <div class="piedepagina">
-            <img src="assets/images/piedepáginapdf.webp" alt="Pie de Página" width="100%">
-        </div>
-    </footer>
-
-
 
 </body>
 

@@ -48,7 +48,7 @@
 
                      <div class="form-group">
                         <label for="conceptoS" class="form-label">Nombre de Categoría:</label>
-                        <input type="text" class="form-control" id="nombre" aria-describedby="nombre" placeholder="Articulo" name="nombre">
+                        <input type="text" class="form-control" id="nombre" aria-describedby="nombre" placeholder="Uniforme / Libro" name="nombre">
                      </div>
                
 

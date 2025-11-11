@@ -19,8 +19,8 @@
    </div>
    <div class="header-title">
       <h4 class="card-title mb-0">Lista de Asistencia Docente</h4>
-       <h4 class="card-title mb-3"><span class="badge bg-dark">{{Carbon\Carbon::parse(date('Y-m-d'))->translatedFormat('l, j F Y')}}</span></h4>
-       @if($control->estado==1)
+      <h4 class="card-title mb-3"><span class="badge bg-dark">{{Carbon\Carbon::parse(date('Y-m-d'))->translatedFormat('l, j F Y')}}</span></h4>
+      @if($control->estado==1)
       <a href="#" class=" text-center btn btn-success btn-icon mt-lg-0 mt-md-0 mt-3" data-bs-toggle="modal" data-bs-target="#entrada-1">
          <span>Marcar Entrada</span>
       </a>
@@ -42,7 +42,7 @@
          </i>
          <span>Registrar</span>
       </a>
-        <a href="#" class=" text-center btn btn-info btn-icon mt-lg-0 mt-md-0 mt-3" data-bs-toggle="modal" data-bs-target="#registrarfalta-1">
+      <a href="#" class=" text-center btn btn-info btn-icon mt-lg-0 mt-md-0 mt-3" data-bs-toggle="modal" data-bs-target="#registrarfalta-1">
          <i class="btn-inner">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
@@ -56,10 +56,9 @@
          </svg>
       </a>
 
-
 @include('pages.asistencia.create')
 @include('pages.asistencia.registrarfalta')
- @include('pages.asistenciaest.cambiarentrada')
+@include('pages.asistenciaest.cambiarentrada')
 
 
    </div>
@@ -111,7 +110,7 @@
                <th>Nombres</th>
                <th>Entrada</th>
                <th>Salida</th>
-<th>Estado</th>
+               <th>Estado</th>
                <th>Acciones</th>
             </tr>
          </thead>
@@ -137,27 +136,27 @@
                   @endif
                   <h6></h6>
                   @if($item->created_at==$item->updated_at)
-                 
+               
                   @else
-                    <h6>
+                  <h6>
                      {{Carbon\Carbon::parse($item->updated_at)->translatedFormat('l, j F  h:i A')}}
                   </h6>
 
                   @endif
                </td>
-                <td>
+               <td>
                   <h6>
                      @if($item->estado===0)
-                      <span class="badge bg-warning" style="font-size: 1em;">Tarde</span> 
+                     <span class="badge bg-warning" style="font-size: 1em;">Tarde</span> 
                      @endif
 
                      @if($item->estado===1)
-                      <span class="badge bg-success" style="font-size: 1em;">Asistió</span> 
+                     <span class="badge bg-success" style="font-size: 1em;">Asistió</span> 
                      @endif
                   
 
                      @if($item->estado===null)
-                      <span class="badge bg-danger" style="font-size: 1em;">Faltó</span> 
+                     <span class="badge bg-danger" style="font-size: 1em;">Faltó</span> 
                      @endif
                   </h6>               
                </td>
@@ -175,7 +174,7 @@
                            </svg>
                         </span>
                      </a>
- <a class="btn btn-sm btn-icon text-success" data-bs-original-title="Ver" href="{{route('app.asistencia.show',$item->docentes->id)}}">
+                     <a class="btn btn-sm btn-icon text-success" data-bs-original-title="Ver" href="{{route('app.asistencia.show',$item->docentes->id)}}">
                         <span class="btn-inner">
                            <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path fill-rule="evenodd" clip-rule="evenodd" d="M15.1614 12.0531C15.1614 13.7991 13.7454 15.2141 11.9994 15.2141C10.2534 15.2141 8.83838 13.7991 8.83838 12.0531C8.83838 10.3061 10.2534 8.89111 11.9994 8.89111C13.7454 8.89111 15.1614 10.3061 15.1614 12.0531Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -188,7 +187,7 @@
                </td>
             </tr>
             @include('pages.asistencia.modal')
- 
+
 
             @empty
 

@@ -35,46 +35,42 @@
             /* Color alterno para filas */
         }
     </style>
- 
+
     <div class="col-12 py-2">
         <header class="row">
-         
+        
 
             <div class="col-md-4">
                 <h6>
                     
-                   
+                
                     Docente: @forelse($items as $item)  {{$item->nombre}}, {{$item->apellidos}}  @empty @endforelse
                 </h6>
             </div><!--.me-->
             
 
             
-             <div class="col-md-12">
+            <div class="col-md-12">
                 <div style=" display: flex;;flex-direction: row;">
                     <div class="col-md-1">Temprano:</div>
                     <div style="background-color: green;width: 40px;color: green">ll</div>
                     
                 </div>
-                  <div style=" display: flex;;flex-direction: row;">
+                <div style=" display: flex;;flex-direction: row;">
                     <div class="col-md-1">Tarde:</div>
                     <div style="background-color: orange;width: 40px;color: orange">ll</div>
                     
                 </div>
-                  <div style=" display: flex;;flex-direction: row;">
+                <div style=" display: flex;;flex-direction: row;">
                     <div class="col-md-1">Faltó:</div>
                     <div style="background-color: red;width: 40px;color: red">ll</div>
                     
                 </div>
             </div><!--.me-->
-           
+        
 
         </header>
     </div>
-
-
-
-   
 
 
 
@@ -98,7 +94,7 @@
             <thead>
                 <tr>
                     <th>Nº</th>
-                  
+
                     @forelse($dias as $di)
 
                     @if(Carbon\Carbon::parse($di)->Format('Y-m')==$me)
@@ -120,7 +116,7 @@
                             <?php echo $contadorgallo; ?>
                         </div>
                     </td>
-                   
+
                     @forelse($dias as $di)
                         @if(Carbon\Carbon::parse($di)->Format('Y-m')==$me)
                         <?php $contador = 1; ?>
@@ -145,7 +141,7 @@
                                     </td>
 
                                     @endif
-                               
+
                                 <?php $contador = 0; ?>
                                 @endif
 
@@ -167,7 +163,6 @@
                     </td>
 
 
-
                 </tr>
 
                 <?php $contadorgallo++; ?>
@@ -185,9 +180,6 @@
 
 
 
-
-
-
     </div><!--.invoice-body-->
     <div class="invoicelist-body">
 
@@ -199,7 +191,7 @@
         <h2>Nota:</h2>
     </div><!--.note-->
 
-   
+
 @endsection
 
 
