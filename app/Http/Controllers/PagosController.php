@@ -157,7 +157,8 @@ class PagosController extends Controller
                         $detalle->idconcepto = $idconcepto[$cont];
                         $detalle->cantidad = $cantidad[$cont];
 
-                        if ($idconcepto[$cont] == 1) {
+                        $concep = Concepto::where('id', $idconcepto[$cont])->first();
+                        if ($concep->codigo=='P001') {
                             $id = $idmatriula->id;
                             $numeropension = $cantidad[$cont];
 
