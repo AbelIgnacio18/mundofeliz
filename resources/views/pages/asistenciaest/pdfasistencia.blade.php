@@ -16,21 +16,12 @@
                      <span>Escoger Aula:</span>
                      <div>
                         @forelse($turno as $tu)
-<<<<<<< HEAD
                          <div class="form-check">
                              <input class="form-check-input" type="radio" name="turno" id="grado" value="{{$tu->id}}" style="cursor:pointer">
                              <label class="form-check-label" for="estado">
                                {{$tu->nivel}}   {{$tu->grado}}   {{$tu->seccion}}
                              </label>
                           </div>
-=======
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" name="turno" id="grado" value="{{$tu->id}}" style="cursor:pointer">
-                           <label class="form-check-label" for="estado">
-                              {{$tu->nivel}}
-                           </label>
-                        </div>
->>>>>>> 274f2ee0633d7462737f14016e0148d23d4c160c
                         @empty
                         @endforelse
 

@@ -21,7 +21,7 @@ class Estudiante extends Model
     }
      public function concepto()
     {
-        return $this->hasOne(Concepto::class, 'idconcepto');
+        return $this->hasOne(Concepto::class, 'id');
     }
 
     
