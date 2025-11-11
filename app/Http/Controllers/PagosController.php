@@ -41,7 +41,7 @@ class PagosController extends Controller
             $articulo = Articulo::with('categoria')->get();
            // dd($articulo);
 
-            $estudiante = Estudiante::all();
+            $estudiante = Estudiante::with('concepto')->get();
             $concepto = Concepto::all();
 
 
