@@ -15,10 +15,9 @@
                   <select name="idestudiante" class="form-control" required onchange="mesespagado()" id="ex-search">
                      <option value="">Seleccionar</option>
                      @forelse($estudiante as $estud)
-                     <option value="{{$estud->id}}/{{$estud->id}}"> {{$estud->nombre}} {{$estud->apellidos}} - {{$estud->dni}} 
-                        @if(empty($estud->concepto->nombre)) $estud->concepto->nombre @endif 
-                        @if(empty($estud->concepto->monto)) $estud->concepto->monto @endif
-                      
+                     <option value="{{$estud->estudiantes->id}}/{{$estud->estudiantes->id}}"> {{$estud->estudiantes->nombre}} {{$estud->estudiantes->apellidos}} - {{$estud->estudiantes->dni}} 
+                        {{$estud->concepto->concepto}}
+                        {{$estud->concepto->monto }}                   
 
                      </option>
 
