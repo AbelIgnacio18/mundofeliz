@@ -102,7 +102,7 @@
                </td>
                <td>
                   <div class="d-flex align-items-center">
-                     <h6>{{$matri->estudiante->apellidos}}, {{$matri->estudiante->nombre}}</h6>
+                     <h6>{{$matri->estudiante->apellidos}}, {{$matri->estudiante->nombre}}    @if($matri->estado==1) <span class="badge bg-danger"> trasladado</span> @endif </h6>
                   </div>
                </td>
 

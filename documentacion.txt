@@ -29,3 +29,8 @@ Módulo BD:
 Poner notas temporales com el sistema de certificados
 Lista de matriculados por Aula
 Asociar Tipo de Concepto a la Matricula del Estudiante = Abel paga por Pension de Hermanos
+
+instalacion de selet2 https://jeesite.com/front/jquery-select2/4.0/index.htm
+
+
+en la vista de comprobante falta: quitar estudiantes trasladados.

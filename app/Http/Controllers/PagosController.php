@@ -69,51 +69,42 @@ class PagosController extends Controller
     ]);
         try {
             DB::beginTransaction();
-            $pago = new Pagos;
+           
             $mytime = Carbon::now('America/Lima');
             $anolect = Anolectivo::where('estado', 1)->first();
-            $ultimoRegistro = Pagos::orderBy('id','desc')->first();
+          
             
            
             $separarid=$request->get('idestudiante');
-            $idestudiante = explode('/', $separarid);
-            $pago->idestudiante =$idestudiante[0];
-            
-            $pago->montototal = $request->get('montototal');
+            //dd($separarid);
+            $contadorestu = 0;
+            while ($contadorestu < count($separarid)) {
+                $idestudiante = explode('/', $separarid[$contadorestu]);
+                 $pago = new Pagos;
+                $ultimoRegistro = Pagos::orderBy('id','desc')->first();
+                $pago->idestudiante = $idestudiante[0];
+                 $pago->montototal = $request->get('montototal');
             $pago->descripcion = $request->get('montototal');
-
-
-             if ($request->file('imagen')) {
-            $file = $request->file('imagen');
-          $name = time() . '.jpg'; // fuerza extensión jpg
-            $extension = $file->getClientOriginalExtension();
-
-            $path = Storage::putFileAs('pagos', $request->file('imagen'), $name);
-            
-            $pago->archivo = $name;
-        }
-
-
+            if ($request->file('imagen')) {
+                $file = $request->file('imagen');
+                $name = time() . '.jpg'; // fuerza extensión jpg
+                $extension = $file->getClientOriginalExtension();
+                $path = Storage::putFileAs('pagos', $request->file('imagen'), $name);
+                $pago->archivo = $name;
+            }
             $pago->fecha = $mytime->toDateTimeString();
             if(empty($ultimoRegistro)==true){
-
             $pago->numcomprobante = 1;
             }else{
                 $pago->numcomprobante = $ultimoRegistro->numcomprobante +1;
-            }
-            
-             $pago->idanolectivo = $anolect->id;
+            }            
+            $pago->idanolectivo = $anolect->id;
             $pago->save();
-
-
-
-
             //articulos
             $idarticulo = $request->get('idarticulo');
             $cantidadar = $request->get('cantidadar');
             $montoar = $request->get('montoar');
-
-            if (is_string($idarticulo) == false) {
+              if (is_string($idarticulo) == false) {
                 if ($idarticulo != null) {
                     $contador = 0;
                     while ($contador < count($idarticulo)) {
@@ -139,15 +130,14 @@ class PagosController extends Controller
                 }
             }
 
-
             //pensiones-----------------
             $idconcepto = $request->get('idconcepto');
             $cantidad = $request->get('cantidad');
             $monto = $request->get('monto');
             $descripcion = $request->get('idconcepto');
             $idmatriula=Matricula::where('idestudiante',$idestudiante[0])->first();
-            // dd(is_string($idconcepto));
-            if (is_string($idconcepto) == false) {
+
+             if (is_string($idconcepto) == false) {
                 if ($idconcepto != null) {
                     $cont = 0;
                     while ($cont < count($idconcepto)) {
@@ -164,17 +154,23 @@ class PagosController extends Controller
 
                             $numeromesespagados = Mese::where('idmatricula', $id)->count();
                             //  dd($numeropension,$numeromesespagados);
+                                if(($numeropension+ $numeromesespagados)<=10){
+                                $meses = ['MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SET', 'OCT', 'NOV', 'DIC'];
+                                                            for ($i = 0; $i <  $numeropension; $i++) {
+                                                                $mess = new Mese();
+                                                                $mess->idmatricula = $id;
 
-                            $meses = ['MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SET', 'OCT', 'NOV', 'DIC'];
-                            for ($i = 0; $i <  $numeropension; $i++) {
+                                                                $mess->mes = $meses[$numeromesespagados];
+
+                                                                $mess->save();
+                                                                $numeromesespagados++;
+                                                            }
+                                }else{
                                 $mess = new Mese();
-                                $mess->idmatricula = $id;
-
-                                $mess->mes = $meses[$numeromesespagados];
-
+                                $mess->prueba = $meses[$numeromesespagados];
                                 $mess->save();
-                                $numeromesespagados++;
-                            }
+                                }
+                          
                         }
 
                         $detalle->monto = $monto[$cont] * $cantidad[$cont];
@@ -185,16 +181,17 @@ class PagosController extends Controller
                 }
             }
 
+            $contadorestu++;
+
+            }
+
+         
 
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
         }
         //estudiante------------------------
-
-
-
-
 
         return back()->with('message', 'Registro Exítoso');
     }

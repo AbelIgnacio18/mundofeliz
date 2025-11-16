@@ -42,7 +42,7 @@
                             </div>
                             <div>
                                 <h3 class="counter">{{ count($estudiante) }}</h3>
-                                <p class="mb-0">Total de Estudiantes</p>
+                                <p class="mb-0">Total de Matriculados</p>
                             </div>
                         </div>
                     </div>

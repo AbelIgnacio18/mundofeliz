@@ -29,7 +29,7 @@ class MatriculaController extends Controller
     $estudiantesDisponibles = Estudiante::whereNotIn('id', $estudiantesMatriculados)->get();
          // Obtener los que NO están en esa lista
     $estudiante = Estudiante::whereNotIn('id', $estudiantesMatriculados)->get();
-
+$estudiante2 = Estudiante::whereNotIn('id', $estudiantesMatriculados)->get();
     
         // dd($estudiante);
         $anolect = Anolectivo::where('estado', 1)->first();
@@ -123,6 +123,7 @@ class MatriculaController extends Controller
    
         $matricula->idaula=$request->get('aula_id');  
         $matricula->idconcepto=$request->get('concepto');  
+         $matricula->estado=$request->get('estado'); 
         $matricula->update();
        
         return back()->with('message', 'Actualización Exítosa');
@@ -162,5 +163,13 @@ class MatriculaController extends Controller
         $pdf = Pdf::loadView('pages.matricula.invocepdf', compact('matricula', 'anolect'));
         //$pdf->setPaper('A4', 'landscape');
         return $pdf->stream('lista_matriculado_'.' $anolect'.'.pdf');
+    }
+    public function admisiontraslado(Request $request){
+
+       
+
+
+
+
     }
 }

@@ -29,10 +29,16 @@
             </tr>
          </thead>
          <tbody>
+            <?php $contadormatri = 1; ?>
             @forelse($matricula as $matri)
             <tr>
                <td>
-                  <h6>{{$matri->id}}</h6>
+                   <div class="d-flex align-items-center">
+
+                     <?php echo $contadormatri; ?>
+
+
+                  </div>
                </td>
                <td>
                   <div class="d-flex align-items-center">
@@ -103,7 +109,7 @@
 
 
 
-
+<?php $contadormatri++; ?>
             @empty
 
             @endforelse

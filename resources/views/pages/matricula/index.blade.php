@@ -33,6 +33,7 @@
          <span>Nueva Matrícula</span>
       </a>
 
+
       
       <a class="btn btn-danger btn-round ml-auto" type="button" href="" data-bs-toggle="modal" data-bs-target="#reporteasistencia">
          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-filetype-pdf" viewBox="0 0 16 16">
@@ -55,10 +56,10 @@
                         <label for="modulo" class="form-label">Estudiante:</label>
                         <div class="input-group ">
                     
-                           <select name="estudiante_id[]"  class="form-control"  required  id="ex-search" multiple>
-                              <option value="">Seleccionar</option>
+                           <select name="estudiante_id[]"  class="form-control select2"  required  id="ex-estudiante" multiple data-placeholder="Seleccionar...">
+                             
                               @forelse($estudiante as $est)
-                              <option value="{{$est->id}}"> {{$est->apellidos}} {{$est->nombre}} </option>
+                              <option value="{{$est->id}}"> {{$est->apellidos}} {{$est->nombre}}- {{$est->dni}} </option>
                               @empty
                               @endforelse
 
@@ -145,7 +146,9 @@
                </td>
                <td>
                   <div class="d-flex align-items-center">
-                     <h6>{{$matri->estudiante->apellidos}}, {{$matri->estudiante->nombre}}</h6>
+                     <h6>{{$matri->estudiante->apellidos}}, {{$matri->estudiante->nombre}}
+                         @if($matri->estado==1) <span class="badge bg-danger"> trasladado</span> @endif 
+                        </h6>
                   </div>
                </td>
 

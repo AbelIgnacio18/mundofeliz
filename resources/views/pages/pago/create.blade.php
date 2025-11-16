@@ -11,11 +11,11 @@
                @csrf
                <div class="form-group">
                   <label for="nombre" class="form-label">Nombre del Estudiante:</label>
-                  <!-- id="ex-search"  id="idestudiante"-->
-                  <select name="idestudiante" class="form-control" required onchange="mesespagado()" id="ex-search">
+                  <!-- id="ex-search"  select2  data-placeholder="Seleccionar..." -->
+                  <select name="idestudiante[]" class="form-control select2" required  id="ex-estudiante" data-placeholder="Seleccionar..."  onchange="mesespagado()" multiple>
                      <option value="">Seleccionar</option>
                      @forelse($estudiante as $estud)
-                     <option value="{{$estud->estudiantes->id}}/{{$estud->estudiantes->id}}"> {{$estud->estudiantes->nombre}} {{$estud->estudiantes->apellidos}} - {{$estud->estudiantes->dni}} 
+                     <option value="{{$estud->estudiantes->id}}/{{ $estud->meses->isNotEmpty() ? implode('-', $estud->meses->pluck('mes')->toArray()) . '-' : '' }}"> {{$estud->estudiantes->nombre}} {{$estud->estudiantes->apellidos}} - {{$estud->estudiantes->dni}} 
                         {{$estud->concepto->concepto}}
                         {{$estud->concepto->monto }}                   
 
@@ -120,7 +120,7 @@
 
                         <div class="col-md-4 mt-2 px-2">
                            <div class="form-group">
-                              <label for="monto" class="form-label">Precio Costo:</label>
+                              <label for="monto" class="form-label">Precio Venta:</label>
                               <div class="input-group col-md-12">
                                  <span class="input-group-text" id="basic-addon2">S/.</span>
                                  <input type="number" class="form-control" id="pprecio" step="0.01" aria-describedby="monto" placeholder="" name="monto">
@@ -268,6 +268,11 @@
       $('#mostrarconcepto').hide();
       $('#mostrararticulo').hide();
 
+        $('#idestudiante').click(function() {
+         
+
+      });
+
    });
    //end vareables generales
 
@@ -275,6 +280,7 @@
    var contp = 0;
    totalp = 0;
    subtotalp = [];
+   
 
    function mesespagado() {
 
@@ -286,7 +292,7 @@
 
 
       $("#mesespagados").show();
-      idestudiante = document.getElementById('idestudiante').value.split('/');
+      idestudiante = document.getElementById('ex-estudiante').value.split('/');
       estudiante = idestudiante[1].split('-');
       for (let index = 0; index < estudiante.length - 1; index++) {
          const element = estudiante[index];
@@ -311,7 +317,7 @@
       concepto = datosConcepto[1];
       monto = parseFloat($("#nmonto").val());
       cantidad = parseInt($("#npension").val());
-      if (monto != 0 && cantidad > 0) {
+      if (monto >= 0 && cantidad > 0) {
 
          subtotalp[contp] = monto * cantidad;
          totalp = totalp + subtotalp[contp];
@@ -332,7 +338,7 @@
    }
 
    function evaluar() {
-      if (totalp > 0 || total > 0) {
+      if (totalp >= 0 || total > 0) {
          $("#guardar").show();
 
       } else {
@@ -340,7 +346,7 @@
 
       }
 
-      if (totalp > 0) {
+      if (totalp >= 0) {
 
          $('#mostrarconcepto').show();
 

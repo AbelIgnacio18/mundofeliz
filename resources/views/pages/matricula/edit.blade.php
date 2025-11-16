@@ -60,6 +60,34 @@
 
                         </div>
                      </div>
+
+                      <div class="form-group">
+                        <label for="modulo" class="form-label">Trasladado:</label>
+                         <div class="col-md-4 col-6">
+                     <div>
+                      
+                        <div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="estado" id="estado" value="1" style="cursor:pointer" @if ($matri->estado == "1") checked @endif>
+                              <label class="form-check-label" for="estado">
+                                 Si
+                              </label>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="estado" id="estado" value="0" style="cursor:pointer" @if ($matri->estado == "0") checked @endif>
+                              <label class="form-check-label" for="estado">
+                                 No
+                              </label>
+                           </div>
+                         
+                        
+                          
+
+
+                        </div>
+                     </div>
+                  </div>
+                     </div>
              
 
                   <div class="text-center mt-2">
