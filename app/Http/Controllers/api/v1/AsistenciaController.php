@@ -54,28 +54,24 @@ class AsistenciaController extends Controller
           if ($control->estado == 1) {
 
           if (empty(Asistencia::where('iddocente', $docente->id)->where('fechaentrada', date("Y-m-d"))->first()) == true) 
-            {
-
-                 if (date("h:i:s") < $cargo->horaentrada) {
+            {                
 
                     $asistencia = new Asistencia;
                     $asistencia->idanolectivo = $anolectivo->id;
                     $asistencia->iddocente = $docente->id;
                     $asistencia->fechaentrada = date("Y-m-d");
-                    $asistencia->estado = 1;
+                    if (date("h:i:s") < $cargo->horaentrada) {
+                        $asistencia->estado = 1;
+                    } else {
+
+                        $asistencia->estado = 0;
+                    }
                     $asistencia->save();
-                }else{
-                    $asistencia = new Asistencia;
-                    $asistencia->idanolectivo = $anolectivo->id;
-                    $asistencia->iddocente = $docente->id;
-                    $asistencia->fechaentrada = date("Y-m-d");
-                    $asistencia->estado = 0;
-                    $asistencia->save();
-                }
         
             return response()->json($docente->nombre . ' ' . $codigo, 200);
                 
             }else{
+
               return response()->json('Ya marco asistencia'. ' ' . $codigo, 200);  
             }
 
