@@ -98,7 +98,7 @@
 
                <div class="table-responsive mt-2" id="mostrarconcepto">
                   <div class="col-md-12">
-                     <h6>Pago de penciones</h6>
+                     <h6>Pago de pensiones</h6>
                   </div>
 
                   <table class="table table-striped table-hover" id="detallesp">

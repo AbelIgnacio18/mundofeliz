@@ -10,10 +10,10 @@
                @method('POST')
                @csrf
                <div class="form-group">
-                  <label for="nombre" class="form-label">Nombre del Estudiante:</label>
+                  <label for="nombre" class="form-label">Datos del Estudiante: <span class="badge bg-secondary">Seleccione un estudiante para habilitar los pagos</span></label>
                   <!-- id="ex-search"  select2  data-placeholder="Seleccionar..." -->
                   <select name="idestudiante[]" class="form-control select2" required  id="ex-estudiante" data-placeholder="Seleccionar..."  onchange="mesespagado()" multiple>
-                     <option value="">Seleccionar</option>
+                     <option value="">Seleccionar un estudiante</option>
                      @forelse($estudiante as $estud)
                      <option value="{{$estud->estudiantes->id}}/{{ $estud->meses->isNotEmpty() ? implode('-', $estud->meses->pluck('mes')->toArray()) . '-' : '' }}"> {{$estud->estudiantes->nombre}} {{$estud->estudiantes->apellidos}} - {{$estud->estudiantes->dni}} 
                         {{$estud->concepto->concepto}}
@@ -37,14 +37,13 @@
 
                </div>
 
-
-
-
-               <div class="form-group row">
-                  <label for="nombre" class="form-label col-sm-3">Concepto de Pago:</label>
-                  <div class="col-sm-9">
+<div class="row">
+               <!-- Pago de Conceptos -->
+               <div class="form-group col-md-6">
+                  <label for="nombre" class="form-label">Concepto de Pago:</label>
+                  <div class="">
                      <select name="idconcepto" id="pidconcepto" class="form-control" onchange="conceptos()">
-                        <option value="">Seleccionar(Ninguno)</option>
+                        <option value="">Seleccionar un concepto</option>
                         @forelse($concepto as $con)
                         <option value="{{$con->id}}-{{$con->concepto}}-{{$con->monto}}">{{$con->codigo}}-{{$con->concepto}}</option>
 
@@ -52,35 +51,35 @@
                         <option value="">No hay Datos</option>
                         @endforelse
                      </select>
-                     <div class="row" id="mostrarconceptocosto">
+                     <div class="row p-3" id="mostrarconceptocosto">
 
-
-
-                        <div class="col-md-4 mt-2 px-2">
+                        <div class="col-md-6">
                            <div class="form-group">
                               <label for="monto" class="form-label">Monto:</label>
                               <div class="input-group col-md-12">
-                                 <span class="input-group-text" id="basic-addon2">S/.</span>
+                                 <span class="input-group-text" id="basic-addon2"><b>S/.</b></span>
                                  <input type="number" class="form-control" id="nmonto" step="0.01" aria-describedby="monto" placeholder="" name="monto">
                               </div>
                            </div>
                         </div>
-                        <div class="col-md-4 mt-2 px-2">
+                        <div class="col-md-6">
                            <div class="form-group">
                               <label for="monto" class="form-label">Nº Pensiones:</label>
                               <div class="input-group col-md-12">
-                                 <span class="input-group-text" id="basic-addon2">Cant.</span>
+                                 <span class="input-group-text" id="basic-addon2"><b>Cant.</b></span>
                                  <input type="number" class="form-control" id="npension" step="1" aria-describedby="monto" value="1" name="npension">
                               </div>
                            </div>
                         </div>
-
-                        <div class="col-md-12">
-                           <div class="col-md-3">
-                              <button type="button" id="bt_addp" class="btn btn-primary btn-sm">Agregar</button>
+<div class="row">
+                        <div class="col-md-12 d-flex">
+                           <div class="mx-auto">
+                              <button type="button" id="bt_addp" class="btn btn-primary">Agregar Concepto</button>
                            </div>
 
                         </div>
+</div>
+
 
                      </div>
 
@@ -91,12 +90,12 @@
 
                </div>
 
-
-               <div class="form-group row">
-                  <label for="nombre" class="form-label col-sm-3">Pago de Articulos:</label>
-                  <div class="col-sm-9">
+               <!-- Pago de Artículos -->
+               <div class="form-group col-md-6">
+                  <label for="nombre" class="form-label">Pago de Artículos:</label>
+                  <div class="">
                      <select name="idarticulo" id="idarticulo" class="form-control" onchange="articulos()">
-                        <option value="">Seleccionar(Ninguno)</option>
+                        <option value="">Seleccionar un artículo</option>
                         @forelse($articulo as $art)
                         <option value="{{$art->id}}-{{$art->nombre}}-{{$art->stock}}-{{$art->precioventa}}-{{$art->categoria->nombre}}">{{$art->categoria->nombre}} {{$art->nombre}}</option>
                         @empty
@@ -106,37 +105,38 @@
 
 
 
-                     <div class="row" id="mostrarstock">
+                     <div class="row p-3" id="mostrarstock">
 
-                        <div class="col-md-4 mt-2 px-2">
+                        <div class="col-md-6">
                            <div class="form-group">
                               <label for="monto" class="form-label">Stock:</label>
                               <div class="input-group col-md-12">
-                                 <span class="input-group-text" id="basic-addon2">Cant.</span>
+                                 <span class="input-group-text" id="basic-addon2"><b>Cant.</b></span>
                                  <input type="number" class="form-control" id="pstock" step="1" aria-describedby="monto" placeholder="Vacio" name="monto" disabled>
                               </div>
                            </div>
                         </div>
 
-                        <div class="col-md-4 mt-2 px-2">
+                        <div class="col-md-6">
                            <div class="form-group">
                               <label for="monto" class="form-label">Precio Venta:</label>
                               <div class="input-group col-md-12">
-                                 <span class="input-group-text" id="basic-addon2">S/.</span>
+                                 <span class="input-group-text" id="basic-addon2"><b>S/.</b></span>
                                  <input type="number" class="form-control" id="pprecio" step="0.01" aria-describedby="monto" placeholder="" name="monto">
                               </div>
                            </div>
                         </div>
-                        <div class="form-group col-md-4 mt-2 px-2">
+                        <div class="form-group col-md-6">
                            <label for="monto" class="form-label">Cantidad:</label>
                            <div class="input-group col-md-12">
-                              <span class="input-group-text" id="basic-addon2">cant.</span>
+                              <span class="input-group-text" id="basic-addon2"><b>Cant.</b></span>
                               <input type="number" class="form-control" id="pcantidad" step="1" aria-describedby="monto" placeholder="0" name="cantidad" value="1">
                            </div>
                         </div>
-                        <div class="col-md-12">
-                           <div class="col-md-3">
-                              <button type="button" id="bt_add" class="btn btn-primary btn-sm">Agregar</button>
+                        
+                        <div class="col-md-4 pt-2 ms-4 d-flex">
+                           <div class="mx-auto">
+                              <button type="button" id="bt_add" class="btn btn-primary">Agregar Artículo</button>
                            </div>
 
                         </div>
@@ -145,6 +145,9 @@
                   </div>
 
                </div>
+</div>
+
+
 
 
                <div class="form-group">
@@ -156,7 +159,7 @@
 
                <div class="table-responsive mt-2" id="mostrarconcepto">
                   <div class="col-md-12">
-                     <h6>Pago de penciones</h6>
+                     <h6>Pago de Conceptos:</h6>
                   </div>
 
                   <table class="table table-striped table-hover" id="detallesp">
@@ -189,13 +192,13 @@
 
                <div class="table-responsive mt-2" id="mostrararticulo">
                   <div class="col-md-12">
-                     <h6>Pago de Articulos</h6>
+                     <h6>Pago de Artículos:</h6>
                   </div>
                   <table class="table table-striped table-hover" id="detalles">
                      <thead style="background-color:#A9D0F5">
                         <tr>
                            <th>#</th>
-                           <th>Articulo</th>
+                           <th>Artículo</th>
                            <th>Cant Unit.</th>
                            <th>P. Unit.</th>
                            <th>Subtotal</th>
