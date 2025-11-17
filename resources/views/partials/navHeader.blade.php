@@ -240,7 +240,7 @@ if (isset($split_url[2])) {
                                     stroke-linecap="round" stroke-linejoin="round">
                                 </path>
                             </svg>
-                        </i>Matriculas</h2>
+                        </i>Matrículas</h2>
                     <p><a class="nav-link-ubicacion" href="{{ route('app.home') }}">Panel de Control</a>
                         / Detalle</p>
                 </div>

@@ -2634,7 +2634,7 @@ progress {
   background-color: #fff;
   -webkit-background-clip: padding-box;
           background-clip: padding-box;
-  border: 2px solid var(--primary);
+  border: 2px solid #eee;
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -3263,7 +3263,7 @@ textarea.form-control-lg {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.5rem;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
