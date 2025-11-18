@@ -76,12 +76,6 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\Concepto::create([
             'codigo' => 'P001',
-            'concepto' => 'Pensión Inicial s/.220',
-            'monto' => '220',
-        ]);
-
-        \App\Models\Concepto::create([
-            'codigo' => 'P001',
             'concepto' => 'Pensión Inicial s/.210',
             'monto' => '210',
         ]);
