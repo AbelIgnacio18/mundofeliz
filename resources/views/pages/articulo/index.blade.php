@@ -105,13 +105,10 @@
          <thead>
             <tr>
                <th>N°</th>
-                   <th>Categoria</th>
-               <th>Talla</th>
-
+               <th>Categoría</th>
+               <th>Talla o Nombre</th>
                <th>Stock</th>
-           
                <th>Costo</th>
-                
                <th>Precio Venta</th>
                <th>Acciones</th>
 
@@ -134,15 +131,14 @@
                </td>
 
                <td>
-                  <h6>{{$arti->stock}}</h6>
+                  <h6 class="badge bg-warning" style="font-size: 1em;">{{$arti->stock}}u</h6>
                </td>
                <td>
-                  <h6>{{number_format($arti->preciocosto,2)}}</h6>
+                  <h6 class="badge bg-primary" style="font-size: 1em;">S/.{{number_format($arti->preciocosto,2)}}</h6>
 
                </td>
                <td>
-                  <h6>{{number_format($arti->precioventa,2)}}</h6>
-
+                  <h6 class="badge bg-secondary" style="font-size: 1em;">S/.{{number_format($arti->precioventa,2)}}</h6>
                </td>
 
                <td>

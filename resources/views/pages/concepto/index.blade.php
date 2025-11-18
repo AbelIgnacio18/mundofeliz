@@ -82,7 +82,7 @@
                <th>Código</th>
                <th>Nombre</th>
                <th>Monto</th>
-               <th>Mora</th>
+<!--                <th>Mora</th> -->
                <th>Acciones</th>
             </tr>
          </thead>
@@ -101,11 +101,11 @@
                   <h6>{{$concep->concepto}}</h6>
                </td>
                <td>
-               <h6>S/. {{number_format( $concep->monto,2)}}</h6>
+               <h6 class="badge bg-secondary" style="font-size: 1em;">S/. {{number_format( $concep->monto,2)}}</h6>
                </td>
-               <td>
+<!--                <td>
                   <h6>S/. {{number_format( $concep->monto,2)}}</h6>
-               </td>
+               </td> -->
                <td>
                   <div class="flex align-items-center list-user-action">
                      <a class="btn btn-sm btn-icon text-warning" data-bs-toggle="modal" data-bs-original-title="Editar" data-bs-target="#model-edit-{{$concep->id}}">

@@ -57,7 +57,7 @@
             <?php $contadorpago = 1; ?>
             @forelse($pago as $pag)
             <tr>
-                 <td>
+               <td>
                   <div class="d-flex align-items-center">
 
                      <?php echo $contadorpago; ?>
@@ -65,7 +65,7 @@
 
                   </div>
                </td>
-                 <td>
+               <td>
                   <div class="d-flex align-items-center">
 
                      <h6>{{$pag->numcomprobante}}</h6>
@@ -84,7 +84,7 @@
                   <h6>{{Carbon\Carbon::parse($pag->created_at)->translatedFormat('l, j F Y h:i A')}}</h6>
                </td>
                <td>
-                  <h4 class="badge bg-secondary" style="font-size: 1em;">s/.{{$pag->montototal}}</h4>
+                  <h4 class="badge bg-secondary" style="font-size: 1em;">S/.{{$pag->montototal}}</h4>
                </td>
 
                <td>

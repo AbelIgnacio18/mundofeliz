@@ -143,15 +143,15 @@
 
                   <h6>
                      @if($item->estado===0)
-                     <span>Tarde</span>
+                     <span class="badge bg-warning" style="font-size: 1em;">Tarde</span>
                      @endif
 
                      @if($item->estado===1)
-                     <span>Asistió</span>
+                     <span class="badge bg-success" style="font-size: 1em;">Asistió</span>
                      @endif
 
                      @if($item->estado===null)
-                     <span>Faltó</span>
+                     <span class="badge bg-danger" style="font-size: 1em;">Faltó</span>
                      @endif
                   </h6>
 

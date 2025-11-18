@@ -18,7 +18,7 @@
       @endif
    </div>
    <div class="header-title">
-      <h4 class="card-title mb-0">Asistencia General</h4>
+      <h4 class="card-title mb-0">Asistencia de Estudiantes</h4>
       <h4 class="card-title mb-3"><span class="badge bg-dark">{{Carbon\Carbon::parse(date('Y-m-d'))->translatedFormat('l, j F Y')}}</span></h4>
       
       @if($control->estado==1)
@@ -96,13 +96,13 @@
                   </h6>
                </td>
                <td>
-                   @if($item->estado===null)
+                  @if($item->estado===null)
                      {{Carbon\Carbon::parse($item->updated_at)->translatedFormat('l, j F  h:i A')}}
                   @endif
                   @if($item->created_at==$item->updated_at)
-                 
+
                   @else
-                    <h6>
+                  <h6>
                      {{Carbon\Carbon::parse($item->updated_at)->translatedFormat('l, j F  h:i A')}}
                   </h6>
 
@@ -111,34 +111,25 @@
                </td>
                <td>
 
-                
                   <h6>
                      @if($item->estado===0)
-                      <span>Tarde</span> 
+                     <span class="badge bg-warning" style="font-size: 1em;">Tarde</span> 
                      @endif
 
                      @if($item->estado===1)
-                      <span>Asistió</span> 
+                     <span class="badge bg-success" style="font-size: 1em;">Asistió</span> 
                      @endif
-                  
 
                      @if($item->estado===null)
-                      <span>Faltó</span> 
+                     <span class="badge bg-danger" style="font-size: 1em;">Faltó</span> 
                      @endif
 
-                   
-                   
                   </h6>
-                  
-              
-
-                
 
                </td>
 
                <td>
                   <div class="flex align-items-center list-user-action">
-
 
                      <a class="btn btn-sm btn-icon text-danger" data-bs-toggle="modal" data-bs-original-title="Eliminar" data-bs-target="#model-delete-{{$item->id}}">
                         <span class="btn-inner">
@@ -149,7 +140,8 @@
                            </svg>
                         </span>
                      </a>
-                 <a class="btn btn-sm btn-icon text-success" data-bs-original-title="Ver" href="{{route('app.asist-estudiante.show',$item->idestudiante)}}">
+
+                     <a class="btn btn-sm btn-icon text-success" data-bs-original-title="Ver" href="{{route('app.asist-estudiante.show',$item->idestudiante)}}">
                         <span class="btn-inner">
                            <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path fill-rule="evenodd" clip-rule="evenodd" d="M15.1614 12.0531C15.1614 13.7991 13.7454 15.2141 11.9994 15.2141C10.2534 15.2141 8.83838 13.7991 8.83838 12.0531C8.83838 10.3061 10.2534 8.89111 11.9994 8.89111C13.7454 8.89111 15.1614 10.3061 15.1614 12.0531Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -157,7 +149,6 @@
                            </svg>
                         </span>
                      </a>
-
 
                   </div>
                </td>

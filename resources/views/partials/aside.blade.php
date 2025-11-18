@@ -143,8 +143,8 @@
                                         </g>
                                     </svg>
                                 </i>
-                                <i class="sidenav-mini-icon"> A </i>
-                                <span class="item-sub-name"> Matrícula </span>
+                                <i class="sidenav-mini-icon"> AG </i>
+                                <span class="item-sub-name"> Matrícula General </span>
                             </a>
                         </li>
                       

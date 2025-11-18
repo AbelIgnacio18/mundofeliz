@@ -147,10 +147,9 @@
             <tr>
                <th>N°</th>
                <th>Nombre Completo</th>
-
                <th>Dni</th>
-               <th>Código</th>
-            
+               <th>Celular</th>
+               <th>Código Alumko</th>
                <th>Acciones</th>
 
             </tr>
@@ -171,16 +170,17 @@
                <td>
                   <p>{{$estud->dni}}</p>
                </td>
-               <td>
-                  <p>{{$estud->codigo}}</p>
-               </td>
-              
-        
 
+               <td>
+                  <p>{{$estud->celular}}</p>
+               </td>
+
+               <td>
+                  <p class="badge bg-alumko" style="font-size: 1em;">{{$estud->codigo}}</p>
+               </td>
 
                <td>
                   <div class="flex align-items-center list-user-action">
-
 
                      <a class="btn btn-sm btn-icon text-warning" data-bs-toggle="modal" data-bs-original-title="Editar" data-bs-target="#model-edit-{{$estud->id}}">
                         <span class="btn-inner">

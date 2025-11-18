@@ -32,22 +32,19 @@
         $('#ex-estudiante').select2({
             width: '100%',
             allowClear: false,
-placeholder: "Seleccionar..."
+            placeholder: "Seleccionar..."
         });
-     
 
         $('#staticBackdrop-1').on('shown.bs.modal', function() {
             $('#ex-estudiante').select2({
                 dropdownParent: $('#staticBackdrop-1')
             });
         });
-        
-
-
 
 
     });
 </script>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @stack('ingreso')
 @stack('pago')

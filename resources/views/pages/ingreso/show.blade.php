@@ -6,7 +6,7 @@
 <div class="card-header d-flex justify-content-between flex-wrap">
 
     <div class="header-title">
-        <h3 class="text-primary card-title mb-0">Detalle de compra de Articulos</h3>
+        <h3 class="text-primary card-title mb-0">Detalle de compra de Artículos</h3>
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -21,7 +21,7 @@
         <thead style="background-color:#A9D0F5">
 
             <tr>
-                <th>Articulo</th>
+                <th>Artículo</th>
                 <th>Cantidad</th>
                 <th>P. Compra</th>
                 <th>SubTotal</th>

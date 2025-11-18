@@ -72,6 +72,7 @@
   --bs-danger-rgb: 192, 50, 33;
   --bs-light-rgb: 222, 226, 230;
   --bs-dark-rgb: 33, 37, 41;
+  --bs-indigo-rgb: 102, 16, 242;
   --bs-white-rgb: 255, 255, 255;
   --bs-black-rgb: 0, 0, 0;
   --bs-body-color-rgb: 138, 146, 166;
@@ -3267,7 +3268,7 @@ textarea.form-control-lg {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #8A92A6;
+  color: var(--primary);
   text-align: center;
   white-space: nowrap;
   background-color: #fff;
@@ -9394,6 +9395,11 @@ textarea.form-control-lg {
 .bg-body {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-body-bg-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.bg-alumko {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-indigo-rgb), var(--bs-bg-opacity)) !important;
 }
 
 .bg-transparent {
@@ -26147,3 +26153,35 @@ pre[class*=language-] {
   background-color: #fff;
   border-radius: 1rem
 }
+
+.vercontraseña {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+}
+
+.vercontraseña svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+.dark .vercontraseña {
+    color: #fff;
+}
+
+/* @media (min-width: 2560px) {
+  .vercontraseña {
+      right: 120px;
+      margin-top: -60px;
+  }
+  .dark .vercontraseña {
+      right: 120px;
+      margin-top: -60px;
+  }
+} */
