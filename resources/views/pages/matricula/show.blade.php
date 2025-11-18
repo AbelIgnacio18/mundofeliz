@@ -70,7 +70,7 @@
 
                 @forelse($otros as $otr)
                 <div class="col-lg-3  shadow group__item">
-                    <div class="card">
+                    <div class="card" style="background-color: #ffffff63">
                         <div class="card-body">
                             <div class="d-grid grid-flow-col align-items-center justify-content-between mb-2">
                                 <div class="d-flex align-items-center">
@@ -84,7 +84,7 @@
                             
                                 <a href="#" class="iq-media-1">
                                 
-                                    <div class="icon text-danger">
+                                    <div class="icon text-danger h3">
                                     s/ {{$otr->monto}}
                                     </div>
                                 </a>

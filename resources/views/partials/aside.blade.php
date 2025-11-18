@@ -97,7 +97,7 @@
                 {{-- *** Matrícula *** --}}
 
                 @if(auth()->user()->hasPermission('VER MATRICULA'))
-                <!-- matricula -->
+                <!-- Matrícula -->
                 <li class="nav-item">
                     <a class="nav-link {{ 
         request()->is('dashboard/matriculas*') || 
@@ -118,7 +118,7 @@
                                     fill="currentColor"></path>
                             </svg>
                         </i>
-                        <span class="item-name">Matricula</span>
+                        <span class="item-name">Matrícula</span>
                         <i class="right-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -144,7 +144,7 @@
                                     </svg>
                                 </i>
                                 <i class="sidenav-mini-icon"> A </i>
-                                <span class="item-sub-name"> Matricula </span>
+                                <span class="item-sub-name"> Matrícula </span>
                             </a>
                         </li>
                       

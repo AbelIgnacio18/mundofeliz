@@ -33,36 +33,84 @@ class DatabaseSeeder extends Seeder
         ]);
         
         \App\Models\Concepto::create([
+            'codigo' => 'M2025',
+            'concepto' => 'Matrícula s/.250',
+            'monto' => '250',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'M2025',
+            'concepto' => 'Matrícula s/.200',
+            'monto' => '200',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'M2025',
+            'concepto' => 'Matrícula s/.100',
+            'monto' => '100',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'MH2025',
+            'concepto' => 'Matrícula Hermanos s/.300',
+            'monto' => '300',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'MH2025',
+            'concepto' => 'Matrícula Hermanos s/.280',
+            'monto' => '280',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'MH2025',
+            'concepto' => 'Matrícula Hermanos s/.250',
+            'monto' => '250',
+        ]);
+
+        \App\Models\Concepto::create([
             'codigo' => 'P001',
-            'concepto' => 'Pensión Inicial 220',
+            'concepto' => 'Pensión Inicial s/.220',
             'monto' => '220',
         ]);
 
         \App\Models\Concepto::create([
             'codigo' => 'P001',
-            'concepto' => 'Pensión Inicial 210',
+            'concepto' => 'Pensión Inicial s/.210',
             'monto' => '210',
         ]);
 
         \App\Models\Concepto::create([
             'codigo' => 'P001',
-            'concepto' => 'Pensión Inicial 200',
+            'concepto' => 'Pensión Inicial s/.200',
             'monto' => '200',
         ]);
 
         \App\Models\Concepto::create([
             'codigo' => 'P001',
-            'concepto' => 'Pensión Inicial 190',
+            'concepto' => 'Pensión Inicial s/.190',
             'monto' => '190',
         ]);
 
         \App\Models\Concepto::create([
             'codigo' => 'P001',
-            'concepto' => 'Pensión Inicial 100',
-            'monto' => '100',
+            'concepto' => 'Pensión Inicial s/.185',
+            'monto' => '185',
         ]);
 
         \App\Models\Concepto::create([
+            'codigo' => 'P001',
+            'concepto' => 'Pensión Inicial s/.180',
+            'monto' => '180',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'P001',
+            'concepto' => 'Pensión Inicial s/.100',
+            'monto' => '100',
+        ]);
+
+/*         \App\Models\Concepto::create([
             'codigo' => 'P001',
             'concepto' => 'Pensión Primaria 220',
             'monto' => '220',
@@ -108,7 +156,7 @@ class DatabaseSeeder extends Seeder
             'codigo' => 'P001',
             'concepto' => 'Pensión Primaria 170',
             'monto' => '170',
-        ]);
+        ]); */
 
         \App\Models\Anolectivo::create([
             'años' => '2025',

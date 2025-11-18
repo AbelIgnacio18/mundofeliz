@@ -45,7 +45,7 @@
                      @csrf
 
                      <div class="form-group">
-                        <label for="codigoS" class="form-label">Código del Concepto:</label>
+                        <label for="codigoS" class="form-label">Código del Concepto: <span class="badge bg-secondary">Ingrese P001 si es una pensión</span></label>
                         <input type="text" class="form-control" id="codigoS" aria-describedby="codigoS" placeholder="P001" name="codigo">
                      </div>
 
