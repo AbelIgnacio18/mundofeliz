@@ -12,13 +12,8 @@
                <div class="form-group">
                   <label for="nombre" class="form-label">Datos del Estudiante: <span class="badge bg-secondary">Seleccione un estudiante para habilitar los pagos</span></label>
                   <!-- id="ex-search"  select2  data-placeholder="Seleccionar..." -->
-<<<<<<< HEAD
-                  <select name="idestudiante[]" class="form-control select2" required id="ex-estudiante" data-placeholder="Seleccionar..." onchange="mesespagado()" multiple>
-                     <option value="">Seleccionar</option>
-=======
                   <select name="idestudiante[]" class="form-control select2" required  id="ex-estudiante" data-placeholder="Seleccionar..."  onchange="mesespagado()" multiple>
                      <option value="">Seleccionar un estudiante</option>
->>>>>>> 42f0db189f2cbead08353ae86e1b81dc9e2c5e3b
                      @forelse($estudiante as $estud)
                      <option value="{{$estud->estudiantes->id}}/{{ $estud->meses->isNotEmpty() ? implode('-', $estud->meses->pluck('mes')->toArray()) . '-' : '' }}"> {{$estud->estudiantes->nombre}} {{$estud->estudiantes->apellidos}} - {{$estud->estudiantes->dni}}
                         {{$estud->concepto->concepto}}
@@ -164,13 +159,13 @@
                   <div class="col-sm-9">
                      <div class="row">
                         <div class="form-check col-md-3">
-                           <input class="form-check-input" type="radio" name="efetivo" id="efetivo" checked value="0" style="cursor:pointer">
+                           <input class="form-check-input" type="radio" name="efetivo" id="efetivo" checked value="0" style="cursor:pointer" onclick="efectivo()">
                            <label class="form-check-label" for="efetivo">
                               Efectivo
                            </label>
                         </div>
                         <div class="form-check col-md-6">
-                           <input class="form-check-input" type="radio" name="efetivo" id="efetivo" value="1" style="cursor:pointer">
+                           <input class="form-check-input" type="radio" name="efetivo" id="efetivo" value="1" style="cursor:pointer" onclick="billeteradigital()">
                            <label class="form-check-label" for="efetivo">
                               Transferencia o Deposito(Billetera Digital)
                            </label>
@@ -187,7 +182,18 @@
                               <label for="monto" class="form-label">Monto:</label>
                               <div class="input-group col-md-12">
                                  <span class="input-group-text" id="basic-addon2">S/.</span>
-                                 <input type="number" class="form-control" id="pprecio" step="0.01" aria-describedby="monto" placeholder="" name="monto">
+                                 <input type="number" class="form-control" id="monto" step="0.01" aria-describedby="monto" placeholder="" name="monto">
+                              </div>
+                           </div>
+                        </div>
+
+                         <div class="col-md-7 mt-2 px-2">
+                           <div class="form-group">
+                              <label for="monto" class="form-label">Descripción:</label>
+                              <div class="input-group col-md-12">
+                                 
+                                
+                                 <textarea name="descripcion" class="form-control" rows="8" cols="30"></textarea>
                               </div>
                            </div>
                         </div>
@@ -314,10 +320,7 @@
       $('#mostrarconcepto').hide();
       $('#mostrararticulo').hide();
 
-      $('#idestudiante').click(function() {
-
-
-      });
+     
 
    });
    //end vareables generales
@@ -327,6 +330,13 @@
    totalp = 0;
    subtotalp = [];
 
+
+   function billeteradigital() {
+  $("#mostrarefectivo").show();
+   }
+   function efectivo() {
+  $("#mostrarefectivo").hide();
+   }
 
    function mesespagado() {
 
