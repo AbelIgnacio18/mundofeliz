@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Actualizar</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Actualizar Usuario</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -25,7 +25,7 @@
                         <input type="email" class="form-control" id="email" aria-describedby="email" placeholder="Email" name="email" value="{{$usu->email}}">
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-12">
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-12 control-label">Contraseña</label>
@@ -42,7 +42,7 @@
                     </div>
                     <br>
 
-                    <div class="col-md-6">
+                    <div class="col-md-12">
 
                         <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                             <label for="password-confirm" class="col-md-12 control-label">Confirmar Contraseña</label>
@@ -96,7 +96,7 @@
 
 
                     <div class="text-start mt-2">
-                        <button type="submit" class="btn btn-info">Actualizar</button>
+                        <button type="submit" class="btn btn-secondary">Actualizar</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                     </div>
                 </form>

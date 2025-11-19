@@ -24,14 +24,6 @@ class DatabaseSeeder extends Seeder
             'foto' => '01.webp',
         ]);
 
-        \App\Models\User::create([
-            'name' => 'IEP',
-            'apellidos' => 'Mundo Feliz',
-            'email' => 'dr_mercy@mundofeliz.edu.pe',
-            'password' => \Illuminate\Support\Facades\Hash::make('mercy2mundofeliz'),
-            'foto' => '01.webp',
-        ]);
-        
         \App\Models\Concepto::create([
             'codigo' => 'M2025',
             'concepto' => 'Matrícula s/.250',
@@ -247,54 +239,6 @@ class DatabaseSeeder extends Seeder
             'concepto' => 'Pensión Inicial s/.100',
             'monto' => '100',
         ]);
-
-/*         \App\Models\Concepto::create([
-            'codigo' => 'P001',
-            'concepto' => 'Pensión Primaria 220',
-            'monto' => '220',
-        ]);
-
-        \App\Models\Concepto::create([
-            'codigo' => 'P001',
-            'concepto' => 'Pensión Primaria 210',
-            'monto' => '210',
-        ]);
-
-        \App\Models\Concepto::create([
-            'codigo' => 'P001',
-            'concepto' => 'Pensión Primaria 200',
-            'monto' => '200',
-        ]);
-
-        \App\Models\Concepto::create([
-            'codigo' => 'P001',
-            'concepto' => 'Pensión Primaria 190',
-            'monto' => '190',
-        ]);
-
-        \App\Models\Concepto::create([
-            'codigo' => 'P001',
-            'concepto' => 'Pensión Primaria 185',
-            'monto' => '185',
-        ]);
-
-        \App\Models\Concepto::create([
-            'codigo' => 'P001',
-            'concepto' => 'Pensión Primaria 180',
-            'monto' => '180',
-        ]);
-
-        \App\Models\Concepto::create([
-            'codigo' => 'P001',
-            'concepto' => 'Pensión Primaria 175',
-            'monto' => '175',
-        ]);
-
-        \App\Models\Concepto::create([
-            'codigo' => 'P001',
-            'concepto' => 'Pensión Primaria 170',
-            'monto' => '170',
-        ]); */
 
         \App\Models\Anolectivo::create([
             'años' => '2025',
