@@ -18,7 +18,8 @@
       @endif
    </div>
    <div class="header-title">
-      <h4 class="card-title mb-0">Lista de Comprobantes de Pagos Efetivo s/ {{$monto}}</h4>
+      <h4 class="card-title mb-0">Lista de Comprobantes de Pagos</h4>
+      <h4> <span class="badge bg-dark">Efetivo del día s/ {{$monto}}</span></h4>
    </div>
 
    <!-- modal para crear nuevos conceptos de pagooo -->
@@ -47,17 +48,15 @@
          <thead>
             <tr>
                <th>N°</th>
-               <th>N° Boleto</th>
+               <th>Boleto</th>
                <th>Nombre Completo</th>
                <th>Fecha</th>               
-               <th>Efectivo</th>
-               <th>transf. y/o Digital</th>
-               <th>Monto</th>
+               <th>D.Efectivo</th>
+               <th>D.Digital</th>
+               <th>Monto Total</th>
                <th>Imagen</th>
 
                <th>Acciones</th>
-
-
             </tr>
          </thead>
          <tbody>
@@ -66,15 +65,12 @@
             <tr>
                <td>
                   <div class="d-flex align-items-center">
-
                      <?php echo $contadorpago; ?>
-
-
                   </div>
                </td>
+
                <td>
                   <div class="d-flex align-items-center">
-
                      <h6>{{$pag->numcomprobante}}</h6>
                   </div>
                </td>
@@ -83,19 +79,18 @@
                   <div class="icon iq-icon-box-3">{{$pag->nombre}} {{$pag->apellidos}}</div>
                </td>
 
- 
-
-
-
                <td>
                   <h6>{{Carbon\Carbon::parse($pag->created_at)->translatedFormat('l, j F Y h:i A')}}</h6>
                </td>
-                <td>
+
+               <td>
                   <h4 class="badge bg-secondary" style="font-size: 1em;">S/ {{$pag->montototal-$pag->montodigital}}</h4>
                </td>
-                <td>
+
+               <td>
                   <h4 class="badge bg-secondary" style="font-size: 1em;">S/ {{$pag->montodigital}}</h4>
                </td>
+
                <td>
                   <h4 class="badge bg-secondary" style="font-size: 1em;">S/ {{$pag->montototal}}</h4>
                </td>
@@ -103,7 +98,6 @@
                <td>
                   @if(($pag->archivo) !="")
                   <img class="bg-soft-primary rounded img-fluid avatar-40 me-3" src="{{ asset('storage/pagos/' . $pag->archivo) }}" alt="{{$pag->id}}" class="img-thumbnail" style="width: 50px;height: 50px">
-                 
 
                   @else
                   <p>Ninguno</p>
