@@ -72,6 +72,7 @@ Route::get('home', [App\Http\Controllers\PanelController::class, 'index'])->name
    
 
      Route::get('/matricula-aula/{id}',[App\Http\Controllers\MatriculaController::class, 'showaula'])->name('showaula');
+      Route::get('/reporte-pago',[App\Http\Controllers\PagosController::class, 'reporteefectivohoy'])->name('reporteefectivohoy');
 
 
       Route::get('/asistencia-aula',[App\Http\Controllers\AsistenciaestController::class, 'filtrarasistencia'])->name('asistenciaaula');

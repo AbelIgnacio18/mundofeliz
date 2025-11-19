@@ -179,10 +179,10 @@
                      <div class="row" id="mostrarefectivo">
                         <div class="col-md-4 mt-2 px-2">
                            <div class="form-group">
-                              <label for="monto" class="form-label">Monto:</label>
+                              <label for="monto" class="form-label">Monto Digital:</label>
                               <div class="input-group col-md-12">
                                  <span class="input-group-text" id="basic-addon2">S/.</span>
-                                 <input type="number" class="form-control" id="monto" step="0.01" aria-describedby="monto" placeholder="" name="monto">
+                                 <input type="number" class="form-control" id="monto" step="0.01" aria-describedby="monto" placeholder="" name="montodigital">
                               </div>
                            </div>
                         </div>
@@ -193,7 +193,7 @@
                               <div class="input-group col-md-12">
                                  
                                 
-                                 <textarea name="descripcion" class="form-control" rows="8" cols="30"></textarea>
+                                 <textarea name="descripcion" class="form-control" rows="2" cols="30"></textarea>
                               </div>
                            </div>
                         </div>
