@@ -3,7 +3,7 @@
    <div class="modal-dialog">
       <div class="modal-content">
             <div class="modal-header">
-               <h5 class="modal-title" id="staticBackdropLabel">Cambiar Matricula</h5>
+               <h5 class="modal-title" id="staticBackdropLabel">Cambiar Matrícula</h5>
                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -11,14 +11,12 @@
                   @method('PUT')
                   @csrf
 
-               
-
                   <div class="form-group">
                         <label for="concepto" class="form-label">Nombre Estudiante:</label>
                         <input type="concepto" disabled name="concepto" class="form-control" id="concepto"
                            aria-describedby="concepto" value="{{$matri->estudiante->apellidos}} {{$matri->estudiante->nombre}}">
                   </div>
-                 <div class="form-group">
+               <div class="form-group">
                         <label for="modulo" class="form-label">Aula:</label>
                         <div class="input-group ">
                            <span class="input-group-text" id="">
@@ -39,7 +37,7 @@
 
                         </div>
                      </div>
-                      <div class="form-group">
+                     <div class="form-group">
                         <label for="modulo" class="form-label">Concepto:</label>
                         <div class="input-group ">
                            <span class="input-group-text" id="">
@@ -51,7 +49,7 @@
                            <select name="concepto" type="search" class="form-control" required>
                               <option value="{{$matri->concepto->id}}" selected>{{$matri->concepto->concepto}}
                               </option>
-                               @forelse($concepto as $con)
+                              @forelse($concepto as $con)
                               <option value="{{$con->id}}"> {{$con->concepto}} </option>
                               @empty
                               @endforelse
@@ -61,11 +59,11 @@
                         </div>
                      </div>
 
-                      <div class="form-group">
-                        <label for="modulo" class="form-label">Trasladado:</label>
-                         <div class="col-md-4 col-6">
+                     <div class="form-group">
+                        <label for="modulo" class="form-label">Trasladad@:</label>
+                        <div class="col-md-4 col-6">
                      <div>
-                      
+
                         <div>
                            <div class="form-check">
                               <input class="form-check-input" type="radio" name="estado" id="estado" value="1" style="cursor:pointer" @if ($matri->estado == "1") checked @endif>
@@ -79,19 +77,14 @@
                                  No
                               </label>
                            </div>
-                         
-                        
-                          
-
 
                         </div>
                      </div>
                   </div>
                      </div>
-             
 
                   <div class="text-center mt-2">
-                        <button type="submit" class="btn btn-info">Actualizar</button>
+                        <button type="submit" class="btn btn-secondary">Actualizar</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                   </div>
                </form>

@@ -30,7 +30,7 @@
             <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
             <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
          </svg>
-         <span>Nuevo</span>
+         <span>Nuevo Estudiante</span>
       </a>
 
       <a href="#" class=" text-center btn btn-success btn-icon mt-lg-0 mt-md-0 mt-3" data-bs-toggle="modal" data-bs-target="#model-import">
@@ -72,15 +72,13 @@
 
                      </div>
 
-
-
                      <div class="raw d-flex">
                         <div class="form-group col-md-6 p-1">
                            <label for="dni" class="form-label">DNI:</label>
                            <input type="text" class="form-control" id="dni" aria-describedby="dni" placeholder="87654321" name="dni" value="{{old('dni')}}">
                         </div>
                         <div class="form-group col-md-6 p-1">
-                           <label for="Codigo" class="form-label">Código Alumko: <span class="badge bg-secondary">InnovaStaff</span></label>
+                           <label for="Codigo" class="form-label">Código Alumko: <span class="badge bg-alumko">InnovaStaff</span></label>
                            <input type="text" class="form-control" id="Codigo" aria-describedby="Codigo" placeholder="DXRTYUSF" name="codigo" value="{{old('Codigo')}}">
                         </div>
 
@@ -139,15 +137,13 @@
             <tr>
                <th>N°</th>
                <th>Nombre Completo</th>
-
                <th>Dni</th>
-            
                <th>Teléfono</th>  
-                <th>Apoderado</th>            
+               <th>Apoderado</th>            
                <th>Dirección</th>
-              
-                <th>Observaciones</th>
-               <th>Código</th>
+               <th>Observaciones</th>
+               <th>Código Alumko</th>
+
                <th>Acciones</th>
 
             </tr>
@@ -182,7 +178,7 @@
                   <p>{{$estud->observaciones}}</p>
                </td>
                <td>
-                  <p>{{$estud->codigo}}</p>
+                  <p class="badge bg-alumko" style="font-size: 1em;">{{$estud->codigo}}</p>
                </td>
 
 

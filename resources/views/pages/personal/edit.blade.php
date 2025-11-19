@@ -20,22 +20,21 @@
                   <input type="text" class="form-control" id="apellidos" aria-describedby="apellidos" placeholder="Silva" value="{{$estud->apellidos}}" name="apellidos">
                </div>
 
-
                <div class="form-group">
                   <label for="dni" class="form-label">DNI:</label>
                   <input type="text" class="form-control" id="dni" aria-describedby="dni" placeholder="DNI" name="dni" value="{{$estud->dni}}">
                </div>
+
                <div class="form-group">
-                  <label for="celular" class="form-label">Celular:</label>
+                  <label for="Codigo" class="form-label">Código Alumko: <span class="badge bg-alumko">InnovaStaff</span></label>
+                  <input type="text" class="form-control" id="Codigo" aria-describedby="Codigo"  name="codigo"  value="{{$estud->codigo}}">
+               </div>
+
+               <div class="form-group">
+                  <label for="celular" class="form-label">Celular: <span class="badge bg-primary">Opcional</span></label>
                   <input type="text" class="form-control" id="celular" aria-describedby="celular" value="{{$estud->celular}}" name="celular">
                </div>
 
-        
-
-               <div class="form-group">
-                  <label for="Codigo" class="form-label">Codigo:</label>
-                  <input type="text" class="form-control" id="Codigo" aria-describedby="Codigo"  name="codigo"  value="{{$estud->codigo}}">
-               </div>
 
                <div class="form-group">
                         <label for="idaula" class="form-label">Contrato:</label>
@@ -51,7 +50,7 @@
 
 
                <div class="text-start mt-2">
-                  <button type="submit" class="btn btn-info">Actualizar</button>
+                  <button type="submit" class="btn btn-secondary">Actualizar</button>
                   <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                </div>
             </form>

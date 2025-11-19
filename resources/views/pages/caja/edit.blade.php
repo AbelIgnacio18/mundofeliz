@@ -15,14 +15,14 @@
                   <div class="form-group">
                         <label for="monto" class="form-label">Monto:</label>
                         <div class="input-group col-md-12">
-                           <span class="input-group-text" id="basic-addon2">S/.</span>
+                           <span class="input-group-text" id="basic-addon2"><b>S/.</b></span>
                            <input type="number" class="form-control" id="monto" aria-describedby="200.00"
                               placeholder="Nombre de concepto" name="monto" value="{{number_format($concep->apertura)}}">
                         </div>
                   </div>
 
                   <div class="text-center mt-2">
-                        <button type="submit" class="btn btn-info">Actualizar</button>
+                        <button type="submit" class="btn btn-secondary">Actualizar</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                   </div>
                </form>

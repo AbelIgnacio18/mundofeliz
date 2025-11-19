@@ -133,7 +133,7 @@
                <th>Pensión</th>
                <th>Concepto</th>
                <th>Dni</th>
-               <th>Código</th>
+               <th>Código Alumko</th>
 
                <th>Acciones</th>
             </tr>
@@ -147,7 +147,7 @@
                <td>
                   <div class="d-flex align-items-center">
                      <h6>{{$matri->estudiante->apellidos}}, {{$matri->estudiante->nombre}}
-                        @if($matri->estado==1) <span class="badge bg-danger"> trasladado</span> @endif
+                        @if($matri->estado==1) <span class="badge bg-danger"> trasladad@</span> @endif
                      </h6>
                   </div>
                </td>
@@ -182,7 +182,7 @@
 
 
                <td>
-                  <h6>{{$matri->estudiante->codigo}}</h6>
+                  <h6 class="badge bg-alumko" style="font-size: 1em;">{{$matri->estudiante->codigo}}</h6>
                </td>
 
 

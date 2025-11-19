@@ -18,9 +18,9 @@
                                         <img src="{{asset('imagenes/avatar/'.auth()->user()->foto)}}" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-100 avatar-rounded" >
                                         @else
                                         <img src="{{ asset('assets/images/avatars/01.webp') }}" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-100 avatar-rounded">
-                
+
                                         @endif
-                                 
+
                                     </div>
                                     <div class="d-flex flex-wrap align-items-center mb-3 mb-sm-0">
                                         <h4 class="me-2 h4">{{ auth()->user()->name }}</h4>
@@ -77,7 +77,7 @@
                             <h4 class="card-title">Cambiar Contraseña</h4>
                         </div>
                     </div>
-                    <div class="card-body px-0">
+                    <div class="card-body">
                         @livewire('authentication.change-password.change-password-component')
                     </div>
                 </div>
