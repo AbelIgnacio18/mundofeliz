@@ -72,7 +72,7 @@
 
 
                      <div class="form-group">
-                        <label for="precioc" class="form-label">Precio Compra:</label>
+                        <label for="precioc" class="form-label">Precio de Compra:</label>
                         <div class="input-group col-md-12">
                            <span class="input-group-text" id="basic-addon2"><b>S/.</b></span>
                         <input type="numeric" class="form-control" id="precioc" aria-describedby="precioc" placeholder="50" name="preciocosto" value="{{old('preciocosto')}}">
@@ -80,7 +80,7 @@
                      </div>
 
                      <div class="form-group">
-                        <label for="preciov" class="form-label">Precio Venta:</label>
+                        <label for="preciov" class="form-label">Precio de Venta:</label>
                         <div class="input-group col-md-12">
                            <span class="input-group-text" id="basic-addon2"><b>S/.</b></span>
                         <input type="numeric" class="form-control" id="preciov" aria-describedby="preciov" placeholder="80" name="precioventa" value="{{old('precioventa')}}">
