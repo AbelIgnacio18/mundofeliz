@@ -408,11 +408,6 @@ class DatabaseSeeder extends Seeder
             'iduser' =>1,
             'idrol' =>1,
         ]); 
-        \App\Models\UserRol::create([
-            'iduser' =>2,
-            'idrol' =>1,
-        ]); 
-
 
         \App\Models\Permission::create([
             'idmodulo'=>1,
