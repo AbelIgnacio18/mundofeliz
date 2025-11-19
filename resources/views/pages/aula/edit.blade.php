@@ -36,7 +36,7 @@
                 
 
                   <div class="text-center mt-2">
-                        <button type="submit" class="btn btn-info">Actualizar</button>
+                        <button type="submit" class="btn btn-secondary">Actualizar</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                   </div>
                </form>

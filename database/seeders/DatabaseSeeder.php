@@ -403,7 +403,12 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\Rol::create([
             'nombre' =>'Admin',
-        ]);  
+        ]);
+
+        \App\Models\Rol::create([
+            'nombre' =>'Secretaria',
+        ]);
+
         \App\Models\UserRol::create([
             'iduser' =>1,
             'idrol' =>1,

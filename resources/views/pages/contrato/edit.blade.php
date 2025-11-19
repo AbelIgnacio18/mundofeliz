@@ -3,7 +3,7 @@
    <div class="modal-dialog">
       <div class="modal-content">
             <div class="modal-header">
-               <h5 class="modal-title" id="staticBackdropLabel">Actualizar Contrato</h5>
+               <h5 class="modal-title" id="staticBackdropLabel">Actualizar Cargo</h5>
                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -22,10 +22,10 @@
                         <input type="time" class="form-control" id="" aria-describedby="nivelS" placeholder="Primaria" name="horaentrada" min="00:00:00" value="{{ $item->horaentrada}}" step="1">
                      </div>
 
-                   <div class="form-group">
+                  <div class="form-group">
                         <label for="modulo" class="form-label">Nivel:</label>
                         <div class="input-group ">
-                    
+
                            <select name="nivel"  class="form-control"  required  >
                               <option value="{{$item->nivel}}">{{$item->nivel}}</option>
                               <option value="inicial">Inicial</option>
@@ -38,7 +38,7 @@
                      </div>
 
                   <div class="text-center mt-2">
-                        <button type="submit" class="btn btn-info">Actualizar</button>
+                        <button type="submit" class="btn btn-secondary">Actualizar</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                   </div>
                </form>
