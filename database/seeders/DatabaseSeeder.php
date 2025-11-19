@@ -51,21 +51,159 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\Concepto::create([
-            'codigo' => 'MH2025',
+            'codigo' => 'M2025',
             'concepto' => 'Matrícula Hermanos s/.300',
             'monto' => '300',
         ]);
 
         \App\Models\Concepto::create([
-            'codigo' => 'MH2025',
+            'codigo' => 'M2025',
             'concepto' => 'Matrícula Hermanos s/.280',
             'monto' => '280',
         ]);
 
         \App\Models\Concepto::create([
-            'codigo' => 'MH2025',
+            'codigo' => 'M2025',
             'concepto' => 'Matrícula Hermanos s/.250',
             'monto' => '250',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'M2025',
+            'concepto' => 'Matrícula Familia s/.350',
+            'monto' => '350',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'M2025',
+            'concepto' => 'Matrícula Familia s/.300',
+            'monto' => '300',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'C2025',
+            'concepto' => 'Copias s/.170',
+            'monto' => '170',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'C2025',
+            'concepto' => 'Copias s/.160',
+            'monto' => '160',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'C2025',
+            'concepto' => 'Copias s/.150',
+            'monto' => '150',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'C2025',
+            'concepto' => 'Copias s/.140',
+            'monto' => '140',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'C2025',
+            'concepto' => 'Copias s/.120',
+            'monto' => '120',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'C2025',
+            'concepto' => 'Copias s/.100',
+            'monto' => '100',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'C2025',
+            'concepto' => 'Copias s/.85',
+            'monto' => '85',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'C2025',
+            'concepto' => 'Copias s/.80',
+            'monto' => '80',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'C2025',
+            'concepto' => 'Copias s/.60',
+            'monto' => '60',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'C2025',
+            'concepto' => 'Copias s/.50',
+            'monto' => '50',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'PSC2025',
+            'concepto' => 'Psicootricidad s/.50',
+            'monto' => '50',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'PSC2025',
+            'concepto' => 'Psicootricidad s/.30',
+            'monto' => '50',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'PSC2025',
+            'concepto' => 'Psicootricidad s/.25',
+            'monto' => '25',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'UE2025',
+            'concepto' => 'Útiles Escolares s/.280',
+            'monto' => '280',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'UE2025',
+            'concepto' => 'Útiles Escolares s/.270',
+            'monto' => '280',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'UE2025',
+            'concepto' => 'Útiles Escolares s/.260',
+            'monto' => '280',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'UE2025',
+            'concepto' => 'Útiles Escolares s/.250',
+            'monto' => '250',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'UE2025',
+            'concepto' => 'Útiles Escolares s/.180',
+            'monto' => '180',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'UE2025',
+            'concepto' => 'Útiles Escolares s/.150',
+            'monto' => '150',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'UE2025',
+            'concepto' => 'Útiles Escolares s/.140',
+            'monto' => '140',
+        ]);
+
+        \App\Models\Concepto::create([
+            'codigo' => 'UE2025',
+            'concepto' => 'Útiles Escolares s/.130',
+            'monto' => '130',
         ]);
 
         \App\Models\Concepto::create([
