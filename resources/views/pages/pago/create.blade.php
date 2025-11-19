@@ -179,7 +179,7 @@
                      <div class="row" id="mostrarefectivo">
                         <div class="col-md-4 mt-2 px-2">
                            <div class="form-group">
-                              <label for="monto" class="form-label">Monto:</label>
+                              <label for="monto" class="form-label">Monto Digital:</label>
                               <div class="input-group col-md-12">
                                  <span class="input-group-text" id="basic-addon2">S/.</span>
                                  <input type="number" class="form-control" id="monto" step="0.01" aria-describedby="monto" placeholder="" name="montodigital">

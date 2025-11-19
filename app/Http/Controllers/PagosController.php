@@ -43,9 +43,12 @@ class PagosController extends Controller
 
             $estudiante = Matricula::with('estudiantes')->with('concepto')->get();
             $concepto = Concepto::all();
+            $monto = DB::table('pagos')
+    ->whereDate('created_at', date('Y-m-d'))
+    ->sum('montoefectivo');
 
 
-            return view('pages.pago.index', compact('pago', 'concepto', 'estudiante', 'articulo'));
+            return view('pages.pago.index', compact('pago', 'concepto', 'estudiante', 'articulo','monto'));
         }
     }
 
@@ -86,10 +89,12 @@ class PagosController extends Controller
                  $pago->montototal = $request->get('montototal');
                  if($request->get('efetivo')==1){
                     $pago->montodigital = $request->get('montodigital');
+                     $pago->montoefectivo = $request->get('montototal') - $request->get('montodigital');
                      $pago->descripcion = $request->get('descripcion');
 
                  }else{
                     $pago->montodigital = 0;
+                     $pago->montoefectivo = $request->get('montototal');
                     
                  }
            
@@ -360,5 +365,20 @@ class PagosController extends Controller
     }
 
     // funcion para tikect------------------------------------------------------------
+
+
+    public function reporteefectivohoy(){
+          $pago = DB::table('pagos as p')
+                ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
+                ->select('p.id', 'p.idestudiante', 'p.descripcion', 'p.fecha','p.created_at','p.numcomprobante', 'p.montototal','p.montodigital','p.archivo', 'e.nombre', 'e.apellidos','e.dni','p.created_at',DB::raw('SUM(p.montoefectivo) as montoefectivo_total'))->where('p.created_at',date('Y-m-d'))
+                ->orderBy('id', 'asc')->get();
+
+
+         
+           // dd($articulo);
+
+           
+            return view('pages.pago.reportefectivohoy', compact('pago'));
+    }
   
 }
