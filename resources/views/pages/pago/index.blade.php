@@ -44,7 +44,9 @@
                <th>N°</th>
                <th>N° Boleto</th>
                <th>Nombre Completo</th>
-               <th>Fecha</th>
+               <th>Fecha</th>               
+               <th>Efectivo</th>
+               <th>transf. y/o Digital</th>
                <th>Monto</th>
                <th>Imagen</th>
 
@@ -83,8 +85,14 @@
                <td>
                   <h6>{{Carbon\Carbon::parse($pag->created_at)->translatedFormat('l, j F Y h:i A')}}</h6>
                </td>
+                <td>
+                  <h4 class="badge bg-secondary" style="font-size: 1em;">S/ {{$pag->montototal-$pag->montodigital}}</h4>
+               </td>
+                <td>
+                  <h4 class="badge bg-secondary" style="font-size: 1em;">S/ {{$pag->montodigital}}</h4>
+               </td>
                <td>
-                  <h4 class="badge bg-secondary" style="font-size: 1em;">S/.{{$pag->montototal}}</h4>
+                  <h4 class="badge bg-secondary" style="font-size: 1em;">S/ {{$pag->montototal}}</h4>
                </td>
 
                <td>

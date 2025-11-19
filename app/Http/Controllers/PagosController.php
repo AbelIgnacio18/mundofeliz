@@ -34,7 +34,7 @@ class PagosController extends Controller
 
             $pago = DB::table('pagos as p')
                 ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
-                ->select('p.id', 'p.idestudiante', 'p.descripcion', 'p.fecha','p.created_at','p.numcomprobante', 'p.montototal','p.archivo', 'e.nombre', 'e.apellidos','e.dni')
+                ->select('p.id', 'p.idestudiante', 'p.descripcion', 'p.fecha','p.created_at','p.numcomprobante', 'p.montototal','p.montodigital','p.archivo', 'e.nombre', 'e.apellidos','e.dni')
                 ->orderBy('id', 'asc')->get();
 
 
@@ -84,7 +84,15 @@ class PagosController extends Controller
                 $ultimoRegistro = Pagos::orderBy('id','desc')->first();
                 $pago->idestudiante = $idestudiante[0];
                  $pago->montototal = $request->get('montototal');
-            $pago->descripcion = $request->get('montototal');
+                 if($request->get('efetivo')==1){
+                    $pago->montodigital = $request->get('montodigital');
+                     $pago->descripcion = $request->get('descripcion');
+
+                 }else{
+                    $pago->montodigital = 0;
+                    
+                 }
+           
             if ($request->file('imagen')) {
                 $file = $request->file('imagen');
                 $name = time() . '.jpg'; // fuerza extensión jpg
