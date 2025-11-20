@@ -367,18 +367,28 @@ class PagosController extends Controller
     // funcion para tikect------------------------------------------------------------
 
 
-    public function reporteefectivohoy(){
-          $pago = DB::table('pagos as p')
-                ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
-                ->select('p.id', 'p.idestudiante', 'p.descripcion', 'p.fecha','p.created_at','p.numcomprobante', 'p.montototal','p.montodigital','p.archivo', 'e.nombre', 'e.apellidos','e.dni','p.created_at',DB::raw('SUM(p.montoefectivo) as montoefectivo_total'))->where('p.created_at',date('Y-m-d'))
-                ->orderBy('id', 'asc')->get();
+    public function reportefectivohoy(){
+
+        $pago = DB::table('pagos as p')
+            ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
+            ->select('p.id', 'p.idestudiante', 'p.descripcion', 'p.fecha', 'p.created_at', 'p.numcomprobante', 'p.montototal', 'p.montodigital', 'p.archivo', 'e.nombre', 'e.apellidos', 'e.dni', 'p.created_at')->where('p.created_at', date('Y-m-d'))
+            ->orderBy('id', 'asc')->get();
+
+        $totales = DB::table('pagos')
+            ->selectRaw('
+        SUM(montototal) as total_monto,
+        SUM(montoefectivo) as total_efectivo,
+        SUM(montodigital) as total_digital
+    ')
+            ->whereDate('created_at', date('Y-m-d'))
+            ->first();
 
 
-         
-           // dd($articulo);
+        $pdf = Pdf::loadView('pages.pago.reportecaja', compact('pago', 'totales'));
+       // $pdf->set_paper(array(0, 0, 135, 380), 'portrait');
+        return $pdf->stream('reporte_caja_' . date('Y-m-d').'.pdf');
 
            
-            return view('pages.pago.reportefectivohoy', compact('pago'));
     }
   
 }
