@@ -135,7 +135,7 @@
                     </td>
 
                     <td>
-                      <h4 class="badge bg-secondary" style="font-size: 1em;">S/ {{$pag->descripcion}}</h4>
+                      <h4 class="badge bg-secondary" style="font-size: 1em;">{{$pag->descripcion}}</h4>
 
                     </td>
 
