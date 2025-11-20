@@ -146,8 +146,7 @@
 
 
                 </tr>
-                @include('pages.pago.modal')
-                @include('pages.pago.edit')
+               
                 <?php $contadorpago++; ?>
                 @empty
                 <div class="alert alert-danger d-flex align-items-center" role="alert">
