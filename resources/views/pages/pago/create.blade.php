@@ -12,12 +12,12 @@
                <div class="form-group">
                   <label for="nombre" class="form-label">Datos del Estudiante: <span class="badge bg-secondary">Seleccione un estudiante para habilitar los pagos</span></label>
                   <!-- id="ex-search"  select2  data-placeholder="Seleccionar..." -->
-                  <select name="idestudiante[]" class="form-control select2" required  id="ex-estudiante" data-placeholder="Seleccionar..."  onchange="mesespagado()" multiple>
+                  <select name="idestudiante[]" class="form-control select2" required id="ex-estudiante" data-placeholder="Seleccionar..." onchange="mesespagado()" multiple>
                      <option value="">Seleccionar un estudiante</option>
                      @forelse($estudiante as $estud)
-                     <option value="{{$estud->estudiantes->id}}/{{ $estud->meses->isNotEmpty() ? implode('-', $estud->meses->pluck('mes')->toArray()) . '-' : '' }}"> {{$estud->estudiantes->nombre}} {{$estud->estudiantes->apellidos}} - {{$estud->estudiantes->dni}}
+                     <option value="{{$estud->estudiantes->id}}/{{ $estud->meses->isNotEmpty() ? implode('-', $estud->meses->pluck('mes')->toArray()) . '-' : '' }}"> {{$estud->estudiantes->apellidos}} {{$estud->estudiantes->nombre}} - {{$estud->estudiantes->dni}}
                         {{$estud->concepto->concepto}}
-                        {{$estud->concepto->monto }}
+                        <!-- {{$estud->concepto->monto }} -->
 
                      </option>
 
@@ -37,115 +37,115 @@
 
                </div>
 
-<div class="row">
-               <!-- Pago de Conceptos -->
-               <div class="form-group col-md-6">
-                  <label for="nombre" class="form-label">Concepto de Pago:</label>
-                  <div class="">
-                     <select name="idconcepto" id="pidconcepto" class="form-control" onchange="conceptos()">
-                        <option value="">Seleccionar un concepto</option>
-                        @forelse($concepto as $con)
-                        <option value="{{$con->id}}-{{$con->concepto}}-{{$con->monto}}">{{$con->codigo}}-{{$con->concepto}}</option>
+               <div class="row">
+                  <!-- Pago de Conceptos -->
+                  <div class="form-group col-md-6">
+                     <label for="nombre" class="form-label">Concepto de Pago:</label>
+                     <div class="">
+                        <select name="idconcepto" id="pidconcepto" class="form-select" onchange="conceptos()" style="background-color:#e5e5e5">
+                           <option value="">Seleccionar un concepto</option>
+                           @forelse($concepto as $con)
+                           <option value="{{$con->id}}-{{$con->concepto}}-{{$con->monto}}">{{$con->codigo}}-{{$con->concepto}}</option>
 
-                        @empty
-                        <option value="">No hay Datos</option>
-                        @endforelse
-                     </select>
-                     <div class="row p-3" id="mostrarconceptocosto">
+                           @empty
+                           <option value="">No hay Datos</option>
+                           @endforelse
+                        </select>
+                        <div class="row p-3" id="mostrarconceptocosto">
 
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              <label for="monto" class="form-label">Monto:</label>
-                              <div class="input-group col-md-12">
-                                 <span class="input-group-text" id="basic-addon2"><b>S/.</b></span>
-                                 <input type="number" class="form-control" id="nmonto" step="0.01" aria-describedby="monto" placeholder="" name="monto">
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 <label for="monto" class="form-label">Monto:</label>
+                                 <div class="input-group col-md-12">
+                                    <span class="input-group-text" id="basic-addon2"><b>S/.</b></span>
+                                    <input type="number" class="form-control" id="nmonto" step="0.01" aria-describedby="monto" placeholder="" name="monto">
+                                 </div>
                               </div>
                            </div>
-                        </div>
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              <label for="monto" class="form-label">Nº Pensiones:</label>
-                              <div class="input-group col-md-12">
-                                 <span class="input-group-text" id="basic-addon2"><b>Cant.</b></span>
-                                 <input type="number" class="form-control" id="npension" step="1" aria-describedby="monto" value="1" name="npension">
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 <label for="monto" class="form-label">Nº Pensiones:</label>
+                                 <div class="input-group col-md-12">
+                                    <span class="input-group-text" id="basic-addon2"><b>Cant.</b></span>
+                                    <input type="number" class="form-control" id="npension" step="1" aria-describedby="monto" value="1" name="npension">
+                                 </div>
                               </div>
                            </div>
-                        </div>
-<div class="row">
-                        <div class="col-md-12 d-flex">
-                           <div class="mx-auto">
-                              <button type="button" id="bt_addp" class="btn btn-primary">Agregar Concepto</button>
+                           <div class="row">
+                              <div class="col-md-12 d-flex">
+                                 <div class="mx-auto">
+                                    <button type="button" id="bt_addp" class="btn btn-primary">Agregar Concepto</button>
+                                 </div>
+
+                              </div>
                            </div>
 
+
                         </div>
-</div>
 
 
                      </div>
 
 
+
                   </div>
 
-
-
-               </div>
-
-               <!-- Pago de Artículos -->
-               <div class="form-group col-md-6">
-                  <label for="nombre" class="form-label">Pago de Artículos:</label>
-                  <div class="">
-                     <select name="idarticulo" id="idarticulo" class="form-control" onchange="articulos()">
-                        <option value="">Seleccionar un artículo</option>
-                        @forelse($articulo as $art)
-                        <option value="{{$art->id}}-{{$art->nombre}}-{{$art->stock}}-{{$art->precioventa}}-{{$art->categoria->nombre}}">{{$art->categoria->nombre}} {{$art->nombre}}</option>
-                        @empty
-                        <option value="">No hay Datos</option>
-                        @endforelse
-                     </select>
+                  <!-- Pago de Artículos -->
+                  <div class="form-group col-md-6">
+                     <label for="nombre" class="form-label">Pago de Artículos:</label>
+                     <div class="">
+                        <select name="idarticulo" id="idarticulo" class="form-select" onchange="articulos()">
+                           <option value="">Seleccionar un artículo</option>
+                           @forelse($articulo as $art)
+                           <option value="{{$art->id}}-{{$art->nombre}}-{{$art->stock}}-{{$art->precioventa}}-{{$art->categoria->nombre}}">{{$art->categoria->nombre}} {{$art->nombre}}</option>
+                           @empty
+                           <option value="">No hay Datos</option>
+                           @endforelse
+                        </select>
 
 
 
-                     <div class="row p-3" id="mostrarstock">
+                        <div class="row p-3" id="mostrarstock">
 
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              <label for="monto" class="form-label">Stock:</label>
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 <label for="monto" class="form-label">Stock:</label>
+                                 <div class="input-group col-md-12">
+                                    <span class="input-group-text" id="basic-addon2"><b>Cant.</b></span>
+                                    <input type="number" class="form-control" id="pstock" step="1" aria-describedby="monto" placeholder="Vacio" name="monto" disabled>
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 <label for="monto" class="form-label">Precio Venta:</label>
+                                 <div class="input-group col-md-12">
+                                    <span class="input-group-text" id="basic-addon2"><b>S/.</b></span>
+                                    <input type="number" class="form-control" id="pprecio" step="0.01" aria-describedby="monto" placeholder="" name="monto">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="form-group col-md-6">
+                              <label for="monto" class="form-label">Cantidad:</label>
                               <div class="input-group col-md-12">
                                  <span class="input-group-text" id="basic-addon2"><b>Cant.</b></span>
-                                 <input type="number" class="form-control" id="pstock" step="1" aria-describedby="monto" placeholder="Vacio" name="monto" disabled>
+                                 <input type="number" class="form-control" id="pcantidad" step="1" aria-describedby="monto" placeholder="0" name="cantidad" value="1">
                               </div>
                            </div>
-                        </div>
 
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              <label for="monto" class="form-label">Precio Venta:</label>
-                              <div class="input-group col-md-12">
-                                 <span class="input-group-text" id="basic-addon2"><b>S/.</b></span>
-                                 <input type="number" class="form-control" id="pprecio" step="0.01" aria-describedby="monto" placeholder="" name="monto">
+                           <div class="col-md-4 pt-2 ms-4 d-flex">
+                              <div class="mx-auto">
+                                 <button type="button" id="bt_add" class="btn btn-primary">Agregar Artículo</button>
                               </div>
-                           </div>
-                        </div>
-                        <div class="form-group col-md-6">
-                           <label for="monto" class="form-label">Cantidad:</label>
-                           <div class="input-group col-md-12">
-                              <span class="input-group-text" id="basic-addon2"><b>Cant.</b></span>
-                              <input type="number" class="form-control" id="pcantidad" step="1" aria-describedby="monto" placeholder="0" name="cantidad" value="1">
-                           </div>
-                        </div>
-                        
-                        <div class="col-md-4 pt-2 ms-4 d-flex">
-                           <div class="mx-auto">
-                              <button type="button" id="bt_add" class="btn btn-primary">Agregar Artículo</button>
+
                            </div>
 
                         </div>
-
                      </div>
-                  </div>
 
+                  </div>
                </div>
-</div>
 
 
 
@@ -154,53 +154,53 @@
                   <label for="imagen" class="form-label">Imagen: <span class="badge bg-primary">Opcional</span></label>
                   <input type="file" name="imagen" class="form-control">
                </div>
-               <div class="form-group row">
-                  <label for="nombre" class="form-label col-sm-3">Forma Pago:</label>
-                  <div class="col-sm-9">
-                     <div class="row">
-                        <div class="form-check col-md-3">
-                           <input class="form-check-input" type="radio" name="efetivo" id="efetivo" checked value="0" style="cursor:pointer" onclick="efectivo()">
-                           <label class="form-check-label" for="efetivo">
-                              Efectivo
-                           </label>
+
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="form-group row">
+                        <div class="col-md-4">
+                           <label for="nombre" class="form-label">Forma Pago:</label>
+
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="efetivo" id="efetivo" checked value="0" style="cursor:pointer" onclick="efectivo()">
+                              <label class="form-check-label" for="efetivo">
+                                 Dinero en Efectivo
+                              </label>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="efetivo" id="efetivo" value="1" style="cursor:pointer" onclick="billeteradigital()">
+                              <label class="form-check-label" for="efetivo">
+                                 Dinero Digital
+                              </label>
+                           </div>
+
                         </div>
-                        <div class="form-check col-md-6">
-                           <input class="form-check-input" type="radio" name="efetivo" id="efetivo" value="1" style="cursor:pointer" onclick="billeteradigital()">
-                           <label class="form-check-label" for="efetivo">
-                              Transferencia o Deposito(Billetera Digital)
-                           </label>
-                        </div>
-
-                     </div>
-
-
-
-
-                     <div class="row" id="mostrarefectivo">
-                        <div class="col-md-4 mt-2 px-2">
-                           <div class="form-group">
-                              <label for="monto" class="form-label">Monto Digital:</label>
-                              <div class="input-group col-md-12">
-                                 <span class="input-group-text" id="basic-addon2">S/.</span>
-                                 <input type="number" class="form-control" id="monto" step="0.01" aria-describedby="monto" placeholder="" name="montodigital">
+                        <div class="col-md-8">
+                           <div class="row" id="mostrarefectivo">
+                              <div class="col-md-4 mt-2 px-2">
+                                 <div class="form-group">
+                                    <label for="monto" class="form-label">Monto Digital:</label>
+                                    <div class="input-group col-md-12">
+                                       <span class="input-group-text" id="basic-addon2"><b>S/.</b></span>
+                                       <input type="number" class="form-control" id="monto" step="0.01" aria-describedby="monto" placeholder="" name="montodigital">
+                                    </div>
+                                 </div>
                               </div>
+
+                              <div class="col-md-7 mt-2 px-2">
+                                 <div class="form-group">
+                                    <label for="monto" class="form-label">Descripción:</label>
+                                    <div class="input-group col-md-12">
+                                       <textarea name="descripcion" class="form-control" rows="2" cols="30"></textarea>
+                                    </div>
+                                 </div>
+                              </div>
+
                            </div>
                         </div>
-
-                         <div class="col-md-7 mt-2 px-2">
-                           <div class="form-group">
-                              <label for="monto" class="form-label">Descripción:</label>
-                              <div class="input-group col-md-12">
-                                 
-                                
-                                 <textarea name="descripcion" class="form-control" rows="2" cols="30"></textarea>
-                              </div>
-                           </div>
-                        </div>
-
                      </div>
+
                   </div>
-
                </div>
                <!-- tabla de concepto de pagosss -->
 
@@ -315,12 +315,12 @@
       $("#mostrarconceptocosto").hide();
       $("#mesespagados").hide();
       $("#mostrarstock").hide();
-       $("#mostrarefectivo").hide();
+      $("#mostrarefectivo").hide();
       $("#guardar").hide();
       $('#mostrarconcepto').hide();
       $('#mostrararticulo').hide();
 
-     
+
 
    });
    //end vareables generales
@@ -332,10 +332,11 @@
 
 
    function billeteradigital() {
-  $("#mostrarefectivo").show();
+      $("#mostrarefectivo").show();
    }
+
    function efectivo() {
-  $("#mostrarefectivo").hide();
+      $("#mostrarefectivo").hide();
    }
 
    function mesespagado() {

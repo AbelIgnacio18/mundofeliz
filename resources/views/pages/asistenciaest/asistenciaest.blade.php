@@ -96,7 +96,7 @@
             <tr>
                <th>N°</th>
                <th>Nombres</th>
-               <th>entrada</th>
+               <th>Entrada</th>
                <th>Salida</th>
                <th>Estado</th>
                <th>Acciones</th>

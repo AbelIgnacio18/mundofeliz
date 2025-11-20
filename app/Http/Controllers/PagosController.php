@@ -34,7 +34,7 @@ class PagosController extends Controller
 
             $pago = DB::table('pagos as p')
                 ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
-                ->select('p.id', 'p.idestudiante', 'p.descripcion', 'p.fecha','p.created_at','p.numcomprobante', 'p.montototal','p.montodigital','p.archivo', 'e.nombre', 'e.apellidos','e.dni')
+                ->select('p.id', 'p.idestudiante', 'p.descripcion', 'p.fecha','p.created_at','p.numcomprobante', 'p.montototal','p.montodigital','p.montoefectivo','p.archivo', 'e.nombre', 'e.apellidos','e.dni')
                 ->orderBy('id', 'asc')->get();
 
 
@@ -371,8 +371,11 @@ class PagosController extends Controller
 
         $pago = DB::table('pagos as p')
             ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
-            ->select('p.id', 'p.idestudiante', 'p.descripcion', 'p.fecha', 'p.created_at', 'p.numcomprobante', 'p.montototal', 'p.montodigital', 'p.archivo', 'e.nombre', 'e.apellidos', 'e.dni', 'p.created_at')->where('p.created_at', date('Y-m-d'))
+            ->select('p.id', 'p.idestudiante', 'p.descripcion', 'p.fecha', 'p.created_at', 'p.numcomprobante', 'p.montototal', 'p.montodigital','p.montoefectivo', 'p.archivo', 'e.nombre', 'e.apellidos', 'e.dni', 'p.created_at')->where('p.created_at', date('Y-m-d'))
             ->orderBy('id', 'asc')->get();
+
+
+
 
         $totales = DB::table('pagos')
             ->selectRaw('

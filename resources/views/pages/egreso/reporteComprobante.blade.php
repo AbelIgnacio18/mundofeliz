@@ -17,7 +17,7 @@
 	<!-- partial:index.partial.html -->
 	<div id="showScroll" class="container">
 		<div class="receipt">
-			<h1 class="logo"><img src="../public/pdf/assets/img/logo_pdf.webp" style="max-width:100px"></h1>
+			<h1 class="logo"><img src="../public/pdf/assets/img/logo_pdf.webp" style="max-height:100px"></h1>
 			<div class="address">MUNDO FELIZ</div>
 			<div class="address" style="font-size:80%;">Cel: 961 141 838<br>922 916 052<br>
 				mundofeliz.edu.pe <br>10752090625</div>
