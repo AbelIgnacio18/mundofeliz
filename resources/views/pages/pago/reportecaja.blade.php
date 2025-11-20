@@ -94,6 +94,7 @@
                     <th>D.Efectivo</th>
                     <th>D.Digital</th>
                     <th>Monto Total</th>
+                    <th>Descripcíon</th>
 
                 </tr>
             </thead>
@@ -134,13 +135,7 @@
                     </td>
 
                     <td>
-                        @if(($pag->archivo) !="")
-                        <img class="bg-soft-primary rounded img-fluid avatar-40 me-3" src="{{ asset('storage/pagos/' . $pag->archivo) }}" alt="{{$pag->id}}" class="img-thumbnail" style="width: 50px;height: 50px">
-
-                        @else
-                        <p>Ninguno</p>
-
-                        @endif
+                      <h4 class="badge bg-secondary" style="font-size: 1em;">S/ {{$pag->descripcion}}</h4>
 
                     </td>
 
