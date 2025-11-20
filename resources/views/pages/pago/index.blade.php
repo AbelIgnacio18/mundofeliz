@@ -76,7 +76,7 @@
                </td>
 
                <td>
-                  <div class="icon iq-icon-box-3">{{$pag->nombre}} {{$pag->apellidos}}</div>
+                  <div class="icon iq-icon-box-3"> {{$pag->apellidos}} {{$pag->nombre}}</div>
                </td>
 
                <td>
@@ -84,11 +84,11 @@
                </td>
 
                <td>
-                  <h4 class="badge bg-secondary" style="font-size: 1em;">S/ {{$pag->montototal-$pag->montodigital}}</h4>
+                  <h4 class="badge bg-warning" style="font-size: 1em;">S/ {{$pag->montototal-$pag->montodigital}}</h4>
                </td>
 
                <td>
-                  <h4 class="badge bg-secondary" style="font-size: 1em;">S/ {{$pag->montodigital}}</h4>
+                  <h4 class="badge bg-alumko" style="font-size: 1em;">S/ {{$pag->montodigital}}</h4>
                </td>
 
                <td>

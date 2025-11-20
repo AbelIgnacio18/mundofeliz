@@ -15,9 +15,9 @@
                   <select name="idestudiante[]" class="form-control select2" required id="ex-estudiante" data-placeholder="Seleccionar..." onchange="mesespagado()" multiple>
                      <option value="">Seleccionar un estudiante</option>
                      @forelse($estudiante as $estud)
-                     <option value="{{$estud->estudiantes->id}}/{{ $estud->meses->isNotEmpty() ? implode('-', $estud->meses->pluck('mes')->toArray()) . '-' : '' }}"> {{$estud->estudiantes->nombre}} {{$estud->estudiantes->apellidos}} - {{$estud->estudiantes->dni}}
+                     <option value="{{$estud->estudiantes->id}}/{{ $estud->meses->isNotEmpty() ? implode('-', $estud->meses->pluck('mes')->toArray()) . '-' : '' }}"> {{$estud->estudiantes->apellidos}} {{$estud->estudiantes->nombre}} - {{$estud->estudiantes->dni}}
                         {{$estud->concepto->concepto}}
-                        {{$estud->concepto->monto }}
+                        <!-- {{$estud->concepto->monto }} -->
 
                      </option>
 
@@ -42,7 +42,7 @@
                   <div class="form-group col-md-6">
                      <label for="nombre" class="form-label">Concepto de Pago:</label>
                      <div class="">
-                        <select name="idconcepto" id="pidconcepto" class="form-control" onchange="conceptos()">
+                        <select name="idconcepto" id="pidconcepto" class="form-select" onchange="conceptos()" style="background-color:#e5e5e5">
                            <option value="">Seleccionar un concepto</option>
                            @forelse($concepto as $con)
                            <option value="{{$con->id}}-{{$con->concepto}}-{{$con->monto}}">{{$con->codigo}}-{{$con->concepto}}</option>
@@ -87,13 +87,14 @@
                      </div>
 
 
+
                   </div>
 
                   <!-- Pago de Artículos -->
                   <div class="form-group col-md-6">
                      <label for="nombre" class="form-label">Pago de Artículos:</label>
                      <div class="">
-                        <select name="idarticulo" id="idarticulo" class="form-control" onchange="articulos()">
+                        <select name="idarticulo" id="idarticulo" class="form-select" onchange="articulos()">
                            <option value="">Seleccionar un artículo</option>
                            @forelse($articulo as $art)
                            <option value="{{$art->id}}-{{$art->nombre}}-{{$art->stock}}-{{$art->precioventa}}-{{$art->categoria->nombre}}">{{$art->categoria->nombre}} {{$art->nombre}}</option>
@@ -146,146 +147,146 @@
                   </div>
                </div>
 
+
+
+
                <div class="form-group">
                   <label for="imagen" class="form-label">Imagen: <span class="badge bg-primary">Opcional</span></label>
                   <input type="file" name="imagen" class="form-control">
                </div>
 
                <div class="row">
-                  <div class="form-group col-md-5">
-                     <div class="form-group col-md-12">
-                        <label for="nombre" class="form-label">Forma Pago:</label>
-                        <div class="col-md-12">
-                           <div class="form-check col-md-6">
+                  <div class="col-md-12">
+                     <div class="form-group row">
+                        <div class="col-md-4">
+                           <label for="nombre" class="form-label">Forma Pago:</label>
+
+                           <div class="form-check">
                               <input class="form-check-input" type="radio" name="efetivo" id="efetivo" checked value="0" style="cursor:pointer" onclick="efectivo()">
                               <label class="form-check-label" for="efetivo">
-                                 Dinero Efectivo
+                                 Dinero en Efectivo
                               </label>
                            </div>
-                           <div class="form-check col-md-6">
+                           <div class="form-check">
                               <input class="form-check-input" type="radio" name="efetivo" id="efetivo" value="1" style="cursor:pointer" onclick="billeteradigital()">
                               <label class="form-check-label" for="efetivo">
                                  Dinero Digital
                               </label>
                            </div>
-                        </div>
-                     </div>
-                  </div>
 
-                  <div class="form-group col-md-7">
-                     <div class="row" id="mostrarefectivo">
-                        <div class="col-md-4 mt-2 px-2">
-                           <div class="form-group">
-                              <label for="monto" class="form-label">Monto Digital:</label>
-                              <div class="input-group col-md-12">
-                                 <span class="input-group-text" id="basic-addon2"><b>S/.</b></span>
-                                 <input type="number" class="form-control" id="monto" step="0.01" aria-describedby="monto" placeholder="" name="montodigital">
+                        </div>
+                        <div class="col-md-8">
+                           <div class="row" id="mostrarefectivo">
+                              <div class="col-md-4 mt-2 px-2">
+                                 <div class="form-group">
+                                    <label for="monto" class="form-label">Monto Digital:</label>
+                                    <div class="input-group col-md-12">
+                                       <span class="input-group-text" id="basic-addon2"><b>S/.</b></span>
+                                       <input type="number" class="form-control" id="monto" step="0.01" aria-describedby="monto" placeholder="" name="montodigital">
+                                    </div>
+                                 </div>
                               </div>
+
+                              <div class="col-md-7 mt-2 px-2">
+                                 <div class="form-group">
+                                    <label for="monto" class="form-label">Descripción:</label>
+                                    <div class="input-group col-md-12">
+                                       <textarea name="descripcion" class="form-control" rows="2" cols="30"></textarea>
+                                    </div>
+                                 </div>
+                              </div>
+
                            </div>
                         </div>
-
-                        <div class="col-md-7 mt-2 px-2">
-                           <div class="form-group">
-                              <label for="monto" class="form-label">Descripción:</label>
-                              <div class="input-group col-md-12">
-
-
-                                 <textarea name="descripcion" class="form-control" rows="2" cols="30"></textarea>
-                              </div>
-                           </div>
-                        </div>
-
                      </div>
+
                   </div>
                </div>
-         </div>
+               <!-- tabla de concepto de pagosss -->
 
+
+               <div class="table-responsive mt-2" id="mostrarconcepto">
+                  <div class="col-md-12">
+                     <h6>Pago de Conceptos:</h6>
+                  </div>
+
+                  <table class="table table-striped table-hover" id="detallesp">
+                     <thead style="background-color:#A9D0F5">
+                        <tr>
+                           <th>#</th>
+                           <th>Concepto</th>
+                           <th>Nª Pens.</th>
+                           <th>Monto</th>
+                           <th>Subtotal</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                     </tbody>
+                     <tfoot>
+                        <th>TOTAL</th>
+
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>
+                           <h6 id="totalp">s/0.00</h6><input type="hidden" name="total_p" id="total_p" value="0">
+                        </th>
+                        </tfood>
+                  </table>
+
+               </div>
+
+
+
+               <div class="table-responsive mt-2" id="mostrararticulo">
+                  <div class="col-md-12">
+                     <h6>Pago de Artículos:</h6>
+                  </div>
+                  <table class="table table-striped table-hover" id="detalles">
+                     <thead style="background-color:#A9D0F5">
+                        <tr>
+                           <th>#</th>
+                           <th>Artículo</th>
+                           <th>Cant Unit.</th>
+                           <th>P. Unit.</th>
+                           <th>Subtotal</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+
+                     </tbody>
+                     <tfoot>
+                        <th>TOTAL</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>
+                           <h6 id="total">s/0.00</h6><input type="hidden" name="total_venta" id="total_venta" value="0">
+                        </th>
+                        </tfood>
+                  </table>
+
+               </div>
+
+               <div class="mt-2" id="guardar">
+                  <div class="row text-end mb-2">
+                     <label for="">
+                        <h6>Total Pagar</h6>
+                     </label>
+                     <h4 id="montototalv">s/0.00</h4><input type="hidden" name="montototal" id="montototal">
+                  </div>
+
+                  <div class="form-group text-start">
+                     <input name="token" value="{{csrf_token()}}" type="hidden"></input>
+                     <button class="btn btn-secondary" type="submit">Guardar</button>
+                     <button class="btn btn-danger" type="reset" data-bs-dismiss="modal">Cancelar</button>
+                  </div>
+               </div>
+            </form>
+
+         </div>
       </div>
-      <!-- tabla de concepto de pagosss -->
-
-
-      <div class="table-responsive mt-2" id="mostrarconcepto">
-         <div class="col-md-12">
-            <h6>Pago de Conceptos:</h6>
-         </div>
-
-         <table class="table table-striped table-hover" id="detallesp">
-            <thead style="background-color:#A9D0F5">
-               <tr>
-                  <th>#</th>
-                  <th>Concepto</th>
-                  <th>Nª Pens.</th>
-                  <th>Monto</th>
-                  <th>Subtotal</th>
-               </tr>
-            </thead>
-            <tbody>
-            </tbody>
-            <tfoot>
-               <th>TOTAL</th>
-
-               <th></th>
-               <th></th>
-               <th></th>
-               <th>
-                  <h6 id="totalp">s/0.00</h6><input type="hidden" name="total_p" id="total_p" value="0">
-               </th>
-               </tfood>
-         </table>
-
-      </div>
-
-
-
-      <div class="table-responsive mt-2" id="mostrararticulo">
-         <div class="col-md-12">
-            <h6>Pago de Artículos:</h6>
-         </div>
-         <table class="table table-striped table-hover" id="detalles">
-            <thead style="background-color:#A9D0F5">
-               <tr>
-                  <th>#</th>
-                  <th>Artículo</th>
-                  <th>Cant Unit.</th>
-                  <th>P. Unit.</th>
-                  <th>Subtotal</th>
-               </tr>
-            </thead>
-            <tbody>
-
-            </tbody>
-            <tfoot>
-               <th>TOTAL</th>
-               <th></th>
-               <th></th>
-               <th></th>
-               <th>
-                  <h6 id="total">s/0.00</h6><input type="hidden" name="total_venta" id="total_venta" value="0">
-               </th>
-               </tfood>
-         </table>
-
-      </div>
-
-      <div class="mt-2" id="guardar">
-         <div class="row text-end mb-2">
-            <label for="">
-               <h6>Total Pagar</h6>
-            </label>
-            <h4 id="montototalv">s/0.00</h4><input type="hidden" name="montototal" id="montototal">
-         </div>
-
-         <div class="form-group text-start">
-            <input name="token" value="{{csrf_token()}}" type="hidden"></input>
-            <button class="btn btn-secondary" type="submit">Guardar</button>
-            <button class="btn btn-danger" type="reset" data-bs-dismiss="modal">Cancelar</button>
-         </div>
-      </div>
-      </form>
-
    </div>
-</div>
-</div>
 </div>
 
 @push('pago')
