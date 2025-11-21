@@ -58,7 +58,7 @@
                                  <label for="monto" class="form-label">Monto:</label>
                                  <div class="input-group col-md-12">
                                     <span class="input-group-text" id="basic-addon2"><b>S/.</b></span>
-                                    <input type="number" class="form-control" id="nmonto" step="0.01" aria-describedby="monto" placeholder="" name="monto">
+                                    <input type="number" class="form-control" id="nmonto" step="1" aria-describedby="monto" placeholder="" name="monto">
                                  </div>
                               </div>
                            </div>
@@ -67,7 +67,7 @@
                                  <label for="monto" class="form-label">Nº Pensiones:</label>
                                  <div class="input-group col-md-12">
                                     <span class="input-group-text" id="basic-addon2"><b>Cant.</b></span>
-                                    <input type="number" class="form-control" id="npension" step="1" aria-describedby="monto" value="1" name="npension">
+                                    <input type="number" class="form-control" id="npension" step="1" aria-describedby="monto" value="1" min=1 max=10 name="npension">
                                  </div>
                               </div>
                            </div>
@@ -112,7 +112,7 @@
                                  <label for="monto" class="form-label">Stock:</label>
                                  <div class="input-group col-md-12">
                                     <span class="input-group-text" id="basic-addon2"><b>Cant.</b></span>
-                                    <input type="number" class="form-control" id="pstock" step="1" aria-describedby="monto" placeholder="Vacio" name="monto" disabled>
+                                    <input type="number" class="form-control" id="pstock" step="1" min="1" aria-describedby="monto" placeholder="Vacio" name="monto" disabled>
                                  </div>
                               </div>
                            </div>
@@ -122,7 +122,7 @@
                                  <label for="monto" class="form-label">Precio Venta:</label>
                                  <div class="input-group col-md-12">
                                     <span class="input-group-text" id="basic-addon2"><b>S/.</b></span>
-                                    <input type="number" class="form-control" id="pprecio" step="0.01" aria-describedby="monto" placeholder="" name="monto">
+                                    <input type="number" class="form-control" id="pprecio" step="1" aria-describedby="monto" placeholder="" name="monto">
                                  </div>
                               </div>
                            </div>
@@ -130,7 +130,7 @@
                               <label for="monto" class="form-label">Cantidad:</label>
                               <div class="input-group col-md-12">
                                  <span class="input-group-text" id="basic-addon2"><b>Cant.</b></span>
-                                 <input type="number" class="form-control" id="pcantidad" step="1" aria-describedby="monto" placeholder="0" name="cantidad" value="1">
+                                 <input type="number" class="form-control" id="pcantidad" step="1" min="1" aria-describedby="monto" placeholder="0" name="cantidad" value="1">
                               </div>
                            </div>
 
@@ -145,14 +145,6 @@
                      </div>
 
                   </div>
-               </div>
-
-
-
-
-               <div class="form-group">
-                  <label for="imagen" class="form-label">Imagen: <span class="badge bg-primary">Opcional</span></label>
-                  <input type="file" name="imagen" class="form-control">
                </div>
 
                <div class="row">
@@ -202,9 +194,15 @@
 
                   </div>
                </div>
+
+
+               <div class="form-group">
+                  <label for="imagen" class="form-label">Imagen: <span class="badge bg-primary">Opcional</span></label>
+                  <input type="file" name="imagen" class="form-control">
+               </div>
+
+
                <!-- tabla de concepto de pagosss -->
-
-
                <div class="table-responsive mt-2" id="mostrarconcepto">
                   <div class="col-md-12">
                      <h6>Pago de Conceptos:</h6>

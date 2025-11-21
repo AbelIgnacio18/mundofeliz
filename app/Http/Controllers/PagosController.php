@@ -361,6 +361,7 @@ class PagosController extends Controller
 
         $pdf = Pdf::loadView('pages.pago.reporteComprobante', compact('pension', 'articulo', 'estudiante'));
         $pdf->set_paper(array(0, 0, 135, 380), 'portrait');
+        
         return $pdf->stream('' . $estudiante[0]->nombre . '-' . $estudiante[0]->apellidos .'.pdf');
     }
 
@@ -389,6 +390,7 @@ class PagosController extends Controller
 
         $pdf = Pdf::loadView('pages.pago.reportecaja', compact('pago', 'totales'));
        // $pdf->set_paper(array(0, 0, 135, 380), 'portrait');
+        $pdf->setPaper('A4', 'landscape');
         return $pdf->stream('reporte_caja_' . date('Y-m-d').'.pdf');
 
            
