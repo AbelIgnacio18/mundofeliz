@@ -50,7 +50,7 @@
                      </div>
 
                      <div class="form-group">
-                        <label for="tiempo" class="form-label">Hota de Entrada:</label>
+                        <label for="tiempo" class="form-label">Hora de Entrada:</label>
                         <input type="time" class="form-control" id="" aria-describedby="nivelS" placeholder="Primaria" name="horaentrada" min="00:00:00" value="07:15:00" step="1">
                      </div>
 

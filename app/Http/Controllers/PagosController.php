@@ -83,21 +83,21 @@ class PagosController extends Controller
             $contadorestu = 0;
             while ($contadorestu < count($separarid)) {
                 $idestudiante = explode('/', $separarid[$contadorestu]);
-                 $pago = new Pagos;
+                $pago = new Pagos;
                 $ultimoRegistro = Pagos::orderBy('id','desc')->first();
                 $pago->idestudiante = $idestudiante[0];
-                 $pago->montototal = $request->get('montototal');
-                 if($request->get('efetivo')==1){
+                $pago->montototal = $request->get('montototal');
+                if($request->get('efetivo')==1){
                     $pago->montodigital = $request->get('montodigital');
-                     $pago->montoefectivo = $request->get('montototal') - $request->get('montodigital');
-                     $pago->descripcion = $request->get('descripcion');
+                    $pago->montoefectivo = $request->get('montototal') - $request->get('montodigital');
+                    $pago->descripcion = $request->get('descripcion');
 
-                 }else{
+                }else{
                     $pago->montodigital = 0;
-                     $pago->montoefectivo = $request->get('montototal');
+                    $pago->montoefectivo = $request->get('montototal');
                     
-                 }
-           
+                }
+
             if ($request->file('imagen')) {
                 $file = $request->file('imagen');
                 $name = time() . '.jpg'; // fuerza extensión jpg
@@ -148,8 +148,8 @@ class PagosController extends Controller
             $cantidad = $request->get('cantidad');
             $monto = $request->get('monto');
             $descripcion = $request->get('idconcepto');
-            $idmatriula=Matricula::where('idestudiante',$idestudiante[0])->first();
-
+            $idmatricula=Matricula::where('idestudiante',$idestudiante[0])->first();
+/* dd(($idmatricula)); */
              if (is_string($idconcepto) == false) {
                 if ($idconcepto != null) {
                     $cont = 0;
@@ -162,7 +162,7 @@ class PagosController extends Controller
 
                         $concep = Concepto::where('id', $idconcepto[$cont])->first();
                         if ($concep->codigo=='P001') {
-                            $id = $idmatriula->id;
+                            $id = $idmatricula->id;
                             $numeropension = $cantidad[$cont];
 
                             $numeromesespagados = Mese::where('idmatricula', $id)->count();
@@ -284,9 +284,9 @@ class PagosController extends Controller
                     if($concepto->codigo=="P001"){
                     $cantidadpenciones = $pensiones->cantidad; //cantidad de penciones pagadas
                     $idestudiante = $pago->idestudiante; //estudiantee  
-                    $idmatriula = Matricula::where('idestudiante', $idestudiante)->first();
+                    $idmatricula = Matricula::where('idestudiante', $idestudiante)->first();
                      for ($i = 0; $i <  $cantidadpenciones; $i++) {
-                        $meses = Mese::where('idmatricula', $idmatriula->id)->get();
+                        $meses = Mese::where('idmatricula', $idmatricula->id)->get();
 
                         $idmeses = $meses[count($meses) - 1]->id;
                         $mess = Mese::find($idmeses);

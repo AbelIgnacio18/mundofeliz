@@ -10,31 +10,31 @@
                @method('GET')
                @csrf
 
-               
-                 <div class="col-md-12 col-6">
-                    <div>
-                       <span>Escoger el Aula:</span>
-                       <div>
+
+               <div class="col-md-12 col-6">
+                  <div>
+                     <span>Escoger el Aula:</span>
+                     <div>
                         @forelse($aula as $tu)
-                         <div class="form-check">
-                             <input class="form-check-input" type="radio" name="aula" id="aula" value="{{$tu->id}}" style="cursor:pointer">
-                             <label class="form-check-label" for="estado">
-                                {{$tu->nivel}} {{$tu->grado}} {{$tu->seccion}} {{$tu->id}}
-                             </label>
-                          </div>
+                        <div class="form-check">
+                           <input class="form-check-input" type="radio" name="aula" id="aula" value="{{$tu->id}}" style="cursor:pointer">
+                           <label class="form-check-label" for="estado">
+                              {{$tu->nivel}} {{$tu->grado}} {{$tu->seccion}} {{$tu->id}}
+                           </label>
+                        </div>
                         @empty
                         @endforelse
-                          <div class="form-check">
-                             <input class="form-check-input" type="radio" name="aula" id="aula" value="todos" style="cursor:pointer">
-                             <label class="form-check-label" for="estado">
-                                Todos
-                             </label>
-                          </div>
-                       
+                        <div class="form-check">
+                           <input class="form-check-input" type="radio" name="aula" id="aula" value="todos" style="cursor:pointer">
+                           <label class="form-check-label" for="estado">
+                              Todos
+                           </label>
+                        </div>
 
-                       </div>
-                    </div>
-                 </div>
+
+                     </div>
+                  </div>
+               </div>
 
 
                <div class="text-start mt-2">

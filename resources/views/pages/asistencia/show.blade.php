@@ -185,12 +185,9 @@
 
     </div>
 
-
-
-    <div class="note" contenteditable>
-        <h2>Nota:</h2>
-    </div><!--.note-->
-
+<div class="form-group text-center pt-lg-3">
+    <a href="{{url('dashboard/asistencia-docentes')}}" class="btn btn-secondary" type="submit">Regresar</a>
+</div>
 
 @endsection
 
