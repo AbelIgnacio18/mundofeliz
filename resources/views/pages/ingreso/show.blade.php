@@ -71,9 +71,8 @@
     </table>
 </div>
 
-
+<div class="form-group text-center">
+    <a href="{{url('dashboard/ingresos')}}" class="btn btn-secondary" type="submit">Regresar</a>
 </div>
-
-
 
 @endsection

@@ -121,7 +121,7 @@
 
                   <h6>
                      @if($item->estado===null)
-                     <span> Faltó</span>
+                     <span class="badge bg-danger" style="font-size: 1em;">Faltó</span>
                      @endif
                   </h6>
 

@@ -163,6 +163,12 @@
         </div>
     </div>
 </div>
+
+
+<div class="form-group text-center">
+    <a href="{{url('dashboard/pagos-realizados')}}" class="btn btn-secondary" type="submit">Regresar</a>
+</div>
+
 @empty
 @endforelse
 
