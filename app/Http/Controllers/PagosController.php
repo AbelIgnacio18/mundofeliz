@@ -43,7 +43,7 @@ class PagosController extends Controller
 
             $estudiante = Matricula::with('estudiantes')->with('concepto')->get();
           $concepto = Concepto::orderBy('codigo', 'asc')
-                    ->orderBy('concepto', 'asc')
+                    ->orderBy('concepto', 'desc')
                     ->get();
 
 

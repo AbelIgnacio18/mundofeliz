@@ -108,7 +108,7 @@
                                 </div>
                             </div>
                             @forelse($pension as $p)
-                            <div class="">
+                            <div class="p-xxl-2">
                                 <span>{{$p->concepto}}</span>
                                 <div>
                                     <h5 class="counter" style="visibility: visible;">{{$p->cantidad}} x s/{{$p->monto}}</h5>

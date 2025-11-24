@@ -55,7 +55,7 @@
 				@if(count($pension)!=0)
 				<h3 class="center" style="font-size:60%;">------------------------------</h3>
 				<table>
-					<thead style="font-size:52%;">
+					<thead style="font-size:45%;">
 						<th>Cod.</th>
 						<th>Descrip.</th>
 						<th>Cant.</th>
@@ -65,7 +65,7 @@
 
 					<tbody>
 						@forelse($pension as $p)
-						<tr style="font-size:60%;">
+						<tr style="font-size:45%;">
 							<td>{{$p->codigo}}</td>
 							<td>{{$p->concepto}}</td>
 							<td>{{$p->cantidad}}</td>
@@ -88,7 +88,7 @@
 				@if(count($articulo)!=0)
 				<h3 class="center" style="font-size:60%;">------------------------------</h3>
 				<table>
-					<thead style="font-size:52%;">
+					<thead style="font-size:45%;">
 						<th>Descripción</th>
 						<th>Cant.</th>
 						<th>Precio</th>
@@ -97,7 +97,7 @@
 
 					<tbody>
 						@forelse($articulo as $art)
-						<tr style="font-size:55%;">
+						<tr style="font-size:45%;">
 							<td>{{$art->categoria}} {{$art->articulo}}</td>
 							<td>{{$art->cantidad}}</td>
 							<td>s/.{{$art->montoar/$art->cantidad}}</td>
