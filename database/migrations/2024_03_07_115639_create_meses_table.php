@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('meses', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idmatricula');
-            $table->foreign('idmatricula')->references('id')->on('estudiantes')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('idmatricula')->references('id')->on('matriculas')->onUpdate('cascade')->onDelete('cascade');
            $table->string('mes');
         $table->boolean('estado')->nullable()->default(false);
         

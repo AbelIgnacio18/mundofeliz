@@ -42,7 +42,11 @@ class PagosController extends Controller
            // dd($articulo);
 
             $estudiante = Matricula::with('estudiantes')->with('concepto')->get();
-            $concepto = Concepto::all();
+          $concepto = Concepto::orderBy('codigo', 'asc')
+                    ->orderBy('concepto', 'asc')
+                    ->get();
+
+
             $monto = DB::table('pagos')
     ->whereDate('created_at', date('Y-m-d'))
     ->sum('montoefectivo');

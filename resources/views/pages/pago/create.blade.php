@@ -301,6 +301,7 @@
          $('#montototal').val(montototal);
          $("#montototalv").html("s/." + montototal);
 
+
       });
       $('#bt_add').click(function() {
          agregar();
@@ -410,6 +411,11 @@
       } else {
 
          $('#mostrarconcepto').hide();
+         // RESET del select concepto
+         $("#pidconcepto").val("").trigger("change");
+         $("#nmonto").val("");
+         $("#npension").val(1);
+
 
       }
 
