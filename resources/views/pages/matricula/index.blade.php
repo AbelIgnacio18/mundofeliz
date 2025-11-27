@@ -120,10 +120,10 @@
 </div>
 
 @include('pages.matricula.pdfasistencia')
-
+@include('pages.matricula.search')
 <div class="card-body p-0">
    <div class="table-responsive mt-4">
-      <table id="user-list-table" class="table table-striped" role="grid" data-toggle="data-table">
+      <table id="user-list-table" class="table table-striped" role="grid" data-toggle="grid">
          <thead>
             <tr>
                <th>N°</th>
@@ -234,5 +234,6 @@
          </tbody>
       </table>
    </div>
+     {{ $matricula->render() }}
 </div>
 @endsection

@@ -16,29 +16,45 @@ class MatriculaController extends Controller
 {
     /**
      * Display a listing of the resource.
-     */ 
-    public function index()
+     */
+    public function index(Request $request)
     {
- $anolect = Anolectivo::where('estado', 1)->first();
-        // Obtener solo los estudiantes sin matrícula
-    //$estudiantes = Estudiante::whereDoesntHave('matricula')->get();
-        // $estudiante=Estudiante::all();
-    $estudiantesMatriculados = Matricula::where('idanolectivo',$anolect->id)->pluck('idestudiante');
 
-    // Obtener los que NO están en esa lista
-    $estudiantesDisponibles = Estudiante::whereNotIn('id', $estudiantesMatriculados)->get();
-         // Obtener los que NO están en esa lista
-    $estudiante = Estudiante::whereNotIn('id', $estudiantesMatriculados)->get();
-$estudiante2 = Estudiante::whereNotIn('id', $estudiantesMatriculados)->get();
-    
-        // dd($estudiante);
-        $anolect = Anolectivo::where('estado', 1)->first();
-         $concepto = Concepto::get();
-      
-        $matricula=Matricula::where('idanolectivo',$anolect->id)->with('estudiante')->with('aula')->with('meses')->with('concepto')->get();
-        /// dd($matricula);
-        $aula=Aula::get();
-        return view('pages.matricula.index',compact('estudiante','aula','matricula','concepto'));
+        if ($request) {
+
+            $searchText = trim($request->get('searchText'));
+            $anolect = Anolectivo::where('estado', 1)->first();
+            // Obtener solo los estudiantes sin matrícula
+            //$estudiantes = Estudiante::whereDoesntHave('matricula')->get();
+            // $estudiante=Estudiante::all();
+            $estudiantesMatriculados = Matricula::where('idanolectivo', $anolect->id)->pluck('idestudiante');
+
+            // Obtener los que NO están en esa lista
+            $estudiantesDisponibles = Estudiante::whereNotIn('id', $estudiantesMatriculados)->get();
+            // Obtener los que NO están en esa lista
+            $estudiante = Estudiante::whereNotIn('id', $estudiantesMatriculados)->get();
+            $estudiante2 = Estudiante::whereNotIn('id', $estudiantesMatriculados)->get();
+
+            // dd($estudiante);
+            $anolect = Anolectivo::where('estado', 1)->first();
+            $concepto = Concepto::get();
+
+            $searchText = trim($request->get('searchText'));
+
+            $matricula = Matricula::where('idanolectivo', $anolect->id)
+                ->whereHas('estudiantes', function ($q) use ($searchText) {
+                    $q->where('nombre', 'LIKE', '%' . $searchText . '%')
+                        ->orWhere('apellidos', 'LIKE', '%' . $searchText . '%');
+                })
+                ->with('estudiante')
+                ->with('aula')
+                ->with('meses')
+                ->with('concepto')
+                ->paginate(50);
+            /// dd($matricula);
+            $aula = Aula::get();
+            return view('pages.matricula.index', compact('estudiante', 'aula', 'matricula', 'concepto','searchText'));
+        }
     }
 
     /**

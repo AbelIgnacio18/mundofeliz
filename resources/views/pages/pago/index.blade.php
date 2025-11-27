@@ -41,10 +41,10 @@
 
    </div>
 </div>
-
+@include('pages.pago.search')
 <div class="card-body">
 
-@include('pages.pago.search')
+
    <div class="table-responsive">
       <table class="table table-striped" role="grid" data-toggle="grid">
 

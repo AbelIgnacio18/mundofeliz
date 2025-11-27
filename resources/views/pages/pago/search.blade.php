@@ -4,7 +4,7 @@
    @method('GET')
    @csrf
 
-      <div class="row py-2 align-items-center justify-content-end">
+      <div class="row py-2 px-5 align-items-center justify-content-end">
       <div class="input-group ms-3 dataTables_filter" style="width: auto;" id="DataTables_Table_0_filter">
          <label for="fecha" class="form-label">Buscar: </label>
          <input type="search" class="form-control form-control-sm buscar"  aria-controls="DataTables_Table_0" name="searchText" placeholder="Buscar...nombre" value="{{$searchText}}">
