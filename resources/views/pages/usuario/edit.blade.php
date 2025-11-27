@@ -93,12 +93,12 @@
                         @endif
                     </div>
                      <div class="form-group">
-                          
+                          <label for="modulo" class="form-label">Estado:</label>
 
                            <div class="form-check">
                               <input class="form-check-input" type="radio" name="estado" id="efetivo"  @if($usu->estado==1) checked @endif value="1" style="cursor:pointer">
                               <label class="form-check-label" for="efetivo">
-                                 activo
+                                 Activo
                               </label>
                            </div>
                            <div class="form-check">

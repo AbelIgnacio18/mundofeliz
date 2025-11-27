@@ -50,7 +50,7 @@ class MatriculaController extends Controller
                 ->with('aula')
                 ->with('meses')
                 ->with('concepto')
-                ->paginate(50);
+                ->orderBy('id', 'desc')->paginate(50);
             /// dd($matricula);
             $aula = Aula::get();
             return view('pages.matricula.index', compact('estudiante', 'aula', 'matricula', 'concepto','searchText'));
