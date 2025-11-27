@@ -24,7 +24,7 @@
 
    <!-- modal para crear nuevos conceptos de pagooo -->
    <div class="">
-   <a class="btn btn-danger btn-round ml-auto" type="button" target="_blank" href="{{ route('app.reportefectivohoy') }}">
+      <a class="btn btn-danger btn-round ml-auto" type="button" target="_blank" href="{{ route('app.reportefectivohoy') }}">
          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-filetype-pdf" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.6 11.85H0v3.999h.791v-1.342h.803c.287 0 .531-.057.732-.173.203-.117.358-.275.463-.474a1.42 1.42 0 0 0 .161-.677c0-.25-.053-.476-.158-.677a1.176 1.176 0 0 0-.46-.477c-.2-.12-.443-.179-.732-.179Zm.545 1.333a.795.795 0 0 1-.085.38.574.574 0 0 1-.238.241.794.794 0 0 1-.375.082H.788V12.48h.66c.218 0 .389.06.512.181.123.122.185.296.185.522Zm1.217-1.333v3.999h1.46c.401 0 .734-.08.998-.237a1.45 1.45 0 0 0 .595-.689c.13-.3.196-.662.196-1.084 0-.42-.065-.778-.196-1.075a1.426 1.426 0 0 0-.589-.68c-.264-.156-.599-.234-1.005-.234H3.362Zm.791.645h.563c.248 0 .45.05.609.152a.89.89 0 0 1 .354.454c.079.201.118.452.118.753a2.3 2.3 0 0 1-.068.592 1.14 1.14 0 0 1-.196.422.8.8 0 0 1-.334.252 1.298 1.298 0 0 1-.483.082h-.563v-2.707Zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638H7.896Z"></path>
          </svg>
@@ -38,19 +38,22 @@
          <span>Nuevo Comprobante</span>
       </a>
       @include('pages.pago.create')
-      
+
    </div>
 </div>
 
-<div class="card-body p-0">
-   <div class="table-responsive mt-4">
-      <table class="table table-striped" role="grid" data-toggle="data-table">
+<div class="card-body">
+
+@include('pages.pago.search')
+   <div class="table-responsive">
+      <table class="table table-striped" role="grid" data-toggle="grid">
+
          <thead>
             <tr>
                <th>N°</th>
                <th>Boleto</th>
                <th>Nombre Completo</th>
-               <th>Fecha</th>               
+               <th>Fecha</th>
                <th>D.Efectivo</th>
                <th>D.Digital</th>
                <th>Monto Total</th>
@@ -88,7 +91,7 @@
                </td>
 
                <td>
-                  <h4 class="badge bg-alumko" style="font-size: 1em;">S/ {{$pag->montodigital}}</h4>
+                  <h4 class="" style="font-size: 1em;">S/ {{$pag->montodigital}}</h4>
                </td>
 
                <td>
@@ -118,7 +121,7 @@
                         </span>
                      </a>
 
-                     <a href="{{ route('app.reportepdf',$pag->id) }}" class="btn btn-sm btn-icon text-info" data-placement="top" title="Imprimir pdf" target="_blank" >
+                     <a href="{{ route('app.reportepdf',$pag->id) }}" class="btn btn-sm btn-icon text-info" data-placement="top" title="Imprimir pdf" target="_blank">
                         <span class="btn-inner">
                            <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="currentColor" class="bi bi-filetype-pdf" viewBox="0 0 16 16">
                               <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5zM1.6 11.85H0v3.999h.791v-1.342h.803q.43 0 .732-.173.305-.175.463-.474a1.4 1.4 0 0 0 .161-.677q0-.375-.158-.677a1.2 1.2 0 0 0-.46-.477q-.3-.18-.732-.179m.545 1.333a.8.8 0 0 1-.085.38.57.57 0 0 1-.238.241.8.8 0 0 1-.375.082H.788V12.48h.66q.327 0 .512.181.185.183.185.522m1.217-1.333v3.999h1.46q.602 0 .998-.237a1.45 1.45 0 0 0 .595-.689q.196-.45.196-1.084 0-.63-.196-1.075a1.43 1.43 0 0 0-.589-.68q-.396-.234-1.005-.234zm.791.645h.563q.371 0 .609.152a.9.9 0 0 1 .354.454q.118.302.118.753a2.3 2.3 0 0 1-.068.592 1.1 1.1 0 0 1-.196.422.8.8 0 0 1-.334.252 1.3 1.3 0 0 1-.483.082h-.563zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638z" />
@@ -126,7 +129,7 @@
                         </span>
                      </a>
 
-                     <a href="{{route('app.reportepago',$pag->id)}}" class="btn btn-sm btn-icon text-secondary" data-bs-toggle="tooltip" data-placement="top" title="Imprimir ticket" data-original-title="Print" target="_blank" >
+                     <a href="{{route('app.reportepago',$pag->id)}}" class="btn btn-sm btn-icon text-secondary" data-bs-toggle="tooltip" data-placement="top" title="Imprimir ticket" data-original-title="Print" target="_blank">
                         <span class="btn-inner">
                            <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7369 2.76175H8.08489C6.00489 2.75375 4.30089 4.41075 4.25089 6.49075V17.2277C4.20589 19.3297 5.87389 21.0697 7.97489 21.1147C8.01189 21.1147 8.04889 21.1157 8.08489 21.1147H16.0729C18.1629 21.0407 19.8149 19.3187 19.8029 17.2277V8.03775L14.7369 2.76175Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -153,7 +156,7 @@
             </tr>
             @include('pages.pago.modal')
             @include('pages.pago.edit')
-  <?php $contadorpago++; ?>
+            <?php $contadorpago++; ?>
             @empty
             <div class="alert alert-danger d-flex align-items-center" role="alert">
                <svg class="flex-shrink-0 bi me-2 icon-24" width="24" height="24">
@@ -168,6 +171,8 @@
          </tbody>
       </table>
    </div>
+   {{ $pago->render() }}
+
 </div>
 
 

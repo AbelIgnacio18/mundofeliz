@@ -52,6 +52,8 @@ Route::get('home', [App\Http\Controllers\PanelController::class, 'index'])->name
     Route::resource('/matriculas',MatriculaController::class);
     Route::resource('/admin-egresos',EgresoController::class);
     Route::resource('/pagos-realizados',PagosController::class);
+    Route::get('/pagos-realizados-data', [PagosController::class, 'datatable'])
+    ->name('pagos.data');
     Route::resource('/administradores',UsuarioController::class);
      Route::resource('/categoria',CategoriaController::class);
     Route::resource('/articulos',ArticuloController::class);
