@@ -28,7 +28,7 @@
 			@forelse($estudiante as $est)
 			<div class="detail" style="font-size:50%;">N°:</div>
 			<div class="paymentDetails bold" style="font-size:60%;">
-				<div class="detail center">{{$est->numcomprobante}}</div>
+				<div class="detail center">{{ str_pad($est->numcomprobante, 6, '0', STR_PAD_LEFT)}}</div>
 			</div>
 			<div class="detail" style="font-size:50%;">Apoderado:</div>
 			<div class="paymentDetails bold" style="font-size:60%;">

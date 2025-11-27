@@ -74,7 +74,7 @@
 
                <td>
                   <div class="d-flex align-items-center">
-                     <h6>{{$pag->numcomprobante}}</h6>
+                     <h6>{{ str_pad($pag->numcomprobante, 6, '0', STR_PAD_LEFT)}}</h6>
                   </div>
                </td>
 
