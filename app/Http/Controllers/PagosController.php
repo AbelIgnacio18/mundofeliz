@@ -31,7 +31,7 @@ class PagosController extends Controller
 
         if ($request) {
 
-              $searchText = trim($request->get('searchText'));
+            $searchText = trim($request->get('searchText'));
 
 
             $pago = DB::table('pagos as p')
@@ -44,7 +44,7 @@ class PagosController extends Controller
            // dd($articulo);
 
             $estudiante = Matricula::with('estudiantes')->with('concepto')->get();
-          $concepto = Concepto::orderBy('codigo', 'asc')->orderBy('concepto', 'desc')->get();
+            $concepto = Concepto::orderBy('codigo', 'asc')->orderBy('concepto', 'desc')->get();
 
 
             $monto = DB::table('pagos')

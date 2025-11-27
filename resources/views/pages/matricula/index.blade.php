@@ -133,7 +133,7 @@
                <th>Pensión</th>
                <th>Concepto</th>
                <th>Dni</th>
-               <th>Código Alumko</th>
+<!--                <th>Código Alumko</th> -->
 
                <th>Acciones</th>
             </tr>
@@ -181,9 +181,9 @@
                </td>
 
 
-               <td>
+<!--                <td>
                   <h6 class="badge bg-alumko" style="font-size: 1em;">{{$matri->estudiante->codigo}}</h6>
-               </td>
+               </td> -->
 
 
                <td>

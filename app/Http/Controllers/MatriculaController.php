@@ -37,7 +37,7 @@ class MatriculaController extends Controller
 
             // dd($estudiante);
             $anolect = Anolectivo::where('estado', 1)->first();
-            $concepto = Concepto::get();
+            $concepto = Concepto::orderBy('codigo', 'asc')->orderBy('concepto', 'desc')->get();
 
             $searchText = trim($request->get('searchText'));
 
@@ -177,7 +177,7 @@ class MatriculaController extends Controller
     $matricula=Matricula::where('idanolectivo',$anolect->id)->where('idaula',$idaula)->with('estudiante')->with('aula')->with('meses')->get();
 
         $pdf = Pdf::loadView('pages.matricula.invocepdf', compact('matricula', 'anolect'));
-        //$pdf->setPaper('A4', 'landscape');
+        $pdf->setPaper('A4', 'landscape'); //Formato de hoha A4 en horizontal
         return $pdf->stream('lista_matriculado_'.' $anolect'.'.pdf');
     }
     public function admisiontraslado(Request $request){

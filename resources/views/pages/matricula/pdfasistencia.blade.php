@@ -2,7 +2,7 @@
    <div class="modal-dialog">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Descargar Matricula</h5>
+            <h5 class="modal-title" id="staticBackdropLabel">Descargar Matrícula</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
          </div>
          <div class="modal-body">
@@ -38,7 +38,7 @@
 
 
                <div class="text-start mt-2">
-                  <button class="btn btn-info" target="_blank" type="submit">Descargar</button>
+                  <button class="btn btn-secondary" target="_blank" type="submit">Descargar</button>
                   <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                </div>
             </form>

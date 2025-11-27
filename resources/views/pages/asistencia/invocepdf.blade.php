@@ -20,15 +20,19 @@
             /* Para un borde único entre celdas */
         }
 
-        th,
-        td {
+        th
+        {
             border: 1px solid #cccccc;
             /* Borde de celda */
             padding: 0px;
-            text-align: left;
-            
+            text-align: center;
         }
-
+        td {
+            border: 1px solid #cccccc;
+            /* Borde de celda */
+            text-align: center;
+            line-height: 1px !important;/* también ayuda */
+        }
         th {
             background-color: #f2f2f2;
             /* Fondo para encabezados */

@@ -6,7 +6,7 @@
 <div class="card-header d-flex justify-content-between flex-wrap">
 
    <div class="header-title">
-      <h3 class="text-primary card-title mb-0">Matricula {{$aula->nivel}} {{$aula->grado}} {{$aula->seccion}}</h3>
+      <h3 class="text-primary card-title mb-0">Matrícula {{$aula->nivel}} {{$aula->grado}} {{$aula->seccion}}</h3>
    </div>
 
 </div>
@@ -23,7 +23,7 @@
                <th>Pensión</th>
                <th>Concepto</th>
                <th>Dni</th>
-               <th>Código</th>
+               <!-- <th>Código Alumko</th> -->
 
                <th>Acciones</th>
             </tr>
@@ -74,9 +74,9 @@
                </td>
 
 
-               <td>
-                  <h6>{{$matri->estudiante->codigo}}</h6>
-               </td>
+<!--                <td>
+                  <h6 class="badge bg-alumko" style="font-size: 1em;">{{$matri->estudiante->codigo}}</h6>
+               </td> -->
 
 
                <td>
