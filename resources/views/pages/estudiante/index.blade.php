@@ -127,12 +127,13 @@
 
 
 </div>
+  @include('pages.estudiante.search')
 
 <div class="card-body p-0">
 
 
    <div class="table-responsive mt-4">
-      <table class="table table-striped" role="grid" data-toggle="data-table">
+      <table class="table table-striped" role="grid" data-toggle="grid">
          <thead>
             <tr>
                <th>N°</th>
@@ -229,5 +230,6 @@
          </tbody>
       </table>
    </div>
+   {{$items->links()}}
 </div>
 @endsection

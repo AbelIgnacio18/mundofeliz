@@ -32,11 +32,13 @@ class EstudianteController extends Controller
     {
         
         if ($request) {
+               $searchText = trim($request->get('searchText'));
        
-             $items=Estudiante::get();
+             $items=Estudiante::where('nombre', 'LIKE', '%' . $searchText . '%')
+                        ->orWhere('apellidos', 'LIKE', '%' . $searchText . '%')->paginate(50);
             //  dd($items);
       $aula=Aula::all();
-      return view('pages.estudiante.index',compact('items','aula'));
+      return view('pages.estudiante.index',compact('items','aula','searchText'));
            
         }
     
