@@ -123,6 +123,7 @@
                <th>Email</th>
                  <th>Rol</th>
                <th>Imagen</th>
+                   <th>Estado</th>
                <th>Acciones</th>
 
             </tr>
@@ -161,6 +162,16 @@
 
                   @else
                   <p>Ninguno</p>
+
+                  @endif
+
+               </td>
+                <td>
+                  @if(($usu->estado) ==1)
+               
+ <span class="badge bg-success"> Activo</span>
+                  @else
+                  <span class="badge bg-danger">Inactivo</span>
 
                   @endif
 

@@ -3,7 +3,7 @@
    <div class="modal-dialog">
       <div class="modal-content">
             <div class="modal-header">
-               <h5 class="modal-title" id="staticBackdropLabel">Eliminar Registro</h5>
+               <h5 class="modal-title" id="staticBackdropLabel">Deshabilitar Usuario</h5>
                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center mb-3 mt-3">
@@ -21,7 +21,7 @@
                            </svg>
                         </a>
                   </div>
-                  <h5 class="mt-3">¿Desea ELIMINAR el registro?</h5>
+                  <h5 class="mt-3">¿Desea deshabilitar el usuario?</h5>
 
                   <div class="text-center mt-3">
                         <button type="submit" class="btn btn-info">SÍ</button>

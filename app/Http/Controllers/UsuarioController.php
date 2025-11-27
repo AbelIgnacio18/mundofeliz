@@ -125,7 +125,8 @@ $id=Auth::user()->id;
    {
 
        $usuario=User::find($usuario);
-       $usuario->delete();
-       return back()->with('message', 'Archivo Eliminado ');
+       $usuario->estado=0;
+       $usuario->update();
+       return back()->with('message', 'Usuario Desactivado ');
    }
 }

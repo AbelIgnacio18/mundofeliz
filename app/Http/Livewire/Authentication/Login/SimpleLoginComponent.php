@@ -41,11 +41,11 @@ class SimpleLoginComponent extends Component
     {
         $this->validate();
 
-        if (Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->rememberMe)) {
+        if (Auth::attempt(['email' => $this->email, 'password' => $this->password,  'estado' => 1], $this->rememberMe)) {
 
             return redirect()->route('app.home');
         }
-        session()->flash('error', 'Credenciales no válidas');
+        session()->flash('error', 'Credenciales no válidas o usuario inactivo');
     }
 
     public function render()
