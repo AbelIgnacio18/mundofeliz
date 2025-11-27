@@ -101,20 +101,21 @@ $id=Auth::user()->id;
             $file->move(public_path() . '/imagenes/avatar/', $file->getClientOriginalName());
             $usuario->foto = $file->getClientOriginalName();
         }
-
+$usuario->estado = $request->get('estado');
         $usuario->update();
+
   $userrol = $request->get('userrol_id');
-          if(empty($userrol)==false){
+        if (empty($userrol) == false) {
             $cont = 0;
             while ($cont < count($userrol)) {
 
-                $usuario = UserRol::where('iduser',$usuario->id)->first();
+                $usuario = UserRol::where('iduser', $usuario->id)->first();
                 $usuario->idrol = $userrol[$cont];
 
                 $usuario->update();
                 $cont = $cont + 1;
             }
-            }
+        }
       
        return back()->with('message', 'Actualización Exítosa');
    }
