@@ -93,15 +93,15 @@ $id=Auth::user()->id;
         $usuario->name = $request->get('name');
         $usuario->apellidos = $request->get('apellidos');
         $usuario->email = $request->get('email');
-       
-        if ($request->get('password') != '') $usuario->password = bcrypt($request->get('password'));     
+
+        if ($request->get('password') != '') $usuario->password = bcrypt($request->get('password'));
 
         if ($request->hasFile('imagen')) {
             $file = $request->file('imagen');
             $file->move(public_path() . '/imagenes/avatar/', $file->getClientOriginalName());
             $usuario->foto = $file->getClientOriginalName();
         }
-$usuario->estado = $request->get('estado');
+        $usuario->estado = $request->get('estado');
         $usuario->update();
 
   $userrol = $request->get('userrol_id');

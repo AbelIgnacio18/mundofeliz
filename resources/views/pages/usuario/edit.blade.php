@@ -93,7 +93,7 @@
                         @endif
                     </div>
                      <div class="form-group">
-                           <label for="nombre" class="form-label">Forma Pago:</label>
+                          
 
                            <div class="form-check">
                               <input class="form-check-input" type="radio" name="estado" id="efetivo"  @if($usu->estado==1) checked @endif value="1" style="cursor:pointer">

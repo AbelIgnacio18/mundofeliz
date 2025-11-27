@@ -34,3 +34,20 @@ instalacion de selet2 https://jeesite.com/front/jquery-select2/4.0/index.htm
 
 
 en la vista de comprobante falta: quitar estudiantes trasladados.
+
+
+
+php artisan make:migration add_estado_to_users_table --table=users 
+public function up()
+{
+    Schema::table('users', function (Blueprint $table) {
+        $table->boolean('estado')->default(true); // 1 = activo, 0 = inactivo
+    });
+}
+
+public function down()
+{
+    Schema::table('users', function (Blueprint $table) {
+        $table->dropColumn('estado');
+    });
+}
