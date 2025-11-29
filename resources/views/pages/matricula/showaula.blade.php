@@ -17,14 +17,12 @@
          <thead>
             <tr>
                <th>N°</th>
-
                <th>Estudiante</th>
                <th>Nivel</th>
                <th>Pensión</th>
-
                <th>Concepto</th>
-                <th>D. Admisión</th>
-               <th>Dni</th>
+               <th>D. Admisión</th>
+               <th>DNI</th>
                <!-- <th>Código Alumko</th> -->
 
                <th>Acciones</th>
@@ -35,10 +33,9 @@
             @forelse($matricula as $matri)
             <tr>
                <td>
-                   <div class="d-flex align-items-center">
+                  <div class="d-flex align-items-center">
 
                      <?php echo $contadormatri; ?>
-
 
                   </div>
                </td>
@@ -65,7 +62,6 @@
                   </div>
                </td>
 
-              
                <td>
                   <div class="d-flex align-items-center">
                      <h6>{{$matri->concepto->concepto}}</h6>
@@ -105,11 +101,9 @@
                   </div>
                </td>
 
-
 <!--                <td>
                   <h6 class="badge bg-alumko" style="font-size: 1em;">{{$matri->estudiante->codigo}}</h6>
                </td> -->
-
 
                <td>
                   <div class="flex align-items-center list-user-action">
@@ -138,8 +132,6 @@
             </tr>
 
             @include('pages.matricula.delete')
-
-
 
 <?php $contadormatri++; ?>
             @empty

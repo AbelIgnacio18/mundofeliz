@@ -83,24 +83,19 @@
         </header>
     </div>
 
-
-
-
-
     <div class="container">
         <div class="table-responsive mt-4">
             <table id="user-list-table" class="table table-striped" role="grid" data-toggle="data-table">
                 <thead>
                     <tr>
                         <th>N°</th>
-
                         <th>Estudiante</th>
-                        <th>Dni</th>
+                        <th>DNI</th>
                         <th>Nivel</th>
                         <th>Pensión</th>
                         <th>D.Admisión</th>
 
-                        <!--                         <th>Código</th> -->
+                        <!--                    <th>Código</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -119,15 +114,12 @@
                                 <h5>{{$matri->estudiante->dni}}</h5>
                             </div>
                         </td>
-
-
                         <td>
                             <div class="d-flex align-items-center">
                                 <h5>{{$matri->aula->nivel}} {{$matri->aula->grado}} {{$matri->aula->seccion}}</h5>
                             </div>
                         </td>
                         <td>
-
                             <div style="display:flex; flex-wrap:wrap; gap:8px;">
                                 @forelse($matri->meses as $me)
                                 <a href="#" class="iq-media-1" style="display:inline-block; padding:0px 0px; background:#F5CCD0; border-radius:6px;">
@@ -143,8 +135,6 @@
                             @php
 
                             $pensiones = $matri->estudiante->pagos->flatMap->pensiones;
-
-
                             $conceptosMostrar = [
                             'M2025' => 'MTR',
                             'C2025' => 'COP',
@@ -174,15 +164,11 @@
                     </tr>
 
                     @empty
-
                     @endforelse
 
                 </tbody>
             </table>
         </div>
-
-
-
 
     </div><!--.invoice-body-->
     <div class="invoicelist-body">
@@ -198,7 +184,6 @@
             <img src="assets/images/piedepáginapdf.webp" alt="Pie de Página" width="174%">
         </div> -->
     </footer>
-
 
 
 </body>

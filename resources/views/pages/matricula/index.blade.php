@@ -133,7 +133,7 @@
                <th>Pensión</th>
                <th>Concepto</th>
                <th>D. Admisión</th>
-               <th>Dni</th>
+               <th>DNI</th>
 <!--                <th>Código Alumko</th> -->
 
                <th>Acciones</th>

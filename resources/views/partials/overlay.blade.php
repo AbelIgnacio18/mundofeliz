@@ -32,7 +32,7 @@
                         <span class="ms-2 "> Light</span>
                     </div>
                 </div>
-                <hr class="hr-horizontal">
+<!--                 <hr class="hr-horizontal">
                 <div class="d-flex align-items-center justify-content-between">
                     <h5 class="mt-4 mb-3">Color Customizer</h5>
                     <button class="btn btn-transparent p-0" data-value="theme-color-default" data-info="#115DD0"
@@ -118,7 +118,7 @@
                             data-name="dir" data-value="rtl">
                         <span class="mt-2 "> RTL </span>
                     </div>
-                </div>
+                </div> -->
                 <hr class="hr-horizontal">
                 <h5 class="mt-4 mb-3">Sidebar Color</h5>
                 <div class="d-grid gap-x-3 grid-cols-2 mb-4">
@@ -240,7 +240,7 @@
                         <span class="mt-2">Pill All</span>
                     </div>
                 </div>
-                <hr class="hr-horizontal">
+<!--                 <hr class="hr-horizontal">
                 <h5 class="mt-4 mb-3">Navbar Style</h5>
                 <div class="d-grid gap-x-3 grid-cols-2">
                     <div class="mb-4 text-center">
@@ -291,7 +291,7 @@
                         </i>
                         <span class="ms-2 "> Default Navbar</span>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

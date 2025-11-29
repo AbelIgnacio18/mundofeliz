@@ -130,7 +130,7 @@
                             
                                 <a href="#" class="iq-media-1">
                                 
-                                    <div class="icon text-danger">Precio Unit: s/ {{$art->montoar}}
+                                    <div class="icon text-danger h4">Precio Unit: s/ {{$art->montoar}}
                                     </div>
                                 </a>
                             </div>
