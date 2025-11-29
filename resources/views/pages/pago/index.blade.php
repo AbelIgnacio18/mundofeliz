@@ -91,7 +91,7 @@
                </td>
 
                <td>
-                  <h4 class="" style="font-size: 1em;">S/ {{$pag->montodigital}}</h4>
+                  <h4 class="badge bg-alumko" style="font-size: 1em;">S/ {{$pag->montodigital}}</h4>
                </td>
 
                <td>

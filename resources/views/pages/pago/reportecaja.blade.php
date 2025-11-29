@@ -20,12 +20,19 @@ Te paso el código:
             /* Para un borde único entre celdas */
         }
 
-        th,
-        td {
+        th
+        {
             border: 1px solid #cccccc;
             /* Borde de celda */
             padding: 0px;
-            text-align: left;
+            text-align: center;
+        }
+
+        td {
+            border: 1px solid #cccccc;
+            /* Borde de celda */
+            text-align: center;
+            line-height: 1px !important;/* también ayuda */
         }
 
         th {
@@ -79,26 +86,26 @@ Te paso el código:
                     </td>
                     <td>
                         <div class="d-flex align-items-center">
-                            <h6>{{$pag->numcomprobante}}</h6>
+                            <h4>{{$pag->numcomprobante}}</h4>
                         </div>
                     </td>
                     <td>
                         <div class="icon iq-icon-box-3"> {{$pag->apellidos}} {{$pag->nombre}}</div>
                     </td>
                     <td>
-                        <h6>{{Carbon\Carbon::parse($pag->created_at)->translatedFormat('l, j F Y h:i A')}}</h6>
+                        <h5>{{Carbon\Carbon::parse($pag->created_at)->translatedFormat('l, j F Y h:i A')}}</h5>
                     </td>
                     <td>
-                        <h4 class="badge bg-warning" style="font-size: 1em;">S/ {{$pag->montoefectivo}}</h4>
+                        <h3 style="color:#f16a1b">S/ {{$pag->montoefectivo}}</h3>
                     </td>
                     <td>
-                        <h4 class="badge bg-alumko" style="font-size: 1em;">S/ {{$pag->montodigital}}</h4>
+                        <h3 style="color:#6610f2">S/ {{$pag->montodigital}}</h3>
                     </td>
                     <td>
-                        <h4 class="badge bg-secondary" style="font-size: 1em;">S/ {{$pag->montototal}}</h4>
+                        <h3 style="color:#3a57e8">S/ {{$pag->montototal}}</h3>
                     </td>
                     <td>
-                        <h4 class="badge bg-secondary" style="font-size: 1em;">{{$pag->descripcion}}</h4>
+                        <h5>{{$pag->descripcion}}</h5>
                     </td>
                 </tr> <?php $contadorpago++; ?> @empty <div class="alert alert-danger d-flex align-items-center" role="alert"> <svg class="flex-shrink-0 bi me-2 icon-24" width="24" height="24">
                         <use xlink:href="#exclamation-triangle-fill"></use>

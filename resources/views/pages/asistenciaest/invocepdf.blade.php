@@ -20,12 +20,19 @@
             /* Para un borde único entre celdas */
         }
 
-        th,
-        td {
+        th {
             border: 1px solid #cccccc;
             /* Borde de celda */
             padding: 0px;
-            text-align: left;
+            text-align: center;
+        }
+
+        td {
+            border: 1px solid #cccccc;
+            /* Borde de celda */
+            text-align: center;
+            line-height: 1px !important;
+            /* también ayuda */
         }
 
         th {
@@ -63,22 +70,22 @@
                     Aula:{{$nombreaula->nivel}}
                 </h3>
             </div><!--.me-->
-            
+
             <div class="info text-righ">
                 <div style=" display: flex;;flex-direction: row;">
                     <div style="width: 40px;">Temprano:</div>
                     <div style="background-color: green;width: 40px;color: green">ll</div>
-                    
+
                 </div>
                 <div style=" display: flex;;flex-direction: row;">
                     <div style="width: 40px;">Tarde:</div>
                     <div style="background-color: orange;width: 40px;color: orange">ll</div>
-                    
+
                 </div>
                 <div style=" display: flex;;flex-direction: row;">
                     <div style="width: 40px;">Faltó:</div>
                     <div style="background-color: red;width: 40px;color: red">ll</div>
-                    
+
                 </div>
             </div><!-- .info -->
 
@@ -132,44 +139,44 @@
 
 
                     @forelse($dias as $di)
-                        @if(Carbon\Carbon::parse($di)->Format('Y-m')==$me)
-                        <?php $contador = 1; ?>
+                    @if(Carbon\Carbon::parse($di)->Format('Y-m')==$me)
+                    <?php $contador = 1; ?>
 
-                            @forelse($item->asistenciahoy->toArray() as $asis)
-                                @if(Carbon\Carbon::parse($di)->Format('Y-m-d')== Carbon\Carbon::parse($asis['fechaentrada'])->Format('Y-m-d'))
-                                    @if($asis['estado']===1)
-                                    <td style="background-color: green;">
-                                        .
-                                    </td>
+                    @forelse($item->asistenciahoy->toArray() as $asis)
+                    @if(Carbon\Carbon::parse($di)->Format('Y-m-d')== Carbon\Carbon::parse($asis['fechaentrada'])->Format('Y-m-d'))
+                    @if($asis['estado']===1)
+                    <td style="background-color: green;">
+                        .
+                    </td>
 
-                                    @endif
-                                    @if($asis['estado']===0)
-                                    <td style="background-color: orange;">
-                                        .
-                                    </td>
+                    @endif
+                    @if($asis['estado']===0)
+                    <td style="background-color: orange;">
+                        .
+                    </td>
 
-                                    @endif
-                                    @if($asis['estado']===null)
-                                    <td style="background-color: red;">
-                                        .
-                                    </td>
+                    @endif
+                    @if($asis['estado']===null)
+                    <td style="background-color: red;">
+                        .
+                    </td>
 
-                                    @endif
-                            
-                                <?php $contador = 0; ?>
-                                @endif
+                    @endif
 
-                            @empty
-                            @endforelse
+                    <?php $contador = 0; ?>
+                    @endif
 
-                            @if($contador==1)
-                            <td></td>
-                            <?php $contador = 1; ?>
-                            @endif
+                    @empty
+                    @endforelse
 
-                        
+                    @if($contador==1)
+                    <td></td>
+                    <?php $contador = 1; ?>
+                    @endif
 
-                        @endif
+
+
+                    @endif
                     @empty
                     @endif
 

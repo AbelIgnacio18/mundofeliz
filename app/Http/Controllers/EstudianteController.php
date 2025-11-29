@@ -35,7 +35,7 @@ class EstudianteController extends Controller
                $searchText = trim($request->get('searchText'));
        
              $items=Estudiante::where('nombre', 'LIKE', '%' . $searchText . '%')
-                        ->orWhere('apellidos', 'LIKE', '%' . $searchText . '%')->paginate(50);
+                        ->orWhere('apellidos', 'LIKE', '%' . $searchText . '%')->orderBy('id', 'desc')->paginate(50);
             //  dd($items);
       $aula=Aula::all();
       return view('pages.estudiante.index',compact('items','aula','searchText'));

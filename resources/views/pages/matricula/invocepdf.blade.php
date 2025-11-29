@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Reporte de Matricula
+    <title>Reporte de Matrícula
     </title>
     <link rel="stylesheet" href="../public/pdf/assets/css/comprobantepdf.css">
 </head>
@@ -20,12 +20,19 @@
             /* Para un borde único entre celdas */
         }
 
-        th,
-        td {
+        th {
             border: 1px solid #cccccc;
             /* Borde de celda */
             padding: 2px;
-            text-align: left;
+            text-align: center;
+        }
+
+        td {
+            border: 1px solid #cccccc;
+            /* Borde de celda */
+            text-align: center;
+            line-height: 1px !important;
+            /* también ayuda */
         }
 
         th {
@@ -43,7 +50,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-1">
-                    <div class="slogan text-center">Reporte de Matricula
+                    <div class="slogan text-center">Reporte de Matrícula y Pensiones
                     </div>
                 </div>
             </div><!--.row-->
@@ -63,7 +70,7 @@
                     Año Lectivo:{{$anolect->años}}
                 </h3>
             </div><!--.me-->
-            
+
 
             <div class="info text-righ">
                 <h4>
@@ -72,7 +79,7 @@
                     Cel: 961 141 838 - 922 916 052
                 </h4>
             </div><!-- .info -->
-        
+
         </header>
     </div>
 
@@ -82,96 +89,114 @@
 
     <div class="container">
         <div class="table-responsive mt-4">
-      <table id="user-list-table" class="table table-striped" role="grid" data-toggle="data-table">
-         <thead>
-            <tr>
-               <th>N°</th>
+            <table id="user-list-table" class="table table-striped" role="grid" data-toggle="data-table">
+                <thead>
+                    <tr>
+                        <th>N°</th>
 
-               <th>Estudiante</th>
-               <th>Nivel</th>
-               <th>Pensión</th>
-               <th>Dni</th>
-               <th>Código</th>
-            </tr>
-         </thead>
-         <tbody>
-            @forelse($matricula as $matri)
-            <tr>
-               <td>
-                  <h6>{{$matri->id}}</h6>
-               </td>
-               <td>
-                  <div class="d-flex align-items-center">
-                     <h6>{{$matri->estudiante->apellidos}}, {{$matri->estudiante->nombre}}    @if($matri->estado==1) <span class="badge bg-danger"> trasladado</span> @endif </h6>
-                  </div>
-               </td>
+                        <th>Estudiante</th>
+                        <th>Dni</th>
+                        <th>Nivel</th>
+                        <th>Pensión</th>
+                        <th>D.Admisión</th>
 
-               <td>
-                  <div class="d-flex align-items-center">
-                     <h6>{{$matri->aula->nivel}} {{$matri->aula->grado}} {{$matri->aula->seccion}}</h6>
-                  </div>
-               </td>
-               <td>
-                  <div class="iq-media-group iq-media-group-1">
-
-                     @forelse(($matri->meses->toArray()) as $me)
-                     <a href="#" class="iq-media-1">
-                        <div class="icon iq-icon-box-3 rounded-pill">{{$me['mes']}}</div>
-                     
-                     @empty
-                     @endforelse
-                  </div>
-               </td>
-
-               <td>
-                  <div class="d-flex align-items-center">
-                     <h6>{{$matri->estudiante->dni}}</h6>
-                  </div>
-               </td>
-
-             
-               <td>
-                  <h6>{{$matri->estudiante->codigo}}</h6>
-               </td>
-             
-
-            </tr>
-   
-          
-          
-       
-
-            @empty
-
-            @endforelse
-
-         </tbody>
-      </table>
-   </div>
+                        <!--                         <th>Código</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($matricula as $matri)
+                    <tr>
+                        <td>
+                            <h4>{{$matri->id}}</h4>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <h5>{{$matri->estudiante->apellidos}}, {{$matri->estudiante->nombre}} @if($matri->estado==1) <span class="badge bg-danger"> trasladado</span> @endif </h5>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <h5>{{$matri->estudiante->dni}}</h5>
+                            </div>
+                        </td>
 
 
-      
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <h5>{{$matri->aula->nivel}} {{$matri->aula->grado}} {{$matri->aula->seccion}}</h5>
+                            </div>
+                        </td>
+                        <td>
+
+                            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                                @forelse($matri->meses as $me)
+                                <a href="#" class="iq-media-1" style="display:inline-block; padding:0px 0px; background:#F5CCD0; border-radius:6px;">
+                                    <div>{{ $me->mes }}</div>
+                                </a>
+                                @empty
+                                @endforelse
+                            </div>
+
+                        </td>
+
+                        <td>
+                            @php
+
+                            $pensiones = $matri->estudiante->pagos->flatMap->pensiones;
+
+
+                            $conceptosMostrar = [
+                            'M2025' => 'MTR',
+                            'C2025' => 'COP',
+                            'PSC2025' => 'PS',
+                            'UE2025' => 'UTE',
+                            ];
+                            @endphp
+
+                            <div style="display:flex; flex-wrap:wrap;">
+
+                                @foreach ($conceptosMostrar as $codigo => $label)
+                                @if ($pensiones->firstWhere('concepto.codigo', $codigo))
+                                <span style="
+                    display:inline-block; 
+                    padding:0px; 
+                    background:#F5CCD0; 
+                    border-radius:6px;
+                    margin:2px;">
+                                    {{ $label }}
+                                </span>
+                                @endif
+                                @endforeach
+
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    @empty
+
+                    @endforelse
+
+                </tbody>
+            </table>
+        </div>
+
+
+
 
     </div><!--.invoice-body-->
     <div class="invoicelist-body">
 
     </div>
 
-
-
     <div class="note" contenteditable>
         <h2>Nota:</h2>
     </div><!--.note-->
 
     <footer class="row">
-        <div class="col-1 text-center">
-            <p class="notaxrelated">Gracias por su preferencia.</p>
-        </div>
-
-
-        <div class="piedepagina">
-            <img src="assets/images/piedepáginapdf.webp" alt="Pie de Página" width="100%">
-        </div>
+        <!--         <div class="piedepagina">
+            <img src="assets/images/piedepáginapdf.webp" alt="Pie de Página" width="174%">
+        </div> -->
     </footer>
 
 

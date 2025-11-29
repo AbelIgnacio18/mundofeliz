@@ -6,7 +6,7 @@
 <div class="card-header d-flex justify-content-between flex-wrap">
 
    <div class="header-title">
-      <h3 class="text-primary card-title mb-0">Matricula {{$aula->nivel}} {{$aula->grado}} {{$aula->seccion}}</h3>
+      <h3 class="text-primary card-title mb-0">Matrícula {{$aula->nivel}} {{$aula->grado}} {{$aula->seccion}}</h3>
    </div>
 
 </div>
@@ -21,9 +21,11 @@
                <th>Estudiante</th>
                <th>Nivel</th>
                <th>Pensión</th>
+
                <th>Concepto</th>
+                <th>D. Admisión</th>
                <th>Dni</th>
-               <th>Código</th>
+               <!-- <th>Código Alumko</th> -->
 
                <th>Acciones</th>
             </tr>
@@ -62,9 +64,39 @@
                      @endforelse
                   </div>
                </td>
+
+              
                <td>
                   <div class="d-flex align-items-center">
                      <h6>{{$matri->concepto->concepto}}</h6>
+                  </div>
+               </td>
+                  <td>
+                  @php
+                  // 1 Obtenemos todas las pensiones pagadas del estudiante
+                  $pensiones = $matri->estudiante->pagos->flatMap->pensiones;
+
+                  // 2 Definimos los conceptos que queremos mostrar
+                  $conceptosMostrar = [
+                  'M2025' => 'MTR',
+                  'C2025' => 'COP',
+                  'PSC2025' => 'PS',
+                  'UE2025' => 'UTE',
+                  ];
+                  @endphp
+
+                  <div class="iq-media-group iq-media-group-1">
+
+                     @foreach ($conceptosMostrar as $codigo => $label)
+                     @if ($pensiones->firstWhere('concepto.codigo', $codigo))
+                     <a href="#" class="iq-media-1">
+                        <div class="icon iq-icon-box-3 rounded-pill">
+                           {{ $label }}
+                        </div>
+                     </a>
+                     @endif
+                     @endforeach
+
                   </div>
                </td>
                <td>
@@ -74,9 +106,9 @@
                </td>
 
 
-               <td>
-                  <h6>{{$matri->estudiante->codigo}}</h6>
-               </td>
+<!--                <td>
+                  <h6 class="badge bg-alumko" style="font-size: 1em;">{{$matri->estudiante->codigo}}</h6>
+               </td> -->
 
 
                <td>
