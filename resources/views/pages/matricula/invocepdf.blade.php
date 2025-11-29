@@ -117,7 +117,7 @@
                      @forelse(($matri->meses->toArray()) as $me)
                      <a href="#" class="iq-media-1">
                         <div class="icon iq-icon-box-3 rounded-pill">{{$me['mes']}}</div>
-                     </a>
+                     
                      @empty
                      @endforelse
                   </div>

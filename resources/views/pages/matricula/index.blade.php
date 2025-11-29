@@ -132,6 +132,7 @@
                <th>Nivel</th>
                <th>Pensión</th>
                <th>Concepto</th>
+               <th>D. Admisión</th>
                <th>Dni</th>
                <th>Código Alumko</th>
 
@@ -175,6 +176,34 @@
                </td>
 
                <td>
+                  @php
+                  // 1 Obtenemos todas las pensiones pagadas del estudiante
+                  $pensiones = $matri->estudiante->pagos->flatMap->pensiones;
+
+                  // 2 Definimos los conceptos que queremos mostrar
+                  $conceptosMostrar = [
+                  'M2025' => 'MTR',
+                  'C2025' => 'COP',
+                  'PSC2025' => 'PS',
+                  'UE2025' => 'UTE',
+                  ];
+                  @endphp
+
+                  <div class="iq-media-group iq-media-group-1">
+
+                     @foreach ($conceptosMostrar as $codigo => $label)
+                     @if ($pensiones->firstWhere('concepto.codigo', $codigo))
+                     <a href="#" class="iq-media-1">
+                        <div class="icon iq-icon-box-3 rounded-pill">
+                           {{ $label }}
+                        </div>
+                     </a>
+                     @endif
+                     @endforeach
+
+                  </div>
+               </td>
+               <td>
                   <div class="d-flex align-items-center">
                      <h6>{{$matri->estudiante->dni}}</h6>
                   </div>
@@ -197,7 +226,7 @@
                            </svg>
                         </span>
                      </a>
-                     
+
                      <a class="btn btn-sm btn-icon text-warning" data-bs-toggle="modal" data-bs-original-title="Editar" data-bs-target="#model-edit-{{$matri->id}}">
                         <span class="btn-inner">
                            <svg width="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -234,6 +263,6 @@
          </tbody>
       </table>
    </div>
-     {{ $matricula->render() }}
+   {{ $matricula->render() }}
 </div>
 @endsection

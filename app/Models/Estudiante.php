@@ -11,10 +11,10 @@ class Estudiante extends Model
   
     protected $fillable=['nombre','apellidos','dni','celular','direccion','nombreapoderado','observaciones','codigo','estado'];
 
-    public function pagos(){
-        return $this->hasMany(Pagos::class,'id','idestudiante');
+    // public function pagos(){
+    //     return $this->hasMany(Pagos::class,'id','idestudiante');
     
-     }
+    //  }
      public function matricula()
     {
         return $this->hasOne(Matricula::class, 'idestudiante');
@@ -24,5 +24,11 @@ class Estudiante extends Model
         return $this->hasOne(Concepto::class, 'id');
     }
 
+ 
+
+public function pagos()
+{
+    return $this->hasMany(Pagos::class, 'idestudiante', 'id');
+}
     
 }

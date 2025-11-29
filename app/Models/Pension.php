@@ -14,7 +14,9 @@ class Pension extends Model
     
      }
      public function concepto(){
-        return $this->hasOne(Concepto::class,'idconcepto','id');
+        return $this->belongsTo(Concepto::class,'idconcepto','id');
     
      }
+
+     
 }

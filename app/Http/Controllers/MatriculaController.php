@@ -45,13 +45,20 @@ class MatriculaController extends Controller
                 ->whereHas('estudiantes', function ($q) use ($searchText) {
                     $q->where('nombre', 'LIKE', '%' . $searchText . '%')
                         ->orWhere('apellidos', 'LIKE', '%' . $searchText . '%');
-                })
-                ->with('estudiante')
-                ->with('aula')
-                ->with('meses')
-                ->with('concepto')
+                })->with([
+                    'estudiante',
+                    'aula',
+                    'meses',
+                    'concepto',
+
+                    // 🔥 TRAER PAGOS POR CONCEPTO A LA VEZ
+                     // 🔥 nuevas relaciones
+        'estudiante.pagos',
+        'estudiante.pagos.pensiones',
+        'estudiante.pagos.pensiones.concepto',
+                ])
                 ->paginate(50);
-            /// dd($matricula);
+             
             $aula = Aula::get();
             return view('pages.matricula.index', compact('estudiante', 'aula', 'matricula', 'concepto','searchText'));
         }

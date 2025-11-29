@@ -10,8 +10,8 @@ class Pagos extends Model
     use HasFactory;
     protected $fillable=['idestudiante','idconcepto','descripcion','fecha','foto'];
 
-    public function estudiantes(){
-        return $this->belongsTo(Pagos::class,'idestudiante','id');
+    public function estudiante(){
+        return $this->belongsTo(Estudiante::class,'idestudiante','id');
     
      }
      public function conceptos(){
@@ -23,4 +23,15 @@ class Pagos extends Model
       return $this->hasMany(Pension::class,'idpago','id');
   
    }
+   // loss 
+
+//    public function pensions()
+// {
+//     return $this->hasMany(Pension::class, 'idpago');
+// }
+
+// public function concepto()
+// {
+//     return $this->belongsTo(Concepto::class, 'idconcepto');
+// }
 }
