@@ -1,7 +1,7 @@
 <aside class="sidebar sidebar-default navs-pill-all mb-3">
     <div class="sidebar-header d-flex align-items-center justify-content-start">
         {{-- *** Logo *** --}}
-        <a href="{{ route('home') }}" class="navbar-brand">
+        <a href="{{ route('home') }}" class="navbar-brand d-none d-md-block">
 
             <img src="{{ asset('assets/images/logo.webp') }}" width="60px" alt="Isotipo Colegio Mundo Feliz">
             <img class="logo-title" src="{{ asset('assets/images/logo_nombre.webp') }}" width="80px" alt="Nombre Colegio Mundo Feliz">

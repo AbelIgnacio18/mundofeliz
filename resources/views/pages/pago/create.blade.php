@@ -12,10 +12,47 @@
                <div class="form-group">
                   <label for="nombre" class="form-label">Datos del Estudiante: <span class="badge bg-secondary">Seleccione un estudiante para habilitar los pagos</span></label>
                   <!-- id="ex-search"  select2  data-placeholder="Seleccionar..." -->
+
                   <select name="idestudiante[]" class="form-control select2" required id="ex-estudiante" data-placeholder="Seleccionar..." onchange="mesespagado()" multiple>
                      <option value="">Seleccionar un estudiante</option>
                      @forelse($estudiante as $estud)
-                     <option value="{{$estud->estudiantes->id}}/{{ $estud->meses->isNotEmpty() ? implode('-', $estud->meses->pluck('mes')->toArray()) . '-' : '' }}"> {{$estud->estudiantes->apellidos}} {{$estud->estudiantes->nombre}} - {{$estud->estudiantes->dni}}
+                     @php
+                     // Pensiones pagadas
+                     $pensiones = $estud->estudiante->pagos->flatMap->pensiones;
+
+                     // Meses pagados
+                     $meses = $estud->meses->pluck('mes')->toArray();
+                     $cadenaMeses = implode('-', $meses);
+
+                     // Conceptos por verificar
+                     $conceptosMostrar = [
+                     'M2025' => 'MTR',
+                     'C2025' => 'COP',
+                     'PSC2025'=> 'PS',
+                     'UE2025' => 'UTE',
+                     ];
+
+                     // Conceptos pagados
+                     $conceptosPagadosArray = [];
+
+                     foreach ($conceptosMostrar as $codigo => $label) {
+                     if ($pensiones->firstWhere('concepto.codigo', $codigo)) {
+                     $conceptosPagadosArray[] = $label;
+                     }
+                     }
+
+                     $conceptosPagados = implode('-', $conceptosPagadosArray);
+
+                     // Value final limpio
+                     $value = "{$estud->estudiantes->id}|{$cadenaMeses}|{$conceptosPagados}";
+                     @endphp
+
+                     <option value="{{ $value }}">
+                        {{ $estud->estudiantes->apellidos }} {{ $estud->estudiantes->nombre }}
+                        - {{ $estud->estudiantes->dni }}
+                     </option>
+
+                     <option value="{{ $value }}"> {{$estud->estudiantes->apellidos}} {{$estud->estudiantes->nombre}} - {{$estud->estudiantes->dni}}
                         {{$estud->concepto->concepto}}
                         <!-- {{$estud->concepto->monto }} -->
 
@@ -30,6 +67,9 @@
 
                   <td>
                      <div class="iq-media-group iq-media-group-1 d-flex mt-1" id="mesespagados">
+
+                     </div>
+                     <div class="iq-media-group iq-media-group-1 d-flex mt-1" id="admisionpagados">
 
                      </div>
                   </td>
@@ -313,6 +353,7 @@
 
       $("#mostrarconceptocosto").hide();
       $("#mesespagados").hide();
+      $("#admisionpagados").hide();
       $("#mostrarstock").hide();
       $("#mostrarefectivo").hide();
       $("#guardar").hide();
@@ -340,24 +381,33 @@
 
    function mesespagado() {
 
+      // LIMPIAR CONTENEDORES
+      $("#mesespagados").empty().show();
+      $("#admisionpagados").empty().show();
 
-      const eliminar = document.getElementById("mesespagados");
-      while (eliminar.firstChild) {
-         eliminar.removeChild(eliminar.firstChild);
-      }
+      // OBTENER VALUE
+      let partes = document.getElementById('ex-estudiante').value.split('|');
 
+      let cadenaMeses = partes[1] || "";
+      let cadenaConceptos = partes[2] || "";
 
-      $("#mesespagados").show();
-      idestudiante = document.getElementById('ex-estudiante').value.split('/');
-      estudiante = idestudiante[1].split('-');
-      for (let index = 0; index < estudiante.length - 1; index++) {
-         const element = estudiante[index];
-         console.log(element);
-         var mes = '<a href="#" class="iq-media-1"><div class="icon iq-icon-box-3 rounded-pill">' + element + '</div></a>';
-         $('#mesespagados').append(mes);
-      }
+      // CONVERTIR EN ARRAYS LIMPIOS
+      let meses = cadenaMeses.split('-').filter(x => x.trim() !== "");
+      let conceptos = cadenaConceptos.split('-').filter(x => x.trim() !== "");
 
+      // MOSTRAR MESES PAGADOS
+      meses.forEach(mes => {
+         let tag = `<a class="iq-media-1"><div class="icon iq-icon-box-3 rounded-pill">${mes}</div></a>`;
+         $("#mesespagados").append(tag);
+      });
+
+      // MOSTRAR CONCEPTOS PAGADOS
+      conceptos.forEach(con => {
+         let tag = `<a class="iq-media-1"><div class="icon iq-icon-box-3 rounded-pill">${con}</div></a>`;
+         $("#admisionpagados").append(tag);
+      });
    }
+
 
    function conceptos() {
       $("#mostrarconceptocosto").show();

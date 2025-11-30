@@ -42,6 +42,7 @@
                <td>
                   <div class="d-flex align-items-center">
                      <h6>{{$matri->estudiante->apellidos}}, {{$matri->estudiante->nombre}}</h6>
+                         @if($matri->estado==1) <span class="badge bg-danger"> trasladad@</span> @endif
                   </div>
                </td>
 

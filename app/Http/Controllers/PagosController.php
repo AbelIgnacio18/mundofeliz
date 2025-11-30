@@ -43,7 +43,7 @@ class PagosController extends Controller
             $articulo = Articulo::with('categoria')->get();
            // dd($articulo);
 
-            $estudiante = Matricula::with('estudiantes')->with('concepto')->get();
+            $estudiante = Matricula::with('estudiante')->with('concepto','meses','estudiante.pagos.pensiones.concepto')->get();
             $concepto = Concepto::orderBy('codigo', 'asc')->orderBy('concepto', 'desc')->get();
 
 
@@ -86,7 +86,7 @@ class PagosController extends Controller
             //dd($separarid);
             $contadorestu = 0;
             while ($contadorestu < count($separarid)) {
-                $idestudiante = explode('/', $separarid[$contadorestu]);
+                $idestudiante = explode('|', $separarid[$contadorestu]);
                 $pago = new Pagos;
                 $ultimoRegistro = Pagos::orderBy('id','desc')->first();
                 $pago->idestudiante = $idestudiante[0];

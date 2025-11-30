@@ -84,6 +84,7 @@
     </div>
 
     <div class="container">
+        GRADO SECCION 
         <div class="table-responsive mt-4">
             <table id="user-list-table" class="table table-striped" role="grid" data-toggle="data-table">
                 <thead>
@@ -99,10 +100,13 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php
+                    $contador=1;
+                    @endphp
                     @forelse($matricula as $matri)
                     <tr>
                         <td>
-                            <h4>{{$matri->id}}</h4>
+                            <h4>{{$contador}}</h4>
                         </td>
                         <td>
                             <div class="d-flex align-items-center">
@@ -162,7 +166,9 @@
                         </td>
 
                     </tr>
-
+                    @php
+                    $contador++;
+                    @endphp
                     @empty
                     @endforelse
 

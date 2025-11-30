@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Aula;
+
 use App\Models\Anolectivo;
 use App\Models\Estudiante;
 use App\Models\Mese;
+use App\Models\Aula;
 use App\Models\Matricula;
 use App\Models\Concepto;
 use Illuminate\Http\Request;
@@ -167,18 +168,24 @@ class MatriculaController extends Controller
             'aula' => 'required'
         ]);
          $idaula = $request->get('aula');
+       $aula = Aula::orderBy('nivel', 'asc')
+            ->orderByRaw("CAST(grado AS UNSIGNED) asc")
+            ->orderBy('seccion', 'asc')
+            ->get();
+
+        $anolect = Anolectivo::where('estado', 1)->first();
         if($idaula=="todos"){
 //dd($idaula);
-        $anolect = Anolectivo::where('estado', 1)->first();
-        $matricula=Matricula::where('idanolectivo',$anolect->id)->with('estudiante')->with('aula')->with('meses')->orderBy('idaula','desc')->get();
+      
+        $matricula=Matricula::where('idanolectivo',$anolect->id)->with('estudiante')->with('aula')->with('meses')->orderBy('idaula','asc')->get();
 
-        $pdf = Pdf::loadView('pages.matricula.invocepdf', compact('matricula', 'anolect'));
-        //$pdf->setPaper('A4', 'landscape');
-        return $pdf->stream('lista_matriculado_'.' $anolect'.'.pdf');
+        $pdf = Pdf::loadView('pages.matricula.invocepdf', compact('matricula', 'anolect','aula'));
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream('lista_matriculado_'.' $anolect'.'.pdf',);
 
 
         }
- $anolect = Anolectivo::where('estado', 1)->first();
+ 
     $matricula=Matricula::where('idanolectivo',$anolect->id)->where('idaula',$idaula)->with('estudiante')->with('aula')->with('meses')->get();
 
         $pdf = Pdf::loadView('pages.matricula.invocepdf', compact('matricula', 'anolect'));
