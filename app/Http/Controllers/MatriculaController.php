@@ -172,8 +172,10 @@ class MatriculaController extends Controller
             ->orderByRaw("CAST(grado AS UNSIGNED) asc")
             ->orderBy('seccion', 'asc')
             ->get();
+          
 
         $anolect = Anolectivo::where('estado', 1)->first();
+
         if($idaula=="todos"){
 //dd($idaula);
       
@@ -187,8 +189,9 @@ class MatriculaController extends Controller
         }
  
     $matricula=Matricula::where('idanolectivo',$anolect->id)->where('idaula',$idaula)->with('estudiante')->with('aula')->with('meses')->get();
+      $mostraraula = Aula::where('id',$idaula)->first();
 
-        $pdf = Pdf::loadView('pages.matricula.invocepdf', compact('matricula', 'anolect'));
+        $pdf = Pdf::loadView('pages.matricula.invocepdf', compact('matricula', 'anolect','mostraraula'));
         $pdf->setPaper('A4', 'landscape'); //Formato de hoha A4 en horizontal
         return $pdf->stream('lista_matriculado_'.' $anolect'.'.pdf');
     }

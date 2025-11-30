@@ -10,40 +10,58 @@
 
 <body>
     <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            /* más pequeño, pero legible */
+        }
+
+        th,
+        td {
+            border: 1px solid #cccccc;
+            padding: 1px 2px;
+            /* <<< PADDING MÍNIMO */
+            line-height: 1.1;
+            /* compacta la altura */
+        }
+
+        th {
+            background: #f2f2f2;
+            font-weight: bold;
+            text-align: center;
+        }
+
         .page_break {
             page-break-before: always;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            /* Para un borde único entre celdas */
-        }
 
-        th {
-            border: 1px solid #cccccc;
-            /* Borde de celda */
-            padding: 2px;
-            text-align: center;
-        }
 
-        td {
-            border: 1px solid #cccccc;
-            /* Borde de celda */
-            text-align: center;
-            line-height: 1px !important;
-            /* también ayuda */
-        }
 
-        th {
-            background-color: #f2f2f2;
-            /* Fondo para encabezados */
-            font-weight: bold;
-        }
+
 
         tr:nth-child(even) {
-            background-color: #f9f9f9;
-            /* Color alterno para filas */
+            background: #fafafa;
+        }
+
+        /* Evitar márgenes de elementos internos */
+        h4,
+        h5,
+        div {
+            margin: 0;
+            padding: 0;
+            line-height: 1.1;
+        }
+
+        /* Burbujas compactas */
+        .tag,
+        .iq-media-1 div {
+            padding: 0px 2px !important;
+            font-size: 9px;
+            line-height: 1;
+            border-radius: 3px !important;
+            margin: 1px;
         }
     </style>
     <div class="control-bar">
@@ -80,11 +98,19 @@
                 </h4>
             </div><!-- .info -->
 
+
         </header>
+        <div>
+            <h1>
+                {{$mostraraula->nivel}} {{$mostraraula->grado}} {{$mostraraula->seccion}}
+            </h1>
+        </div>
+
     </div>
 
     <div class="container">
-        GRADO SECCION 
+        
+
         <div class="table-responsive mt-4">
             <table id="user-list-table" class="table table-striped" role="grid" data-toggle="data-table">
                 <thead>
