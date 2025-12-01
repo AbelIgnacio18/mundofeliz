@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('controls', function (Blueprint $table) {
             $table->id();
+            $table->string('entrada',45);
+            $table->time('mañana');
+            $table->time('tarde');      
             $table->boolean('estado')->nullable()->default(true);
             $table->timestamps();
         });
