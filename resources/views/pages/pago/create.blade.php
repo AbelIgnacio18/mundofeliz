@@ -47,8 +47,11 @@
                      $value = "{$estud->estudiantes->id}|{$cadenaMeses}|{$conceptosPagados}";
                      @endphp
 
+<<<<<<< HEAD
                      
 
+=======
+>>>>>>> 5f273adb8adc742f5cf75fafe540381b9a182192
                      <option value="{{ $value }}"> {{$estud->estudiantes->apellidos}} {{$estud->estudiantes->nombre}} - {{$estud->estudiantes->dni}}
                         {{$estud->concepto->concepto}}
                         <!-- {{$estud->concepto->monto }} -->
