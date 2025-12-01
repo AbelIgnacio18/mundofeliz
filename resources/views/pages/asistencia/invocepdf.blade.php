@@ -7,79 +7,89 @@
     </title>
     <link rel="stylesheet" href="../public/pdf/assets/css/comprobantepdf.css">
 </head>
+<htmlpageheader name="headerasistencia">
+    <div style="width:100%; text-align:center; font-size:14px; padding:5px 0;
+                border-bottom: 2px solid #c00000;">
+        <strong>Hoja de Asistencia</strong>
+    </div>
+
+   
+</htmlpageheader>
+
 
 <body>
     <style>
-        .page_break {
+         * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    @page {
+    margin-top: 130px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 60px;
+}
+    .page_break {
             page-break-before: always;
+            
         }
+    .control-bar-2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 20px; /* Ajusta a tu barra */
+    z-index: 999;
+}
+         html, body {
+        margin: 5px !important;
+        padding: 0 !important;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
 
-      
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 11px;
-            /* más pequeño, pero legible */
-        }
+  
 
-        th,
-        td {
-            border: 1px solid #cccccc;
-            padding: 1px 2px;
-            /* <<< PADDING MÍNIMO */
-            line-height: 1.1;
-            /* compacta la altura */
-        }
+    th {
+        background-color: #f0f0f0;
+        font-weight: bold;
+        font-size: 9px;
+        padding: 2px !important;
+    }
 
-        th {
-            background: #f2f2f2;
-            font-weight: bold;
-            text-align: center;
-        }
+    li {
+        list-style-type: none;
+        padding: 0 !important;
+        margin: 0 !important;
+        line-height: 0.6rem !important; /* 🔥 MÁS BAJO */
+        font-size: 7px !important; /* 🔥 SUPER COMPACTO */
+    }
+    
 
-        .page_break {
-            page-break-before: always;
-        }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
 
+    table td, table th {
+        padding: 1px 2px !important;
+        line-height: 0.9;
+    }
 
+    th, td {
+        border: 1px solid #ccc;
+    }
 
+    /* Alternar filas más sutil */
+    tr:nth-child(even) {
+        background-color: #f8f8f8;
+    }
+</style>
 
-
-
-        tr:nth-child(even) {
-            background: #fafafa;
-        }
-
-        /* Evitar márgenes de elementos internos */
-        h4,
-        h5,
-        div {
-            margin: 0;
-            padding: 0;
-            line-height: 1.1;
-        }
-
-        /* Burbujas compactas */
-        .tag,
-        .iq-media-1 div {
-            padding: 0px 2px !important;
-            font-size: 9px;
-            line-height: 1;
-            border-radius: 3px !important;
-            margin: 1px;
-        }
-    </style>
-    <div class="control-bar">
-        <div class="container">
-            <div class="row">
-                <div class="col-1">
-                    <div class="slogan text-center">Hoja de Asistencia
-                    </div>
-                </div>
-            </div><!--.row-->
-        </div><!--.container-->
-    </div><!--.control-bar-->
-    <div class="col-1">
+    
         <header class="row">
             <div class="logoholder text-center">
                 <img src="assets/images/logo.webp" alt="Isotipo Colegio Mundo Feliz" width="85px">
@@ -114,10 +124,16 @@
             </div><!-- .info -->
 
         </header>
-    </div>
+    
 
 
-    <div class="container">
+
+
+
+
+
+    <div class="container ">
+
 
         @forelse($meses as $me)
         <div class="row justify-content-center">
@@ -128,14 +144,15 @@
                 <h1 width="50%">{{Carbon\Carbon::parse($me)->translatedFormat('F')}}</h1>
             </div>
 
+
         </div>
 
 
-        <table>
+        <table style="margin-top: 10px;">
             <thead>
                 <tr>
                     <th>Nº</th>
-                    <th >Docente</th>
+                    <th width="20%">Docente</th>
                     @forelse($dias as $di)
 
                     @if(Carbon\Carbon::parse($di)->Format('Y-m')==$me)
@@ -158,54 +175,70 @@
                         </div>
                     </td>
                     <td>
-                        <h6>{{$item->nombre}}, {{$item->apellidos}}</h6>
+                        <h6>{{$item->apellidos}} {{$item->nombre}} </h6>
                     </td>
+
+
+
 
 
                     @forelse($dias as $di)
-                        @if(Carbon\Carbon::parse($di)->Format('Y-m')==$me)
-                        <?php $contador = 1; ?>
+                    @if(Carbon\Carbon::parse($di)->Format('Y-m')==$me)
+                    @php
+                    $fecha = Carbon\Carbon::parse($di);
+                    $esFinDeSemana = $fecha->isSaturday() || $fecha->isSunday();
+                    @endphp
 
-                            @forelse($item->asistenciadocentehoy->toArray() as $asis)
-                                @if(Carbon\Carbon::parse($di)->Format('Y-m-d')== Carbon\Carbon::parse($asis['fechaentrada'])->Format('Y-m-d'))
-                                    @if($asis['estado']===1)
-                                    <td style="background-color: green;">
-                                        .
-                                    </td>
 
-                                    @endif
-                                    @if($asis['estado']===0)
-                                    <td style="background-color: orange;">
-                                        .
-                                    </td>
+                    <?php $contador = 1; ?>
+                    <td style="{{ $esFinDeSemana ? 'background-color:#d8d1d1ff;' : '' }}">
+                        @forelse($item->asistenciadocentehoy->toArray() as $asis)
+                        @if(Carbon\Carbon::parse($di)->Format('Y-m-d')== Carbon\Carbon::parse($asis['fechaentrada'])->Format('Y-m-d'))
 
-                                    @endif
-                                    @if($asis['estado']===null)
-                                    <td style="background-color: red;">
-                                        .
-                                    </td>
+                        @if($asis['estado']===1)
+                        <li style="background-color: green;color:white;font-size:7px;padding:0 1px;">
 
-                                    @endif
-                            
-                                <?php $contador = 0; ?>
-                                @endif
-
-                            @empty
-                            @endforelse
-
-                            @if($contador==1)
-                            <td></td>
-                            <?php $contador = 1; ?>
-                            @endif
-
-                        
+                            {{ Carbon\Carbon::parse($asis['created_at'])->setTimezone('America/Lima')->format('h:i A') }}
+                        </li>
 
                         @endif
-                    @empty
-                    @endif
+                        @if($asis['estado']===0)
+                        <li style="background-color: orange;color:black;font-size:7px;padding:0 1px;">
+
+                            {{ Carbon\Carbon::parse($asis['created_at'])->setTimezone('America/Lima')->format('h:i A') }}
+                        </li>
+
+                        @endif
+                        @if($asis['estado']===null)
+                        <li style="background-color: red;color:white;font-size:7px;padding:0 1px;">
+
+                            {{ Carbon\Carbon::parse($asis['created_at'])->setTimezone('America/Lima')->format('h:i A') }}
+                        </li>
+
+                        @endif
+
+
+
+                        <?php $contador = 0; ?>
+                        @endif
+
+                        @empty
+                        @endforelse
+
+                        @if($contador==1)
+
+                        <?php $contador = 1; ?>
+                        @endif
+
+
+
+                        @endif
+                        @empty
+                        @endif
 
 
                     </td>
+
 
 
                 </tr>
@@ -220,8 +253,39 @@
         </table>
         <div class="page_break">
         </div>
+         
+
         @empty
         @endforelse
+
+
+
+
+
+
+    </div><!--.invoice-body-->
+    <div class="invoicelist-body">
+
+    </div>
+
+
+
+    <div class="note" contenteditable>
+        <!-- <h2>Nota:</h2> -->
+    </div><!--.note-->
+
+    <footer class="row">
+        <div class="col-1 text-center">
+            <p class="notaxrelated">Gracias por su preferencia.</p>
+        </div>
+
+
+        <!-- <div class="piedepagina">
+            <img src="assets/images/piedepáginapdf.webp" alt="Pie de Página" width="100%">
+        </div> -->
+    </footer>
+
+
 
 </body>
 

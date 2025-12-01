@@ -128,7 +128,19 @@ class MatriculaController extends Controller
     {
          $anolect = Anolectivo::where('estado', 1)->first();
          $aula=Aula::where('id',$id)->first();
-         $matricula=Matricula::where('idanolectivo',$anolect->id)->where('idaula', $id)->with('estudiante')->with('aula')->with('meses')->with('concepto')->get();
+         $matricula = Matricula::where('idanolectivo', $anolect->id)
+    ->join('estudiantes', 'matriculas.idestudiante', '=', 'estudiantes.id')
+    ->orderBy('estudiantes.apellidos', 'asc')
+    ->orderBy('estudiantes.nombre', 'asc')
+    ->select('matriculas.*')
+    ->with([
+        'estudiante',
+        'aula',
+        'meses',
+        'concepto',
+        'estudiante.pagos.pensiones.concepto'
+    ])
+    ->get();
      
      
 
@@ -177,11 +189,17 @@ class MatriculaController extends Controller
         $anolect = Anolectivo::where('estado', 1)->first();
 
         if($idaula=="todos"){
+                $mostraraula = (object)[
+        "nivel" => "",
+        "grado" => "",
+        "seccion" => ""
+    ];
+
 //dd($idaula);
       
         $matricula=Matricula::where('idanolectivo',$anolect->id)->with('estudiante')->with('aula')->with('meses')->orderBy('idaula','asc')->get();
 
-        $pdf = Pdf::loadView('pages.matricula.invocepdf', compact('matricula', 'anolect','aula'));
+        $pdf = Pdf::loadView('pages.matricula.invocepdf', compact('matricula', 'anolect','aula','mostraraula'));
         $pdf->setPaper('A4', 'landscape');
         return $pdf->stream('lista_matriculado_'.' $anolect'.'.pdf',);
 

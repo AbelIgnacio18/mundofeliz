@@ -148,8 +148,9 @@ class AsistenciaController extends Controller
 
         $anolect = Anolectivo::where('estado', 1)->first();
 
-        $items = Docente::where('estado',1)->with('asistenciadocentehoy')
+        $items = Docente::where('estado',1)->with('asistenciadocentehoy')->orderBy('apellidos','asc')
             ->get();
+            
         //dd($items);
 
         $pdf = Pdf::loadView('pages.asistencia.invocepdf', compact('items', 'dias', 'meses'));
