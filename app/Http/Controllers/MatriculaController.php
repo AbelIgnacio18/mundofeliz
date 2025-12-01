@@ -126,14 +126,6 @@ class MatriculaController extends Controller
 
     public function showaula($id)
     {
-<<<<<<< HEAD
-         $anolect = Anolectivo::where('estado', 1)->first();
-         $aula=Aula::where('id',$id)->first();
-         $matricula = Matricula::where('idanolectivo', $anolect->id)
-    ->join('estudiantes', 'matriculas.idestudiante', '=', 'estudiantes.id')
-    ->orderBy('estudiantes.apellidos', 'asc')
-    ->orderBy('estudiantes.nombre', 'asc')
-=======
         $anolect = Anolectivo::where('estado', 1)->first();
         $aula=Aula::where('id',$id)->first();
 
@@ -141,7 +133,6 @@ $matricula = Matricula::where('idanolectivo', $anolect->id)
     ->join('estudiantes', 'matriculas.idestudiante', '=', 'estudiantes.id')
     ->orderBy('estudiantes.apellidos', 'desc')
     ->orderBy('estudiantes.nombre', 'desc')
->>>>>>> 5f273adb8adc742f5cf75fafe540381b9a182192
     ->select('matriculas.*')
     ->with([
         'estudiante',
@@ -151,11 +142,6 @@ $matricula = Matricula::where('idanolectivo', $anolect->id)
         'estudiante.pagos.pensiones.concepto'
     ])
     ->get();
-<<<<<<< HEAD
-     
-     
-=======
->>>>>>> 5f273adb8adc742f5cf75fafe540381b9a182192
 
         //  dd($matricula);
         return view("pages.matricula.showaula", compact('matricula','aula'));

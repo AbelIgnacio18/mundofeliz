@@ -31,6 +31,8 @@
     }
       li{
             list-style-type: none;
+            font-size: 12px !important;
+            font-weight:700;
         }
 
 
@@ -82,11 +84,11 @@
 
 
 
-<div class="container">
+<div class="container table-responsive mt-4">
 
 
     @forelse($meses as $me)
-    <div class="row justify-content-center">
+    <div class="row justify-content-start">
         <div class="col-md-6">
             <h6 width="50%">Mes</h6>
         </div>
@@ -140,7 +142,7 @@
                     @if(Carbon\Carbon::parse($di)->Format('Y-m-d')== Carbon\Carbon::parse($asis['fechaentrada'])->Format('Y-m-d'))
 
                     @if($asis['estado']===1)
-                    <li style="background-color: green;color:white;font-size:9px;padding:0px 1px">
+                    <li style="background-color: green;color:white;padding:0px 1px">
                         {{ Carbon\Carbon::parse($asis['created_at'])->setTimezone('America/Lima')->format('h:i A') }}
 
 
@@ -148,7 +150,7 @@
 
                     @endif
                     @if($asis['estado']===0)
-                    <li style="background-color: orange;color:white;font-size:9px;padding:0px 1px">
+                    <li style="background-color: orange;color:black;padding:0px 1px">
 
                         {{ Carbon\Carbon::parse($asis['created_at'])->setTimezone('America/Lima')->format('h:i A') }}
 
@@ -156,7 +158,7 @@
 
                     @endif
                     @if($asis['estado']===null)
-                    <li style="background-color: red;color:white;font-size:9px;padding:0px 1px">
+                    <li style="background-color: red;color:white;padding:0px 1px">
                         {{ Carbon\Carbon::parse($asis['created_at'])->setTimezone('America/Lima')->format('h:i A') }}
 
                     </li>

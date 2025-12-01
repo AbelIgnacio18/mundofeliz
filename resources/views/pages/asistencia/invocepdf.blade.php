@@ -64,8 +64,9 @@
         list-style-type: none;
         padding: 0 !important;
         margin: 0 !important;
-        line-height: 1rem !important; /* 🔥 MÁS BAJO */
-        font-size: 14px !important; /* 🔥 SUPER COMPACTO */
+        line-height: 0.9rem !important; /* 🔥 MÁS BAJO */
+        font-size: 10px !important;
+        font-weight: 700 /* 🔥 SUPER COMPACTO */
     }
     
 
@@ -76,7 +77,7 @@
 
     table td, table th {
         padding: 1px 2px !important;
-        line-height: 1;
+        line-height: 0.9;
     }
 
     th, td {
@@ -196,21 +197,21 @@
                         @if(Carbon\Carbon::parse($di)->Format('Y-m-d')== Carbon\Carbon::parse($asis['fechaentrada'])->Format('Y-m-d'))
 
                         @if($asis['estado']===1)
-                        <li style="background-color: green;color:white;font-size:13px;padding:0 1px;">
+                        <li style="background-color: green;color:white;font-size:13px;padding:1px 1px;">
 
                             {{ Carbon\Carbon::parse($asis['created_at'])->setTimezone('America/Lima')->format('h:i A') }}
                         </li>
 
                         @endif
                         @if($asis['estado']===0)
-                        <li style="background-color: orange;color:black;font-size:13px;padding:0 1px;">
+                        <li style="background-color: orange;color:black;font-size:13px;padding:1px 1px;">
 
                             {{ Carbon\Carbon::parse($asis['created_at'])->setTimezone('America/Lima')->format('h:i A') }}
                         </li>
 
                         @endif
                         @if($asis['estado']===null)
-                        <li style="background-color: red;color:white;font-size:13px;padding:0 1px;">
+                        <li style="background-color: red;color:white;font-size:13px;padding:1px 1px;">
 
                             {{ Carbon\Carbon::parse($asis['created_at'])->setTimezone('America/Lima')->format('h:i A') }}
                         </li>
