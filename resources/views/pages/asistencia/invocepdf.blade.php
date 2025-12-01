@@ -64,7 +64,7 @@
         list-style-type: none;
         padding: 0 !important;
         margin: 0 !important;
-        line-height: 0.6rem !important; /* 🔥 MÁS BAJO */
+        line-height: 1rem !important; /* 🔥 MÁS BAJO */
         font-size: 14px !important; /* 🔥 SUPER COMPACTO */
     }
     
@@ -76,7 +76,7 @@
 
     table td, table th {
         padding: 1px 2px !important;
-        line-height: 0.9;
+        line-height: 1;
     }
 
     th, td {
