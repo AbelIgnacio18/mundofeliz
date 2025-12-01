@@ -361,6 +361,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\Control::create([
+            'entrada' => 'hrentrada',
+            'mañana' => '08:00:20',
+            'tarde' => '14:30:00',
             'estado' => true,
         ]);
 

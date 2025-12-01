@@ -134,7 +134,7 @@
                   <div class="form-group col-md-6">
                      <label for="nombre" class="form-label">Pago de Artículos:</label>
                      <div class="">
-                        <select name="idarticulo" id="idarticulo" class="form-select" onchange="articulos()">
+                        <select name="idarticulo" id="idarticulo" class="form-select" onchange="articulos()" style="background-color:#e5e5e5">
                            <option value="">Seleccionar un artículo</option>
                            @forelse($articulo as $art)
                            <option value="{{$art->id}}-{{$art->nombre}}-{{$art->stock}}-{{$art->precioventa}}-{{$art->categoria->nombre}}">{{$art->categoria->nombre}} {{$art->nombre}}</option>
