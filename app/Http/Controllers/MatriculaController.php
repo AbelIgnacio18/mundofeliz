@@ -129,7 +129,7 @@ class MatriculaController extends Controller
         $anolect = Anolectivo::where('estado', 1)->first();
         $aula=Aula::where('id',$id)->first();
 
-$matricula = Matricula::where('idanolectivo', $anolect->id)
+$matricula = Matricula::where('idanolectivo', $anolect->id)->where('idaula', $id)
     ->join('estudiantes', 'matriculas.idestudiante', '=', 'estudiantes.id')
     ->orderBy('estudiantes.apellidos', 'desc')
     ->orderBy('estudiantes.nombre', 'desc')
