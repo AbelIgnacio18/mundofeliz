@@ -132,7 +132,7 @@ class MatriculaController extends Controller
 $matricula = Matricula::where('idanolectivo', $anolect->id)->where('idaula', $id)
     ->join('estudiantes', 'matriculas.idestudiante', '=', 'estudiantes.id')
     ->orderBy('estudiantes.apellidos', 'desc')
-    ->orderBy('estudiantes.nombre', 'desc')
+  
     ->select('matriculas.*')
     ->with([
         'estudiante',
