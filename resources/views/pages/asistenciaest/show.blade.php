@@ -29,6 +29,12 @@
         /* Fondo para encabezados */
         font-weight: bold;
     }
+      li{
+            list-style-type: none;
+            font-size: 12px !important;
+            font-weight:700;
+        }
+
 
     tr:nth-child(even) {
         background-color: #f9f9f9;
@@ -78,7 +84,7 @@
 
 
 
-<div class="container">
+<div class="container table-responsive mt-4">
 
 
     @forelse($meses as $me)
@@ -123,48 +129,58 @@
 
                 @forelse($dias as $di)
                 @if(Carbon\Carbon::parse($di)->Format('Y-m')==$me)
-                <?php $contador = 1; ?>
+                @php
+                $fecha = Carbon\Carbon::parse($di);
+                $esFinDeSemana = $fecha->isSaturday() || $fecha->isSunday();
+                $contador = 1;
+                @endphp
 
-                @forelse($item->asistenciahoy->toArray() as $asis)
-                @if(Carbon\Carbon::parse($di)->Format('Y-m-d')== Carbon\Carbon::parse($asis['fechaentrada'])->Format('Y-m-d'))
-                @if($asis['estado']===1)
-                <td style="background-color: green;">
-                    .
+                <td style="{{ $esFinDeSemana ? 'background-color:#d8d1d1;' : '' }}">
+                    @forelse($item->asistenciahoy->toArray() as $asis)
+                    @if(Carbon\Carbon::parse($di)->Format('Y-m-d')== Carbon\Carbon::parse($asis['fechaentrada'])->Format('Y-m-d'))
+                    @if($asis['estado']===1)
+                    <li style="background-color: green;color:white;padding:0px 1px">
+                        {{ Carbon\Carbon::parse($asis['created_at'])->setTimezone('America/Lima')->format('h:i A') }}
+
+
+                    </li>
+
+                    @endif
+                    @if($asis['estado']===0)
+                    <li style="background-color: orange;color:black;padding:0px 1px">
+
+                        {{ Carbon\Carbon::parse($asis['created_at'])->setTimezone('America/Lima')->format('h:i A') }}
+
+                    </li>
+
+                    @endif
+                    @if($asis['estado']===null)
+                    <li style="background-color: red;color:white;padding:0px 1px">
+                        {{ Carbon\Carbon::parse($asis['created_at'])->setTimezone('America/Lima')->format('h:i A') }}
+
+                    </li>
+
+                    @endif
+
+                    <?php $contador = 0; ?>
+                    @endif
+
+                    @empty
+                    @endforelse
+
+                    @if($contador==1)
+
+                    <?php $contador = 1; ?>
+                    @endif
+
                 </td>
 
                 @endif
-                @if($asis['estado']===0)
-                <td style="background-color: orange;">
-                    .
-                </td>
-
-                @endif
-                @if($asis['estado']===null)
-                <td style="background-color: red;">
-                    .
-                </td>
-
-                @endif
-
-                <?php $contador = 0; ?>
-                @endif
-
                 @empty
-                @endforelse
-
-                @if($contador==1)
-                <td></td>
-                <?php $contador = 1; ?>
                 @endif
 
 
 
-                @endif
-                @empty
-                @endif
-
-
-                </td>
 
 
 
@@ -193,9 +209,9 @@
 
 </div>
 
-
 <div class="form-group text-center pt-lg-3">
     <a href="{{url('dashboard/asistencia-estudiantes')}}" class="btn btn-secondary" type="submit">Regresar</a>
 </div>
+
 
 @endsection
