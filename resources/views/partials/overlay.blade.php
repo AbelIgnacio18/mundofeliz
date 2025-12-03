@@ -2,14 +2,14 @@
     aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
         <div class="d-flex align-items-center">
-            <h3 class="offcanvas-title me-3" id="offcanvasExampleLabel">Settings</h3>
+            <h3 class="offcanvas-title me-3" id="offcanvasExampleLabel">Configuración</h3>
         </div>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body data-scrollbar">
         <div class="row">
             <div class="col-lg-12">
-                <h5 class="mb-3">Scheme</h5>
+                <h5 class="mb-3">Modo</h5>
                 <div class="d-grid gap-x-3 grid-cols-3 mb-4">
                     <div class="btn-border" data-setting="color-mode" data-name="color" data-value="auto">
                         <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -120,7 +120,7 @@
                     </div>
                 </div> -->
                 <hr class="hr-horizontal">
-                <h5 class="mt-4 mb-3">Sidebar Color</h5>
+                <h5 class="mt-4 mb-3">Color de la barra lateral</h5>
                 <div class="d-grid gap-x-3 grid-cols-2 mb-4">
                     <div class="btn btn-border mb-4" data-setting="sidebar" data-name="sidebar-color"
                         data-value="sidebar-dark">
@@ -131,7 +131,7 @@
                                 </circle>
                             </svg>
                         </i>
-                        <span class="ms-2 "> Dark </span>
+                        <span class="ms-2 "> Negro </span>
                     </div>
                     <div class="btn btn-border mb-4" data-setting="sidebar" data-name="sidebar-color"
                         data-value="sidebar-color">
@@ -154,7 +154,7 @@
                                 </circle>
                             </svg>
                         </i>
-                        <span class="ms-2 "> White </span>
+                        <span class="ms-2 "> Blanco </span>
                     </div>
                     <div class="btn btn-border " data-setting="sidebar" data-name="sidebar-color"
                         data-value="sidebar-transparent">
@@ -166,11 +166,11 @@
                                 </circle>
                             </svg>
                         </i>
-                        <span class="ms-2 "> Transparent </span>
+                        <span class="ms-2 "> Transparnte </span>
                     </div>
                 </div>
                 <hr class="hr-horizontal">
-                <h5 class="mt-4 mb-3">Sidebar Types</h5>
+                <h5 class="mt-4 mb-3">Tipos de barra lateral</h5>
                 <div class="d-grid gap-x-3 grid-cols-3 mb-4">
                     <div class="text-center">
                         <img src="../assets/images/settings/dark/03.png" alt="mini"
@@ -201,7 +201,7 @@
                     </div>
                 </div>
                 <hr class="hr-horizontal">
-                <h5 class="mt-4 mb-3">Sidebar Active Style</h5>
+                <h5 class="mt-4 mb-3">Estilo de la barra lateral</h5>
                 <div class="d-grid gap-x-3 grid-cols-2 mb-4">
                     <div class="mb-4 text-center">
                         <img src="../assets/images/settings/dark/06.png" alt="rounded-one-side"

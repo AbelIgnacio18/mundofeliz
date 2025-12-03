@@ -46,7 +46,7 @@
    @csrf
    <div class="row">
       <div class="input-group ms-3" style="width: auto;">
-         <label for="fecha" class="form-label"></label>
+         <label for="fecha" class="form-label me-2" style="margin-top: 0.7rem !important;">Fecha:</label>
          @if($fecha=="")
          <input type="date" class="form-control" id="fecha" name="fecha" placeholder="" value="<?= date("Y-m-d") ?>">
          @else

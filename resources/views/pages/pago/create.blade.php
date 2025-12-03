@@ -194,14 +194,15 @@
                            <label for="nombre" class="form-label">Forma Pago:</label>
 
                            <div class="form-check">
-                              <input class="form-check-input" type="radio" name="efetivo" id="efetivo" checked value="0" style="cursor:pointer" onclick="efectivo()">
-                              <label class="form-check-label" for="efetivo">
+                              <input class="form-check-input" type="radio" name="efetivo" id="efetivo1" checked value="0" style="cursor:pointer" onclick="efectivo()">
+                              <label class="form-check-label" for="efetivo1">
                                  Dinero en Efectivo
                               </label>
                            </div>
+
                            <div class="form-check">
-                              <input class="form-check-input" type="radio" name="efetivo" id="efetivo" value="1" style="cursor:pointer" onclick="billeteradigital()">
-                              <label class="form-check-label" for="efetivo">
+                              <input class="form-check-input" type="radio" name="efetivo" id="efetivo2" value="1" style="cursor:pointer" onclick="billeteradigital()">
+                              <label class="form-check-label" for="efetivo2">
                                  Dinero Digital
                               </label>
                            </div>

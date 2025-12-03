@@ -2939,7 +2939,7 @@ textarea.form-control-lg {
   background-position: center;
   -webkit-background-size: contain;
           background-size: contain;
-  border: 1px solid #3a57e8;
+  border: 1px solid var(--primary);
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -2966,17 +2966,17 @@ textarea.form-control-lg {
 }
 .form-check-input:checked {
   background-color: #fff;
-  border-color: #3a57e8;
+  border-color: var(--primary);
 }
 .form-check-input:checked[type=checkbox] {
   background-image: url("data:image/svg+xml,%3csvg width='16' height='14' viewBox='0 0 16 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath fill-rule='evenodd' clip-rule='evenodd' d='M0.51662 8.59792C-0.172207 7.90067 -0.172207 6.77019 0.51662 6.07293C1.20545 5.37567 2.32225 5.37567 3.01108 6.07293L5.25609 8.34542C5.39386 8.48488 5.61722 8.48488 5.75499 8.34542L12.9889 1.02294C13.6777 0.325686 14.7946 0.325686 15.4834 1.02294C16.1722 1.7202 16.1722 2.85068 15.4834 3.54794L5.75499 13.3954C5.61722 13.5349 5.39386 13.5349 5.25609 13.3954L0.51662 8.59792Z' fill='%233a57e8'/%3e%3c/svg%3e");
 }
 .form-check-input:checked[type=radio] {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%233a57e8'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23D72B3B'/%3e%3c/svg%3e");
 }
 .form-check-input[type=checkbox]:indeterminate {
-  background-color: #3a57e8;
-  border-color: #3a57e8;
+  background-color: var(--primary)
+  border-color: var(--primary);
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/%3e%3c/svg%3e");
 }
 .form-check-input:disabled {

@@ -21,7 +21,7 @@
       <h4 class="card-title mb-0">Asistencia de Estudiantes</h4>
       <h4 class="card-title mb-3"><span class="badge bg-dark">{{Carbon\Carbon::parse(date('Y-m-d'))->translatedFormat('l, j F Y')}}</span></h4>
       
-      @if($control->estado==1)
+<!--       @if($control->estado==1)
       <a href="#" class=" text-center btn btn-success btn-icon mt-lg-0 mt-md-0 mt-3" data-bs-toggle="modal" data-bs-target="#entrada-1">
          <span>Marcar Entrada</span>
       </a>
@@ -29,7 +29,7 @@
       <a href="#" class=" text-center btn btn-warning btn-icon mt-lg-0 mt-md-0 mt-3" data-bs-toggle="modal" data-bs-target="#entrada-1">
          <span>Marcar Salida</span>
       </a>
-      @endif
+      @endif -->
    </div>
 
    <!-- modal para crear nuevos conceptos de pagooo -->

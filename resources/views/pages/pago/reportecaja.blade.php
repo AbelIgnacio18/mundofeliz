@@ -104,7 +104,7 @@ Te paso el código:
                     <th>D.Efectivo</th>
                     <th>D.Digital</th>
                     <th>Monto Total</th>
-                    <th>Descripcíon</th>
+                    <th>Descripción</th>
                 </tr>
             </thead>
             <tbody> <?php $contadorpago = 1; ?> @forelse($pago as $pag) <tr>
@@ -123,13 +123,13 @@ Te paso el código:
                         <h5>{{Carbon\Carbon::parse($pag->created_at)->translatedFormat('l, j F Y h:i A')}}</h5>
                     </td>
                     <td>
-                        <h3 style="color:#f16a1b">S/ {{$pag->montoefectivo}}</h3>
+                        <h4 style="color:#f16a1b">S/ {{$pag->montoefectivo}}</h4>
                     </td>
                     <td>
-                        <h3 style="color:#6610f2">S/ {{$pag->montodigital}}</h3>
+                        <h4 style="color:#6610f2">S/ {{$pag->montodigital}}</h4>
                     </td>
                     <td>
-                        <h3 style="color:#3a57e8">S/ {{$pag->montototal}}</h3>
+                        <h4 style="color:#3a57e8">S/ {{$pag->montototal}}</h4>
                     </td>
                     <td>
                         <h5>{{$pag->descripcion}}</h5>

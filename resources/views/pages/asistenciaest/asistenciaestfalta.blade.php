@@ -34,7 +34,7 @@
    @csrf
    <div class="row">
       <div class="input-group ms-3" style="width: auto;">
-         <label for="fecha" class="form-label"></label>
+         <label for="fecha" class="form-label me-2" style="margin-top: 0.7rem !important;">Fecha:</label>
          @if($fecha=="")
          <input type="date" class="form-control" id="fecha" name="fecha" placeholder="" value="<?= date("Y-m-d") ?>">
          @else
@@ -56,14 +56,14 @@
             @else
             @forelse($aula as $au)
             @if($query==$au->id)
-            <option value="{{$query}}">{{$au->nivel}}</option>
+            <option value="{{$query}}">{{$au->nivel}} {{$au->grado}} {{$au->seccion}}</option>
             @endif
             @empty
             @endforelse
             @endif
 
             @forelse($aula as $au)
-            <option value="{{$au->id}}">{{$au->nivel}}</option>
+            <option value="{{$au->id}}">{{$au->nivel}} {{$au->grado}} {{$au->seccion}}</option>
             @empty
             @endforelse
          </select>
