@@ -19,7 +19,7 @@
 		<div class="receipt">
 			<h1 class="logo"><img src="../public/pdf/assets/img/logo_pdf.webp" style="max-width:100px"></h1>
 <!-- 			<div class="address">IEP MUNDO FELIZ</div> -->
-			<div class="address" style="font-size:80%;">Cel: 961 141 838<br>922 916 052<br>
+			<div class="address" style="font-size:60%;">Cel: 961 141 838 / 922 916 052<br>
 				www.mundofeliz.edu.pe<br><!-- 10752090625 --></div>
 			<div class="centerItem bold">
 				<div class="item">BOLETA DE VENTA ELECTRÓNICA</div>
@@ -30,21 +30,25 @@
 			<div class="paymentDetails bold" style="font-size:60%;">
 				<div class="detail center">{{ str_pad($est->numcomprobante, 6, '0', STR_PAD_LEFT)}}</div>
 			</div>
+
 			<div class="detail" style="font-size:50%;">Apoderado:</div>
 			<div class="paymentDetails bold" style="font-size:60%;">
 				<div class="detail center">{{$est->nombreapoderado}}</div>
 			</div>
+
 			<div class="detail" style="font-size:50%;">Estudiante:</div>
 			<div class="paymentDetails bold" style="font-size:60%;">
 				<div class="detail center">{{$est->nombre}} {{$est->apellidos}}</div>
 			</div>
 
-			<div class="datail" style="font-size:60%;">
-				<div class="detail">DNI: <b>{{$est->dni}}</b></div>
+			<div class="detail" style="font-size:50%;">DNI:</div>
+			<div class="paymentDetails bold" style="font-size:60%;">
+				<div class="detail center">{{$est->dni}}</div>
 			</div>
 
-			<div class="detail" style="font-size:60%;">
-				<div class="detail">Fecha: <b>{{$est->fecha}}</b></div>
+			<div class="detail" style="font-size:50%;">Fecha:</div>
+			<div class="paymentDetails bold" style="font-size:60%;">
+				<div class="detail center">{{$est->fecha}}</div>
 			</div>
 
 			@empty
@@ -66,11 +70,11 @@
 					<tbody>
 						@forelse($pension as $p)
 						<tr style="font-size:45%;">
-							<td>{{$p->codigo}}</td>
-							<td>{{$p->concepto}}</td>
-							<td>{{$p->cantidad}}</td>
-							<td>s/.{{$p->monto/$p->cantidad}}</td>
-							<td>s/.{{$p->monto}}</td>
+							<td><b>{{$p->codigo}}</b></td>
+							<td><b>{{$p->concepto}}</b></td>
+							<td><b>{{$p->cantidad}}</b></td>
+							<td><b>s/.{{$p->monto/$p->cantidad}}</b></td>
+							<td><b>s/.{{$p->monto}}</b></td>
 						</tr>
 						@empty
 						@endforelse
@@ -98,10 +102,10 @@
 					<tbody>
 						@forelse($articulo as $art)
 						<tr style="font-size:45%;">
-							<td>{{$art->categoria}} {{$art->articulo}}</td>
-							<td>{{$art->cantidad}}</td>
-							<td>s/.{{$art->montoar/$art->cantidad}}</td>
-							<td>s/.{{$art->montoar}}</td>
+							<td><b>{{$art->categoria}} {{$art->articulo}}</b></td>
+							<td><b>{{$art->cantidad}}</b></td>
+							<td><b>s/.{{$art->montoar/$art->cantidad}}</b></td>
+							<td><b>>s/.{{$art->montoar}}</b</td>
 						</tr>
 						@empty
 						@endforelse
@@ -120,8 +124,8 @@
 
 			<div class="paymentDetails">
 
-				<div class="detail bold center" style="font-size:65%;">Total:</div>
-				<div class="detail text-end bold" style="font-size:65%;">s/. {{$est->montototal}}</div>
+				<div class="detail bold" style="font-size:65%;">Total:</div>
+				<div class="detail text-end bold" style="font-size:70%;">s/.{{$est->montototal}}</div>
 
 			</div>
 
