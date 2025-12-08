@@ -57,6 +57,7 @@
                <th>D.Efectivo</th>
                <th>D.Digital</th>
                <th>Monto Total</th>
+               <th>Cobrado Por</th>
                <th>Imagen</th>
 
                <th>Acciones</th>
@@ -96,6 +97,10 @@
 
                <td>
                   <h4 class="badge bg-secondary" style="font-size: 1em;">S/ {{$pag->montototal}}</h4>
+               </td>
+
+               <td>
+                  <h5>{{$pag->cobrado_por}}</h5>
                </td>
 
                <td>

@@ -10,146 +10,146 @@
 <htmlpageheader name="headerasistencia">
     <div style="width:100%; text-align:center; font-size:14px; padding:5px 0;
                 border-bottom: 2px solid #c00000;">
-        <strong>Hoja de Asistencia</strong>
+        <strong>Reporte de Asistencia</strong>
     </div>
 
-   
+
 </htmlpageheader>
 
 
 <body>
     <style>
-         * {
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-    }
-    @page {
-    margin-top: 130px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 60px;
-}
-    .page_break {
-            page-break-before: always;
-            
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
         }
-    .control-bar-2 {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 20px; /* Ajusta a tu barra */
-    z-index: 999;
-}
-         html, body {
-        margin: 5px !important;
-        padding: 0 !important;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
 
-  
+        @page {
+            margin-top: 130px;
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-bottom: 60px;
+        }
 
-    th {
-        background-color: #f0f0f0;
-        font-weight: bold;
-        font-size: 15px;
-        padding: 2px !important;
-    }
+        .page_break {
+            page-break-before: always;
 
-    li {
-        list-style-type: none;
-        padding: 0 !important;
-        margin: 0 !important;
-        line-height: 0.9rem !important; /* 🔥 MÁS BAJO */
-        font-size: 10px !important;
-        font-weight: 700 /* 🔥 SUPER COMPACTO */
-    }
-    
+        }
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
+        .control-bar-2 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            /* Ajusta a tu barra */
+            z-index: 999;
+        }
 
-    table td, table th {
-        padding: 1px 2px !important;
-        line-height: 0.9;
-    }
+        html,
+        body {
+            margin: 5px !important;
+            padding: 0 !important;
+        }
 
-    th, td {
-        border: 1px solid #ccc;
-    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-    /* Alternar filas más sutil */
-    tr:nth-child(even) {
-        background-color: #f8f8f8;
-    }
-</style>
+        th {
+            background-color: #D72B3B;
+            color: white;
+            font-weight: bold;
+            font-size: 15px;
+            padding: 2px !important;
+        }
 
-    
-        <header class="row">
-            <div class="logoholder text-center">
-                <img src="assets/images/logo.webp" alt="Isotipo Colegio Mundo Feliz" width="85px">
-            </div><!--.logoholder-->
-
-            <div class="me">
-                <h3>
-                    <strong>I.E.P.</strong><br>
-                    MUNDO FELIZ<br>
-                    RUC: 10752090625<br>
-                    Lista de Docentes
-                </h3>
-            </div><!--.me-->
-            
-
-            <div class="info text-righ">
-                <div style=" display: flex;;flex-direction: row;">
-                    <div style="width: 40px;">Temprano:</div>
-                    <div style="background-color: green;width: 40px;color: green">ll</div>
-                    
-                </div>
-                <div style=" display: flex;;flex-direction: row;">
-                    <div style="width: 40px;">Tarde:</div>
-                    <div style="background-color: orange;width: 40px;color: orange">ll</div>
-                    
-                </div>
-                <div style=" display: flex;;flex-direction: row;">
-                    <div style="width: 40px;">Faltó:</div>
-                    <div style="background-color: red;width: 40px;color: red">ll</div>
-                    
-                </div>
-            </div><!-- .info -->
-
-        </header>
-    
+        li {
+            list-style-type: none;
+            padding: 0 !important;
+            margin: 0 !important;
+            line-height: 0.9rem !important;
+            /* 🔥 MÁS BAJO */
+            font-size: 10px !important;
+            font-weight: 700
+                /* 🔥 SUPER COMPACTO */
+        }
 
 
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table td,
+        table th {
+            padding: 1px 2px !important;
+            line-height: 0.9;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+        }
+
+        /* Alternar filas más sutil */
+        tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+    </style>
+    <header class="row">
+        <div class="logoholder text-center">
+            <img src="assets/images/logo.webp" alt="Isotipo Colegio Mundo Feliz" width="85px">
+        </div><!--.logoholder-->
+
+        <div class="me">
+            <h2>
+                <strong>I.E.P.</strong><br>
+                MUNDO FELIZ<br>
+                www.mundofeliz.edu.pe<br>
+                Cel: 961 141 838 / 922 916 052
+            </h2>
+        </div><!--.me-->
 
 
+        <div class="info text-righ">
+            <div style=" display: flex;;flex-direction: row;">
+                <div style="width: 40px;">Temprano:</div>
+                <div style="background-color: green;width: 40px;color: green">ll</div>
 
+            </div>
+            <div style=" display: flex;;flex-direction: row;">
+                <div style="width: 40px;">Tarde:</div>
+                <div style="background-color: orange;width: 40px;color: orange">ll</div>
+
+            </div>
+            <div style=" display: flex;;flex-direction: row;">
+                <div style="width: 40px;">Faltó:</div>
+                <div style="background-color: red;width: 40px;color: red">ll</div>
+
+            </div>
+        </div><!-- .info -->
+
+    </header>
 
 
     <div class="container ">
 
-
         @forelse($meses as $me)
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <h1 width="50%">Mes</h1>
+                <h1 width="50%">Asistencia Docente</span></h1>
             </div>
             <div class="col-md-6">
-                <h1 width="50%">{{Carbon\Carbon::parse($me)->translatedFormat('F')}}</h1>
+                <h1 width="50%"><span style="font-size: 1.5rem; color: #000">Mes: </span>{{Carbon\Carbon::parse($me)->translatedFormat('F')}}</h1>
             </div>
-
 
         </div>
 
 
-        <table style="margin-top: 10px;">
+        <table style="margin-top: 8px;">
             <thead>
                 <tr>
                     <th>Nº</th>
@@ -254,40 +254,11 @@
         </table>
         <div class="page_break">
         </div>
-         
 
         @empty
         @endforelse
 
-
-
-
-
-
     </div><!--.invoice-body-->
-    <div class="invoicelist-body">
-
-    </div>
-
-
-
-    <div class="note" contenteditable>
-        <!-- <h2>Nota:</h2> -->
-    </div><!--.note-->
-
-    <footer class="row">
-        <div class="col-1 text-center">
-            <p class="notaxrelated">Gracias por su preferencia.</p>
-        </div>
-
-
-        <!-- <div class="piedepagina">
-            <img src="assets/images/piedepáginapdf.webp" alt="Pie de Página" width="100%">
-        </div> -->
-    </footer>
-
-
-
 </body>
 
 </html>

@@ -47,20 +47,15 @@
                      $value = "{$estud->estudiantes->id}|{$cadenaMeses}|{$conceptosPagados}";
                      @endphp
 
-<<<<<<< HEAD
-                     
+                        <option value="{{ $value }}"> {{$estud->estudiantes->apellidos}} {{$estud->estudiantes->nombre}} - {{$estud->estudiantes->dni}}
+                           {{$estud->concepto->concepto}}
+                           <!-- {{$estud->concepto->monto }} -->
 
-=======
->>>>>>> 5f273adb8adc742f5cf75fafe540381b9a182192
-                     <option value="{{ $value }}"> {{$estud->estudiantes->apellidos}} {{$estud->estudiantes->nombre}} - {{$estud->estudiantes->dni}}
-                        {{$estud->concepto->concepto}}
-                        <!-- {{$estud->concepto->monto }} -->
+                        </option>
 
-                     </option>
-
-                     @empty
-                     <option value="">No hay Datos</option>
-                     @endforelse
+                        @empty
+                        <option value="">No hay Datos</option>
+                        @endforelse
                   </select>
 
 
@@ -234,6 +229,16 @@
                      </div>
 
                   </div>
+               </div>
+
+               <div class="form-group mt-2">
+                  <label for="cobrado_por" class="form-label">Cobrado por:</label>
+                  <select name="cobrado_por" class="form-select" style="background-color:#e5e5e5" required>
+                     <option value="Kelly">Kelly</option>
+                     <option value="Mercy">Mercy</option>
+                     <option value="Jenny">Jenny</option>
+                     <option value="Roy">Roy</option>
+                  </select>
                </div>
 
 

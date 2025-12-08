@@ -36,7 +36,7 @@ class PagosController extends Controller
 
             $pago = DB::table('pagos as p')
                 ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
-                ->select('p.id', 'p.idestudiante', 'p.descripcion', 'p.fecha','p.created_at','p.numcomprobante', 'p.montototal','p.montodigital','p.montoefectivo','p.archivo', 'e.nombre', 'e.apellidos','e.dni')->where('e.nombre','LIKE','%'.$searchText.'%')->orwhere('e.apellidos','LIKE','%'.$searchText.'%')
+                ->select('p.id', 'p.idestudiante', 'p.descripcion', 'p.fecha','p.created_at','p.numcomprobante', 'p.montototal','p.montodigital','p.montoefectivo', 'p.cobrado_por', 'p.archivo', 'e.nombre', 'e.apellidos','e.dni')->where('e.nombre','LIKE','%'.$searchText.'%')->orwhere('e.apellidos','LIKE','%'.$searchText.'%')
                 ->orderBy('id', 'desc')->paginate(30);
 
 
@@ -91,6 +91,7 @@ class PagosController extends Controller
                 $ultimoRegistro = Pagos::orderBy('id','desc')->first();
                 $pago->idestudiante = $idestudiante[0];
                 $pago->montototal = $request->get('montototal');
+                $pago->cobrado_por = $request->cobrado_por;
                 if($request->get('efetivo')==1){
                     $pago->montodigital = $request->get('montodigital');
                     $pago->montoefectivo = $request->get('montototal') - $request->get('montodigital');
@@ -371,33 +372,75 @@ class PagosController extends Controller
 
     // funcion para tikect------------------------------------------------------------
 
+public function reportefectivohoy() {
 
-    public function reportefectivohoy(){
+$pago = DB::table('pagos as p')
+    ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
+    ->leftJoin(DB::raw("(
 
-        $pago = DB::table('pagos as p')
-            ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
-            ->select('p.id', 'p.idestudiante', 'p.descripcion', 'p.fecha', 'p.created_at', 'p.numcomprobante', 'p.montototal', 'p.montodigital','p.montoefectivo', 'p.archivo', 'e.nombre', 'e.apellidos', 'e.dni', 'p.created_at', 'p.descripcion')->whereDate('p.created_at', date('Y-m-d'))
-            ->orderBy('id', 'asc')->get();
+        SELECT pen.idpago, c.concepto as detalle
+        FROM pensions pen
+        JOIN conceptos c ON pen.idconcepto = c.id
+
+        UNION ALL
+
+        SELECT det.idpago, cat.nombre as detalle
+        FROM detallepagos det
+        JOIN articulos a ON det.idarticulo = a.id
+        JOIN categorias cat ON a.idcategoria = cat.id
+
+    ) as detalles"), 'detalles.idpago', '=', 'p.id')
+    ->select(
+        'p.id',
+        'p.idestudiante',
+        'p.descripcion',
+        'p.fecha',
+        'p.created_at',
+        'p.numcomprobante',
+        'p.montototal',
+        'p.montodigital',
+        'p.montoefectivo',
+        'p.cobrado_por',
+        'p.archivo',
+        'e.nombre',
+        'e.apellidos',
+        'e.dni',
+        DB::raw("GROUP_CONCAT(DISTINCT detalles.detalle SEPARATOR ', ') as detalle")
+    )
+    ->whereDate('p.created_at', date('Y-m-d'))
+    ->groupBy(
+        'p.id',
+        'p.idestudiante',
+        'p.descripcion',
+        'p.fecha',
+        'p.created_at',
+        'p.numcomprobante',
+        'p.montototal',
+        'p.montodigital',
+        'p.montoefectivo',
+        'p.cobrado_por',
+        'p.archivo',
+        'e.nombre',
+        'e.apellidos',
+        'e.dni'
+    )
+    ->orderBy('p.id', 'asc')
+    ->get();
+
+    $totales = DB::table('pagos')
+        ->selectRaw('
+            SUM(montototal) as total_monto,
+            SUM(montoefectivo) as total_efectivo,
+            SUM(montodigital) as total_digital
+        ')
+        ->whereDate('created_at', date('Y-m-d'))
+        ->first();
+
+    $pdf = Pdf::loadView('pages.pago.reportecaja', compact('pago', 'totales'));
+    $pdf->setPaper('A4', 'landscape');
+
+    return $pdf->stream('reporte_caja_' . date('Y-m-d') . '.pdf');
+}
 
 
-
-
-        $totales = DB::table('pagos')
-            ->selectRaw('
-        SUM(montototal) as total_monto,
-        SUM(montoefectivo) as total_efectivo,
-        SUM(montodigital) as total_digital
-    ')
-            ->whereDate('created_at', date('Y-m-d'))
-            ->first();
-
-
-        $pdf = Pdf::loadView('pages.pago.reportecaja', compact('pago', 'totales'));
-       // $pdf->set_paper(array(0, 0, 135, 380), 'portrait');
-        $pdf->setPaper('A4', 'landscape');
-        return $pdf->stream('reporte_caja_' . date('Y-m-d').'.pdf');
-
-           
-    }
-  
 }

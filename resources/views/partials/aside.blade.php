@@ -143,7 +143,7 @@
                                         </g>
                                     </svg>
                                 </i>
-                                <i class="sidenav-mini-icon"> AG </i>
+                                <i class="sidenav-mini-icon"> MG </i>
                                 <span class="item-sub-name"> Matrícula General </span>
                             </a>
                         </li>
@@ -322,7 +322,7 @@
                                         </g>
                                     </svg>
                                 </i>
-                                <i class="sidenav-mini-icon">LU</i>
+                                <i class="sidenav-mini-icon">E</i>
                                 <span class="item-sub-name">Estudiante</span>
                             </a>
                         </li>
@@ -336,7 +336,7 @@
                                         </g>
                                     </svg>
                                 </i>
-                                <i class="sidenav-mini-icon">LU</i>
+                                <i class="sidenav-mini-icon">AA</i>
                                 <span class="item-sub-name">Asistencia por Aulas</span>
                             </a>
                         </li>
@@ -351,7 +351,7 @@
                                         </g>
                                     </svg>
                                 </i>
-                                <i class="sidenav-mini-icon">LU</i>
+                                <i class="sidenav-mini-icon">F</i>
                                 <span class="item-sub-name">Faltantes</span>
                             </a>
                         </li>
@@ -407,7 +407,7 @@
                                         </g>
                                     </svg>
                                 </i>
-                                <i class="sidenav-mini-icon">CL</i>
+                                <i class="sidenav-mini-icon">AL</i>
                                 <span class="item-sub-name">Año Lectivo</span>
                             </a>
                         </li>

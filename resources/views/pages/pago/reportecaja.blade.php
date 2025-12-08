@@ -14,7 +14,7 @@ Te paso el código:
             page-break-before: always;
         }
 
-      
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -29,10 +29,12 @@ Te paso el código:
             /* <<< PADDING MÍNIMO */
             line-height: 1.1;
             /* compacta la altura */
+            text-align: center;
         }
 
         th {
-            background: #f2f2f2;
+            background-color: #D72B3B;
+            color: white;
             font-weight: bold;
             text-align: center;
         }
@@ -40,12 +42,6 @@ Te paso el código:
         .page_break {
             page-break-before: always;
         }
-
-
-
-
-
-
         tr:nth-child(even) {
             background: #fafafa;
         }
@@ -70,9 +66,6 @@ Te paso el código:
         }
     </style>
 
-     
-
-    </styl>
     <div class="control-bar">
         <div class="container">
             <div class="row">
@@ -84,9 +77,11 @@ Te paso el código:
     </div><!--.control-bar-->
     <div class="col-1">
         <header class="row">
-            <div class="logoholder text-center"> <img src="assets/images/logo.webp" alt="Isotipo Colegio Mundo Feliz" width="85px"> </div><!--.logoholder-->
+            <div class="logoholder text-center"> <img src="assets/images/logo.webp" alt="Isotipo Colegio Mundo Feliz" width="80px"> </div><!--.logoholder-->
             <div class="me">
-                <h2> <strong>I.E.P.</strong><br> MUNDO FELIZ<br> RUC: 10752090625<br> </h2>
+                <h2><strong>I.E.P.</strong><br>
+                    MUNDO FELIZ<br>
+                    www.mundofeliz.edu.pe <br>Cel: 961 141 838 / 922 916 052</h2>
             </div><!--.me-->
             <div class="info">
                 <h3> DINERO EN EFECTIVO: <span style="color:#f16a1b; font-size: 18px">s/{{$totales->total_efectivo}}</span> <br> DINERO DIGITAL: <span style="color:#6610f2; font-size: 18px">s/{{$totales->total_digital}}</span> <br> MONTO TOTAL: <span style="color:#3a57e8; font-size: 18px">s/{{$totales->total_monto}}</span> </h3>
@@ -94,20 +89,26 @@ Te paso el código:
         </header>
     </div>
     <div class="container">
-        <table class="table table-striped" role="grid" data-toggle="data-table">
+        <h1>Reporte de Pago</h1>
+        <table class="table table-striped" role="grid" data-toggle="data-table" style="margin-top: 8px;">
             <thead>
                 <tr>
                     <th>N°</th>
                     <th>Boleto</th>
                     <th>Nombre Completo</th>
                     <th>Fecha</th>
+                    <th>Detalle</th>
                     <th>D.Efectivo</th>
                     <th>D.Digital</th>
                     <th>Monto Total</th>
                     <th>Descripción</th>
+                    <th>Cobrado por</th>
                 </tr>
             </thead>
-            <tbody> <?php $contadorpago = 1; ?> @forelse($pago as $pag) <tr>
+            <tbody>
+                <?php $contadorpago = 1; ?>
+                @forelse($pago as $pag)
+                <tr>
                     <td>
                         <div class="d-flex align-items-center"> <?php echo $contadorpago; ?> </div>
                     </td>
@@ -122,6 +123,7 @@ Te paso el código:
                     <td>
                         <h5>{{Carbon\Carbon::parse($pag->created_at)->translatedFormat('l, j F Y h:i A')}}</h5>
                     </td>
+                    <td>{{$pag->detalle}}</td>
                     <td>
                         <h4 style="color:#f16a1b">S/ {{$pag->montoefectivo}}</h4>
                     </td>
@@ -134,11 +136,16 @@ Te paso el código:
                     <td>
                         <h5>{{$pag->descripcion}}</h5>
                     </td>
+                    <td>
+                        <h5>{{$pag->cobrado_por}}</h5>
+                    </td>
+
                 </tr> <?php $contadorpago++; ?> @empty <div class="alert alert-danger d-flex align-items-center" role="alert"> <svg class="flex-shrink-0 bi me-2 icon-24" width="24" height="24">
                         <use xlink:href="#exclamation-triangle-fill"></use>
                     </svg>
                     <div> No hay Datos </div>
-                </div> @endforelse </tbody>
+                </div> @endforelse
+            </tbody>
         </table>
 </body>
 
