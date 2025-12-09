@@ -231,14 +231,9 @@
                   </div>
                </div>
 
-               <div class="form-group mt-2">
-                  <label for="cobrado_por" class="form-label">Cobrado por:</label>
-                  <select name="cobrado_por" class="form-select" style="background-color:#e5e5e5" required>
-                     <option value="Kelly">Kelly</option>
-                     <option value="Mercy">Mercy</option>
-                     <option value="Jenny">Jenny</option>
-                     <option value="Roy">Roy</option>
-                  </select>
+               <div class="input-group mt-2">
+                  <label for="cobrado_por" class="form-label mt-2 me-3">Cobrado por:</label>
+                     <input value="{{Auth::User()->name}} {{Auth::User()->apellidos}}" class="form-control" name="cobrado_por" readonly>
                </div>
 
 

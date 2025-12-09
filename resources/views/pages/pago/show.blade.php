@@ -23,7 +23,7 @@
                 @forelse($estudiante as $est)
                 <div class="card-body">
                     <div class="d-flex justify-content-start align-items-center">
-                        <div class="px-xl-3">
+                        <div class="px-3">
                             <div class="bg-primary text-white p-3 rounded">
                                 <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9849 15.3462C8.11731 15.3462 4.81445 15.931 4.81445 18.2729C4.81445 20.6148 8.09636 21.2205 11.9849 21.2205C15.8525 21.2205 19.1545 20.6348 19.1545 18.2938C19.1545 15.9529 15.8735 15.3462 11.9849 15.3462Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -37,7 +37,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-start align-items-center mt-4">
-                        <div class="px-xl-3">
+                        <div class="px-3">
                             <div class="bg-info text-white p-3 rounded">
                                 <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M17.857 20.417C19.73 20.417 21.249 18.899 21.25 17.026V17.024V14.324C20.013 14.324 19.011 13.322 19.01 12.085C19.01 10.849 20.012 9.846 21.249 9.846H21.25V7.146C21.252 5.272 19.735 3.752 17.862 3.75H17.856H6.144C4.27 3.75 2.751 5.268 2.75 7.142V7.143V9.933C3.944 9.891 4.945 10.825 4.987 12.019C4.988 12.041 4.989 12.063 4.989 12.085C4.99 13.32 3.991 14.322 2.756 14.324H2.75V17.024C2.749 18.897 4.268 20.417 6.141 20.417H6.142H17.857Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-start align-items-center mt-4">
-                        <div class="px-xl-3">
+                        <div class="px-3">
                             <div class="bg-warning text-white p-3 rounded">
                                 <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M3.09277 9.40421H20.9167" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-start align-items-center mt-4">
-                        <div class="px-xl-3">
+                        <div class="px-3">
                             <div class="bg-success text-white p-3 rounded">
                                 <svg class="icon-24" xmlns="http://www.w3.org/2000/svg" width="32px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -89,7 +89,7 @@
             </div>
         </div>
 
-        <div class="col-lg-5 col-md-6 col-sm-6">
+        <div class="col-lg-6 col-md-6 col-sm-6">
             <div class="card" style="background-color: #ffffff63">
                 <div class="card-header d-flex justify-content-between" style="background-color: #ffffff63">
                     <div class="header-title">
@@ -100,7 +100,7 @@
 
                     <div class="card-body">
                         <div class="d-flex justify-content-start align-items-center">
-                            <div class="px-xl-3">
+                            <div class="px-3">
                                 <div class="bg-primary text-white p-3 rounded">
                                     <svg class="icon-24" xmlns="http://www.w3.org/2000/svg" width="32px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -111,7 +111,7 @@
                             <div class="p-xxl-2">
                                 <span>{{$p->concepto}}</span>
                                 <div>
-                                    <h5 class="counter" style="visibility: visible;">{{$p->cantidad}} x s/{{$p->monto}}</h5>
+                                    <h5 class="counter me-3" style="visibility: visible;">{{$p->cantidad}}u x s/{{$p->monto/$p->cantidad }} = s/{{$p->monto}}</h5>
                                 </div>
                             </div>
                             @empty
@@ -121,7 +121,7 @@
 
                     <div class="card-body">
                         <div class="d-flex justify-content-start align-items-center">
-                            <div class="px-xl-3">
+                            <div class="px-3">
                                 <div class="bg-secondary text-white p-3 rounded">
                                     <svg class="icon-24" xmlns="http://www.w3.org/2000/svg" width="32px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
@@ -132,7 +132,7 @@
                             <div class="">
                                 <span>{{$art->categoria}} {{$art->articulo}}</span>
                                 <div>
-                                    <h5 class="counter" style="visibility: visible;">{{$art->cantidad}} x s/{{$art->montoar}}</h5>
+                                    <h5 class="counter me-3" style="visibility: visible;">{{$art->cantidad}}u x s/{{$art->montoar/$art->cantidad}} = s/{{$art->montoar}}</h5>
                                 </div>
                             </div>
                             @empty
@@ -146,7 +146,7 @@
         </div>
 
         <!-- Imagen del comprobante -->
-        <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="col-lg-2 col-md-6 col-sm-6">
             <div class="card" style="background-color: #ffffff63">
                 <div class="card-header d-flex justify-content-between mb-xxl-2" style="background-color: #ffffff63">
                     <div class="header-title">

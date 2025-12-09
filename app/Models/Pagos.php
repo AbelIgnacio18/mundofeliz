@@ -7,21 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pagos extends Model
 {
-    use HasFactory;
-    protected $fillable=['idestudiante','idconcepto','descripcion','fecha','foto'];
+   use HasFactory;
+   protected $fillable=['idestudiante','idconcepto','descripcion','fecha','foto'];
 
-    public function estudiante(){
-        return $this->belongsTo(Estudiante::class,'idestudiante','id');
-    
-     }
-     public function conceptos(){
-        return $this->belongsTo(Concepto::class,'idconcepto','id');
-    
-     }
+   public function estudiante(){
+      return $this->belongsTo(Estudiante::class,'idestudiante','id');
 
-     public function pensiones(){
+   }
+   public function conceptos(){
+      return $this->belongsTo(Concepto::class,'idconcepto','id');
+   }
+
+   public function pensiones(){
       return $this->hasMany(Pension::class,'idpago','id');
-  
    }
    // loss 
 
