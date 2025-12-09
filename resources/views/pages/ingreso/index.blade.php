@@ -51,10 +51,10 @@
                               <path d="M18.0186 18.4851L21.5426 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                            </svg>
                         </span>
-                        <select name="idarticulo" id="pidarticulo" type="search" class="form-control" onchange="myFunction()">
+                        <select name="idarticulo" id="pidarticulo" type="search" class="form-select" onchange="myFunction()">
                            <option value="">Seleccionar Artículo</option>
                            @forelse($articulo as $art)
-                           <option value="{{$art->id}}-{{$art->nombre}}-{{$art->stock}}-{{$art->precioventa}}-{{$art->categoria->nombre}}"> {{$art->categoria->nombre}} {{$art->nombre}}</option>
+                           <option value="{{$art->id}}-{{$art->nombre}}-{{$art->stock}}-{{$art->preciocosto}}-{{$art->categoria->nombre}}"> {{$art->categoria->nombre}} {{$art->nombre}}</option>
                            @empty
                            @endforelse
 
@@ -83,10 +83,10 @@
 
                         <div class="col-md-3 mt-2 px-2">
                            <div class="form-group">
-                              <label for="monto" class="form-label">Precio de Venta:</label>
+                              <label for="monto" class="form-label">Precio de Compra:</label>
                               <div class="input-group col-md-12">
                                  <span class="input-group-text" id="basic-addon2"><b>S/.</b></span>
-                                 <input type="number" class="form-control" id="pprecio" step="0.01" aria-describedby="monto" placeholder="" name="monto">
+                                 <input type="number" class="form-control" id="pprecio" step="1" aria-describedby="monto" placeholder="" name="monto" disabled>
                               </div>
                            </div>
                         </div>

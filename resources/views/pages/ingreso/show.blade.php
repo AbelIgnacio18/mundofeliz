@@ -16,7 +16,7 @@
 
 </div>
 
-<div class="card-body px-2">
+<div class="card-body px-2 table-responsive">
     <table class="table table-striped table-hover" id="detalles">
         <thead style="background-color:#A9D0F5">
 
