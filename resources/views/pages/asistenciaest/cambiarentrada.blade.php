@@ -15,13 +15,13 @@
                      <span>Cambiar entrada o salida:</span>
                      <div>
                         <div class="form-check">
-                           <input class="form-check-input" type="radio" name="estado" id="grado" value="1" style="cursor:pointer" @if ($control->estado == 1) checked @endif>
+                           <input class="form-check-input" type="radio" name="estado" id="grado" value="1" style="cursor:pointer" @if ($horario->estado == 1) checked @endif>
                            <label class="form-check-label" for="estado">
                               Marcar Entrada
                            </label>
                         </div>
                         <div class="form-check">
-                           <input class="form-check-input" type="radio" name="estado" id="grado" value="0" style="cursor:pointer" @if ($control->estado == 0) checked @endif>
+                           <input class="form-check-input" type="radio" name="estado" id="grado" value="0" style="cursor:pointer" @if ($horario->estado == 0) checked @endif>
                            <label class="form-check-label" for="estado">
                               Marcar Salida
                            </label>

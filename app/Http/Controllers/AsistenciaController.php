@@ -9,7 +9,7 @@ use App\Http\Requests\StoreAsistenciaRequest;
 use App\Http\Requests\UpdateAsistenciaRequest;
 use Illuminate\Http\Request; // importacion
 use Carbon\Carbon;
-use App\Models\Control;
+use App\Models\Horario;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class AsistenciaController extends Controller
@@ -21,7 +21,7 @@ class AsistenciaController extends Controller
     {
         if ($request) {
 
-        $control = Control::first();
+        $horario = Horario::first();
         $fecha = trim($request->get('fecha'));
         if ($fecha == "") {
                 $fecha = date('Y-m-d');
@@ -29,7 +29,7 @@ class AsistenciaController extends Controller
         $items=Asistencia::with('docentes')->where('fechaentrada',$fecha)->get();
         $docente = Docente::all();
 
-    return view('pages.asistencia.index',compact('items','docente','fecha','control'));
+    return view('pages.asistencia.index',compact('items','docente','fecha','horario'));
 
         }
         
