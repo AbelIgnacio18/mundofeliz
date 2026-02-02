@@ -30,12 +30,12 @@ class AsistenciaestController extends Controller
             ->orderBy('e.apellidos', 'asc')
             ->get();
 
-        $control = Horario::first();
+        $horario = Horario::first();
         $turno = Aula::get();
 
         $matricula = Matricula::where('idanolectivo', $anolect->id)->with('estudiante')->get();
 
-        return view('pages.asistenciaest.index', compact('items', 'matricula', 'control', 'turno'));
+        return view('pages.asistenciaest.index', compact('items', 'matricula', 'horario', 'turno'));
     }
 
     /**
@@ -139,7 +139,7 @@ class AsistenciaestController extends Controller
             'estado' => 'required',
 
         ]);
-        $item = Control::find(1);
+        $item = Horario::find(1);
         $estado = $request->get('estado');
         //  dd( $item->estado);
         $item->estado = $estado;
@@ -163,7 +163,7 @@ class AsistenciaestController extends Controller
             $turno = Aula::get();
             $aula = Aula::all();
             $anolect = Anolectivo::where('estado', 1)->first();
-            $control = Control::first();
+            $horario = Horario::first();
             $items = DB::table('matriculas as m')
                 ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
                 ->join('asistenciaests as a', 'm.id', '=', 'a.idmatricula')
@@ -175,7 +175,7 @@ class AsistenciaestController extends Controller
                 ->paginate(50);
 
 
-            return view('pages.asistenciaest.asistenciaest', compact('items', 'aula', 'control', 'fecha', 'query', 'turno'));
+            return view('pages.asistenciaest.asistenciaest', compact('items', 'aula', 'horario', 'fecha', 'query', 'turno'));
         }
     }
 
@@ -230,7 +230,7 @@ class AsistenciaestController extends Controller
 
             $aula = Aula::all();
             $anolect = Anolectivo::where('estado', 1)->first();
-            $control = Control::first();
+            $horario = Horario::first();
             $items = DB::table('matriculas as m')
                 ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
                 ->join('asistenciaests as a', 'm.id', '=', 'a.idmatricula')
@@ -242,7 +242,7 @@ class AsistenciaestController extends Controller
                 ->orderBy('e.apellidos', 'asc')
                 ->get();
 
-            return view('pages.asistenciaest.asistenciaestfalta', compact('items', 'aula', 'control', 'fecha', 'query'));
+            return view('pages.asistenciaest.asistenciaestfalta', compact('items', 'aula', 'horario', 'fecha', 'query'));
         }
     }
 
