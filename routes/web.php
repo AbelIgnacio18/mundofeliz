@@ -84,7 +84,8 @@ Route::get('home', [App\Http\Controllers\PanelController::class, 'index'])->name
 
     Route::get('estudents-list',[App\Http\Controllers\EstudianteController::class, 'exportsexcel'])->name('estudents-list');
     Route::post('estudents-import',[App\Http\Controllers\EstudianteController::class, 'importexcel'])->name('estudents-import');
-
+Route::get('/descargar-plantilla', [EstudianteController::class, 'descargarPlantilla'])
+    ->name('estudiantes.plantilla');
     Route::get('/reportepago/{id}', [App\Http\Controllers\PagosController::class, 'reportepago'])->name('reportepago');
 
     Route::group( ['prefix' => 'settings', 'as' => 'setting.'], function () {

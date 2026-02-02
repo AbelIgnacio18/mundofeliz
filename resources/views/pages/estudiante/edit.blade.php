@@ -25,25 +25,25 @@
                      <label for="dni" class="form-label">DNI:</label>
                      <input type="text" class="form-control" id="dni" aria-describedby="dni" placeholder="DNI" name="dni" value="{{$estud->dni}}">
                   </div>
-
-                  <div class="form-group col-md-6 p-1">
-                     <label for="Codigo" class="form-label">Código Alumko: <span class="badge bg-alumko">InnovaStaff</span></label>
-                     <input type="text" class="form-control" id="Codigo" aria-describedby="Codigo" name="codigo" value="{{$estud->codigo}}">
-                  </div>
-
+<br>
                   <div class="form-group">
                      <label for="celular" class="form-label">Celular: <span class="badge bg-primary">Opcional</span></label>
                      <input type="text" class="form-control" id="celular" aria-describedby="celular" value="{{$estud->celular}}" name="celular">
                   </div>
 
                   <div class="form-group">
-                     <label for="celular" class="form-label">Apoderado:</label>
-                     <input type="text" class="form-control" id="celular" aria-describedby="celular" value="{{$estud->nombreapoderado}}" name="apoderado">
-                  </div>
+                        <label for="apellidom" class="form-label">Apoderado:</label>
+                        <input type="text" class="form-control" id="" aria-describedby="" value="{{$estud->apoderado->nombre}}" placeholder="Nombre completo" name="nombreapoderado" value="{{old('apellidom')}}">
+                     </div>
+
+                      <div class="form-group col-md-12 p-1">
+                           <label for="Codigo" class="form-label">Dni: <span class="badge bg-alumko">Apoderado obligatorio</span></label>
+                           <input type="text" class="form-control" id="Codigo" aria-describedby="Codigo" value="{{$estud->apoderado->dni}}" placeholder="8 digitos" name="dniapoderado" value="{{old('dniapoderado')}}">
+                        </div>
 
                   <div class="form-group">
                      <label for="celular" class="form-label">Dirección:</label>
-                     <input type="text" class="form-control" id="celular" aria-describedby="celular" value="{{$estud->direccion}}" name="direccion">
+                     <input type="text" class="form-control" id="celular" aria-describedby="celular" value="{{$estud->apoderado->direccion}}" name="direccion">
                   </div>
 
                   <div class="form-group">

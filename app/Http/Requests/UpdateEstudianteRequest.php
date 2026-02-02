@@ -28,9 +28,13 @@ class UpdateEstudianteRequest extends FormRequest
             'dni'=>'string|max:8|required',
             'celular'=>'max:25',
             'direccion'=>'max:200',
-            'apoderado'=>'max:200',
+            
             'observaciones'=>'max:200',
-            'codigo'=>'max:8',
+         
+
+             'nombreapoderado' => 'string|max:50|required',
+            'dniapoderado' => 'string|max:8|required',
+            'celularapoderado' => 'max:25',
           
         ];
     }

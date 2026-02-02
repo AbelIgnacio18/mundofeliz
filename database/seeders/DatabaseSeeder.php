@@ -360,7 +360,7 @@ class DatabaseSeeder extends Seeder
             'tarde' => '8:00:59',          
         ]);
 
-        \App\Models\Control::create([
+        \App\Models\Horario::create([
             'entrada' => 'hrentrada',
             'mañana' => '08:00:20',
             'tarde' => '14:30:00',

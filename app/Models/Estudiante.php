@@ -9,7 +9,7 @@ class Estudiante extends Model
 {
     use HasFactory;
   
-    protected $fillable=['nombre','apellidos','dni','celular','direccion','nombreapoderado','observaciones','codigo','estado'];
+    protected $fillable=['nombre','apellidos','dni','celular','observaciones','estado','idapoderado'];
 
     // public function pagos(){
     //     return $this->hasMany(Pagos::class,'id','idestudiante');
@@ -19,6 +19,11 @@ class Estudiante extends Model
     {
         return $this->hasOne(Matricula::class, 'idestudiante');
     }
+    public function apoderado()
+{
+    // belongsTo es más semántico aquí que hasOne
+    return $this->belongsTo(Apoderado::class, 'idapoderado', 'id');
+}
      public function concepto()
     {
         return $this->hasOne(Concepto::class, 'id');

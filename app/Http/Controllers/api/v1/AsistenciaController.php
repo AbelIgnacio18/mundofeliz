@@ -4,11 +4,12 @@ namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Anolectivo;
+use App\Models\Apoderado;
 use App\Models\Matricula;
 use App\Models\Asistenciaest;
 use App\Models\Asistencia;
 use App\Models\Estudiante;
-use App\Models\Control;
+use App\Models\Horario;
 use App\Models\Contrato;
 use App\Models\Personal_access_token;
 use Illuminate\Http\Request;
@@ -16,8 +17,10 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Aula;
 use App\Models\Docente;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Google\Client;
+
 
 
 
@@ -31,6 +34,72 @@ class AsistenciaController extends Controller
         return response()->json($estudiante, 200);
     }
 
+   
+private function enviarNotificacionPush($apoderado, $estudiante, $tipo)
+{
+    $fcmToken = $apoderado->fcm_token;
+
+    if (empty($fcmToken)) {
+        logger()->info("El estudiante {$estudiante->nombre} no tiene un token registrado.");
+        return;
+    }
+
+    try {
+        // 1. Obtener el Access Token (Modernizado y con caché opcional)
+        $client = new \Google\Client();
+        // Asegúrate de que la ruta al JSON sea correcta (ej: storage_path('app/google-services.json'))
+       // $client->setAuthConfig(base_path('google-services.json'));
+       $client->setAuthConfig(base_path('app/Http/Controllers/api/v1/google-services.json'));
+        $client->addScope('https://www.googleapis.com/auth/firebase.messaging');
+
+            // REEMPLAZO DE MÉTODO DEPRECATED
+            $tokenArray = $client->fetchAccessTokenWithAssertion();
+            // REEMPLAZO DE MÉTODO DEPRECATED CON CACHÉ
+            $accessToken = \Illuminate\Support\Facades\Cache::remember('fcm_token', 3000, function () use ($client) {
+                $tokenArray = $client->fetchAccessTokenWithAssertion();
+                return $tokenArray['access_token'];
+            });
+
+            // 2. Endpoint usando tu Project ID: notification-kole1
+            $url = 'https://fcm.googleapis.com/v1/projects/notification-kole1/messages:send';
+
+        // 3. Envío de la petición
+        $response = Http::withToken($accessToken)->post($url, [
+            'message' => [
+                'token' => $fcmToken,
+                'notification' => [
+                    'title' => 'Registro de Asistencia',
+                    'body'  => "Hola, su hijo(a) {$estudiante->nombre} registró su {$tipo} correctamente."
+                ],
+                'data' => [
+                    'id'   => (string)$estudiante->id,
+                    'tipo' => (string)$tipo,
+                ],
+                'android' => [
+                    'priority' => 'high',
+                    'notification' => [
+                        'sound' => 'default',
+                        'channel_id' => 'high_importance_channel'
+                    ]
+                ],
+                'apns' => [ // Recomendado para iOS aunque uses Android ahora
+                    'payload' => [
+                        'aps' => [
+                            'sound' => 'default',
+                        ],
+                    ],
+                ],
+            ]
+        ]);
+
+        if ($response->failed()) {
+            logger()->error("FCM Error para {$estudiante->nombre}: " . $response->body());
+        }
+
+    } catch (\Exception $e) {
+        logger()->error("Error crítico en notificación: " . $e->getMessage());
+    }
+}
 
 
     public function store(Request $request)
@@ -42,9 +111,9 @@ class AsistenciaController extends Controller
         $request->validate([
             'codigo' => 'required'
         ]);
-        $control = Control::first();
+        $horario = Horario::first();
         $codigo = $request->get('codigo');
-        $estudiante = Estudiante::where('codigo', $codigo)->first();
+        $estudiante = Matricula::where('codigo', $codigo)->first();
         $anolectivo = Anolectivo::where('estado', 1)->first();
 
         ///poner la hor de entrada dinamic
@@ -52,7 +121,7 @@ class AsistenciaController extends Controller
             $docente = Docente::where('codigo', $codigo)->first();
 
             $cargo = Contrato::where('id', $docente->idcontrato)->first();
-//asistencia de turno docente Mañana
+            //asistencia de turno docente Mañana
             if (Carbon::now()->lt(Carbon::parse("14:30:00"))) {
 
                 if (empty(Asistencia::where('iddocente', $docente->id)->where('fechaentrada', date("Y-m-d"))->first()) == true) {
@@ -75,7 +144,7 @@ class AsistenciaController extends Controller
                     }
                 }
             }
-//asistencia de turno docente tarde
+            //asistencia de turno docente tarde
             if (Carbon::now()->gt(Carbon::parse("14:31:00"))) {
                 $conteoasist = Asistencia::where('iddocente', $docente->id)->where('fechaentrada', date("Y-m-d"))
                     ->whereTime('created_at', '>=', '14:31:00')
@@ -108,9 +177,11 @@ class AsistenciaController extends Controller
 
 
 
-        $matricula = Matricula::where('idestudiante', $estudiante->id)->where('idanolectivo', $anolectivo->id)->first();
+        $matricula = Matricula::where('codigo', $codigo)->where('idanolectivo', $anolectivo->id)->first();
+$estudiante = Estudiante::where('id', $matricula->idestudiante)->first();
+        $idusernotification = Apoderado::where('id', $estudiante->idapoderado)->first();
         $aula = Aula::where('id', $matricula->idaula)->first();
-//asistencia de turno estudiante mañana
+        //asistencia de turno estudiante mañana
         if (Carbon::now()->lt(Carbon::parse("14:30:00"))) {
 
             if (empty(Asistenciaest::where('idmatricula', $matricula->id)->where('fechaentrada', date("Y-m-d"))->first()) == true) {
@@ -121,7 +192,9 @@ class AsistenciaController extends Controller
                 $asistencia->estado = (date("H:i:s") < $aula->tarde) ? 1 : 0;
                 $asistencia->save();
 
-
+                // LLAMADA A LAS NOTIFICACIONES
+                $this->enviarNotificacionPush($idusernotification,$estudiante, "entrada");
+                // $this->enviarNotificacionWhatsApp($estudiante, "entrada"); // Opcional
                 return response()->json($estudiante->nombre . ' ' . $codigo, 200);
             } else {
 
@@ -130,13 +203,14 @@ class AsistenciaController extends Controller
 
                     $asistencia->updated_at = now();
                     $asistencia->update();
+                      $this->enviarNotificacionPush($idusernotification,$estudiante, "salida");
                     return response()->json($estudiante->nombre . ' ' . $codigo, 200);
                 } else {
                     return response()->json('Ya marco asistencia' . ' ' . $codigo, 200);
                 }
             }
         }
-//asistencia de turno estudiante tarde
+        //asistencia de turno estudiante tarde
         if (Carbon::now()->gt(Carbon::parse("14:31:00"))) {
 
             $conteoasist = Asistenciaest::where('idmatricula', $matricula->id)
@@ -152,7 +226,7 @@ class AsistenciaController extends Controller
                 $asistencia->fechaentrada = date("Y-m-d");
                 $asistencia->estado = (date("H:i:s") < $aula->tarde) ? 1 : 0;
                 $asistencia->save();
-
+  $this->enviarNotificacionPush($idusernotification,$estudiante, "entrada");
                 return response()->json($estudiante->nombre . 'marco entrada' . ' ' . $codigo, 200);
             } else {
 
@@ -161,6 +235,7 @@ class AsistenciaController extends Controller
 
                     $asistencia->updated_at = now();
                     $asistencia->update();
+                      $this->enviarNotificacionPush($idusernotification,$estudiante, "salida");
                     return response()->json($estudiante->nombre . ' marco salida' . $codigo, 200);
                 } else {
                     return response()->json('Ya marco asistencia tarde' . ' ' . $codigo, 200);

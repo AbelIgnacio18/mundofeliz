@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 
-class EstudianteImport implements ToModel, WithHeadingRow
+class MatriculaImport implements ToModel, WithHeadingRow
 {
 public function model(array $row)
     {

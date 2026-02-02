@@ -7,7 +7,7 @@ use App\Http\Requests\StoreAsistenciaestRequest;
 use App\Http\Requests\UpdateAsistenciaestRequest;
 use App\Models\Anolectivo;
 use App\Models\Aula;
-use App\Models\Control;
+use App\Models\Horario;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Matricula;
 use Illuminate\Support\Facades\DB;
@@ -30,7 +30,7 @@ class AsistenciaestController extends Controller
             ->orderBy('e.apellidos', 'asc')
             ->get();
 
-        $control = Control::first();
+        $control = Horario::first();
         $turno = Aula::get();
 
         $matricula = Matricula::where('idanolectivo', $anolect->id)->with('estudiante')->get();

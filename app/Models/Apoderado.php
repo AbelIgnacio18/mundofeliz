@@ -2,10 +2,29 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable; // Importante para Auth
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Laravel\Sanctum\HasApiTokens; // Importante para Sanctum
+use Illuminate\Notifications\Notifiable;
 
-class Apoderado extends Model
+class Apoderado extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
+
+    protected $table = 'apoderados';
+
+    protected $fillable = [
+        'nombre',
+        'dni',
+        'celular',
+        'direccion',
+        'password',
+        'fcm_token',
+        'estado'
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 }

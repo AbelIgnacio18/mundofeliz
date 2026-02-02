@@ -21,6 +21,7 @@ return new class extends Migration
             
               $table->unsignedBigInteger('idconcepto');
             $table->foreign('idconcepto')->references('id')->on('conceptos')->onUpdate('cascade');
+            $table->string('codigo',8)->nullable();
             $table->boolean('estado')->nullable()->default(false);
          
             $table->timestamps();

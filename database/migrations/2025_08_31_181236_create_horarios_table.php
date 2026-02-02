@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('controls', function (Blueprint $table) {
+        Schema::create('horarios', function (Blueprint $table) {
             $table->id();
             $table->string('entrada',45);
             $table->time('mañana');
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('controls');
+        Schema::dropIfExists('horarios');
     }
 };
