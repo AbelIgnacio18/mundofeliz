@@ -18,7 +18,9 @@ class AuthController extends Controller
         'dni' => 'required',
         'password' => 'required',
         'device_name' => 'required',
-        'fcm_token' => 'required' 
+         'fcm_token' => 'nullable|string'
+       // 'fcm_token' => 'required' 
+        
     ]);
 
     $user = Apoderado::where('dni', $request->dni)->first();
@@ -31,9 +33,14 @@ class AuthController extends Controller
     }
 
     // 2. Actualizamos el Token de Firebase (FCM)
+    // $user->update([
+    //     'fcm_token' => $request->fcm_token,
+    // ]);
+    if ($request->filled('fcm_token')) {
     $user->update([
         'fcm_token' => $request->fcm_token,
     ]);
+}
 
     // 3. Generamos el Token de Sanctum (Acceso API)
     // Opcional: Eliminar tokens antiguos para que solo haya una sesión activa
@@ -48,35 +55,36 @@ class AuthController extends Controller
     ], 200);
 }
 
-   
-    public function userInfo()
-    {
-        return response()->json([
-            'status' => 'success',
-            'type_token'=>'Bearer',
-            'user'=>auth()->user(),
-        ]);
-    }
-   public function logout(Request $request)
+public function userInfo(Request $request)
+{
+     $user = \App\Models\Apoderado::with('estudiantes')
+        ->find($request->user()->id);
+
+    return response()->json([
+        'status' => 'success',
+        'type_token' => 'Bearer',
+        'user' => $user,
+    ]);
+}
+
+public function logout(Request $request)
 {
     $user = $request->user();
 
-    if ($user) {
-        // 1. Limpiamos el token de Firebase para que no lleguen alertas a este equipo
-        $user->fcm_token = null;
-        $user->save();
-
-        // 2. Eliminamos TODOS los tokens de Sanctum (Cierra sesión en todos los dispositivos)
-        // Si solo quieres cerrar en el actual: $user->currentAccessToken()->delete();
-        $user->tokens()->delete();
-
-        return response()->json([
-            'message' => 'Sesión cerrada correctamente y notificaciones desactivadas'
-        ], 200);
+    if (!$user) {
+        return response()->json(['message' => 'No autenticado'], 401);
     }
 
-    return response()->json(['message' => 'No hay una sesión activa'], 401);
+    $user->update(['fcm_token' => null]);
+
+    // Elimina SOLO el token actual
+    $request->user()->currentAccessToken()->delete();
+
+    return response()->json([
+        'message' => 'Sesión cerrada correctamente'
+    ]);
 }
+
  
 }
 

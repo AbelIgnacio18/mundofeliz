@@ -81,13 +81,46 @@ class PanelController extends Controller
 
             $pagosingresos = DB::table('ingresos as i')->select(DB::raw('sum(i.montototal) as montototal'))->get();
             $pagosingresosmes = DB::table('ingresos as i')->select(DB::raw('sum(i.montototal) as montototal'))->whereMonth('created_at', date('m'))->get();
-            
+                  //escribimosss......
+$fechaInicio = $request->filled('fechainicio')
+    ? Carbon::parse($request->fechainicio)
+    : Carbon::parse($anolect->inicio);
+
+$fechaFin = $request->filled('fechafin')
+    ? Carbon::parse($request->fechafin)
+    : Carbon::today();
+
+        //porcentajes de falta.....
+        $reporte = DB::table('asistenciaests as a')
+            ->join('matriculas as m', 'a.idmatricula', '=', 'm.id')
+            ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
+            ->whereBetween('a.fechaentrada', [$fechaInicio, $fechaFin])
+            ->where('a.idanolectivo',$anolect->estado)
+            ->select(
+                'e.id',
+                'e.nombre',
+                'e.apellidos',
+                DB::raw('COUNT(*) as total_dias'),
+                DB::raw('SUM(CASE WHEN a.estado IS NULL THEN 1 ELSE 0 END) as total_faltas'),
+                DB::raw('(SUM(CASE WHEN a.estado IS NULL THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) as porcentaje_faltas')
+            )
+            ->groupBy('e.id', 'e.nombre', 'e.apellidos')
+            ->havingRaw('(SUM(CASE WHEN a.estado IS NULL THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) >= 30')
+            ->orderByDesc('porcentaje_faltas')
+            ->limit(10)
+            ->paginate();
    
         }
 
+  
+
+
       
 
-        return view('pages.dashboard', compact('date','estudiante','pagosarticulos','pagospensiones','pagosventas','pagosingresos','pagosventasmes','pagosingresosmes','usuarios','mesesporcentaje'));
+        return view('pages.dashboard', compact('date',
+        'estudiante','pagosarticulos','pagospensiones',
+        'pagosventas','pagosingresos','pagosventasmes',
+        'pagosingresosmes','usuarios','mesesporcentaje','reporte','fechaInicio','fechaFin'));
     }
 
    

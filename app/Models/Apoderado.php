@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Sanctum\HasApiTokens; // Importante para Sanctum
 use Illuminate\Notifications\Notifiable;
 
+
+
+
 class Apoderado extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
