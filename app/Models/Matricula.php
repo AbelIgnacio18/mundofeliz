@@ -9,10 +9,12 @@ class Matricula extends Model
 {
     use HasFactory;
     protected $fillable=['idestudiante','idanolectivo','idaula'];
-    public function estudiante(){
-        return $this->hasOne(Estudiante::class,'id','idestudiante');
-    
-     }
+
+     public function estudiante()
+{
+    return $this->belongsTo(Estudiante::class, 'idestudiante', 'id');
+}
+
 
       public function meses(){
         return $this->hasMany(Mese::class,'idmatricula','id');
@@ -27,10 +29,7 @@ class Matricula extends Model
         return $this->hasOne(Concepto::class,'id','idconcepto');
     
      }
-      public function estudiantes(){
-        return $this->hasOne(Estudiante::class,'id','idestudiante');
     
-     }
       public function asistenciahoy(){
         return $this->hasmany(Asistenciaest::class,'idmatricula','id');
     

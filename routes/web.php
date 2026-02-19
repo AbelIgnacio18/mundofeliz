@@ -80,6 +80,8 @@ Route::get('home', [App\Http\Controllers\PanelController::class, 'index'])->name
       Route::get('/asistencia-aula',[App\Http\Controllers\AsistenciaestController::class, 'filtrarasistencia'])->name('asistenciaaula');
        Route::get('/registrar-falta',[App\Http\Controllers\AsistenciaestController::class, 'registrarfalta'])->name('registrarfalta');
        Route::get('/listar-falta',[App\Http\Controllers\AsistenciaestController::class, 'listarfalta'])->name('listarfalta');
+        Route::get('/vista-asistencia',[App\Http\Controllers\AsistenciaestController::class, 'vistaasistencia'])->name('vistaasistencia');
+     Route::get('/ultima-asistencia',[App\Http\Controllers\AsistenciaestController::class, 'ultimaAsistencia'])->name('ultimaasistencia');
     
 
     Route::get('estudents-list',[App\Http\Controllers\EstudianteController::class, 'exportsexcel'])->name('estudents-list');

@@ -44,10 +44,10 @@
                      $conceptosPagados = implode('-', $conceptosPagadosArray);
 
                      // Value final limpio
-                     $value = "{$estud->estudiantes->id}|{$cadenaMeses}|{$conceptosPagados}";
+                     $value = "{$estud->estudiante->id}|{$cadenaMeses}|{$conceptosPagados}";
                      @endphp
 
-                        <option value="{{ $value }}"> {{$estud->estudiantes->apellidos}} {{$estud->estudiantes->nombre}} - {{$estud->estudiantes->dni}}
+                        <option value="{{ $value }}"> {{$estud->estudiante->apellidos}} {{$estud->estudiante->nombre}} - {{$estud->estudiante->dni}}
                            {{$estud->concepto->concepto}}
                            <!-- {{$estud->concepto->monto }} -->
 

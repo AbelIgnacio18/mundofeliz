@@ -41,10 +41,7 @@ class AsistenciaestController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
+  
 
     /**
      * Store a newly created resource in storage.
@@ -74,7 +71,41 @@ class AsistenciaestController extends Controller
 
         return back()->with('message', 'Registro Exítosa');
     }
+  public function update(Request $request,$id)
+    {
+       $asistencia = Asistenciaest::find($id);
 
+    if(!$asistencia){
+        return response()->json(['mensaje' => 'Registro no encontrado']);
+    }
+ $a = ($request->estado == 4) ? null : $request->estado;
+
+
+    $asistencia->estado = $a;
+    $asistencia->save();
+
+    // 🔥 Regla automática
+    // if($request->estado == 0){ // si es tardanza
+
+    //     $tardanzas = Asistenciaest::where('idmatricula', $asistencia->idmatricula)
+    //         ->where('estado', 0)
+    //         ->count();
+
+    //     if($tardanzas >= 3){
+
+    //         // convertir 3 tardanzas en 1 falta
+    //         $asistencia->estado = 2; // falta
+    //         $asistencia->save();
+
+    //         return response()->json([
+    //             'mensaje' => '3 tardanzas acumuladas → convertida en falta'
+    //         ]);
+    //     }
+    // }
+   return response()->json([
+        'mensaje' => 'Asistencia Actualizada'
+    ]);
+    }
     /**
      * Display the specified resource.
      */
@@ -155,6 +186,7 @@ class AsistenciaestController extends Controller
 
             $query = trim($request->get('idaula'));
             $fecha = trim($request->get('fecha'));
+              $searchText = trim($request->get('searchText'));
 
 
             if ($fecha == "") {
@@ -167,15 +199,18 @@ class AsistenciaestController extends Controller
             $items = DB::table('matriculas as m')
                 ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
                 ->join('asistenciaests as a', 'm.id', '=', 'a.idmatricula')
-                ->select('a.id', 'e.nombre', 'e.apellidos','e.id as idestudiante', 'a.created_at', 'a.updated_at', 'a.fechaentrada', 'a.estado', 'a.idanolectivo')
+                 ->join('aulas as au', 'm.idaula', '=', 'au.id')
+                ->select('a.id', 'e.nombre', 'e.apellidos','e.id as idestudiante','au.nivel','au.grado','au.seccion', 'a.created_at', 'a.updated_at', 'a.fechaentrada', 'a.estado', 'a.idanolectivo')
+                ->where('nombre', 'LIKE', '%' . $searchText . '%')
+                ->orWhere('apellidos', 'LIKE', '%' . $searchText . '%')
                 ->where('idaula', 'LIKE', '%' . $query . '%')
                 ->where('a.fechaentrada', 'LIKE', '%' . $fecha . '%')
                 ->where('a.idanolectivo', $anolect->id)
                 ->orderBy('e.apellidos', 'asc')
-                ->paginate(50);
+                ->paginate(1);
 
-
-            return view('pages.asistenciaest.asistenciaest', compact('items', 'aula', 'horario', 'fecha', 'query', 'turno'));
+  $matricula = Matricula::where('idanolectivo', $anolect->id)->with('estudiante')->get();
+            return view('pages.asistenciaest.asistenciaest', compact('items', 'aula', 'horario', 'fecha', 'query', 'turno','matricula','searchText'));
         }
     }
 
@@ -286,4 +321,42 @@ class AsistenciaestController extends Controller
         $pdf->setPaper('A4', 'landscape'); //Formato de hoha A4 en horizontal
         return $pdf->stream('lista_asistencia.pdf');
     }
+
+
+    //vista de registro de asistencia
+    public function vistaasistencia(){
+
+     $asistencia = Asistenciaest::with('matricula.estudiante')
+                    ->latest()
+                    ->first();
+                    // dd($asistencia);
+
+    return view('pages.vistaasistencia.vistaasistencia', compact('asistencia'));
+
+    }
+
+ 
+public function ultimaAsistencia()
+{
+    $asistencia = Asistenciaest::with('matricula.estudiante')
+                    ->orderBy('created_at','desc')
+                    ->first();
+
+    if(!$asistencia){
+        return response()->json([
+            'existe' => false
+        ]);
+    }
+
+    return response()->json([
+        'existe' => true,
+        'id' => $asistencia->id, // 👈 ESTE ES EL QUE NECESITAS
+        'nombre' => $asistencia->matricula->estudiante->nombre,
+        'apellidos' => $asistencia->matricula->estudiante->apellidos,
+        'hora' => \Carbon\Carbon::parse($asistencia->created_at)->format('h:i A'),
+        'estado' => $asistencia->estado,
+    ]);
+}
+
+
 }

@@ -24,7 +24,7 @@
                         <div class="form-check">
                            <input class="form-check-input" type="radio" name="turno" id="grado" value="{{$tu->id}}" style="cursor:pointer">
                            <label class="form-check-label" for="estado">
-                              {{$tu->nivel}}
+                              {{$tu->nivel}} {{$tu->grado}} {{$tu->seccion}}
                            </label>
                         </div>
                         @empty

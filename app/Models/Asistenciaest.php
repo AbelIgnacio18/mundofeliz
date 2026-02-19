@@ -10,15 +10,11 @@ class Asistenciaest extends Model
     use HasFactory;
     protected $fillable=['idanolectivo','idestudiante','fechaentrada','mes','dia','estado'];
 
-    public function estudiante(){
-        return $this->belongsTo(Estudiante::class,'idestudiante','id');
-    
-     }
-
-       public function matriculaestudiante(){
-        return $this->hasOne(Estudiante::class,'id','idestudiante');
-    
-     }
+   
+     public function matricula()
+{
+    return $this->belongsTo(Matricula::class, 'idmatricula', 'id');
+}
       
     
      }
