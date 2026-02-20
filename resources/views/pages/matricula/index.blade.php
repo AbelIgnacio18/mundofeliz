@@ -106,7 +106,8 @@
 
                        <div class="raw d-flex">
                         <div class="form-group col-md-6 p-1">
-                            <label for="dni" class="form-label">Codigo:</label>
+                            <label for="dni" class="form-label">Código:</label>
+                            <span class="badge bg-alumko">Alumko</span>
                             <input type="text" class="form-control" id="dni" aria-describedby="dni"
                                 placeholder="87654321" name="codigo" value="{{ old('codigo') }}">
                         </div>
@@ -140,7 +141,7 @@
                <th>N°</th>
 
                <th>Estudiante</th>
-               <th>Nivel</th>
+               <th>Aula</th>
                <th>Pensión</th>
                <th>Concepto</th>
                <th>D. Admisión</th>
