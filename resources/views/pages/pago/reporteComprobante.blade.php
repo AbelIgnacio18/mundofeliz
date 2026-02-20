@@ -105,7 +105,7 @@
 							<td><b>{{$art->categoria}} {{$art->articulo}}</b></td>
 							<td><b>{{$art->cantidad}}</b></td>
 							<td><b>s/.{{$art->montoar/$art->cantidad}}</b></td>
-							<td><b>>s/.{{$art->montoar}}</b</td>
+							<td><b>s/.{{$art->montoar}}</b</td>
 						</tr>
 						@empty
 						@endforelse

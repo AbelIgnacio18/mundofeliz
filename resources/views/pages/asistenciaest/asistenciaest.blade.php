@@ -130,11 +130,8 @@
                     <tr>
                         <th>N°</th>
                         <th>Nombres</th>
-                        <th>Nivel AULA SECCIÓN</th>
-
-
+                        <th>Aula</th>
                         <th>Asistencia</th>
-
                         <th>Acciones</th>
                     </tr>
                 </thead>

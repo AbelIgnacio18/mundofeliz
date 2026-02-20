@@ -26185,3 +26185,75 @@ pre[class*=language-] {
       margin-top: -60px;
   }
 } */
+
+/*** Tabla Asistencia / Tarde / Faltas ***/ 
+.tab-bottom-bordered .nav-tabs .nav-link.active {
+  background-color: unset;
+  color: var(--bs-primary);
+  -webkit-box-shadow: unset;
+  box-shadow: unset;
+}
+.tab-bottom-bordered .nav-tabs .nav-link {
+  color: var(--bs-body-color);
+  position: relative;
+}
+.tab-bottom-bordered .nav-tabs .nav-link.active::before {
+  width: 60%;
+  right: 0;
+  -webkit-transition: all 400ms ease;
+  -o-transition: all 400ms ease;
+  transition: all 400ms ease;
+}
+.tab-bottom-bordered .nav-tabs .nav-link::before {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 3px;
+  -webkit-border-radius: .25rem;
+  border-radius: .25rem;
+  background: var(--bs-primary);
+  bottom: -3px;
+  right: 50%;
+  top: unset;
+  z-index: 1;
+  -webkit-transition: all 400ms ease;
+  -o-transition: all 400ms ease;
+  transition: all 400ms ease;
+}
+*, ::before, ::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.tab-bottom-bordered .nav-tabs .nav-link.active {
+  color: var(--bs-primary);
+}
+.tab-bottom-bordered .nav-tabs .nav-link {
+  color: var(--bs-body-color);
+}
+.tab-bottom-bordered .nav-tabs .nav-link.active::after {
+  width: 60%;
+  left: 0;
+  -webkit-transition: all 400ms ease;
+  -o-transition: all 400ms ease;
+  transition: all 400ms ease;
+}
+.tab-bottom-bordered .nav-tabs .nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 3px;
+  -webkit-border-radius: .25rem;
+  border-radius: .25rem;
+  background: var(--bs-primary);
+  bottom: -3px;
+  left: 50%;
+  top: unset;
+  z-index: 1;
+  -webkit-transition: all 400ms ease;
+  -o-transition: all 400ms ease;
+  transition: all 400ms ease;
+}
+*, ::before, ::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
