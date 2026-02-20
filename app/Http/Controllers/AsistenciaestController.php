@@ -180,7 +180,7 @@ class AsistenciaestController extends Controller
         }
         //dd($meses);
 
-        $items = Matricula::where('idestudiante', $id)->where('idanolectivo', $anolect->id)->with('asistenciahoy')->with('estudiantes')
+        $items = Matricula::where('idestudiante', $id)->where('idanolectivo', $anolect->id)->with('asistenciahoy')->with('estudiante')
             ->get();
         //dd($items);
 
