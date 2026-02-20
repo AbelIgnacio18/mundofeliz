@@ -25,7 +25,7 @@
                 <tr>
                     <td>
                         <div class="d-flex align-items-center">
-                            <h6>{{$matricula->estudiantes->nombre}} {{$matricula->estudiantes->apellidos}} </h6>
+                            <h6>{{$matricula->estudiante->nombre}} {{$matricula->estudiante->apellidos}} </h6>
                         </div>
                     </td>
 

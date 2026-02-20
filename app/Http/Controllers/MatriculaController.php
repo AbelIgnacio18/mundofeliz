@@ -38,7 +38,7 @@ class MatriculaController extends Controller
 
             // dd($estudiante);
             $anolect = Anolectivo::where('estado', 1)->first();
-            $concepto = Concepto::orderBy('codigo', 'asc')->orderBy('concepto', 'desc')->get();
+            $concepto = Concepto::where('codigo', 'P001')->orderBy('concepto', 'desc')->get();
 
             $searchText = trim($request->get('searchText'));
 
