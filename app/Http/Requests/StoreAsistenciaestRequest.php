@@ -23,7 +23,7 @@ class StoreAsistenciaestRequest extends FormRequest
     {
         return [
             'matricula_id' => 'required',
-            'fecha-entrada' => 'required',
+            'hora-entrada' => 'required',
         ];
     }
 }

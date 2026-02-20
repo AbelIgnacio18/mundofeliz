@@ -269,7 +269,7 @@
                         icon: 'success',
                         title: 'Bien hecho',
                         text: data.mensaje,
-                        timer: 1500,
+                        timer: 1000,
                         showConfirmButton: false
                     });
 

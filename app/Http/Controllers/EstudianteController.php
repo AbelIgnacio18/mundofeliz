@@ -167,8 +167,10 @@ class EstudianteController extends Controller
          $estudiante->update();
         session()->flash('swal', [
             'icon' => 'success',
-            'title' => '!bien hecho!',
+            'title' => 'bien hecho',
             'text' => '!Estudiante Actualización correctamente!',
+            'timer' => '500',
+            ' showConfirmButton' => 'false'
         ]);
         return back()->with('message', 'Actualización Exítosa');
     }

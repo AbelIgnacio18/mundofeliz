@@ -12,8 +12,13 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Matricula;
 use Illuminate\Support\Facades\DB;
 use App\Models\Estudiante;
+use App\Models\Apoderado;
 use Illuminate\Http\Request; // importacion
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
+use Google\Client;
+use App\Services\FcmService;
+
 
 class AsistenciaestController extends Controller
 {
@@ -22,7 +27,7 @@ class AsistenciaestController extends Controller
      */
     public function index(Request $request)
     {
-        if($request){
+        if ($request) {
             $query = trim($request->get('idaula'));
             $fecha = trim($request->get('fecha'));
             $searchText = trim($request->get('searchText'));
@@ -31,21 +36,21 @@ class AsistenciaestController extends Controller
             if ($fecha == "") {
                 $fecha = date('Y-m-d');
             }
-        $anolect = Anolectivo::where('estado', 1)->first();
-        $items = DB::table('matriculas as m')
-        ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
+            $anolect = Anolectivo::where('estado', 1)->first();
+            $items = DB::table('matriculas as m')
+                ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
                 ->join('asistenciaests as a', 'm.id', '=', 'a.idmatricula')
                 ->join('aulas as au', 'm.idaula', '=', 'au.id')
                 ->select('a.id', 'e.nombre', 'e.apellidos', 'e.id as idestudiante', 'au.nivel', 'au.grado', 'au.seccion', 'a.created_at', 'a.updated_at', 'a.fechaentrada', 'a.estado', 'a.idanolectivo')
                 ->when($query, fn($q) => $q->where('m.idaula', $query))
                 ->whereDate('a.fechaentrada', $fecha)
                 ->where('a.idanolectivo', $anolect->id)->orderBy('e.apellidos', 'asc')
-            ->get();
+                ->get();
 
-  
-        $aula = Aula::get();
 
-        $matricula = Matricula::where('idanolectivo', $anolect->id)->with('estudiante')->get();
+            $aula = Aula::get();
+
+            $matricula = Matricula::where('idanolectivo', $anolect->id)->with('estudiante')->get();
         }
         return view('pages.asistenciaest.index', compact('items', 'matricula', 'aula'));
     }
@@ -53,70 +58,103 @@ class AsistenciaestController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-  
+
 
     /**
      * Store a newly created resource in storage.
      */
+    private function enviarNotificacionPush($apoderado, $estudiante, $tipo)
+    {
+        $fcmToken = $apoderado->fcm_token;
+        // dd($fcmToken);
+        if (empty($fcmToken)) {
+            logger()->info("El estudiante {$estudiante->nombre} no tiene un token registrado.");
+            return;
+        }
+
+        app(FcmService::class)->send(
+            $fcmToken,
+            'Asistencia registrada',
+            'Estudiante ' . $estudiante->nombre . ' ' . $estudiante->apellidos . ' Marco ' . $tipo,
+            [
+                'tipo' => 'asistencia',
+                'alumno_id' => $estudiante->id,
+                'hora' => now()->format('H:i:s'),
+            ]
+
+        );
+    }
+
     public function store(StoreAsistenciaestRequest $request)
     {
 
         $idmatriculas = $request->get('matricula_id');
-        $entrada = $request->get('fecha-entrada');
+        $hora = $request->get('hora-entrada');
         $anolect = Anolectivo::where('estado', 1)->first();
-        // dd($estudianteid, $aula,$anolectivo->id);
+
+
         $cont = 0;
         while ($cont < count($idmatriculas)) {
-            $asistencia = new Asistenciaest();
-            $asistencia->idanolectivo = $anolect->id;
-            $asistencia->idmatricula = $idmatriculas[$cont];
-            $asistencia->fechaentrada = date('Y-m-d');
-            if ($entrada < "08:00:00") {
-                $asistencia->estado = 1;
-            } else {
-                $asistencia->estado = 0;
+            $matricula = Matricula::where('id', $idmatriculas[$cont])->where('idanolectivo', $anolect->id)->first();
+            $estudiante = Estudiante::where('id', $matricula->idestudiante)->first();
+            $idapoderado = Apoderado::where('id', $estudiante->idapoderado)->first();
+            $aula = Aula::where('id', $matricula->idaula)->first();
+            if (empty(Asistenciaest::where('idmatricula', $matricula->id)->where('fechaentrada', date("Y-m-d"))->first()) == true) {
+                $asistencia = new Asistenciaest();
+                $asistencia->idanolectivo = $anolect->id;
+                $asistencia->idmatricula = $idmatriculas[$cont];
+                $asistencia->fechaentrada = date('Y-m-d');
+                $asistencia->estado =  $hora < ($aula->tarde) ? 1 : 0;
+                $asistencia->save();
+              
+                $this->enviarNotificacionPush($idapoderado, $estudiante, "entrada");
             }
-
-            $asistencia->save();
-            $cont = $cont + 1;
+              $cont = $cont + 1;
         }
-
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => 'bien hecho',
+            'text' => 'Estudiante Actualización correctamente',
+            'timer' => '1000',
+            ' showConfirmButton' => 'false'
+        ]);
+       
         return back()->with('message', 'Registro Exítosa');
     }
-  public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-       $asistencia = Asistenciaest::find($id);
+        $asistencia = Asistenciaest::find($id);
 
-    if(!$asistencia){
-        return response()->json(['mensaje' => 'Registro no encontrado']);
-    }
- $a = ($request->estado == 4) ? null : $request->estado;
+        if (!$asistencia) {
+            return response()->json(['mensaje' => 'Registro no encontrado']);
+        }
+        $a = ($request->estado == 4) ? null : $request->estado;
 
 
-    $asistencia->estado = $a;
-    $asistencia->save();
+        $asistencia->estado = $a;
+        $asistencia->save();
 
-    // 🔥 Regla automática
-    // if($request->estado == 0){ // si es tardanza
+        // 🔥 Regla automática
+        // if($request->estado == 0){ // si es tardanza
 
-    //     $tardanzas = Asistenciaest::where('idmatricula', $asistencia->idmatricula)
-    //         ->where('estado', 0)
-    //         ->count();
+        //     $tardanzas = Asistenciaest::where('idmatricula', $asistencia->idmatricula)
+        //         ->where('estado', 0)
+        //         ->count();
 
-    //     if($tardanzas >= 3){
+        //     if($tardanzas >= 3){
 
-    //         // convertir 3 tardanzas en 1 falta
-    //         $asistencia->estado = 2; // falta
-    //         $asistencia->save();
+        //         // convertir 3 tardanzas en 1 falta
+        //         $asistencia->estado = 2; // falta
+        //         $asistencia->save();
 
-    //         return response()->json([
-    //             'mensaje' => '3 tardanzas acumuladas → convertida en falta'
-    //         ]);
-    //     }
-    // }
-   return response()->json([
-        'mensaje' => 'Asistencia Actualizada'
-    ]);
+        //         return response()->json([
+        //             'mensaje' => '3 tardanzas acumuladas → convertida en falta'
+        //         ]);
+        //     }
+        // }
+        return response()->json([
+            'mensaje' => 'Asistencia Actualizada'
+        ]);
     }
     /**
      * Display the specified resource.
@@ -142,13 +180,12 @@ class AsistenciaestController extends Controller
         }
         //dd($meses);
 
-            $items = Matricula::where('idestudiante',$id )->where('idanolectivo', $anolect->id)->with('asistenciahoy')->with('estudiantes')
+        $items = Matricula::where('idestudiante', $id)->where('idanolectivo', $anolect->id)->with('asistenciahoy')->with('estudiantes')
             ->get();
         //dd($items);
 
 
-        return view('pages.asistenciaest.show',compact('items', 'dias', 'meses'));
-
+        return view('pages.asistenciaest.show', compact('items', 'dias', 'meses'));
     }
 
 
@@ -230,7 +267,7 @@ class AsistenciaestController extends Controller
 
 
             $matricula = Matricula::where('idanolectivo', $anolect->id)->with('estudiante')->get();
-            return view('pages.asistenciaest.asistenciaest', compact('items', 'aula', 'horario', 'fecha', 'query', 'turno','matricula','searchText'));
+            return view('pages.asistenciaest.asistenciaest', compact('items', 'aula', 'horario', 'fecha', 'query', 'turno', 'matricula', 'searchText'));
         }
     }
 
@@ -285,13 +322,13 @@ class AsistenciaestController extends Controller
 
             $aula = Aula::all();
             $anolect = Anolectivo::where('estado', 1)->first();
-      
+
             $items = DB::table('matriculas as m')
                 ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
                 ->join('asistenciaests as a', 'm.id', '=', 'a.idmatricula')
-                  ->join('aulas as au', 'm.idaula', '=', 'au.id')
-                ->select('m.id','au.nivel','au.grado','au.seccion', 'e.nombre', 'e.apellidos', 'e.id as idestudiante','e.celular', 'a.created_at', 'a.updated_at', 'a.fechaentrada', 'a.estado', 'a.idanolectivo')
-               
+                ->join('aulas as au', 'm.idaula', '=', 'au.id')
+                ->select('m.id', 'au.nivel', 'au.grado', 'au.seccion', 'e.nombre', 'e.apellidos', 'e.id as idestudiante', 'e.celular', 'a.created_at', 'a.updated_at', 'a.fechaentrada', 'a.estado', 'a.idanolectivo')
+
                 ->where('idaula', 'LIKE', '%' . $query . '%')
                 ->where('a.fechaentrada', 'LIKE', '%' . $fecha . '%')
                 ->where('a.idanolectivo', $anolect->id)
@@ -346,39 +383,37 @@ class AsistenciaestController extends Controller
 
 
     //vista de registro de asistencia
-    public function vistaasistencia(){
+    public function vistaasistencia()
+    {
 
-     $asistencia = Asistenciaest::with('matricula.estudiante')
-                    ->latest()
-                    ->first();
-                    // dd($asistencia);
+        $asistencia = Asistenciaest::with('matricula.estudiante')
+            ->latest()
+            ->first();
+        // dd($asistencia);
 
-    return view('pages.vistaasistencia.vistaasistencia', compact('asistencia'));
-
+        return view('pages.vistaasistencia.vistaasistencia', compact('asistencia'));
     }
 
- 
-public function ultimaAsistencia()
-{
-    $asistencia = Asistenciaest::with('matricula.estudiante')
-                    ->orderBy('created_at','desc')
-                    ->first();
 
-    if(!$asistencia){
+    public function ultimaAsistencia()
+    {
+        $asistencia = Asistenciaest::with('matricula.estudiante')
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        if (!$asistencia) {
+            return response()->json([
+                'existe' => false
+            ]);
+        }
+
         return response()->json([
-            'existe' => false
+            'existe' => true,
+            'id' => $asistencia->id, // 👈 ESTE ES EL QUE NECESITAS
+            'nombre' => $asistencia->matricula->estudiante->nombre,
+            'apellidos' => $asistencia->matricula->estudiante->apellidos,
+            'hora' => \Carbon\Carbon::parse($asistencia->created_at)->format('h:i A'),
+            'estado' => $asistencia->estado,
         ]);
     }
-
-    return response()->json([
-        'existe' => true,
-        'id' => $asistencia->id, // 👈 ESTE ES EL QUE NECESITAS
-        'nombre' => $asistencia->matricula->estudiante->nombre,
-        'apellidos' => $asistencia->matricula->estudiante->apellidos,
-        'hora' => \Carbon\Carbon::parse($asistencia->created_at)->format('h:i A'),
-        'estado' => $asistencia->estado,
-    ]);
-}
-
-
 }

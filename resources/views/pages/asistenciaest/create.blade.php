@@ -28,7 +28,7 @@
 
                <div class="form-group">
                   <label for="nivelS" class="form-label">Hora de Entrada:</label>
-                  <input type="time" class="form-control" id="nivelS" aria-describedby="nivelS" name="fecha-entrada" step="1">
+                  <input type="time" class="form-control" id="nivelS" aria-describedby="nivelS" name="hora-entrada" step="1">
                </div>
 
                <div class="text-start mt-2">
