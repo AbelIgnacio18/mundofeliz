@@ -43,7 +43,7 @@ class MatriculaController extends Controller
             $searchText = trim($request->get('searchText'));
 
             $matricula = Matricula::where('idanolectivo', $anolect->id)
-                ->whereHas('estudiantes', function ($q) use ($searchText) {
+                ->whereHas('estudiante', function ($q) use ($searchText) {
                     $q->where('nombre', 'LIKE', '%' . $searchText . '%')
                         ->orWhere('apellidos', 'LIKE', '%' . $searchText . '%');
                 })->with([
@@ -80,6 +80,7 @@ class MatriculaController extends Controller
         $estudianteid = $request->get('estudiante_id');
         $aula = $request->get('aula_id');
         $concepto = $request->get('concepto');
+         $codigo = $request->get('codigo');
 
     
         $anolectivo = Anolectivo::where('estado', 1)->first();
@@ -91,6 +92,7 @@ class MatriculaController extends Controller
             $matricula->idanolectivo = $anolectivo->id;
             $matricula->idaula = $aula;
             $matricula->idconcepto = $concepto;
+             $matricula->codigo = $codigo;
             $matricula->save();
             $cont = $cont + 1;
         }
@@ -157,6 +159,7 @@ class MatriculaController extends Controller
         $matricula->idaula=$request->get('aula_id');  
         $matricula->idconcepto=$request->get('concepto');  
          $matricula->estado=$request->get('estado'); 
+          $matricula->codigo=$request->get('codigo'); 
         $matricula->update();
        
         return back()->with('message', 'Actualización Exítosa');

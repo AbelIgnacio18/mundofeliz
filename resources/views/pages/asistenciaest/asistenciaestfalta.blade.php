@@ -84,6 +84,7 @@
             <tr>
                <th>N°</th>
                <th>Nombres</th>
+               <th>Aula</th>
                <th>Registrado</th>
                <th>Celular</th>
                <th>Estado</th>
@@ -103,27 +104,28 @@
                   </div>
                </td>
                <td>
-                  <h6>{{$item->apellidos}}, {{$item->nombre}}</h6>
+               {{$item->apellidos}}, {{$item->nombre}}
                </td>
+               <td>{{$item->nivel}}  {{$item->grado}} {{$item->seccion}}</td>
                <td>
-                  <h6>
+               
                      {{Carbon\Carbon::parse($item->created_at)->translatedFormat('l, j F Y h:i A')}}
-                  </h6>
+                  
                </td>
                <td>
 
 
-                  <h6>{{$item->celular}}</h6>
+               {{$item->celular}}
 
 
                </td>
                <td>
 
-                  <h6>
+               
                      @if($item->estado===null)
                      <span class="badge bg-danger" style="font-size: 1em;">Faltó</span>
                      @endif
-                  </h6>
+                  
 
                </td>
 

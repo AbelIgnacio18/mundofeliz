@@ -124,65 +124,66 @@
   @include('pages.asistenciaest.buscador')
     <div class="card-body p-0">
         <div class="table-responsive mt-4">
-            <table id="user-list-table" class="table table-striped" role="grid" data-toggle="">
+           
+                    <table id="user-list-table" class="table table-striped" role="grid" data-toggle="">
                 <thead>
                     <tr>
                         <th>N°</th>
                         <th>Nombres</th>
                         <th>Nivel AULA SECCIÓN</th>
-                        <th>entrada/Salida</th>
 
-                        <th>Estado</th>
+
+                        <th>Asistencia</th>
 
                         <th>Acciones</th>
                     </tr>
-
                 </thead>
                 <tbody>
-                    <?php $contadorgallo = 1; ?>
+                    @php
+                        $numeracion = 1;
+
+                    @endphp
                     @forelse($items as $item)
                         <tr>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <h6>{{ $item->id }}</h6>
-                                </div>
-                            </td>
+                            <td>{{ $numeracion }}</td>
                             <td>
                                 {{ $item->apellidos }}, {{ $item->nombre }}
                             </td>
                             <td>
-                                 {{ $item->nivel }} {{ $item->grado }} {{ $item->seccion }}
+                                {{ $item->nivel }} {{ $item->grado }} {{ $item->seccion }}
                             </td>
-                            <td>
 
-                                {{ Carbon\Carbon::parse($item->created_at)->translatedFormat('l, h:i A') }} /
-                                @if ($item->estado === null)
-                                    {{ Carbon\Carbon::parse($item->updated_at)->translatedFormat('l, h:i A') }}
-                                @endif
-                                @if ($item->created_at == $item->updated_at)
-                                No Marco
-                                @else
-                                    {{ Carbon\Carbon::parse($item->updated_at)->translatedFormat('l, h:i A') }}
-                                @endif
-
-                            </td>
 
                             <td>
 
-                                <h6>
-                                    @if ($item->estado === 0)
-                                        <span class="badge bg-warning" style="font-size: 1em;">Tarde</span>
-                                    @endif
+                                <input type="hidden" value="{{ $item->id }}" class="asistencia-id">
 
-                                    @if ($item->estado === 1)
-                                        <span class="badge bg-success" style="font-size: 1em;">Asistió</span>
-                                    @endif
+                                <div class="d-flex gap-2">
 
-                                    @if ($item->estado === null)
-                                        <span class="badge bg-danger" style="font-size: 1em;">Faltó</span>
-                                    @endif
 
-                                </h6>
+
+                                    <input type="radio" name="estado{{ $item->id }}" value="1"
+                                        {{ $item->estado === 1 ? 'checked' : '' }}
+                                        onchange="actualizarEstado(this, {{ $item->id }})"> A
+
+                                    <input type="radio" name="estado{{ $item->id }}" value="0"
+                                        {{ $item->estado === 0 ? 'checked' : '' }}
+                                        onchange="actualizarEstado(this, {{ $item->id }})"> T
+
+                                    <input type="radio" name="estado{{ $item->id }}" value="4"
+                                        {{ $item->estado === null ? 'checked' : '' }}
+                                        onchange="actualizarEstado(this, {{ $item->id }})"> F
+
+                                    <input type="radio" name="estado{{ $item->id }}" value="2"
+                                        {{ $item->estado === 2 ? 'checked' : '' }}
+                                        onchange="actualizarEstado(this, {{ $item->id }})"> TJ
+
+                                    <input type="radio" name="estado{{ $item->id }}" value="3"
+                                        {{ $item->estado === 3 ? 'checked' : '' }}
+                                        onchange="actualizarEstado(this, {{ $item->id }})"> FJ
+
+                                </div>
+
 
                             </td>
 
@@ -231,8 +232,11 @@
                         </tr>
 
                         @include('pages.asistenciaest.modal')
-                        <?php $contadorgallo++; ?>
 
+                        @php
+                            $numeracion++;
+
+                        @endphp
                     @empty
                     @endforelse
 
@@ -241,4 +245,38 @@
         </div>
         {{ $items->render() }}
     </div>
+
+     <script>
+        function actualizarEstado(elemento, idAsistencia) {
+
+            let url = "{{ route('app.asist-estudiante.update', ':id') }}";
+            url = url.replace(':id', idAsistencia);
+
+            fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({
+                        _method: "PUT",
+                        estado: elemento.value
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Bien hecho',
+                        text: data.mensaje,
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+
+                })
+                .catch(error => console.error("Error:", error));
+        }
+    </script>
+
+
 @endsection

@@ -104,6 +104,17 @@
                         </div>
                      </div>
 
+                       <div class="raw d-flex">
+                        <div class="form-group col-md-6 p-1">
+                            <label for="dni" class="form-label">Codigo:</label>
+                            <input type="text" class="form-control" id="dni" aria-describedby="dni"
+                                placeholder="87654321" name="codigo" value="{{ old('codigo') }}">
+                        </div>
+
+
+                    </div>
+
+
 
 
 
@@ -135,7 +146,7 @@
                <th>D. Admisión</th>
                <th>DNI</th>
 <!--                <th>Código Alumko</th> -->
-
+ <th>CÓDIGO</th>
                <th>Acciones</th>
             </tr>
          </thead>
@@ -210,9 +221,9 @@
                </td>
 
 
-<!--                <td>
-                  <h6 class="badge bg-alumko" style="font-size: 1em;">{{$matri->estudiante->codigo}}</h6>
-               </td> -->
+            <td>
+                  <h6 class="badge bg-alumko" style="font-size: 1em;">{{$matri->codigo}}</h6>
+               </td>
 
 
                <td>

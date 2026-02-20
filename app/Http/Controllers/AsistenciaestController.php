@@ -20,22 +20,34 @@ class AsistenciaestController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        if($request){
+            $query = trim($request->get('idaula'));
+            $fecha = trim($request->get('fecha'));
+            $searchText = trim($request->get('searchText'));
+
+
+            if ($fecha == "") {
+                $fecha = date('Y-m-d');
+            }
         $anolect = Anolectivo::where('estado', 1)->first();
         $items = DB::table('matriculas as m')
-            ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
-            ->join('asistenciaests as a', 'm.id', '=', 'a.idmatricula')
-            ->select('a.id', 'e.nombre', 'e.apellidos','e.id as idestudiante', 'a.created_at', 'a.updated_at', 'a.fechaentrada', 'a.estado', 'a.idanolectivo')->where('a.fechaentrada', date('Y-m-d'))->where('a.idanolectivo', $anolect->id)
-            ->orderBy('e.apellidos', 'asc')
+        ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
+                ->join('asistenciaests as a', 'm.id', '=', 'a.idmatricula')
+                ->join('aulas as au', 'm.idaula', '=', 'au.id')
+                ->select('a.id', 'e.nombre', 'e.apellidos', 'e.id as idestudiante', 'au.nivel', 'au.grado', 'au.seccion', 'a.created_at', 'a.updated_at', 'a.fechaentrada', 'a.estado', 'a.idanolectivo')
+                ->when($query, fn($q) => $q->where('m.idaula', $query))
+                ->whereDate('a.fechaentrada', $fecha)
+                ->where('a.idanolectivo', $anolect->id)->orderBy('e.apellidos', 'asc')
             ->get();
 
-        $horario = Horario::first();
-        $turno = Aula::get();
+  
+        $aula = Aula::get();
 
         $matricula = Matricula::where('idanolectivo', $anolect->id)->with('estudiante')->get();
-
-        return view('pages.asistenciaest.index', compact('items', 'matricula', 'horario', 'turno'));
+        }
+        return view('pages.asistenciaest.index', compact('items', 'matricula', 'aula'));
     }
 
     /**
@@ -186,7 +198,7 @@ class AsistenciaestController extends Controller
 
             $query = trim($request->get('idaula'));
             $fecha = trim($request->get('fecha'));
-              $searchText = trim($request->get('searchText'));
+            $searchText = trim($request->get('searchText'));
 
 
             if ($fecha == "") {
@@ -196,20 +208,28 @@ class AsistenciaestController extends Controller
             $aula = Aula::all();
             $anolect = Anolectivo::where('estado', 1)->first();
             $horario = Horario::first();
+
+
             $items = DB::table('matriculas as m')
                 ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
                 ->join('asistenciaests as a', 'm.id', '=', 'a.idmatricula')
-                 ->join('aulas as au', 'm.idaula', '=', 'au.id')
-                ->select('a.id', 'e.nombre', 'e.apellidos','e.id as idestudiante','au.nivel','au.grado','au.seccion', 'a.created_at', 'a.updated_at', 'a.fechaentrada', 'a.estado', 'a.idanolectivo')
-                ->where('nombre', 'LIKE', '%' . $searchText . '%')
-                ->orWhere('apellidos', 'LIKE', '%' . $searchText . '%')
-                ->where('idaula', 'LIKE', '%' . $query . '%')
-                ->where('a.fechaentrada', 'LIKE', '%' . $fecha . '%')
+                ->join('aulas as au', 'm.idaula', '=', 'au.id')
+                ->select('a.id', 'e.nombre', 'e.apellidos', 'e.id as idestudiante', 'au.nivel', 'au.grado', 'au.seccion', 'a.created_at', 'a.updated_at', 'a.fechaentrada', 'a.estado', 'a.idanolectivo')
+                ->when($query, fn($q) => $q->where('m.idaula', $query))
+                ->whereDate('a.fechaentrada', $fecha)
                 ->where('a.idanolectivo', $anolect->id)
-                ->orderBy('e.apellidos', 'asc')
-                ->paginate(1);
+                ->when($searchText, function ($q) use ($searchText) {
+                    $q->where(function ($sub) use ($searchText) {
+                        $sub->where('e.nombre', 'LIKE', "%$searchText%")
+                            ->orWhere('e.apellidos', 'LIKE', "%$searchText%");
+                    });
+                })
+                ->orderBy('e.apellidos')
+                ->paginate(10);
 
-  $matricula = Matricula::where('idanolectivo', $anolect->id)->with('estudiante')->get();
+
+
+            $matricula = Matricula::where('idanolectivo', $anolect->id)->with('estudiante')->get();
             return view('pages.asistenciaest.asistenciaest', compact('items', 'aula', 'horario', 'fecha', 'query', 'turno','matricula','searchText'));
         }
     }
@@ -265,11 +285,13 @@ class AsistenciaestController extends Controller
 
             $aula = Aula::all();
             $anolect = Anolectivo::where('estado', 1)->first();
-            $horario = Horario::first();
+      
             $items = DB::table('matriculas as m')
                 ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
                 ->join('asistenciaests as a', 'm.id', '=', 'a.idmatricula')
-                ->select('m.id', 'e.nombre', 'e.apellidos', 'e.id as idestudiante','e.celular', 'a.created_at', 'a.updated_at', 'a.fechaentrada', 'a.estado', 'a.idanolectivo')
+                  ->join('aulas as au', 'm.idaula', '=', 'au.id')
+                ->select('m.id','au.nivel','au.grado','au.seccion', 'e.nombre', 'e.apellidos', 'e.id as idestudiante','e.celular', 'a.created_at', 'a.updated_at', 'a.fechaentrada', 'a.estado', 'a.idanolectivo')
+               
                 ->where('idaula', 'LIKE', '%' . $query . '%')
                 ->where('a.fechaentrada', 'LIKE', '%' . $fecha . '%')
                 ->where('a.idanolectivo', $anolect->id)
@@ -277,7 +299,7 @@ class AsistenciaestController extends Controller
                 ->orderBy('e.apellidos', 'asc')
                 ->get();
 
-            return view('pages.asistenciaest.asistenciaestfalta', compact('items', 'aula', 'horario', 'fecha', 'query'));
+            return view('pages.asistenciaest.asistenciaestfalta', compact('items', 'aula',  'fecha', 'query'));
         }
     }
 
@@ -313,7 +335,7 @@ class AsistenciaestController extends Controller
         $anolect = Anolectivo::where('estado', 1)->first();
         $nombreaula = Aula::where('id', $idaula)->first();
         $items = Matricula::where('idaula', 'LIKE', '%' . $idaula . '%')->where('idanolectivo', $anolect->id)->with('asistenciahoy')->with('asistenciahoy')
-            ->with('estudiantes')
+            ->with('estudiante')
             ->get();
         //dd($items);
 

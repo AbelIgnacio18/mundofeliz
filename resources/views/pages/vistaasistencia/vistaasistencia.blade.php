@@ -87,7 +87,7 @@
                     if (data.estado == 1) {
                         estadoTexto = 'PUNTUAL';
                         color = 'bg-success';
-                    } else if (data.estado == 2) {
+                    } else if (data.estado == 0) {
                         estadoTexto = 'TARDANZA';
                         color = 'bg-warning';
                     } else {

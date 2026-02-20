@@ -174,7 +174,7 @@
                         </div>
                     </td>
                     <td>
-                        <h6>{{$item->estudiantes->apellidos}}, {{$item->estudiantes->nombre}}</h6>
+                        <h6>{{$item->estudiante->apellidos}}, {{$item->estudiante->nombre}}</h6>
                     </td>
 
 
