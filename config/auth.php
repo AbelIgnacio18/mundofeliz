@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+          'sanctum' => [
+            'driver' => 'sanctum',
+            'provider' => 'apoderados',
+        ],
     ],
 
     /*
@@ -69,7 +73,7 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
-           'apoderado' => [
+           'apoderados' => [
             'driver' => 'eloquent',
             'model' => App\Models\Apoderado::class,
         ],
