@@ -52,7 +52,6 @@
             <li class="swiper-slide">
                 <div class="card border-bottom border-5 border-0 border-primary">
                     <div class="card-body">
-<<<<<<< HEAD
                         <h2 class="counter mb-3">Pago de Pensiones</h2>
 
 
@@ -250,7 +249,6 @@
                                         </table>
                                     </div>
                                 </div>
-=======
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="bg-soft-primary rounded p-3">
                                 <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none"
@@ -266,7 +264,6 @@
                                         stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
                                         stroke-linejoin="round"></path>
                                 </svg>
->>>>>>> 67370279a2861e64a5714a7b887aac3e593d59f8
                             </div>
                             <div>
                                 <h3 class="counter">
@@ -281,7 +278,6 @@
                         </div>
                     </div>
                 </div>
-<<<<<<< HEAD
             </div>
             <div class="col-md-6">
                 <div class="card">
@@ -313,9 +309,7 @@
                 </div>
             </div>
         </div>
-=======
             </li>
->>>>>>> 67370279a2861e64a5714a7b887aac3e593d59f8
 
             <li class="swiper-slide">
                 <div class="card border-bottom border-5 border-0 border-info">
@@ -501,7 +495,6 @@
 
 
     </div>
-<<<<<<< HEAD
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
     <script>
@@ -556,7 +549,6 @@
         });
     </script>
 @endsection
-=======
 
     <div class="row">
         <div class="col-lg-6">
@@ -834,4 +826,3 @@
 
 </div>
 @endsection
->>>>>>> 67370279a2861e64a5714a7b887aac3e593d59f8

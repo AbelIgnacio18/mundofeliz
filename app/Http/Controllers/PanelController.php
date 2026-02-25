@@ -162,8 +162,8 @@ $datos = DB::table('asistenciaests as a')
     ->join('matriculas as m', 'a.idmatricula', '=', 'm.id')
     ->join('aulas as au', 'm.idaula', '=', 'au.id')
     ->where('au.nivel', 'inicial')
-    // ->whereBetween('a.fechaentrada', [$inicio, $fin])
-      ->where('a.fechaentrada', date('Y-m-d'))
+    ->whereBetween('a.fechaentrada', [$inicio, $fin])
+    //   ->where('a.fechaentrada', date('Y-m-d'))
     ->select(
         DB::raw("SUM(CASE WHEN a.estado = 'asistio' THEN 1 ELSE 0 END) as puntual"),
         DB::raw("SUM(CASE WHEN a.estado = 'tarde' THEN 1 ELSE 0 END) as tarde"),
@@ -200,7 +200,7 @@ public function asistenciaPorNivel(Request $request)
     ->join('matriculas as m', 'a.idmatricula', '=', 'm.id')
     ->join('aulas as au', 'm.idaula', '=', 'au.id')
     ->where('au.nivel', 'inicial')
-    ->where('a.fechaentrada', date('Y-m-d'))
+     // ->whereBetween('a.fechaentrada', [$inicio, $fin])
     ->select(
         DB::raw("SUM(CASE WHEN a.estado = 'asistio' THEN 1 ELSE 0 END) as puntual"),
         DB::raw("SUM(CASE WHEN a.estado = 'tarde' THEN 1 ELSE 0 END) as tarde"),

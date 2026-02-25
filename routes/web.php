@@ -32,7 +32,8 @@ Route::group(['prefix' => 'dashboard', 'as' => 'app.', 'middleware' => ['web','a
 
 Route::get('home', [App\Http\Controllers\PanelController::class, 'index'])->name('home');
 
-    
+    Route::get('/asistencia-nivel', [App\Http\Controllers\PanelController::class, 'asistenciaPorNivel'])
+    ->name('asistencia.nivel');
 
     Route::get('user', [PageController::class, 'user'])->name('user');
     Route::get('lista-estudiantes',[App\Http\Controllers\PanelController::class, 'reporte'])->name('reporte');
