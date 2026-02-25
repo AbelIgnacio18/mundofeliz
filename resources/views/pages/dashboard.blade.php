@@ -388,7 +388,7 @@
                                 <div class="tab-pane fade" id="nav-profile-11" role="tabpanel"
                                     aria-labelledby="nav-profile-11-tab">
                                     <div class="table-responsive">
-                               <table id="transaction-table-2" class="table mb-0 table-striped" role="grid">
+                                        <table id="transaction-table-2" class="table mb-0 table-striped" role="grid">
 
                                             <thead>
                                                 <tr>
@@ -412,11 +412,13 @@
                                                             <p>{{ $repor->apellidos }}, {{ $repor->nombre }}</p>
                                                         </td>
                                                         <td>
-                                                            <p>{{ $repor->nivel }} {{ $repor->grado }} {{ $repor->seccion }}</p>
+                                                            <p>{{ $repor->nivel }} {{ $repor->grado }}
+                                                                {{ $repor->seccion }}</p>
                                                         </td>
 
                                                         <td>
-                                                            <p>{{ $repor->total_tardanzas }} / {{ $repor->total_dias }}</p>
+                                                            <p>{{ $repor->total_tardanzas }} / {{ $repor->total_dias }}
+                                                            </p>
                                                         </td>
 
                                                         <td>
@@ -466,7 +468,8 @@
                                                             <p>{{ $repor->apellidos }}, {{ $repor->nombre }}</p>
                                                         </td>
                                                         <td>
-                                                            <p>{{ $repor->nivel }} {{ $repor->grado }} {{ $repor->seccion }}</p>
+                                                            <p>{{ $repor->nivel }} {{ $repor->grado }}
+                                                                {{ $repor->seccion }}</p>
                                                         </td>
 
                                                         <td>
@@ -511,8 +514,91 @@
 
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <h2 class="counter mb-3">Asistensia Hoy</h2>
+                    <div class="form-group px-3">
+                        <label for="modulo" class="form-label">Nivel:</label>
+                        <div class="input-group ">
+
+                          <select name="nivel" class="form-control" required>
+                           
+                            
+                              <option value="inicial" selected> Inicial </option>
+                            <option value="Primaria" > Primaria </option>
+                            <option value="Secundaria" > Secundaria </option>
+                            
+
+
+
+                           </select>
+
+
+                        </div>
+                    </div>
+
+                    
+                    
+
+                    <canvas id="graficoNivel"></canvas>
+                </div>
+            </div>
         </div>
 
 
+
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <script>
+        const ctx = document.getElementById('graficoNivel');
+
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Puntual', 'Tarde', 'Falta'],
+                datasets: [{
+                    data: [
+                        {{ (int) $datos->puntual }},
+                        {{ (int) $datos->tarde }},
+                        {{ (int) $datos->falta }}
+                    ],
+                    backgroundColor: [
+                        '#28a745',
+                        '#ffc107',
+                        '#dc3545'
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#ffffff'
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    datalabels: {
+                        color: '#ffffff',
+                        font: {
+                            weight: 'bold',
+                            size: 16
+                        },
+                        formatter: (value, context) => {
+                            let total = context.chart.data.datasets[0].data
+                                .reduce((a, b) => a + b, 0);
+                            let percentage = (value / total * 100).toFixed(1) + "%";
+                            return percentage;
+                        }
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        });
+    </script>
 @endsection

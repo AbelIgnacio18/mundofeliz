@@ -148,9 +148,31 @@ class PanelController extends Controller
         }
 
 
+// generar la tiorta
+$nivel = $request->nivel; // inicial, primaria, secundaria
+   $inicio = $request->filled('fechainicio')
+                ? Carbon::parse($request->fechainicio)
+                : Carbon::parse($anolect->inicio);
 
+            $fin = $request->filled('fechafin')
+                ? Carbon::parse($request->fechafin)
+                : Carbon::today();
 
+$datos = DB::table('asistenciaests as a')
+    ->join('matriculas as m', 'a.idmatricula', '=', 'm.id')
+    ->join('aulas as au', 'm.idaula', '=', 'au.id')
+    ->where('au.nivel', 'inicial')
+    // ->whereBetween('a.fechaentrada', [$inicio, $fin])
+      ->where('a.fechaentrada', date('Y-m-d'))
+    ->select(
+        DB::raw("SUM(CASE WHEN a.estado = 'asistio' THEN 1 ELSE 0 END) as puntual"),
+        DB::raw("SUM(CASE WHEN a.estado = 'tarde' THEN 1 ELSE 0 END) as tarde"),
+        DB::raw("SUM(CASE WHEN a.estado = 'falta' THEN 1 ELSE 0 END) as falta")
+    )
+    ->first();
 
+// dd($inicio,$fin);
+//  dd($datos);
 
         return view('pages.dashboard', compact(
             'date',
@@ -166,11 +188,32 @@ class PanelController extends Controller
             'reporte',
             'reportetarde',
             'fechaInicio',
-            'fechaFin'
+            'fechaFin', 'datos'
         ));
     }
 
+public function asistenciaPorNivel(Request $request)
+{
+    $nivel = $request->nivel;
 
+    $datos = DB::table('asistenciaests as a')
+    ->join('matriculas as m', 'a.idmatricula', '=', 'm.id')
+    ->join('aulas as au', 'm.idaula', '=', 'au.id')
+    ->where('au.nivel', 'inicial')
+    ->where('a.fechaentrada', date('Y-m-d'))
+    ->select(
+        DB::raw("SUM(CASE WHEN a.estado = 'asistio' THEN 1 ELSE 0 END) as puntual"),
+        DB::raw("SUM(CASE WHEN a.estado = 'tarde' THEN 1 ELSE 0 END) as tarde"),
+        DB::raw("SUM(CASE WHEN a.estado = 'falta' THEN 1 ELSE 0 END) as falta")
+    )
+    ->first();
+
+    return response()->json([
+        'puntual' => (int) $datos->puntual,
+        'tarde' => (int) $datos->tarde,
+        'falta' => (int) $datos->falta,
+    ]);
+}
 
     /**
      * Store a newly created resource in storage.

@@ -30,4 +30,9 @@ class Apoderado extends Authenticatable
         'password',
         'remember_token',
     ];
+    public function estudiantes()
+{
+    return $this->hasMany(Estudiante::class ,'idapoderado');
+}
+
 }
