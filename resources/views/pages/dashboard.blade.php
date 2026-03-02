@@ -8,10 +8,10 @@
             <ul class="swiper-wrapper list-inline m-0 p-0 mb-2">
 
                 <li class="swiper-slide">
-                    <div class="card border-bottom border-5 border-0 border-success">
+                    <div class="card border-bottom border-5 border-0 border-info">
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between">
-                                <div class="bg-soft-success rounded p-3">
+                                <div class="bg-soft-info rounded p-3">
                                     <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -50,7 +50,7 @@
                 </li>
 
                 <li class="swiper-slide">
-                    <div class="card border-bottom border-5 border-0 border-primary">
+                    <div class="card border-bottom border-5 border-0 border-success">
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="bg-soft-primary rounded p-3">
@@ -76,7 +76,7 @@
                                             0
                                         @endif
                                     </h3>
-                                    <p class="mb-0">Total de Pensiones</p>
+                                    <p class="mb-0">Asistenccia</p>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                 </li>
 
                 <li class="swiper-slide">
-                    <div class="card border-bottom border-5 border-0 border-info">
+                    <div class="card border-bottom border-5 border-0 border-warning">
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="bg-soft-info rounded p-3">
@@ -114,7 +114,7 @@
                                             0
                                         @endif
                                     </h3>
-                                    <p class="mb-0">Venta Total</p>
+                                    <p class="mb-0">Tarde</p>
                                 </div>
                             </div>
                         </div>
@@ -122,7 +122,7 @@
                 </li>
 
                 <li class="swiper-slide">
-                    <div class="card border-bottom border-5 border-0 border-warning">
+                    <div class="card border-bottom border-5 border-0 border-danger">
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="bg-soft-warning rounded p-3">
@@ -146,118 +146,13 @@
                                             s/. 0.00
                                         @endif
                                     </h3>
-                                    <p class="mb-0">Costo Total</p>
+                                    <p class="mb-0">Falta</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </li>
 
-                <li class="swiper-slide">
-                    <div class="card border-bottom border-5 border-0 border-primary">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div class="bg-soft-primary rounded p-3">
-                                    <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M7.37121 10.2017V17.0618" stroke="currentColor" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path d="M12.0382 6.91919V17.0619" stroke="currentColor" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path d="M16.6285 13.8269V17.0619" stroke="currentColor" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M16.6857 2H7.31429C4.04762 2 2 4.31208 2 7.58516V16.4148C2 19.6879 4.0381 22 7.31429 22H16.6857C19.9619 22 22 19.6879 22 16.4148V7.58516C22 4.31208 19.9619 2 16.6857 2Z"
-                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h3 class="counter">
-                                        @forelse($pagosventasmes as $pm)
-                                            @if ($pm->montototal != null)
-                                                s/{{ $pm->montototal }}
-                                            @else
-                                                s/ 0.00
-                                            @endif
-                                        @empty
-                                        @endforelse
-                                    </h3>
-                                    <p class="mb-0">Pagos de {{ $date->monthName }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="swiper-slide">
-                    <div class="card border-bottom border-5 border-0 border-info">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div class="bg-soft-info rounded p-3">
-                                    <svg fill="none" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                        viewBox="0 0 24 24">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M16.334 2.75H7.665C4.645 2.75 2.75 4.889 2.75 7.916V16.084C2.75 19.111 4.635 21.25 7.665 21.25H16.334C19.364 21.25 21.25 19.111 21.25 16.084V7.916C21.25 4.889 19.364 2.75 16.334 2.75Z"
-                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                        <path d="M12 7.91394L12 16.0859" stroke="currentColor" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M8.25205 11.6777L12 7.91373L15.748 11.6777" stroke="currentColor"
-                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h3 class="counter">
-                                        @forelse($pagosingresosmes as $pm)
-                                            @if ($pm->montototal != null)
-                                                s/{{ $pm->montototal }}
-                                            @else
-                                                s/ 0.00
-                                            @endif
-                                        @empty
-                                        @endforelse
-                                    </h3>
-                                    <p class="mb-0">Ingresos de {{ $date->monthName }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="swiper-slide">
-                    <div class="card border-bottom border-5 border-0 border-success">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div class="bg-soft-success rounded p-3">
-                                    <svg fill="none" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                        viewBox="0 0 24 24">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M9.59151 15.2068C13.2805 15.2068 16.4335 15.7658 16.4335 17.9988C16.4335 20.2318 13.3015 20.8068 9.59151 20.8068C5.90151 20.8068 2.74951 20.2528 2.74951 18.0188C2.74951 15.7848 5.88051 15.2068 9.59151 15.2068Z"
-                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M9.59157 12.0198C7.16957 12.0198 5.20557 10.0568 5.20557 7.63476C5.20557 5.21276 7.16957 3.24976 9.59157 3.24976C12.0126 3.24976 13.9766 5.21276 13.9766 7.63476C13.9856 10.0478 12.0356 12.0108 9.62257 12.0198H9.59157Z"
-                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                        <path
-                                            d="M16.4829 10.8815C18.0839 10.6565 19.3169 9.28253 19.3199 7.61953C19.3199 5.98053 18.1249 4.62053 16.5579 4.36353"
-                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                        <path
-                                            d="M18.5952 14.7322C20.1462 14.9632 21.2292 15.5072 21.2292 16.6272C21.2292 17.3982 20.7192 17.8982 19.8952 18.2112"
-                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h3 class="counter">{{ count($usuarios) - 1 }}</h3>
-                                    <p class="mb-0">Usuarios</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
 
 
             </ul>
@@ -267,7 +162,7 @@
 
         </div>
 
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
@@ -329,7 +224,7 @@
                 </div>
             </div>
 
-        </div>
+        </div> --}}
         {{-- porcentaje de faltass --}}
         <div class="row">
             <div class="col-md-6">
@@ -366,23 +261,48 @@
                                     <div class="table-responsive">
                                         <table id="transaction-table" class="table mb-0 table-striped" role="grid">
                                             <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <h6 class="mb-0">$1,833</h6>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-primary">
-                                                        hui_vxnnjigakm
-                                                    </td>
-                                                    <td class="text-dark">1 Hour Ago</td>
-                                                    <td class="text-end">
-                                                        <span class="badge rounded-pill bg-success ">Processed</span>
-                                                    </td>
-                                                </tr>
+                                                @php
+                                                    $numeracion = 1;
+
+                                                @endphp
+                                                @forelse($reportetarde as $repor)
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <h6 class="mb-0">{{ $repor->apellidos }},
+                                                                    {{ $repor->nombre }}</h6>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-primary">
+                                                            {{ $repor->nivel }} {{ $repor->grado }} {{ $repor->seccion }}
+                                                        </td>
+                                                        <td class="text-dark">{{ $repor->total_tardanzas }} /
+                                                            {{ $repor->total_dias }}</td>
+                                                        <td>
+                                                            <div class="mb-2 d-flex align-items-center">
+                                                                <h6>{{ round($repor->porcentaje_tardanza) }}%</h6>
+                                                            </div>
+                                                            <div class="shadow-none progress bg-primary-subtle w-100"
+                                                                style="height: 4px">
+                                                                <div class="progress-bar bg-primary"
+                                                                    data-toggle="progress-bar" role="progressbar"
+                                                                    aria-valuenow="{{ $repor->porcentaje_tardanza }}"
+                                                                    aria-valuemin="0" aria-valuemax="100"
+                                                                    style="width: 60%; transition: width 2s;">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    @php
+                                                        $numeracion++;
+
+                                                    @endphp
+                                                @empty
+                                                @endforelse
                                             </tbody>
                                         </table>
                                     </div>
+
                                 </div>
 
                                 <div class="tab-pane fade" id="nav-profile-11" role="tabpanel"
@@ -395,9 +315,11 @@
                                                     <th>N°</th>
                                                     <th>Nombre Completo</th>
                                                     <th>Aula</th>
-                                                    <th>T / T</th>
-                                                    <th>Porcentaje</th>
-
+                                                    <th>cantidad</th>
+                                                    <th>Tarde</th>
+                                                    <th>fecha</th>
+                                                    <th>porcentaje</th>
+                                                    <th>whatsapp</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -415,16 +337,13 @@
                                                             <p>{{ $repor->nivel }} {{ $repor->grado }}
                                                                 {{ $repor->seccion }}</p>
                                                         </td>
-
                                                         <td>
                                                             <p>{{ $repor->total_tardanzas }} / {{ $repor->total_dias }}
                                                             </p>
                                                         </td>
-
                                                         <td>
                                                             <p>{{ round($repor->porcentaje_tardanza) }}%</p>
                                                         </td>
-
 
                                                     </tr>
 
@@ -448,11 +367,14 @@
 
                                             <thead>
                                                 <tr>
-                                                    <th>N°</th>
+                                                     <th>N°</th>
                                                     <th>Nombre Completo</th>
                                                     <th>Aula</th>
-                                                    <th>F / T</th>
-                                                    <th>Porcentaje</th>
+                                                    <th>cantidad</th>
+                                                    <th>Tarde</th>
+                                                    <th>fecha</th>
+                                                    <th>porcentaje</th>
+                                                    <th>whatsapp</th>
 
                                                 </tr>
                                             </thead>
@@ -521,24 +443,19 @@
                         <label for="modulo" class="form-label">Nivel:</label>
                         <div class="input-group ">
 
-                          <select name="nivel" class="form-control" required>
-                           
-                            
-                              <option value="inicial" selected> Inicial </option>
-                            <option value="Primaria" > Primaria </option>
-                            <option value="Secundaria" > Secundaria </option>
-                            
+                            <select name="nivel" class="form-control" required>
+                                <option value="inicial" selected> Inicial </option>
+                                <option value="Primaria"> Primaria </option>
+                                <option value="Secundaria"> Secundaria </option>
 
-
-
-                           </select>
+                            </select>
 
 
                         </div>
                     </div>
 
-                    
-                    
+
+
 
                     <canvas id="graficoNivel"></canvas>
                 </div>

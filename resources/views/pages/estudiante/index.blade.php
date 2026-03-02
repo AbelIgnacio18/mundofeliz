@@ -69,6 +69,16 @@
                                 @method('POST')
                                 @csrf
                                 <div class="raw d-flex">
+                                    <div class="form-group col-md-6 p-1">
+                                        <label for="dni" class="form-label">DNI:</label>
+                                        <input type="text" class="form-control" id="dni_estudiante"
+                                            aria-describedby="dni" placeholder="87654321" name="dni"
+                                            value="{{ old('dni') }}">
+                                    </div>
+
+
+                                </div>
+                                <div class="raw d-flex">
                                     <div class="form-group col-md-4 p-1">
                                         <label for="nombre" class="form-label">Nombre:</label>
                                         <input type="text" class="form-control" id="nombre" aria-describedby="nombre"
@@ -91,15 +101,7 @@
 
                                 </div>
 
-                                <div class="raw d-flex">
-                                    <div class="form-group col-md-6 p-1">
-                                        <label for="dni" class="form-label">DNI:</label>
-                                        <input type="text" class="form-control" id="dni" aria-describedby="dni"
-                                            placeholder="87654321" name="dni" value="{{ old('dni') }}">
-                                    </div>
 
-
-                                </div>
                                 <br>
                                 <div class="raw d-flex">
 
@@ -118,6 +120,12 @@
                                             value="{{ old('celular') }}">
                                     </div>
                                 </div>
+                                <div class="form-group col-md-12 p-1">
+                                    <label for="Codigo" class="form-label">Dni: <span class="badge bg-alumko">Apoderado
+                                            obligatorio</span></label>
+                                    <input type="text" class="form-control" id="dniapoderado" aria-describedby="Codigo"
+                                        placeholder="8 digitos" name="dniapoderado" value="{{ old('dniapoderado') }}">
+                                </div>
 
                                 <div class="form-group">
                                     <label for="apellidom" class="form-label">Apoderado:</label>
@@ -126,12 +134,6 @@
                                         value="{{ old('apellidom') }}">
                                 </div>
 
-                                <div class="form-group col-md-12 p-1">
-                                    <label for="Codigo" class="form-label">Dni: <span class="badge bg-alumko">Apoderado
-                                            obligatorio</span></label>
-                                    <input type="text" class="form-control" id="Codigo" aria-describedby="Codigo"
-                                        placeholder="8 digitos" name="dniapoderado" value="{{ old('dniapoderado') }}">
-                                </div>
 
                                 <div class="form-group">
                                     <label for="apellidom" class="form-label">Dirección:</label>
@@ -244,14 +246,14 @@
                                     </a>
 
                                     <!-- <a class="btn btn-sm btn-icon text-danger" data-bs-toggle="modal" data-bs-original-title="Eliminar" data-bs-target="#model-delete-{{ $estud->id }}">
-                            <span class="btn-inner">
-                               <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
-                                  <path d="M19.3248 9.46826C19.3248 9.46826 18.7818 16.2033 18.4668 19.0403C18.3168 20.3953 17.4798 21.1893 16.1088 21.2143C13.4998 21.2613 10.8878 21.2643 8.27979 21.2093C6.96079 21.1823 6.13779 20.3783 5.99079 19.0473C5.67379 16.1853 5.13379 9.46826 5.13379 9.46826" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                  <path d="M20.708 6.23975H3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                  <path d="M17.4406 6.23973C16.6556 6.23973 15.9796 5.68473 15.8256 4.91573L15.5826 3.69973C15.4326 3.13873 14.9246 2.75073 14.3456 2.75073H10.1126C9.53358 2.75073 9.02558 3.13873 8.87558 3.69973L8.63258 4.91573C8.47858 5.68473 7.80258 6.23973 7.01758 6.23973" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                               </svg>
-                            </span>
-                         </a> -->
+                                <span class="btn-inner">
+                                   <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+                                      <path d="M19.3248 9.46826C19.3248 9.46826 18.7818 16.2033 18.4668 19.0403C18.3168 20.3953 17.4798 21.1893 16.1088 21.2143C13.4998 21.2613 10.8878 21.2643 8.27979 21.2093C6.96079 21.1823 6.13779 20.3783 5.99079 19.0473C5.67379 16.1853 5.13379 9.46826 5.13379 9.46826" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                      <path d="M20.708 6.23975H3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                      <path d="M17.4406 6.23973C16.6556 6.23973 15.9796 5.68473 15.8256 4.91573L15.5826 3.69973C15.4326 3.13873 14.9246 2.75073 14.3456 2.75073H10.1126C9.53358 2.75073 9.02558 3.13873 8.87558 3.69973L8.63258 4.91573C8.47858 5.68473 7.80258 6.23973 7.01758 6.23973" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                   </svg>
+                                </span>
+                             </a> -->
 
                                 </div>
 
@@ -276,4 +278,58 @@
         </div>
         {{ $items->links() }}
     </div>
+
+
+    <script>
+        // Escuchar cuando se escribe en el campo DNI
+
+        document.getElementById('dni_estudiante').addEventListener('input', async (e) => {
+            const dni = e.target.value;
+            console.log(dni);
+            if (dni.length === 8) {
+                // Mostrar un indicador de carga si es posible
+                try {
+                    const response = await fetch(
+                        `https://dniruc.apisperu.com/api/v1/dni/${dni}?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Imp1YWFua2FybTEwQGdtYWlsLmNvbSJ9.1R5TJpcNMHsvYLw6CKooKFAQF1fN_Kj_uMqtNAu4GDo`
+                        );
+                    const data = await response.json();
+                    console.log(data);
+                    if (data.success) {
+                        // Llenar los campos automáticamente
+                        document.getElementsByName('nombre')[0].value = data.nombres;
+                        document.getElementsByName('apellidop')[0].value = data.apellidoPaterno;
+                        document.getElementsByName('apellidom')[0].value = data.apellidoMaterno;
+                    } else {
+                        console.error("DNI no encontrado o error en la consulta");
+                    }
+                } catch (error) {
+                    console.error("Error de conexión con la API");
+                }
+            }
+        });
+        
+        document.getElementById('dniapoderado').addEventListener('input', async (e) => {
+            const dni = e.target.value;
+            console.log(dni);
+            if (dni.length === 8) {
+                // Mostrar un indicador de carga si es posible
+                try {
+                    const response = await fetch(
+                        `https://dniruc.apisperu.com/api/v1/dni/${dni}?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Imp1YWFua2FybTEwQGdtYWlsLmNvbSJ9.1R5TJpcNMHsvYLw6CKooKFAQF1fN_Kj_uMqtNAu4GDo`
+                        );
+                    const data = await response.json();
+                    console.log(data);
+                    if (data.success) {
+                        // Llenar los campos automáticamente
+                        document.getElementsByName('nombreapoderado')[0].value = data.nombres+' '+data.apellidoPaterno+' '+data.apellidoMaterno;
+                      
+                    } else {
+                        console.error("DNI no encontrado o error en la consulta");
+                    }
+                } catch (error) {
+                    console.error("Error de conexión con la API");
+                }
+            }
+        });
+    </script>
 @endsection

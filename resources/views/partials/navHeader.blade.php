@@ -214,6 +214,50 @@ if (isset($split_url[2])) {
 </div>
 
 @endif
+
+@if(isset($id) and ($link==="pension"))
+
+<div class="container-fluid iq-container my-n4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="flex-wrap d-flex justify-content-between align-items-center">
+
+                <div>
+                    <h2 class="h1"> <i class="icon">
+                            <svg width="64" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M9.87651 15.2063C6.03251 15.2063 2.74951 15.7873 2.74951 18.1153C2.74951 20.4433 6.01251 21.0453 9.87651 21.0453C13.7215 21.0453 17.0035 20.4633 17.0035 18.1363C17.0035 15.8093 13.7415 15.2063 9.87651 15.2063Z"
+                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M9.8766 11.886C12.3996 11.886 14.4446 9.841 14.4446 7.318C14.4446 4.795 12.3996 2.75 9.8766 2.75C7.3546 2.75 5.3096 4.795 5.3096 7.318C5.3006 9.832 7.3306 11.877 9.8456 11.886H9.8766Z"
+                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path d="M19.2036 8.66919V12.6792" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <path d="M21.2497 10.6741H17.1597" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                            </svg>
+                        </i>Detalle de Pagos de Pensión</h2>
+                    <p><a class="nav-link-ubicacion" href="{{ route('app.home') }}">Panel de Control</a>
+                        / Detalle</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="iq-header-img">
+    <img src="{{asset('assets/images/dashboard/top-header.webp')}}" alt="header"
+        class="theme-color-default-img img-fluid w-100 h-100 animated-scaleX">
+</div>
+
+@endif
+
+
 @if(isset($id) and ($link==="matricula-aula"))
 
 <div class="container-fluid iq-container my-n4">
@@ -255,6 +299,48 @@ if (isset($split_url[2])) {
 </div>
 
 @endif
+@if(isset($id) and ($link==="pension-aula"))
+
+<div class="container-fluid iq-container my-n4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="flex-wrap d-flex justify-content-between align-items-center">
+
+                <div>
+                    <h2 class="h1"> <i class="icon">
+                            <svg width="64" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M9.87651 15.2063C6.03251 15.2063 2.74951 15.7873 2.74951 18.1153C2.74951 20.4433 6.01251 21.0453 9.87651 21.0453C13.7215 21.0453 17.0035 20.4633 17.0035 18.1363C17.0035 15.8093 13.7415 15.2063 9.87651 15.2063Z"
+                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M9.8766 11.886C12.3996 11.886 14.4446 9.841 14.4446 7.318C14.4446 4.795 12.3996 2.75 9.8766 2.75C7.3546 2.75 5.3096 4.795 5.3096 7.318C5.3006 9.832 7.3306 11.877 9.8456 11.886H9.8766Z"
+                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                <path d="M19.2036 8.66919V12.6792" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <path d="M21.2497 10.6741H17.1597" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                            </svg>
+                        </i>Pensión</h2>
+                    <p><a class="nav-link-ubicacion" href="{{ route('app.home') }}">Panel de Control</a>
+                        / Detalle</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="iq-header-img">
+    <img src="{{asset('assets/images/dashboard/top-header.webp')}}" alt="header"
+        class="theme-color-default-img img-fluid w-100 h-100 animated-scaleX">
+</div>
+
+@endif
+
 
 
 @if(isset($id) and ($link==="pagos-realizados"))
@@ -869,6 +955,37 @@ if (isset($split_url[2])) {
     </div>
 </div>
 @endif
+@if (request()->is('dashboard/matriculas'))
+<div class="iq-navbar-header" style="height: 185px;">
+    <div class="container-fluid iq-container my-n4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="flex-wrap d-flex justify-content-between align-items-center">
+
+                    <div>
+                        <h2 class="h1"> <i class="icon">
+                                <svg width="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path opacity="0.4" d="M18.8088 9.021C18.3573 9.021 17.7592 9.011 17.0146 9.011C15.1987 9.011 13.7055 7.508 13.7055 5.675V2.459C13.7055 2.206 13.5036 2 13.253 2H7.96363C5.49517 2 3.5 4.026 3.5 6.509V17.284C3.5 19.889 5.59022 22 8.16958 22H16.0463C18.5058 22 20.5 19.987 20.5 17.502V9.471C20.5 9.217 20.299 9.012 20.0475 9.013C19.6247 9.016 19.1177 9.021 18.8088 9.021Z" fill="currentColor"></path>
+                                    <path opacity="0.4" d="M16.0842 2.56737C15.7852 2.25637 15.2632 2.47037 15.2632 2.90137V5.53837C15.2632 6.64437 16.1742 7.55437 17.2802 7.55437C17.9772 7.56237 18.9452 7.56437 19.7672 7.56237C20.1882 7.56137 20.4022 7.05837 20.1102 6.75437C19.0552 5.65737 17.1662 3.69137 16.0842 2.56737Z" fill="currentColor"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.97398 11.3877H12.359C12.77 11.3877 13.104 11.0547 13.104 10.6437C13.104 10.2327 12.77 9.89868 12.359 9.89868H8.97398C8.56298 9.89868 8.22998 10.2327 8.22998 10.6437C8.22998 11.0547 8.56298 11.3877 8.97398 11.3877ZM8.97408 16.3819H14.4181C14.8291 16.3819 15.1631 16.0489 15.1631 15.6379C15.1631 15.2269 14.8291 14.8929 14.4181 14.8929H8.97408C8.56308 14.8929 8.23008 15.2269 8.23008 15.6379C8.23008 16.0489 8.56308 16.3819 8.97408 16.3819Z" fill="currentColor"></path>
+                                </svg>
+
+                            </i>Pensión</h2>
+                        <p><a class="nav-link-ubicacion" href="{{ route('app.home') }}">Panel de Control</a> /
+                            Lista</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="iq-header-img">
+        <img src="../assets/images/dashboard/top-header.webp" alt="header"
+            class="theme-color-default-img img-fluid w-100 h-100 animated-scaleX">
+    </div>
+</div>
+@endif
+
 @if (request()->is('dashboard/roles-permission'))
 <div class="iq-navbar-header" style="height: 185px;">
     <div class="container-fluid iq-container my-n4">

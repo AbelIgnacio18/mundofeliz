@@ -9,6 +9,8 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ArticuloController;
 use App\Http\Controllers\IngresoController;
 use App\Http\Controllers\MatriculaController;
+use App\Http\Controllers\PensionController;
+
 use App\Http\Controllers\AulaController;
 use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\PersonalController;
@@ -51,6 +53,7 @@ Route::get('home', [App\Http\Controllers\PanelController::class, 'index'])->name
     Route::resource('/docentes',DocenteController::class);
     Route::resource('/personal',PersonalController::class);
     Route::resource('/matriculas',MatriculaController::class);
+    Route::resource('/pension',PensionController::class);
     Route::resource('/admin-egresos',EgresoController::class);
     Route::resource('/pagos-realizados',PagosController::class);
     Route::get('/pagos-realizados-data', [PagosController::class, 'datatable'])
@@ -75,6 +78,7 @@ Route::get('home', [App\Http\Controllers\PanelController::class, 'index'])->name
    
 
      Route::get('/matricula-aula/{id}',[App\Http\Controllers\MatriculaController::class, 'showaula'])->name('showaula');
+      Route::get('/pension-aula/{id}',[App\Http\Controllers\PensionController::class, 'showaula'])->name('pensionaula');
       Route::get('/reporte-pago',[App\Http\Controllers\PagosController::class, 'reportefectivohoy'])->name('reportefectivohoy');
 
 
