@@ -28,11 +28,11 @@ class AsistenciaestController extends Controller
     public function index(Request $request)
     {
         if ($request) {
-            $query = trim($request->get('idaula'));
+            $idaula = trim($request->get('idaula'));
             $fecha = trim($request->get('fecha'));
-            $searchText = trim($request->get('searchText'));
-
-
+              $estado = trim($request->get('estado'));
+            // $searchText = trim($request->get('searchText'));
+           
             if ($fecha == "") {
                 $fecha = date('Y-m-d');
             }
@@ -41,8 +41,16 @@ class AsistenciaestController extends Controller
                 ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
                 ->join('asistenciaests as a', 'm.id', '=', 'a.idmatricula')
                 ->join('aulas as au', 'm.idaula', '=', 'au.id')
-                ->select('a.id', 'e.nombre', 'e.apellidos', 'e.id as idestudiante', 'au.nivel', 'au.grado', 'au.seccion', 'a.created_at', 'a.updated_at', 'a.fechaentrada', 'a.estado', 'a.idanolectivo')
-                ->when($query, fn($q) => $q->where('m.idaula', $query))
+                ->select('a.id', 'e.nombre', 'e.apellidos', 'e.id as idestudiante', 'au.nivel', 'au.grado', 'au.seccion', 'a.created_at', 'a.updated_at', 'a.fechaentrada', 'a.estado', 'a.idanolectivo','a.observacion')
+                ->when($idaula, fn($q) => $q->where('m.idaula', $idaula))
+                ->when($estado !== null && $estado !== '', function ($q) use ($estado) {
+
+                    if ($estado === 'null') {
+                        $q->whereNull('a.estado'); // Falta
+                    } else {
+                        $q->where('a.estado', $estado); // 0 o 1
+                    }
+                })
                 ->whereDate('a.fechaentrada', $fecha)
                 ->where('a.idanolectivo', $anolect->id)->orderBy('e.apellidos', 'asc')
                 ->get();
@@ -52,7 +60,7 @@ class AsistenciaestController extends Controller
 
             $matricula = Matricula::where('idanolectivo', $anolect->id)->with('estudiante')->get();
         }
-        return view('pages.asistenciaest.index', compact('items', 'matricula', 'aula'));
+        return view('pages.asistenciaest.index', compact('items', 'matricula', 'aula','fecha','estado','idaula'));
     }
 
     /**
@@ -127,11 +135,9 @@ class AsistenciaestController extends Controller
 
         if (!$asistencia) {
             return response()->json(['mensaje' => 'Registro no encontrado']);
-        }
-        $a = ($request->estado == 4) ? null : $request->estado;
+        };
 
-
-        $asistencia->estado = $a;
+        $asistencia->estado = $request->estado;
         $asistencia->save();
 
         // 🔥 Regla automática
@@ -152,6 +158,26 @@ class AsistenciaestController extends Controller
         //         ]);
         //     }
         // }
+        return response()->json([
+            'mensaje' => 'Asistencia Actualizada'
+        ]);
+    }
+
+     public function ActualizarObservacion(Request $request, $id)
+    {
+        $asistencia = Asistenciaest::find($id);
+
+        if ($request->has('observacion')) {
+        $asistencia->observacion = $request->observacion;
+    }
+
+    if ($request->has('observacion')) {
+        $asistencia->observacion = $request->observacion;
+    }
+
+    $asistencia->save();
+
+        
         return response()->json([
             'mensaje' => 'Asistencia Actualizada'
         ]);

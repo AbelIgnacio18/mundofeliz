@@ -62,29 +62,108 @@
 
     @include('pages.asistenciaest.create')
 
+    <div class="row mb-4 p-2">
 
+        <!-- MITAD IZQUIERDA: FORM -->
+        <div class="col-md-6">
+            <form action="asistencia-estudiantes" method="GET" autocomplete="off">
+                @csrf
+
+                <div class="row align-items-end g-2">
+
+                    <!-- Fecha -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Fecha</label>
+                        <input type="date" class="form-control" name="fecha"
+                            value="{{ $fecha == '' ? date('Y-m-d') : $fecha }}">
+                    </div>
+
+                    <!-- Aula -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Aula</label>
+                        <select name="idaula" class="form-select">
+                            <option value="">Todos</option>
+                            @foreach ($aula as $au)
+                                <option value="{{ $au->id }}" {{ $idaula == $au->id ? 'selected' : '' }}>
+                                    {{ $au->nivel }} {{ $au->grado }} {{ $au->seccion }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Asistencia</label>
+
+                        <select name="estado" class="form-select">
+                            <option value="">Todos</option>
+                            <option value="1" {{ request('estado') === '1' ? 'selected' : '' }}>Asistió</option>
+                            <option value="0" {{ request('estado') === '0' ? 'selected' : '' }}>Tarde</option>
+                            <option value="null" {{ request('estado') === 'null' ? 'selected' : '' }}>Falta</option>
+                        </select>
+                    </div>
+
+                    <!-- Botón -->
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-info d-flex align-items-center justify-content-center"
+                            title="Buscar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"
+                                    fill="none" />
+                                <line x1="16.5" y1="16.5" x2="22" y2="22" stroke="currentColor"
+                                    stroke-width="2" />
+                            </svg>
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+        <!-- MITAD DERECHA: LEYENDA -->
+        <div class="col-md-6 d-flex align-items-center">
+
+            <div class="card shadow-sm w-100">
+                <div class="card-body py-2">
+
+
+
+                    <span class="badge bg-success me-2">A</span> Asistió
+
+                    <span class="badge bg-warning ms-3 me-2">T</span> Tarde
+
+                    <span class="badge bg-danger ms-3 me-2">F</span> Falta
+
+                    <span class="badge bg-alumko ms-3 me-2">TJ</span> Tarde Justificada
+
+                    <span class="badge bg-secondary ms-3 me-2">FT</span> Falta Justificada
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
 
     <div class="card-body p-0">
         <div class="table-responsive mt-4">
-     <table id="user-list-table" class="table table-striped" role="grid" data-toggle="data-table">
+            <table id="user-list-table" class="table table-striped" role="grid" data-toggle="data-table">
                 <thead>
                     <tr>
                         <th>N°</th>
                         <th>Nombres</th>
                         <th>Aula</th>
-                        <th>Entrada/Salida</th>
-
-                        <th>Estado</th>
-
+                        <th>Asistencia</th>
+                        <th>Entr./Sal.</th>
+                        <th>Observación</th>
                         <th>Acciones</th>
                     </tr>
 
                 </thead>
                 <tbody>
                     @php
-                            $numeracion=1;
- 
-                        @endphp
+                        $numeracion = 1;
+
+                    @endphp
                     @forelse($items as $item)
                         <tr>
                             <td>
@@ -96,43 +175,100 @@
                                 {{ $item->apellidos }}, {{ $item->nombre }}
                             </td>
                             <td>
-                                 {{ $item->nivel }} {{ $item->grado }} {{ $item->seccion }}
-                            </td>
-                            <td>
-
-                                {{ Carbon\Carbon::parse($item->created_at)->translatedFormat('l, h:i A') }} /
-                                @if ($item->estado === null)
-                                    {{ Carbon\Carbon::parse($item->updated_at)->translatedFormat('l, h:i A') }}
-                                @endif
-                                @if ($item->created_at == $item->updated_at)
-                                No Marco
-                                @else
-                                    {{ Carbon\Carbon::parse($item->updated_at)->translatedFormat('l, h:i A') }}
-                                @endif
-
+                                {{ $item->nivel }} {{ $item->grado }} {{ $item->seccion }}
                             </td>
 
                             <td>
+                                <div class="dropdown position-static">
+                                    <button data-id="{{ $item->id }}"
+                                        class="btn btn-sm 
+                                @switch($item->estado)
+                                    @case(1) btn-success @break
+                                    @case(0) btn-warning @break
+                                    @case(4) btn-danger @break
+                                    @case(2) btn-primary @break
+                                    @case(3) btn-secondary @break
+                                    @default btn-outline-secondary
+                                @endswitch dropdown-toggle"
+                                        type="button" data-bs-toggle="dropdown">
 
-                                <h6>
-                                    @if ($item->estado === 0)
-                                        <span class="badge bg-warning" style="font-size: 1em;">Tarde</span>
-                                    @endif
+                                        @switch($item->estado)
+                                            @case(1)
+                                                A
+                                            @break
 
-                                    @if ($item->estado === 1)
-                                        <span class="badge bg-success" style="font-size: 1em;">Asistió</span>
-                                    @endif
+                                            @case(0)
+                                                T
+                                            @break
 
-                                    @if ($item->estado === null)
-                                        <span class="badge bg-danger" style="font-size: 1em;">Faltó</span>
-                                    @endif
+                                            @case(4)
+                                                F
+                                            @break
 
-                                </h6>
+                                            @case(2)
+                                                TJ
+                                            @break
 
+                                            @case(3)
+                                                FJ
+                                            @break
+
+                                            @default
+                                                -
+                                        @endswitch
+
+                                    </button>
+
+                                    <ul class="dropdown-menu shadow">
+                                        <li><a class="dropdown-item"
+                                                onclick="actualizarEstado(1, {{ $item->id }})">🟢 Asistió</a></li>
+                                        <li><a class="dropdown-item"
+                                                onclick="actualizarEstado(0, {{ $item->id }})">🟠 Tarde</a></li>
+                                        <li><a class="dropdown-item"
+                                                onclick="actualizarEstado(4, {{ $item->id }})">🔴 Falta</a></li>
+                                        <li><a class="dropdown-item"
+                                                onclick="actualizarEstado(2, {{ $item->id }})">🟣 Tarde
+                                                Justificada</a></li>
+                                        <li><a class="dropdown-item"
+                                                onclick="actualizarEstado(3, {{ $item->id }})">🔵
+                                                Falta
+                                                Justificada</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td class="small">
+                                <div>
+                                    <strong>{{ Carbon\Carbon::parse($item->created_at)->format('h:i A') }}</strong>
+                                </div>
+                                <div class="text-muted">
+                                    {{ $item->created_at != $item->updated_at ? Carbon\Carbon::parse($item->updated_at)->format('h:i A') : '—' }}
+                                </div>
+                            </td>
+                            {{-- value="{{ $item->observacion }}" --}}
+                            <td>
+                                <input type="text" class="form-control"
+                                    onblur="actualizarObservacion(this, {{ $item->id }})"
+                                    value="{{ $item->observacion }}">
                             </td>
 
                             <td>
                                 <div class="flex align-items-center list-user-action">
+                                    <a class="btn btn-sm btn-icon text-success" data-bs-original-title="Ver"
+                                        href="{{ route('app.asist-estudiante.show', $item->idestudiante) }}">
+                                        <span class="btn-inner">
+                                            <svg width="20" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M15.1614 12.0531C15.1614 13.7991 13.7454 15.2141 11.9994 15.2141C10.2534 15.2141 8.83838 13.7991 8.83838 12.0531C8.83838 10.3061 10.2534 8.89111 11.9994 8.89111C13.7454 8.89111 15.1614 10.3061 15.1614 12.0531Z"
+                                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M11.998 19.355C15.806 19.355 19.289 16.617 21.25 12.053C19.289 7.48898 15.806 4.75098 11.998 4.75098H12.002C8.194 4.75098 4.711 7.48898 2.75 12.053C4.711 16.617 8.194 19.355 12.002 19.355H11.998Z"
+                                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round"></path>
+                                            </svg>
+                                        </span>
+                                    </a>
 
                                     <a class="btn btn-sm btn-icon text-danger" data-bs-toggle="modal"
                                         data-bs-original-title="Eliminar"
@@ -154,39 +290,122 @@
                                         </span>
                                     </a>
 
-                                    <a class="btn btn-sm btn-icon text-success" data-bs-original-title="Ver"
-                                        href="{{ route('app.asist-estudiante.show', $item->idestudiante) }}">
-                                        <span class="btn-inner">
-                                            <svg width="20" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M15.1614 12.0531C15.1614 13.7991 13.7454 15.2141 11.9994 15.2141C10.2534 15.2141 8.83838 13.7991 8.83838 12.0531C8.83838 10.3061 10.2534 8.89111 11.9994 8.89111C13.7454 8.89111 15.1614 10.3061 15.1614 12.0531Z"
-                                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M11.998 19.355C15.806 19.355 19.289 16.617 21.25 12.053C19.289 7.48898 15.806 4.75098 11.998 4.75098H12.002C8.194 4.75098 4.711 7.48898 2.75 12.053C4.711 16.617 8.194 19.355 12.002 19.355H11.998Z"
-                                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                            </svg>
-                                        </span>
-                                    </a>
+
 
                                 </div>
                             </td>
                         </tr>
 
                         @include('pages.asistenciaest.modal')
-                       @php
+                        @php
                             $numeracion++;
 
                         @endphp
-                    @empty
-                    @endforelse
+                        @empty
+                        @endforelse
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
 
-   
-@endsection
+        <script>
+            function actualizarEstado(estado, idAsistencia) {
+
+                let url = "{{ route('app.asist-estudiante.update', ':id') }}";
+                url = url.replace(':id', idAsistencia);
+
+                fetch(url, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                        },
+                        body: JSON.stringify({
+                            _method: "PUT",
+                            estado: estado
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Actualizado',
+                            text: data.mensaje,
+                            timer: 1000,
+                            showConfirmButton: false
+                        });
+
+                        // 🔥 Actualizar botón visualmente sin recargar
+                        actualizarBotonVisual(idAsistencia, estado);
+
+                    })
+                    .catch(error => console.error("Error:", error));
+            }
+
+            function actualizarBotonVisual(id, estado) {
+
+                const button = document.querySelector(`[data-id="${id}"]`);
+
+                if (!button) return;
+
+                button.className = "btn btn-sm dropdown-toggle";
+
+                switch (parseInt(estado)) {
+                    case 1:
+                        button.classList.add("btn-success");
+                        button.innerText = "A";
+                        break;
+                    case 0:
+                        button.classList.add("btn-warning");
+                        button.innerText = "T";
+                        break;
+                    case 4:
+                        button.classList.add("btn-danger");
+                        button.innerText = "F";
+                        break;
+                    case 2:
+                        button.classList.add("btn-primary");
+                        button.innerText = "TJ";
+                        break;
+                    case 3:
+                        button.classList.add("btn-secondary");
+                        button.innerText = "FJ";
+                        break;
+                    default:
+                        button.classList.add("btn-outline-secondary");
+                        button.innerText = "-";
+                }
+            }
+
+            function actualizarObservacion(elemento, idAsistencia) {
+
+                let url = "{{ route('app.asist-observacion', ':id') }}";
+                url = url.replace(':id', idAsistencia);
+
+                fetch(url, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                        },
+                        body: JSON.stringify({
+                            _method: "PUT",
+                            observacion: elemento.value
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Actualizado',
+                            text: data.mensaje,
+                            timer: 1000,
+                            showConfirmButton: false
+                        });
+                    })
+                    .catch(error => console.error("Error:", error));
+            }
+        </script>
+    @endsection

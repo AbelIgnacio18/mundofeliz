@@ -28,7 +28,7 @@
 
                <div class="form-group">
                   <label for="nivelS" class="form-label">Hora de Entrada:</label>
-                  <input type="time" class="form-control" id="nivelS" aria-describedby="nivelS" name="hora-entrada" step="1">
+                  <input type="time" class="form-control" id="hora-entrada" aria-describedby="nivelS" name="hora-entrada" step="1" value="<?= date('H:i') ?>">
                </div>
 
                <div class="text-start mt-2">
@@ -40,3 +40,30 @@
       </div>
    </div>
 </div>
+
+<script>
+    let intervaloHora;
+
+    function actualizarHora() {
+        const ahora = new Date();
+        const horas = ahora.getHours().toString().padStart(2, '0');
+        const minutos = ahora.getMinutes().toString().padStart(2, '0');
+        const segundos = ahora.getSeconds().toString().padStart(2, '0');
+
+        document.getElementById('hora-entrada').value =
+            `${horas}:${minutos}:${segundos}`;
+    }
+
+    const modal = document.getElementById('staticBackdrop-1');
+
+    // Cuando el modal se abre
+    modal.addEventListener('shown.bs.modal', function () {
+        actualizarHora(); // poner hora inmediata
+        intervaloHora = setInterval(actualizarHora, 1000); // actualizar cada segundo
+    });
+
+    // Cuando el modal se cierra
+    modal.addEventListener('hidden.bs.modal', function () {
+        clearInterval(intervaloHora); // detener contador
+    });
+</script>

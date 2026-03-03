@@ -74,10 +74,9 @@ Route::get('home', [App\Http\Controllers\PanelController::class, 'index'])->name
      Route::get('/reporte-asistencia',[App\Http\Controllers\AsistenciaestController::class, 'reporteasistencia'])->name('reporteasistencia');
      Route::get('/reporte-asistencia-docente',[App\Http\Controllers\AsistenciaController::class, 'reporteasistencia'])->name('reporteasistenciadocente');
     Route::get('/reporte-matricula',[App\Http\Controllers\MatriculaController::class, 'reportematricula'])->name('reportematricula');
+    Route::put('/asistencia-observacion/{id}',[AsistenciaestController::class, 'ActualizarObservacion'])->name('asist-observacion');
 
-   
-
-     Route::get('/matricula-aula/{id}',[App\Http\Controllers\MatriculaController::class, 'showaula'])->name('showaula');
+    Route::get('/matricula-aula/{id}',[App\Http\Controllers\MatriculaController::class, 'showaula'])->name('showaula');
       Route::get('/pension-aula/{id}',[App\Http\Controllers\PensionController::class, 'showaula'])->name('pensionaula');
       Route::get('/reporte-pago',[App\Http\Controllers\PagosController::class, 'reportefectivohoy'])->name('reportefectivohoy');
 
