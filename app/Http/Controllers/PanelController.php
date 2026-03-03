@@ -100,6 +100,7 @@ class PanelController extends Controller
                     'e.id',
                     'e.nombre',
                     'e.apellidos',
+                    'e.celular',
                     'au.nivel',
                     'au.grado',
                     'au.seccion',
@@ -107,10 +108,11 @@ class PanelController extends Controller
                     DB::raw('SUM(CASE WHEN a.estado IS NULL THEN 1 ELSE 0 END) as total_faltas'),
                     DB::raw('(SUM(CASE WHEN a.estado IS NULL THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) as porcentaje_faltas')
                 )
-                ->groupBy('e.id', 'e.nombre', 'e.apellidos', 'au.nivel', 'au.grado', 'au.seccion')
+                ->groupBy('e.id', 'e.nombre', 'e.apellidos', 'e.celular', 'au.nivel', 'au.grado', 'au.seccion')
                 ->havingRaw('(SUM(CASE WHEN a.estado IS NULL THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) >= 10')
                 ->orderByDesc('porcentaje_faltas')
                 ->limit(10)->get();
+
             $reportetarde = DB::table('asistenciaests as a')
                 ->join('matriculas as m', 'a.idmatricula', '=', 'm.id')
                 ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
@@ -121,6 +123,7 @@ class PanelController extends Controller
                     'e.id',
                     'e.nombre',
                     'e.apellidos',
+                    'e.celular',
                     'au.nivel',
                     'au.grado',
                     'au.seccion',
@@ -135,6 +138,7 @@ class PanelController extends Controller
                     'e.id',
                     'e.nombre',
                     'e.apellidos',
+                    'e.celular',
                     'au.nivel',
                     'au.grado',
                     'au.seccion'
@@ -145,34 +149,79 @@ class PanelController extends Controller
                 ->orderByDesc('porcentaje_tardanza')
                 ->limit(10)
                 ->get();
+
+            $asistenciaPorcentaje = DB::table('asistenciaests as a')
+                ->join('matriculas as m', 'a.idmatricula', '=', 'm.id')
+                ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
+                ->join('aulas as au', 'm.idaula', '=', 'au.id')
+                ->whereBetween('a.fechaentrada', [$fechaInicio, $fechaFin])
+                ->where('a.idanolectivo', $anolect->estado)
+
+                ->select(
+                    'e.id',
+                    'e.nombre',
+                    'e.apellidos',
+                    'e.celular',
+                    'au.nivel',
+                    'au.grado',
+                    'au.seccion',
+
+                    DB::raw('COUNT(*) as total_dias'),
+
+                    DB::raw('SUM(CASE WHEN a.estado = 1 THEN 1 ELSE 0 END) as total_asistencias'),
+
+                    DB::raw('
+            ROUND(
+                (SUM(CASE WHEN a.estado = 1 THEN 1 ELSE 0 END) * 100.0 / COUNT(*)),
+                2
+            ) as porcentaje_asistencia
+        ')
+                )
+
+                ->groupBy(
+                    'e.id',
+                    'e.nombre',
+                    'e.apellidos',
+                    'e.celular',
+                    'au.nivel',
+                    'au.grado',
+                    'au.seccion'
+                )
+
+                ->orderByDesc('porcentaje_asistencia')
+                ->get();
+                
+                
+                
+                // generar la tiorta
+        $nivel = $request->nivel; // inicial, primaria, secundaria
+        $inicio = $request->filled('fechainicio')
+            ? Carbon::parse($request->fechainicio)
+            : Carbon::parse($anolect->inicio);
+
+        $fin = $request->filled('fechafin')
+            ? Carbon::parse($request->fechafin)
+            : Carbon::today();
+
+        $datos = DB::table('asistenciaests as a')
+            ->join('matriculas as m', 'a.idmatricula', '=', 'm.id')
+            ->join('aulas as au', 'm.idaula', '=', 'au.id')
+            ->where('au.nivel', 'inicial')
+            ->whereBetween('a.fechaentrada', [$inicio, $fin])
+            //   ->where('a.fechaentrada', date('Y-m-d'))
+            ->select(
+                DB::raw("SUM(CASE WHEN a.estado = 'asistio' THEN 1 ELSE 0 END) as puntual"),
+                DB::raw("SUM(CASE WHEN a.estado = 'tarde' THEN 1 ELSE 0 END) as tarde"),
+                DB::raw("SUM(CASE WHEN a.estado = 'falta' THEN 1 ELSE 0 END) as falta")
+            )
+            ->first();
         }
 
 
-// generar la tiorta
-$nivel = $request->nivel; // inicial, primaria, secundaria
-   $inicio = $request->filled('fechainicio')
-                ? Carbon::parse($request->fechainicio)
-                : Carbon::parse($anolect->inicio);
+       
 
-            $fin = $request->filled('fechafin')
-                ? Carbon::parse($request->fechafin)
-                : Carbon::today();
-
-$datos = DB::table('asistenciaests as a')
-    ->join('matriculas as m', 'a.idmatricula', '=', 'm.id')
-    ->join('aulas as au', 'm.idaula', '=', 'au.id')
-    ->where('au.nivel', 'inicial')
-    ->whereBetween('a.fechaentrada', [$inicio, $fin])
-    //   ->where('a.fechaentrada', date('Y-m-d'))
-    ->select(
-        DB::raw("SUM(CASE WHEN a.estado = 'asistio' THEN 1 ELSE 0 END) as puntual"),
-        DB::raw("SUM(CASE WHEN a.estado = 'tarde' THEN 1 ELSE 0 END) as tarde"),
-        DB::raw("SUM(CASE WHEN a.estado = 'falta' THEN 1 ELSE 0 END) as falta")
-    )
-    ->first();
-
-// dd($inicio,$fin);
-//  dd($datos);
+        // dd($inicio,$fin);
+        //  dd($datos);
 
         return view('pages.dashboard', compact(
             'date',
@@ -188,32 +237,34 @@ $datos = DB::table('asistenciaests as a')
             'reporte',
             'reportetarde',
             'fechaInicio',
-            'fechaFin', 'datos'
+            'fechaFin',
+            'datos',
+            'asistenciaPorcentaje'
         ));
     }
 
-public function asistenciaPorNivel(Request $request)
-{
-    $nivel = $request->nivel;
+    public function asistenciaPorNivel(Request $request)
+    {
+        $nivel = $request->nivel;
 
-    $datos = DB::table('asistenciaests as a')
-    ->join('matriculas as m', 'a.idmatricula', '=', 'm.id')
-    ->join('aulas as au', 'm.idaula', '=', 'au.id')
-    ->where('au.nivel', 'inicial')
-     // ->whereBetween('a.fechaentrada', [$inicio, $fin])
-    ->select(
-        DB::raw("SUM(CASE WHEN a.estado = 'asistio' THEN 1 ELSE 0 END) as puntual"),
-        DB::raw("SUM(CASE WHEN a.estado = 'tarde' THEN 1 ELSE 0 END) as tarde"),
-        DB::raw("SUM(CASE WHEN a.estado = 'falta' THEN 1 ELSE 0 END) as falta")
-    )
-    ->first();
+        $datos = DB::table('asistenciaests as a')
+            ->join('matriculas as m', 'a.idmatricula', '=', 'm.id')
+            ->join('aulas as au', 'm.idaula', '=', 'au.id')
+            ->where('au.nivel', 'inicial')
+            // ->whereBetween('a.fechaentrada', [$inicio, $fin])
+            ->select(
+                DB::raw("SUM(CASE WHEN a.estado = 'asistio' THEN 1 ELSE 0 END) as puntual"),
+                DB::raw("SUM(CASE WHEN a.estado = 'tarde' THEN 1 ELSE 0 END) as tarde"),
+                DB::raw("SUM(CASE WHEN a.estado = 'falta' THEN 1 ELSE 0 END) as falta")
+            )
+            ->first();
 
-    return response()->json([
-        'puntual' => (int) $datos->puntual,
-        'tarde' => (int) $datos->tarde,
-        'falta' => (int) $datos->falta,
-    ]);
-}
+        return response()->json([
+            'puntual' => (int) $datos->puntual,
+            'tarde' => (int) $datos->tarde,
+            'falta' => (int) $datos->falta,
+        ]);
+    }
 
     /**
      * Store a newly created resource in storage.

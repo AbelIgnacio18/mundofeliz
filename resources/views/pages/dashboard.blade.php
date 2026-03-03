@@ -227,7 +227,7 @@
         </div> --}}
         {{-- porcentaje de faltass --}}
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-9">
                 <div class="card">
 
 
@@ -260,38 +260,44 @@
                                     aria-labelledby="nav-home-11-tab">
                                     <div class="table-responsive">
                                         <table id="transaction-table" class="table mb-0 table-striped" role="grid">
+                                                 <thead>
+                                                <tr>
+                                                    {{-- <th>N°</th> --}}
+                                                    <th>Nombre Completo</th>
+                                                    <th>Aula</th>
+                                                    <th>total registro</th>
+                                                 
+                                                    <th>Porcentaje</th>
+                                                </tr>
+                                            </thead>
                                             <tbody>
                                                 @php
                                                     $numeracion = 1;
 
                                                 @endphp
-                                                @forelse($reportetarde as $repor)
+                                                @forelse($asistenciaPorcentaje as $repor)
                                                     <tr>
                                                         <td>
                                                             <div class="d-flex align-items-center">
-                                                                <h6 class="mb-0">{{ $repor->apellidos }},
-                                                                    {{ $repor->nombre }}</h6>
+                                                                {{ $repor->apellidos }},
+                                                                    {{ $repor->nombre }}
                                                             </div>
                                                         </td>
-                                                        <td class="text-primary">
+                                                        <td >
                                                             {{ $repor->nivel }} {{ $repor->grado }} {{ $repor->seccion }}
                                                         </td>
-                                                        <td class="text-dark">{{ $repor->total_tardanzas }} /
-                                                            {{ $repor->total_dias }}</td>
-                                                        <td>
-                                                            <div class="mb-2 d-flex align-items-center">
-                                                                <h6>{{ round($repor->porcentaje_tardanza) }}%</h6>
-                                                            </div>
-                                                            <div class="shadow-none progress bg-primary-subtle w-100"
-                                                                style="height: 4px">
-                                                                <div class="progress-bar bg-primary"
-                                                                    data-toggle="progress-bar" role="progressbar"
-                                                                    aria-valuenow="{{ $repor->porcentaje_tardanza }}"
-                                                                    aria-valuemin="0" aria-valuemax="100"
-                                                                    style="width: 60%; transition: width 2s;">
+                                                        <td class="text-dark">{{ $repor->total_asistencias }} </td>
+                                                           <td>
+                                                            <div class="progress" style="height: 10px;">
+                                                                <div class="progress-bar {{ $repor->total_asistencias  >= 3 ? 'bg-info' : 'bg-danger' }}"
+                                                                    role="progressbar"
+                                                                    style="width: {{ round($repor->porcentaje_asistencia) }}%">
                                                                 </div>
                                                             </div>
+                                                            <small>{{ round($repor->porcentaje_asistencia) }}%</small>
                                                         </td>
+
+                                                
                                                     </tr>
                                                     @php
                                                         $numeracion++;
@@ -315,9 +321,9 @@
                                                     <th>N°</th>
                                                     <th>Nombre Completo</th>
                                                     <th>Aula</th>
-                                                    <th>cantidad</th>
-                                                    <th>Tarde</th>
-                                                    <th>fecha</th>
+                                                    <th>tardanzas /total registro</th>
+                                                    {{-- <th>Tarde</th> --}}
+                                     
                                                     <th>porcentaje</th>
                                                     <th>whatsapp</th>
                                                 </tr>
@@ -330,8 +336,37 @@
                                                 @forelse($reportetarde as $repor)
                                                     <tr>
                                                         <td>{{ $numeracion }}</td>
+                                                        @php
+                                                            // Suponiendo que $repor->total_faltas representa las tardanzas en esta vista
+                                                            $numeros = explode('/', $repor->celular); // Divide por la barra '/'
+                                                            $celularMama = isset($numeros[0])
+                                                                ? trim($numeros[0])
+                                                                : null;
+                                                            $celularPapa = isset($numeros[1])
+                                                                ? trim($numeros[1])
+                                                                : null;
+
+                                                            // Elegimos el primer número disponible para el botón principal
+                                                            $celularDestino = $celularMama ?? $celularPapa;
+
+                                                            $mensaje =
+                                                                'Estimado padre de familia de la I.E.P. Mundo Feliz, le informamos que su menor hijo(a) ' .
+                                                                $repor->nombre .
+                                                                ' ' .
+                                                                $repor->apellidos .
+                                                                ' registra ' .
+                                                                $repor->total_tardanzas  .
+                                                                ' tardanzas a la fecha. Por favor, tomar las medidas necesarias.';
+                                                            $urlWhatsapp =
+                                                                'https://wa.me/51' .
+                                                                $celularDestino .
+                                                                '?text=' .
+                                                                urlencode($mensaje);
+                                                        @endphp
+
+
                                                         <td>
-                                                            <p>{{ $repor->apellidos }}, {{ $repor->nombre }}</p>
+                                                            {{ $repor->apellidos }}, {{ $repor->nombre }}</p>
                                                         </td>
                                                         <td>
                                                             <p>{{ $repor->nivel }} {{ $repor->grado }}
@@ -341,8 +376,40 @@
                                                             <p>{{ $repor->total_tardanzas }} / {{ $repor->total_dias }}
                                                             </p>
                                                         </td>
+                                                   
+
                                                         <td>
-                                                            <p>{{ round($repor->porcentaje_tardanza) }}%</p>
+                                                            <div class="progress" style="height: 10px;">
+                                                                <div class="progress-bar {{ $repor->total_tardanzas  >= 3 ? 'bg-info' : 'bg-danger' }}"
+                                                                    role="progressbar"
+                                                                    style="width: {{ round($repor->porcentaje_tardanza) }}%">
+                                                                </div>
+                                                            </div>
+                                                            <small>{{ round($repor->porcentaje_tardanza) }}%</small>
+                                                        </td>
+                                                   
+                                                        <td class="text-center">
+                                                            @if ($repor->total_tardanzas >= 3 && $celularDestino)
+                                                                <div class="btn-group" role="group">
+                                                                    {{-- Botón Principal (Mamá) --}}
+                                                                    <a href="https://wa.me/51{{ $celularMama }}?text={{ urlencode($mensaje) }}"
+                                                                        target="_blank" class="btn btn-success btn-sm"
+                                                                        title="Notificar a Mamá">
+                                                                        <i class="fab fa-whatsapp"></i> M
+                                                                    </a>
+
+                                                                    {{-- Botón Secundario (Si existe Papá) --}}
+                                                                    @if ($celularPapa)
+                                                                        <a href="https://wa.me/51{{ $celularPapa }}?text={{ urlencode($mensaje) }}"
+                                                                            target="_blank" class="btn btn-info btn-sm"
+                                                                            title="Notificar a Papá">
+                                                                            <i class="fab fa-whatsapp"></i> P
+                                                                        </a>
+                                                                    @endif
+                                                                </div>
+                                                            @else
+                                                                <span class="text-muted"><small>Sin acción</small></span>
+                                                            @endif
                                                         </td>
 
                                                     </tr>
@@ -364,56 +431,101 @@
                                     aria-labelledby="nav-contact-11-tab">
                                     <div class="table-responsive">
                                         <table id="transaction-table-2" class="table mb-0 table-striped" role="grid">
-
                                             <thead>
                                                 <tr>
-                                                     <th>N°</th>
+                                                    <th>N°</th>
                                                     <th>Nombre Completo</th>
                                                     <th>Aula</th>
-                                                    <th>cantidad</th>
-                                                    <th>Tarde</th>
-                                                    <th>fecha</th>
-                                                    <th>porcentaje</th>
-                                                    <th>whatsapp</th>
-
+                                                    <th>Cantidad (Tardanzas)</th>
+                                                
+                                                    <th>Porcentaje</th>
+                                                    <th>Acción WhatsApp</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @php
-                                                    $numeracion = 1;
-
-                                                @endphp
+                                                @php $numeracion = 1; @endphp
                                                 @forelse($reporte as $repor)
+                                                    @php
+                                                        // Suponiendo que $repor->total_faltas representa las tardanzas en esta vista
+                                                        $tardanzas = $repor->total_faltas;
+
+                                                        $numeros = explode('/', $repor->celular); // Divide por la barra '/'
+                                                        $celularMama = isset($numeros[0]) ? trim($numeros[0]) : null;
+                                                        $celularPapa = isset($numeros[1]) ? trim($numeros[1]) : null;
+
+                                                        // Elegimos el primer número disponible para el botón principal
+                                                        $celularDestino = $celularMama ?? $celularPapa;
+
+                                                        $mensaje =
+                                                            'Estimado padre de familia de la I.E.P. Mundo Feliz, le informamos que su menor hijo(a) ' .
+                                                            $repor->nombre .
+                                                            ' ' .
+                                                            $repor->apellidos .
+                                                            ' registra ' .
+                                                            $tardanzas .
+                                                            ' tardanzas a la fecha. Por favor, tomar las medidas necesarias.';
+                                                        $urlWhatsapp =
+                                                            'https://wa.me/51' .
+                                                            $celularDestino .
+                                                            '?text=' .
+                                                            urlencode($mensaje);
+                                                    @endphp
                                                     <tr>
                                                         <td>{{ $numeracion }}</td>
                                                         <td>
-                                                            <p>{{ $repor->apellidos }}, {{ $repor->nombre }}</p>
+                                                            {{ $repor->apellidos }}, {{ $repor->nombre }}
                                                         </td>
                                                         <td>
-                                                            <p>{{ $repor->nivel }} {{ $repor->grado }}
-                                                                {{ $repor->seccion }}</p>
+                                                            {{ $repor->nivel }} {{ $repor->grado }} {{ $repor->seccion }}
                                                         </td>
-
                                                         <td>
-                                                            <p>{{ $repor->total_faltas }} / {{ $repor->total_dias }}</p>
+                                                            {{-- UX: Resaltar en rojo si llega a 3 o más --}}
+                                                            <span
+                                                                class="badge {{ $tardanzas >= 3 ? 'bg-danger' : 'bg-warning' }}">
+                                                                {{ $tardanzas }} / {{ $repor->total_dias }}
+                                                            </span>
                                                         </td>
-
+                                                    
                                                         <td>
-                                                            <p>{{ round($repor->porcentaje_faltas) }}%</p>
+                                                            <div class="progress" style="height: 10px;">
+                                                                <div class="progress-bar {{ $tardanzas >= 3 ? 'bg-danger' : 'bg-info' }}"
+                                                                    role="progressbar"
+                                                                    style="width: {{ round($repor->porcentaje_faltas) }}%">
+                                                                </div>
+                                                            </div>
+                                                            <small>{{ round($repor->porcentaje_faltas) }}%</small>
                                                         </td>
+                                                            <td class="text-center">
+                                                            @if ($repor->total_faltas >= 0 && $celularDestino)
+                                                                <div class="btn-group" role="group">
+                                                                    {{-- Botón Principal (Mamá) --}}
+                                                                    <a href="https://wa.me/51{{ $celularMama }}?text={{ urlencode($mensaje) }}"
+                                                                        target="_blank" class="btn btn-success btn-sm"
+                                                                        title="Notificar a Mamá">
+                                                                        <i class="fab fa-whatsapp"></i> M
+                                                                    </a>
 
-
+                                                                    {{-- Botón Secundario (Si existe Papá) --}}
+                                                                    @if ($celularPapa)
+                                                                        <a href="https://wa.me/51{{ $celularPapa }}?text={{ urlencode($mensaje) }}"
+                                                                            target="_blank" class="btn btn-info btn-sm"
+                                                                            title="Notificar a Papá">
+                                                                            <i class="fab fa-whatsapp"></i> P
+                                                                        </a>
+                                                                    @endif
+                                                                </div>
+                                                            @else
+                                                                <span class="text-muted"><small>Sin acción</small></span>
+                                                            @endif
+                                                        </td>
                                                     </tr>
-
-                                                    @php
-                                                        $numeracion++;
-
-                                                    @endphp
+                                                    @php $numeracion++; @endphp
                                                 @empty
+                                                    <tr>
+                                                        <td colspan="7" class="text-center">No hay registros</td>
+                                                    </tr>
                                                 @endforelse
-
                                             </tbody>
-
                                         </table>
                                     </div>
                                 </div>
@@ -436,9 +548,9 @@
 
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="card">
-                    <h2 class="counter mb-3">Asistensia Hoy</h2>
+                    <h2 class="counter mb-3">Asistencia Hoy</h2>
                     <div class="form-group px-3">
                         <label for="modulo" class="form-label">Nivel:</label>
                         <div class="input-group ">
