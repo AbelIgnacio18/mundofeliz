@@ -17,10 +17,10 @@ class PlantillaEstudianteExport implements FromArray, WithHeadings, ShouldAutoSi
             'nombres',
             'apellidos',
             'dni_estudiante',
-            'celular_emergencia',
-            'direccion',
             'nombre_apoderado',
-            'dni_apoderado', // Campo CRÍTICO para el acceso a la App
+            'dni_apoderado',
+            'celular_apoderados',
+            'direccion',
             'observaciones'
         ];
     }
@@ -36,11 +36,11 @@ class PlantillaEstudianteExport implements FromArray, WithHeadings, ShouldAutoSi
                 'Juan Gabriel',
                 'Perez Quispe',
                 '70654321',
-                '987654321',
-                'Av. Real 123 - El Tambo',
                 'Maria Quispe Lázaro',
                 '40506070',
-                'Estudiante de traslado'
+                '987654321',
+                'Av. Real 123 - El Tambo',
+                'Estudiante de traslado y/o comunicarce con la madre'
             ]
         ];
     }
