@@ -54,7 +54,22 @@ class PanelController extends Controller
                 ->select('p.idanolectivo', 'art.nombre', 'c.nombre as categoria', DB::raw('sum(dt.cantidadar) as cantidad'), DB::raw('sum(dt.montoar) as monto'))
                 ->where('p.idanolectivo', $anolect->id)
                 ->groupBy('art.nombre', 'c.nombre', 'p.idanolectivo')->get(); //ventas de productos de todos los products General
+            //asistencias de hoy
+            $puntualHoy = DB::table('asistenciaests')
+                ->whereDate('fechaentrada', Carbon::today())
+                ->where('estado', 1)
+                ->count();
+            //tardes de hoy
+            $tardeHoy = DB::table('asistenciaests')
+                ->whereDate('fechaentrada', Carbon::today())
+                ->where('estado', 0)
+                ->count();
 
+            //faltas de hoy
+            $faltaHoy = DB::table('asistenciaests')
+                ->whereDate('fechaentrada', Carbon::today())
+                ->where('estado', 4)
+                ->count();
 
             $pagosadministrativos = DB::table('pagos as p')
                 ->join('pensions as pen', 'p.id', '=', 'pen.idpago')
@@ -260,6 +275,9 @@ class PanelController extends Controller
 
         return view('pages.dashboard', compact(
             'date',
+            'puntualHoy',
+            'tardeHoy',
+            'faltaHoy',
             'estudiante',
             'pagosarticulos',
             'pagospensiones',

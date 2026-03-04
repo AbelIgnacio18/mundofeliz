@@ -49,6 +49,7 @@
                     </div>
                 </li>
 
+                
                 <li class="swiper-slide">
                     <div class="card border-bottom border-5 border-0 border-success">
                         <div class="card-body">
@@ -70,13 +71,47 @@
                                 </div>
                                 <div>
                                     <h3 class="counter">
-                                        @if (count($pagospensiones) != 0)
-                                            s/ {{ $pagospensiones[0]->monto }}
+                                       
+                                            {{ $puntualHoy+$tardeHoy+$faltaHoy}}
+                                       
+                                    </h3>
+                                    <p class="mb-0">Cantidad de Registros</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+
+
+                <li class="swiper-slide">
+                    <div class="card border-bottom border-5 border-0 border-success">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="bg-soft-primary rounded p-3">
+                                    <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7.37121 10.2017V17.0618" stroke="currentColor" stroke-width="1.5"
+                                            stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path d="M12.0382 6.91919V17.0619" stroke="currentColor" stroke-width="1.5"
+                                            stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path d="M16.6285 13.8269V17.0619" stroke="currentColor" stroke-width="1.5"
+                                            stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M16.6857 2H7.31429C4.04762 2 2 4.31208 2 7.58516V16.4148C2 19.6879 4.0381 22 7.31429 22H16.6857C19.9619 22 22 19.6879 22 16.4148V7.58516C22 4.31208 19.9619 2 16.6857 2Z"
+                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="counter">
+                                        @if ($puntualHoy != 0)
+                                            s/ {{ $puntualHoy }}
                                         @else
                                             0
                                         @endif
                                     </h3>
-                                    <p class="mb-0">Asistenccia</p>
+                                    <p class="mb-0">Asistencia</p>
                                 </div>
                             </div>
                         </div>
@@ -108,8 +143,9 @@
                                 </div>
                                 <div>
                                     <h3 class="counter">
-                                        @if ($pagosventas[0]->montototal != null)
-                                            s/{{ $pagosventas[0]->montototal }}
+                                        <h3 class="counter">
+                                        @if ($tardeHoy != 0)
+                                            s/ {{ $tardeHoy }}
                                         @else
                                             0
                                         @endif
@@ -140,10 +176,11 @@
                                 </div>
                                 <div>
                                     <h3 class="counter">
-                                        @if ($pagosingresos[0]->montototal != null)
-                                            s/{{ $pagosingresos[0]->montototal }}
+                                     <h3 class="counter">
+                                        @if ($faltaHoy!= 0)
+                                            s/ {{ $faltaHoy }}
                                         @else
-                                            s/. 0.00
+                                            0
                                         @endif
                                     </h3>
                                     <p class="mb-0">Falta</p>
