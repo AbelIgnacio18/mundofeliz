@@ -105,11 +105,11 @@ class PanelController extends Controller
                     'au.grado',
                     'au.seccion',
                     DB::raw('COUNT(*) as total_dias'),
-                    DB::raw('SUM(CASE WHEN a.estado IS NULL THEN 1 ELSE 0 END) as total_faltas'),
-                    DB::raw('(SUM(CASE WHEN a.estado IS NULL THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) as porcentaje_faltas')
+                    DB::raw('SUM(CASE WHEN a.estado=4 THEN 1 ELSE 0 END) as total_faltas'),
+                    DB::raw('(SUM(CASE WHEN a.estado=4 THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) as porcentaje_faltas')
                 )
                 ->groupBy('e.id', 'e.nombre', 'e.apellidos', 'e.celular', 'au.nivel', 'au.grado', 'au.seccion')
-                ->havingRaw('(SUM(CASE WHEN a.estado IS NULL THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) >= 10')
+                ->havingRaw('(SUM(CASE WHEN a.estado=4 THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) >= 20')
                 ->orderByDesc('porcentaje_faltas')
                 ->limit(10)->get();
 
@@ -189,13 +189,17 @@ class PanelController extends Controller
                 )
 
                 ->orderByDesc('porcentaje_asistencia')
+                ->limit(6)
                 ->get();
-                
-                
-                
-                // generar la tiorta
-        $nivel = $request->nivel; // inicial, primaria, secundaria
-        $inicio = $request->filled('fechainicio')
+
+
+
+            // generar la torta
+            $nivel = $request->filled('nivel')
+                ? Carbon::parse($request->nivel)
+                : 'Inicial'; // inicial, primaria, secundaria
+
+            $inicio = $request->filled('fechainicio')
             ? Carbon::parse($request->fechainicio)
             : Carbon::parse($anolect->inicio);
 
@@ -206,15 +210,46 @@ class PanelController extends Controller
         $datos = DB::table('asistenciaests as a')
             ->join('matriculas as m', 'a.idmatricula', '=', 'm.id')
             ->join('aulas as au', 'm.idaula', '=', 'au.id')
-            ->where('au.nivel', 'inicial')
-            ->whereBetween('a.fechaentrada', [$inicio, $fin])
-            //   ->where('a.fechaentrada', date('Y-m-d'))
+            ->where('au.nivel', $nivel)
+           ->where('a.fechaentrada', '2026-02-17')
+                //  ->where('a.fechaentrada', '2026-02-17')
             ->select(
-                DB::raw("SUM(CASE WHEN a.estado = 'asistio' THEN 1 ELSE 0 END) as puntual"),
-                DB::raw("SUM(CASE WHEN a.estado = 'tarde' THEN 1 ELSE 0 END) as tarde"),
-                DB::raw("SUM(CASE WHEN a.estado = 'falta' THEN 1 ELSE 0 END) as falta")
+                DB::raw("SUM(CASE WHEN a.estado = 1 THEN 1 ELSE 0 END) as puntual"),
+                DB::raw("SUM(CASE WHEN a.estado = 0 THEN 1 ELSE 0 END) as tarde"),
+                DB::raw("SUM(CASE WHEN a.estado = 4 THEN 1 ELSE 0 END) as falta")
             )
             ->first();
+            $datos = (object) [
+                'puntual' => $datos->puntual ?? 0,
+                'tarde'   => $datos->tarde ?? 0,
+                'falta'   => $datos->falta ?? 0,
+            ];
+
+            //diagrama de barras
+             $nivelbarra = $request->nivel;
+
+        $datosbarras = DB::table('asistenciaests as a')
+        ->join('matriculas as m', 'a.idmatricula', '=', 'm.id')
+        ->join('aulas as au', 'm.idaula', '=', 'au.id')
+        ->where('au.nivel', $nivel)
+        ->whereDate('a.fechaentrada', '2026-02-17')
+        ->select(
+            'au.grado',
+             'au.seccion',
+            DB::raw("SUM(CASE WHEN a.estado = 1 THEN 1 ELSE 0 END) as puntual"),
+            DB::raw("SUM(CASE WHEN a.estado = 0 THEN 1 ELSE 0 END) as tarde"),
+            DB::raw("SUM(CASE WHEN a.estado = 4 THEN 1 ELSE 0 END) as falta")
+        )
+        ->groupBy('au.grado',
+             'au.seccion')
+        ->orderByRaw("
+            CASE 
+                WHEN au.grado LIKE '%años%' THEN 0
+                ELSE 1
+            END,
+            CAST(au.grado AS UNSIGNED)
+        ")
+        ->get();
         }
 
 
@@ -239,7 +274,7 @@ class PanelController extends Controller
             'fechaInicio',
             'fechaFin',
             'datos',
-            'asistenciaPorcentaje'
+            'asistenciaPorcentaje','datosbarras'
         ));
     }
 
@@ -250,12 +285,13 @@ class PanelController extends Controller
         $datos = DB::table('asistenciaests as a')
             ->join('matriculas as m', 'a.idmatricula', '=', 'm.id')
             ->join('aulas as au', 'm.idaula', '=', 'au.id')
-            ->where('au.nivel', 'inicial')
-            // ->whereBetween('a.fechaentrada', [$inicio, $fin])
+             ->where('au.nivel', $nivel)
+           ->where('a.fechaentrada', '2026-02-17')
+           
             ->select(
-                DB::raw("SUM(CASE WHEN a.estado = 'asistio' THEN 1 ELSE 0 END) as puntual"),
-                DB::raw("SUM(CASE WHEN a.estado = 'tarde' THEN 1 ELSE 0 END) as tarde"),
-                DB::raw("SUM(CASE WHEN a.estado = 'falta' THEN 1 ELSE 0 END) as falta")
+                DB::raw("SUM(CASE WHEN a.estado = 1 THEN 1 ELSE 0 END) as puntual"),
+                DB::raw("SUM(CASE WHEN a.estado = 0 THEN 1 ELSE 0 END) as tarde"),
+                DB::raw("SUM(CASE WHEN a.estado = 4 THEN 1 ELSE 0 END) as falta")
             )
             ->first();
 
@@ -267,9 +303,36 @@ class PanelController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * metodo de barras
      */
-    /** Reporte Gallo PDF **/
+  public function asistenciaPorAula(Request $request)
+{
+    $nivel = $request->nivel;
+
+        $datos = DB::table('asistenciaests as a')
+        ->join('matriculas as m', 'a.idmatricula', '=', 'm.id')
+        ->join('aulas as au', 'm.idaula', '=', 'au.id')
+        ->where('au.nivel', $nivel)
+        ->whereDate('a.fechaentrada', '2026-02-17')
+        ->select(
+            'au.grado',
+             'au.seccion',
+            DB::raw("SUM(CASE WHEN a.estado = 1 THEN 1 ELSE 0 END) as puntual"),
+            DB::raw("SUM(CASE WHEN a.estado = 0 THEN 1 ELSE 0 END) as tarde"),
+            DB::raw("SUM(CASE WHEN a.estado = 4 THEN 1 ELSE 0 END) as falta")
+        )
+        ->groupBy('au.grado')
+        ->orderByRaw("
+            CASE 
+                WHEN au.grado LIKE '%años%' THEN 0
+                ELSE 1
+            END,
+            CAST(au.grado AS UNSIGNED)
+        ")
+        ->get();
+dd($datos);
+    return response()->json($datos);
+}
     public function reporte()
     {
         $date = Carbon::now()->locale('es');

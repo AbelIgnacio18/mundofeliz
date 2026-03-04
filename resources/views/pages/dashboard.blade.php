@@ -260,13 +260,13 @@
                                     aria-labelledby="nav-home-11-tab">
                                     <div class="table-responsive">
                                         <table id="transaction-table" class="table mb-0 table-striped" role="grid">
-                                                 <thead>
+                                            <thead>
                                                 <tr>
                                                     {{-- <th>N°</th> --}}
                                                     <th>Nombre Completo</th>
                                                     <th>Aula</th>
                                                     <th>total registro</th>
-                                                 
+
                                                     <th>Porcentaje</th>
                                                 </tr>
                                             </thead>
@@ -280,16 +280,16 @@
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 {{ $repor->apellidos }},
-                                                                    {{ $repor->nombre }}
+                                                                {{ $repor->nombre }}
                                                             </div>
                                                         </td>
-                                                        <td >
+                                                        <td>
                                                             {{ $repor->nivel }} {{ $repor->grado }} {{ $repor->seccion }}
                                                         </td>
                                                         <td class="text-dark">{{ $repor->total_asistencias }} </td>
-                                                           <td>
+                                                        <td>
                                                             <div class="progress" style="height: 10px;">
-                                                                <div class="progress-bar {{ $repor->total_asistencias  >= 3 ? 'bg-info' : 'bg-danger' }}"
+                                                                <div class="progress-bar {{ $repor->total_asistencias >= 3 ? 'bg-info' : 'bg-danger' }}"
                                                                     role="progressbar"
                                                                     style="width: {{ round($repor->porcentaje_asistencia) }}%">
                                                                 </div>
@@ -297,7 +297,7 @@
                                                             <small>{{ round($repor->porcentaje_asistencia) }}%</small>
                                                         </td>
 
-                                                
+
                                                     </tr>
                                                     @php
                                                         $numeracion++;
@@ -323,7 +323,7 @@
                                                     <th>Aula</th>
                                                     <th>tardanzas /total registro</th>
                                                     {{-- <th>Tarde</th> --}}
-                                     
+
                                                     <th>porcentaje</th>
                                                     <th>whatsapp</th>
                                                 </tr>
@@ -355,7 +355,7 @@
                                                                 ' ' .
                                                                 $repor->apellidos .
                                                                 ' registra ' .
-                                                                $repor->total_tardanzas  .
+                                                                $repor->total_tardanzas .
                                                                 ' tardanzas a la fecha. Por favor, tomar las medidas necesarias.';
                                                             $urlWhatsapp =
                                                                 'https://wa.me/51' .
@@ -376,18 +376,18 @@
                                                             <p>{{ $repor->total_tardanzas }} / {{ $repor->total_dias }}
                                                             </p>
                                                         </td>
-                                                   
+
 
                                                         <td>
                                                             <div class="progress" style="height: 10px;">
-                                                                <div class="progress-bar {{ $repor->total_tardanzas  >= 3 ? 'bg-info' : 'bg-danger' }}"
+                                                                <div class="progress-bar {{ $repor->total_tardanzas >= 3 ? 'bg-info' : 'bg-danger' }}"
                                                                     role="progressbar"
                                                                     style="width: {{ round($repor->porcentaje_tardanza) }}%">
                                                                 </div>
                                                             </div>
                                                             <small>{{ round($repor->porcentaje_tardanza) }}%</small>
                                                         </td>
-                                                   
+
                                                         <td class="text-center">
                                                             @if ($repor->total_tardanzas >= 3 && $celularDestino)
                                                                 <div class="btn-group" role="group">
@@ -437,7 +437,7 @@
                                                     <th>Nombre Completo</th>
                                                     <th>Aula</th>
                                                     <th>Cantidad (Tardanzas)</th>
-                                                
+
                                                     <th>Porcentaje</th>
                                                     <th>Acción WhatsApp</th>
                                                 </tr>
@@ -485,7 +485,7 @@
                                                                 {{ $tardanzas }} / {{ $repor->total_dias }}
                                                             </span>
                                                         </td>
-                                                    
+
                                                         <td>
                                                             <div class="progress" style="height: 10px;">
                                                                 <div class="progress-bar {{ $tardanzas >= 3 ? 'bg-danger' : 'bg-info' }}"
@@ -495,7 +495,7 @@
                                                             </div>
                                                             <small>{{ round($repor->porcentaje_faltas) }}%</small>
                                                         </td>
-                                                            <td class="text-center">
+                                                        <td class="text-center">
                                                             @if ($repor->total_faltas >= 0 && $celularDestino)
                                                                 <div class="btn-group" role="group">
                                                                     {{-- Botón Principal (Mamá) --}}
@@ -554,80 +554,196 @@
                     <div class="form-group px-3">
                         <label for="modulo" class="form-label">Nivel:</label>
                         <div class="input-group ">
-
-                            <select name="nivel" class="form-control" required>
-                                <option value="inicial" selected> Inicial </option>
-                                <option value="Primaria"> Primaria </option>
-                                <option value="Secundaria"> Secundaria </option>
-
+                            <select name="nivel" id="nivelSelect" class="form-control">
+                                <option value="Inicial">Inicial</option>
+                                <option value="Primaria">Primaria</option>
+                                <option value="Secundaria">Secundaria</option>
                             </select>
+
 
 
                         </div>
                     </div>
 
-
-
-
                     <canvas id="graficoNivel"></canvas>
+
+
                 </div>
             </div>
         </div>
 
+        <div class="row">
+         
+                <div class="card">
 
+                    <h2 class="counter mb-3">Ranking de Asistencia</h2>
+                    <div class="card-body">
+
+                        <select id="nivelAula" class="form-control mb-3">
+                            <option value="inicial">Inicial</option>
+                            <option value="Primaria">Primaria</option>
+                            <option value="Secundaria">Secundaria</option>
+                        </select>
+
+                        <canvas id="graficoAula"></canvas>
+                    </div>
+
+                </div>
+            
+        </div>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
     <script>
         const ctx = document.getElementById('graficoNivel');
+        const selectNivel = document.getElementById('nivelSelect');
 
-        new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Puntual', 'Tarde', 'Falta'],
-                datasets: [{
-                    data: [
-                        {{ (int) $datos->puntual }},
-                        {{ (int) $datos->tarde }},
-                        {{ (int) $datos->falta }}
-                    ],
-                    backgroundColor: [
-                        '#28a745',
-                        '#ffc107',
-                        '#dc3545'
-                    ],
-                    borderWidth: 2,
-                    borderColor: '#ffffff'
-                }]
-            },
-            options: {
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        labels: {
-                            font: {
-                                size: 14,
-                                weight: 'bold'
+        let grafico;
+
+        function cargarGrafico(nivel) {
+
+            fetch("{{ route('app.asistencia.nivel') }}?nivel=" + nivel)
+                .then(response => response.json())
+                .then(data => {
+
+                    const datos = [
+                        data.puntual,
+                        data.tarde,
+                        data.falta
+                    ];
+
+                    if (grafico) {
+                        grafico.destroy();
+                    }
+
+                    grafico = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: ['Puntual', 'Tarde', 'Falta'],
+                            datasets: [{
+                                data: datos,
+                                backgroundColor: [
+                                    '#28a745',
+                                    '#ffc107',
+                                    '#dc3545'
+                                ],
+                                borderWidth: 2,
+                                borderColor: '#ffffff'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            animation: {
+                                duration: 700
+                            },
+                            plugins: {
+                                legend: {
+                                    position: 'top'
+                                },
+                                datalabels: {
+                                    color: '#ffffff',
+                                    font: {
+                                        weight: 'bold',
+                                        size: 16
+                                    },
+                                    formatter: (value, context) => {
+                                        const total = context.chart.data.datasets[0].data
+                                            .reduce((a, b) => a + b, 0);
+
+                                        if (total === 0) return "0%";
+
+                                        return ((value / total) * 100).toFixed(1) + "%";
+                                    }
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels]
+                    });
+
+                });
+        }
+
+        // Cargar inicial
+        cargarGrafico(selectNivel.value);
+
+        // Cambiar nivel sin recargar
+        selectNivel.addEventListener('change', function() {
+            cargarGrafico(this.value);
+        });
+
+
+        const ctxAula = document.getElementById('graficoAula');
+    const selectAula = document.getElementById('nivelAula');
+
+    let graficoAula;
+
+    function cargarGraficoAula(nivel) {
+     
+
+        fetch("{{ route('app.asistencia.aula') }}?nivel=" + nivel)
+            .then(res => res.json())
+            .then(data => {
+
+                const labels = data.map(item =>
+                    item.grado + " - " + item.seccion
+                );
+
+                const puntual = data.map(item => item.puntual);
+                const tarde = data.map(item => item.tarde);
+                const falta = data.map(item => item.falta);
+
+                if (graficoAula) graficoAula.destroy();
+
+                graficoAula = new Chart(ctxAula, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Puntual',
+                                data: puntual,
+                                backgroundColor: '#28a745'
+                            },
+                            {
+                                label: 'Tarde',
+                                data: tarde,
+                                backgroundColor: '#000000'
+                            },
+                            {
+                                label: 'Falta',
+                                data: falta,
+                                backgroundColor: '#dc3545'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: '# Estudiantes'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Aulas'
+                                }
                             }
                         }
-                    },
-                    datalabels: {
-                        color: '#ffffff',
-                        font: {
-                            weight: 'bold',
-                            size: 16
-                        },
-                        formatter: (value, context) => {
-                            let total = context.chart.data.datasets[0].data
-                                .reduce((a, b) => a + b, 0);
-                            let percentage = (value / total * 100).toFixed(1) + "%";
-                            return percentage;
-                        }
                     }
-                }
-            },
-            plugins: [ChartDataLabels]
-        });
+                });
+
+            });
+    }
+
+    cargarGraficoAula(selectAula.value);
+
+    selectAula.addEventListener('change', function () {
+        cargarGraficoAula(this.value);
+    });
     </script>
 @endsection

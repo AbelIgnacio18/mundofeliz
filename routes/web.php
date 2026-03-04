@@ -33,9 +33,11 @@ Route::get('/home', [PageController::class, 'redirectHome'])->name('home');
 Route::group(['prefix' => 'dashboard', 'as' => 'app.', 'middleware' => ['web','auth']], function () {
 
 Route::get('home', [App\Http\Controllers\PanelController::class, 'index'])->name('home');
-
+//graficos de barras
     Route::get('/asistencia-nivel', [App\Http\Controllers\PanelController::class, 'asistenciaPorNivel'])
     ->name('asistencia.nivel');
+    Route::get('/asistencia-aula-barra', [App\Http\Controllers\PanelController::class, 'asistenciaPorAula']
+)->name('asistencia.aula');
 
     Route::get('user', [PageController::class, 'user'])->name('user');
     Route::get('lista-estudiantes',[App\Http\Controllers\PanelController::class, 'reporte'])->name('reporte');
@@ -81,7 +83,7 @@ Route::get('home', [App\Http\Controllers\PanelController::class, 'index'])->name
       Route::get('/reporte-pago',[App\Http\Controllers\PagosController::class, 'reportefectivohoy'])->name('reportefectivohoy');
 
 
-      Route::get('/asistencia-aula',[App\Http\Controllers\AsistenciaestController::class, 'filtrarasistencia'])->name('asistenciaaula');
+      Route::get('/asistencia-aula',[App\Http\Controllers\AsistenciaestController::class, 'filtrarasistencia'])->name('asistenciaaula');//esta por eliminR
        Route::get('/registrar-falta',[App\Http\Controllers\AsistenciaestController::class, 'registrarfalta'])->name('registrarfalta');
        Route::get('/listar-falta',[App\Http\Controllers\AsistenciaestController::class, 'listarfalta'])->name('listarfalta');
         Route::get('/vista-asistencia',[App\Http\Controllers\AsistenciaestController::class, 'vistaasistencia'])->name('vistaasistencia');
