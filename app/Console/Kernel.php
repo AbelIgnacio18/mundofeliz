@@ -12,7 +12,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        
+        $schedule->command('registrar:faltas')
+             ->dailyAt('10:00')
+             ->weekdays(); // 👈 SOLO lunes a viernes
+
     }
 
     /**

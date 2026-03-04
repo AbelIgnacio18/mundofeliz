@@ -27,8 +27,8 @@ public function model(array $row)
         $apoderado = Apoderado::updateOrCreate(
             ['dni' => $dniApoderado],
             [
-                'nombre'    => trim($row['nombreapoderado']),
-                'celular'   => isset($row['celular_apoderado']) ? trim($row['celular_apoderado']) : trim($row['celular']),
+                'nombre'    => trim($row['nombre_apoderado']),
+                'celular'   => isset($row['celular_apoderados']) ? trim($row['celular_apoderados']) : trim($row['celular']),
                 'direccion' => isset($row['direccion']) ? trim($row['direccion']) : 'No especificada',
                 'password'  => Hash::make($dniApoderado), // Password inicial = su DNI real
                 'estado'    => 1, // Activo por defecto
@@ -37,11 +37,11 @@ public function model(array $row)
 
         // 3. Registro del Estudiante
         return Estudiante::updateOrCreate(
-            ['dni' => trim($row['dni'])], // Buscamos por el DNI del alumno
+            ['dni' => trim($row['dni_estudiante'])], // Buscamos por el DNI del alumno
             [
-                'nombre'        => trim($row['nombre']),
+                'nombre'        => trim($row['nombres']),
                 'apellidos'     => trim($row['apellidos']),
-                'celular'       => isset($row['celular']) ? trim($row['celular']) : null, // Solo para emergencias
+                'celular'       => isset($row['celular_apoderados']) ? trim($row['celular_apoderados']) : null, // Solo para emergencias
                 'observaciones' => isset($row['observaciones']) ? trim($row['observaciones']) : null,
                 'idapoderado'   => $apoderado->id, // Vinculación obligatoria
                 'estado'        => 1,
