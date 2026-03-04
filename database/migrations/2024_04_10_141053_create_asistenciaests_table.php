@@ -18,9 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('idmatricula');
             $table->foreign('idmatricula')->references('id')->on('matriculas')->onUpdate('cascade')->onDelete('cascade');
             $table->date('fechaentrada');
-             $table->time('horaentrada');
-              $table->time('horasalida');
-            $table->text('observacion');
+             $table->time('horaentrada')->nullable();
+              $table->time('horasalida')->nullable();
+            $table->text('observacion')->nullable();
             
             $table->boolean('estado')->nullable();
             $table->timestamps();

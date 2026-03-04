@@ -625,7 +625,7 @@
                             </li>
                         @endif
                         @if (auth()->user()->hasPermission('VER CARGO'))
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="{{ request()->is('dashboard/administracion-contrato') ? 'nav-link active' : 'nav-link' }}"
                                     href="{{ url('dashboard/administracion-contrato') }}">
                                     <i class="icon">
@@ -640,7 +640,7 @@
                                     <i class="sidenav-mini-icon">C</i>
                                     <span class="item-sub-name">Cargo</span>
                                 </a>
-                            </li>
+                            </li> --}}
                         @endif
                         @if (auth()->user()->hasPermission('VER ROL & PERMISOS'))
                             <li class="nav-item">

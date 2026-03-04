@@ -112,7 +112,7 @@ class AsistenciaestController extends Controller
                 $asistencia->idanolectivo = $anolect->id;
                 $asistencia->idmatricula = $idmatriculas[$cont];
                 $asistencia->fechaentrada = date('Y-m-d');
-                $asistencia->estado =  $hora < ($aula->tarde) ? 1 : 0;
+                $asistencia->estado =  $hora < ($aula->horatarde) ? 1 : 0;
                 $asistencia->save();
               
                 $this->enviarNotificacionPush($idapoderado, $estudiante, "entrada");
