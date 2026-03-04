@@ -15,7 +15,7 @@
 
         <div class="conatiner-fluid content-inner mt-4 py-0" >
             <div class="col-sm-12">
-                <div class="card">
+                <div class="card" style="margin-bottom: 0">
                     @yield('content')
                 </div>
             </div>

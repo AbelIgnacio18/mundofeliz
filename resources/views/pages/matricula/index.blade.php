@@ -151,7 +151,7 @@
     @include('pages.matricula.pdfasistencia')
     @include('pages.matricula.search')
     <div class="card-body p-0">
-        <div class="table-responsive mt-4">
+        <div class="table-responsive">
             <table id="user-list-table" class="table table-striped" role="grid" data-toggle="grid">
                 <thead>
                     <tr>

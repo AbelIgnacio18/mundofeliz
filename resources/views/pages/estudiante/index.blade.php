@@ -3,7 +3,7 @@
 @section('tab_tittle', 'Lista de estudiantes')
 
 @section('content')
-    <div class="card-header d-flex justify-content-between flex-wrap">
+    <div class="card-header d-flex justify-content-between flex-wrap" style="margin-bottom: 1.5rem;">
         <div class="col-lg-12  col-md-12  col-sm-12 col-xs-12">
 
             <!--SI LOS ERRORES SON DE  LLLAMAMOS Y MOSTRAMOS LOS ERRORES-->
@@ -170,7 +170,7 @@
     <div class="card-body p-0">
 
 
-        <div class="table-responsive mt-4">
+        <div class="table-responsive">
             <table class="table table-striped" role="grid" data-toggle="grid">
                 <thead>
                     <tr>

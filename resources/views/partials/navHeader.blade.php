@@ -10,7 +10,7 @@ if (isset($split_url[2])) {
 
 @if(isset($id) and ($link==="estudiantes"))
 
-<div class="container-fluid iq-container my-n4">
+<div class="container-fluid iq-container my-n5">
     <div class="row">
         <div class="col-md-12">
             <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -51,7 +51,7 @@ if (isset($split_url[2])) {
 @endif
 @if(isset($id) and ($link==="asistencia-estudiantes"))
 
-<div class="container-fluid iq-container my-n4">
+<div class="container-fluid iq-container my-n5">
     <div class="row">
         <div class="col-md-12">
             <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -92,7 +92,7 @@ if (isset($split_url[2])) {
 @endif
 @if(isset($id) and ($link==="ingresos"))
 
-<div class="container-fluid iq-container my-n4">
+<div class="container-fluid iq-container my-n5">
     <div class="row">
         <div class="col-md-12">
             <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -133,7 +133,7 @@ if (isset($split_url[2])) {
 @endif
 @if(isset($id) and ($link==="asistencia-docentes"))
 
-<div class="container-fluid iq-container my-n4">
+<div class="container-fluid iq-container my-n5">
     <div class="row">
         <div class="col-md-12">
             <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -175,7 +175,7 @@ if (isset($split_url[2])) {
 
 @if(isset($id) and ($link==="matriculas"))
 
-<div class="container-fluid iq-container my-n4">
+<div class="container-fluid iq-container my-n5">
     <div class="row">
         <div class="col-md-12">
             <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -217,7 +217,7 @@ if (isset($split_url[2])) {
 
 @if(isset($id) and ($link==="pension"))
 
-<div class="container-fluid iq-container my-n4">
+<div class="container-fluid iq-container my-n5">
     <div class="row">
         <div class="col-md-12">
             <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -260,7 +260,7 @@ if (isset($split_url[2])) {
 
 @if(isset($id) and ($link==="matricula-aula"))
 
-<div class="container-fluid iq-container my-n4">
+<div class="container-fluid iq-container my-n5">
     <div class="row">
         <div class="col-md-12">
             <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -301,7 +301,7 @@ if (isset($split_url[2])) {
 @endif
 @if(isset($id) and ($link==="pension-aula"))
 
-<div class="container-fluid iq-container my-n4">
+<div class="container-fluid iq-container my-n5">
     <div class="row">
         <div class="col-md-12">
             <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -345,7 +345,7 @@ if (isset($split_url[2])) {
 
 @if(isset($id) and ($link==="pagos-realizados"))
 
-<div class="container-fluid iq-container my-n4">
+<div class="container-fluid iq-container my-n5">
     <div class="row">
         <div class="col-md-12">
             <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -388,7 +388,7 @@ if (isset($split_url[2])) {
 
 
 @if (request()->is('dashboard/home'))
-<div class="container-fluid iq-container my-n4">
+<div class="container-fluid iq-container my-n5">
     <div class="row">
         <div class="col-md-12">
             <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -408,7 +408,7 @@ if (isset($split_url[2])) {
 
 @if (request()->is('dashboard/concepto-pago'))
 <div class="iq-navbar-header" style="height: 185px;">
-    <div class="container-fluid iq-container my-n4">
+    <div class="container-fluid iq-container my-n5">
         <div class="row">
             <div class="col-md-12">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -442,7 +442,7 @@ if (isset($split_url[2])) {
 
 @if (request()->is('dashboard/administracion-aulas'))
 <div class="iq-navbar-header" style="height: 185px;">
-    <div class="container-fluid iq-container my-n4">
+    <div class="container-fluid iq-container my-n5">
         <div class="row">
             <div class="col-md-12">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -472,7 +472,7 @@ if (isset($split_url[2])) {
 @endif
 @if (request()->is('dashboard/administracion-anolectivo'))
 <div class="iq-navbar-header" style="height: 185px;">
-    <div class="container-fluid iq-container my-n4">
+    <div class="container-fluid iq-container my-n5">
         <div class="row">
             <div class="col-md-12">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -503,7 +503,7 @@ if (isset($split_url[2])) {
 
 @if (request()->is('dashboard/administradores'))
 <div class="iq-navbar-header" style="height: 185px;">
-    <div class="container-fluid iq-container my-n4">
+    <div class="container-fluid iq-container my-n5">
         <div class="row">
             <div class="col-md-12">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -537,7 +537,7 @@ if (isset($split_url[2])) {
 
 @if (request()->is('dashboard/articulos'))
 <div class="iq-navbar-header" style="height: 185px;">
-    <div class="container-fluid iq-container my-n4">
+    <div class="container-fluid iq-container my-n5">
         <div class="row">
             <div class="col-md-12">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -571,7 +571,7 @@ if (isset($split_url[2])) {
 
 @if (request()->is('dashboard/ingresos'))
 <div class="iq-navbar-header" style="height: 185px;">
-    <div class="container-fluid iq-container my-n4">
+    <div class="container-fluid iq-container my-n5">
         <div class="row">
             <div class="col-md-12">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -605,7 +605,7 @@ if (isset($split_url[2])) {
 
 @if (request()->is('dashboard/pagos-realizados'))
 <div class="iq-navbar-header" style="height: 185px;">
-    <div class="container-fluid iq-container my-n4">
+    <div class="container-fluid iq-container my-n5">
         <div class="row">
             <div class="col-md-12">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -639,7 +639,7 @@ if (isset($split_url[2])) {
 
 @if (request()->is('dashboard/estudiantes'))
 <div class="iq-navbar-header" style="height: 185px;">
-    <div class="container-fluid iq-container my-n4">
+    <div class="container-fluid iq-container my-n5">
         <div class="row">
             <div class="col-md-12">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -672,7 +672,7 @@ if (isset($split_url[2])) {
 
 @if (request()->is('dashboard/administracion-configuraciones'))
 <div class="iq-navbar-header" style="height: 185px;">
-    <div class="container-fluid iq-container my-n4">
+    <div class="container-fluid iq-container my-n5">
         <div class="row">
             <div class="col-md-12">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -714,7 +714,7 @@ if (isset($split_url[2])) {
 
 @if (request()->is('dashboard/administracion-contrato'))
 <div class="iq-navbar-header" style="height: 185px;">
-    <div class="container-fluid iq-container my-n4">
+    <div class="container-fluid iq-container my-n5">
         <div class="row">
             <div class="col-md-12">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -743,7 +743,7 @@ if (isset($split_url[2])) {
 @endif
 @if (request()->is('dashboard/asistencia-estudiantes'))
 <div class="iq-navbar-header" style="height: 185px;">
-    <div class="container-fluid iq-container my-n4">
+    <div class="container-fluid iq-container my-n5">
         <div class="row">
             <div class="col-md-12">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -773,7 +773,7 @@ if (isset($split_url[2])) {
 @endif
 @if (request()->is('dashboard/asistencia-aula'))
 <div class="iq-navbar-header" style="height: 185px;">
-    <div class="container-fluid iq-container my-n4">
+    <div class="container-fluid iq-container my-n5">
         <div class="row">
             <div class="col-md-12">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -805,7 +805,7 @@ if (isset($split_url[2])) {
 
 @if (request()->is('dashboard/listar-falta'))
 <div class="iq-navbar-header" style="height: 185px;">
-    <div class="container-fluid iq-container my-n4">
+    <div class="container-fluid iq-container my-n5">
         <div class="row">
             <div class="col-md-12">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -837,7 +837,7 @@ if (isset($split_url[2])) {
 
 @if (request()->is('dashboard/asistencia-docentes'))
 <div class="iq-navbar-header" style="height: 185px;">
-    <div class="container-fluid iq-container my-n4">
+    <div class="container-fluid iq-container my-n5">
         <div class="row">
             <div class="col-md-12">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -866,7 +866,7 @@ if (isset($split_url[2])) {
 
 @if (request()->is('dashboard/docentes'))
 <div class="iq-navbar-header" style="height: 185px;">
-    <div class="container-fluid iq-container my-n4">
+    <div class="container-fluid iq-container my-n5">
         <div class="row">
             <div class="col-md-12">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -896,7 +896,7 @@ if (isset($split_url[2])) {
 
 @if (request()->is('dashboard/personal'))
 <div class="iq-navbar-header" style="height: 185px;">
-    <div class="container-fluid iq-container my-n4">
+    <div class="container-fluid iq-container my-n5">
         <div class="row">
             <div class="col-md-12">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -927,7 +927,7 @@ if (isset($split_url[2])) {
 
 @if (request()->is('dashboard/matriculas'))
 <div class="iq-navbar-header" style="height: 185px;">
-    <div class="container-fluid iq-container my-n4">
+    <div class="container-fluid iq-container my-n5">
         <div class="row">
             <div class="col-md-12">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -957,7 +957,7 @@ if (isset($split_url[2])) {
 @endif
 @if (request()->is('dashboard/matriculas'))
 <div class="iq-navbar-header" style="height: 185px;">
-    <div class="container-fluid iq-container my-n4">
+    <div class="container-fluid iq-container my-n5">
         <div class="row">
             <div class="col-md-12">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -988,7 +988,7 @@ if (isset($split_url[2])) {
 
 @if (request()->is('dashboard/roles-permission'))
 <div class="iq-navbar-header" style="height: 185px;">
-    <div class="container-fluid iq-container my-n4">
+    <div class="container-fluid iq-container my-n5">
         <div class="row">
             <div class="col-md-12">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -1019,7 +1019,7 @@ if (isset($split_url[2])) {
 
 @if (request()->is('dashboard/categoria'))
 <div class="iq-navbar-header" style="height: 185px;">
-    <div class="container-fluid iq-container my-n4">
+    <div class="container-fluid iq-container my-n5">
         <div class="row">
             <div class="col-md-12">
                 <div class="flex-wrap d-flex justify-content-between align-items-center">

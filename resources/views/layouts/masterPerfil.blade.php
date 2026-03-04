@@ -8,7 +8,7 @@
             @include('partials.nav')
             <!-- Nav Header Component Start -->
             <div class="iq-navbar-header" style="height: 185px;">
-                <div class="container-fluid iq-container my-n4">
+                <div class="container-fluid iq-container my-n5">
                     <div class="row" >
                         <div class="col-md-12">
                             <div class="flex-wrap d-flex justify-content-between align-items-center">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="iq-header-img">
                     <img src="{{asset('assets/images/dashboard/top-header.webp')}}" alt="header"
-                        class="theme-color-default-img img-fluid w-100 h-100 animated-scaleX">
+                        class="theme-color-default-img img-fluid animated-scaleX">
                 </div>
             </div> <!-- Nav Header Component End -->
             <!--Nav End-->
