@@ -16,8 +16,13 @@ return new class extends Migration
             $table->string('nivel',50);
             $table->string('grado',50);
             $table->string('seccion',50)->nullable();;
-            $table->integer('vacantes');
-            $table->time('tarde');
+            $table->integer('vacantes'); 
+            $table->time('horaentrada');
+             $table->time('horatarde');             
+              $table->time('horafalta');
+               $table->time('horasalida')->nullable();
+         
+             
              
             $table->timestamps();
         });

@@ -26,13 +26,16 @@ class AulaController extends Controller
         public function store(StoreAulaRequest $request)
         {
             $items=new Aula();
-    
-            $items->nivel=$request->get('nivel');
-            $items->grado=$request->get('grado');  
-            $items->seccion=$request->get('seccion'); 
-            $items->vacantes=$request->get('vacantes');
-            $items->tarde=$request->get('tiempo'); 
-            $items->save();
+
+        $items->nivel = $request->get('nivel');
+        $items->grado = $request->get('grado');
+        $items->seccion = $request->get('seccion');
+        $items->vacantes = $request->get('vacantes');
+        $items->horaentrada = $request->get('hraentrada');
+        $items->horatarde = $request->get('hratarde');
+        $items->horafalta = $request->get('hrafalta');
+        $items->horasalida = $request->get('hrasalida');
+        $items->save();
             return back()->with('message', 'Actualización Exítosa');
         }
       
@@ -41,11 +44,14 @@ class AulaController extends Controller
     
         public function update(UpdateAulaRequest $request,  $items)
         {
-            $items=Aula::find($items);
-          
-            $items->nivel=$request->get('nivel');
-            $items->vacantes=$request->get('vacantes');    
-              $items->tarde=$request->get('tiempo');
+        $items = Aula::find($items);
+
+        $items->nivel = $request->get('nivel');
+        $items->vacantes = $request->get('vacantes');
+        $items->horaentrada = $request->get('hraentrada');
+      $items->horatarde = $request->get('hratarde');
+        $items->horafalta = $request->get('hrafalta');
+        $items->horasalida = $request->get('hrasalida');
             $items->update();
            
             return back()->with('message', 'Actualización Exítosa');

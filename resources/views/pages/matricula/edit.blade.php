@@ -45,7 +45,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="modulo" class="form-label">Concepto:</label>
                         <div class="input-group ">
                             <span class="input-group-text" id="">
@@ -68,7 +68,9 @@
                             </select>
 
                         </div>
-                    </div>
+                    </div> --}}
+
+
                     <div class="row">
                         <div class="raw d-flex">
                             <div class="form-group col-md-6 p-1">

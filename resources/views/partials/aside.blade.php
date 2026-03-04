@@ -191,9 +191,9 @@
                     </li>
                 @endif
 
-                   @if (auth()->user()->hasPermission('VER MATRICULA'))
+                @if (auth()->user()->hasPermission('VER MATRICULA'))
                     <!-- Matrícula -->
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link {{ request()->is('dashboard/pension*') ||
                         request()->is('dashboard/pension-aula*') ||
                         Route::is('app.pensionaula*')
@@ -232,8 +232,7 @@
                             : '' }}"
                             id="pension" data-bs-parent="#sidebar-menu">
 
-{{-- 
-
+                           
                             <li class="nav-item">
                                 <a class="{{ request()->is('dashboard/pension') ? 'nav-link active' : 'nav-link' }}"
                                     href="{{ url('dashboard/pension') }}">
@@ -249,7 +248,7 @@
                                     <i class="sidenav-mini-icon"> MG </i>
                                     <span class="item-sub-name"> Matrícula General </span>
                                 </a>
-                            </li> --}}
+                            </li> 
 
                             @forelse($menus as $menu)
                                 <li class="nav-item">
@@ -276,13 +275,13 @@
 
 
                         </ul>
-                    </li>
+                    </li> --}}
                 @endif
 
-                
+
 
                 @if (auth()->user()->hasPermission('VER CONCEPTO'))
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="{{ request()->is('dashboard/concepto-pago') ? 'nav-link active' : 'nav-link' }}"
                             aria-current="page" href="{{ url('dashboard/concepto-pago') }}">
                             <i class="icon">
@@ -298,10 +297,10 @@
                             </i>
                             <span class="item-name">Concepto</span>
                         </a>
-                    </li>
+                    </li> --}}
                 @endif
                 @if (auth()->user()->hasPermission('VER DOCENTE'))
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="{{ request()->is('dashboard/docentes') ? 'nav-link active' : 'nav-link' }}"
                             aria-current="page" href="{{ url('dashboard/docentes') }}">
                             <i class="icon">
@@ -317,9 +316,9 @@
                             </i>
                             <span class="item-name">Docentes</span>
                         </a>
-                    </li>
+                    </li> --}}
                 @endif
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#Calificaciones-menus" role="button"
                         aria-expanded="false" aria-controls="Calificaciones-menus">
                         <i class="icon">
@@ -397,9 +396,9 @@
                         @endif
 
                     </ul>
-                </li>
+                </li> --}}
                 @if (auth()->user()->hasPermission('VER COMPROBANTES'))
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="{{ request()->is('dashboard/pagos-realizados') ? 'nav-link active' : 'nav-link' }}"
                             aria-current="page" href="{{ url('dashboard/pagos-realizados') }}">
                             <i class="icon">
@@ -415,7 +414,7 @@
                             </i>
                             <span class="item-name">Comprobantes</span>
                         </a>
-                    </li>
+                    </li> --}}
                 @endif
                 @if (auth()->user()->hasPermission('VER ASISTENCIA'))
                     <li class="nav-item">
@@ -474,6 +473,8 @@
                                     <span class="item-sub-name">Estudiante</span>
                                 </a>
                             </li>
+
+{{--                             
                             <li class="nav-item">
                                 <a class="{{ request()->is('dashboard/asistencia-aula') ? 'nav-link active' : 'nav-link' }}"
                                     href="{{ url('dashboard/asistencia-aula') }}">
@@ -522,7 +523,7 @@
                                     <i class="sidenav-mini-icon">AD</i>
                                     <span class="item-sub-name">Asistencia Docente</span>
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </li>
                 @endif

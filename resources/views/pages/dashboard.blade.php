@@ -279,12 +279,12 @@
                                                     <tr>
                                                         <td>
                                                             <div class="d-flex align-items-center">
-                                                                {{ $repor->apellidos }},
+                                                                {{ $repor->apellidos }},<br>
                                                                 {{ $repor->nombre }}
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            {{ $repor->nivel }} {{ $repor->grado }} {{ $repor->seccion }}
+                                                            {{ $repor->nivel }} <br>{{ $repor->grado }}<br> {{ $repor->seccion }}
                                                         </td>
                                                         <td class="text-dark">{{ $repor->total_asistencias }} </td>
                                                         <td>
@@ -314,14 +314,14 @@
                                 <div class="tab-pane fade" id="nav-profile-11" role="tabpanel"
                                     aria-labelledby="nav-profile-11-tab">
                                     <div class="table-responsive">
-                                        <table id="transaction-table-2" class="table mb-0 table-striped" role="grid">
+                                        <table id="transaction-table-2" class="table mb-0" role="grid">
 
                                             <thead>
                                                 <tr>
                                                     <th>N°</th>
                                                     <th>Nombre Completo</th>
                                                     <th>Aula</th>
-                                                    <th>tardanzas /total registro</th>
+                                                    <th>tardanzas</th>
                                                     {{-- <th>Tarde</th> --}}
 
                                                     <th>porcentaje</th>
@@ -366,10 +366,10 @@
 
 
                                                         <td>
-                                                            {{ $repor->apellidos }}, {{ $repor->nombre }}</p>
+                                                            {{ $repor->apellidos }}  <br>  {{ $repor->nombre }}</p>
                                                         </td>
                                                         <td>
-                                                            <p>{{ $repor->nivel }} {{ $repor->grado }}
+                                                            <p style="">{{ $repor->nivel }} <br>{{ $repor->grado }}<br>
                                                                 {{ $repor->seccion }}</p>
                                                         </td>
                                                         <td>
@@ -430,7 +430,7 @@
                                 <div class="tab-pane fade" id="nav-contact-11" role="tabpanel"
                                     aria-labelledby="nav-contact-11-tab">
                                     <div class="table-responsive">
-                                        <table id="transaction-table-2" class="table mb-0 table-striped" role="grid">
+                                        <table id="transaction-table-2" class="table mb-0" role="grid">
                                             <thead>
                                                 <tr>
                                                     <th>N°</th>
@@ -473,10 +473,10 @@
                                                     <tr>
                                                         <td>{{ $numeracion }}</td>
                                                         <td>
-                                                            {{ $repor->apellidos }}, {{ $repor->nombre }}
+                                                            {{ $repor->apellidos }} <br> {{ $repor->nombre }}
                                                         </td>
                                                         <td>
-                                                            {{ $repor->nivel }} {{ $repor->grado }} {{ $repor->seccion }}
+                                                            {{ $repor->nivel }} <br> {{ $repor->grado }} <br>  {{ $repor->seccion }}
                                                         </td>
                                                         <td>
                                                             {{-- UX: Resaltar en rojo si llega a 3 o más --}}

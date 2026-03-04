@@ -91,7 +91,8 @@ class MatriculaController extends Controller
             $matricula->idestudiante = $estudianteid[$cont];
             $matricula->idanolectivo = $anolectivo->id;
             $matricula->idaula = $aula;
-            $matricula->idconcepto = $concepto;
+            $matricula->idconcepto = 1;
+            // $matricula->idconcepto = $concepto;
              $matricula->codigo = $codigo;
             $matricula->save();
             $cont = $cont + 1;
@@ -157,7 +158,8 @@ class MatriculaController extends Controller
         $matricula=Matricula::find($matricula);  
    
         $matricula->idaula=$request->get('aula_id');  
-        $matricula->idconcepto=$request->get('concepto');  
+        // $matricula->idconcepto=$request->get('concepto');  
+         $matricula->idconcepto=1;  
          $matricula->estado=$request->get('estado'); 
           $matricula->codigo=$request->get('codigo'); 
         $matricula->update();

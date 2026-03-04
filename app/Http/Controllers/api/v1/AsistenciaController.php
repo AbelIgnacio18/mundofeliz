@@ -145,13 +145,13 @@ class AsistenciaController extends Controller
                     $asistencia->idanolectivo = $anolectivo->id;
                     $asistencia->idmatricula = $matricula->id;
                     $asistencia->fechaentrada = date("Y-m-d");
-                    $asistencia->estado = (date("H:i:s") < $aula->tarde) ? 1 : 0;
+                    $asistencia->estado = (date("H:i:s") < $aula->horatarde) ? 1 : 0;
                     $asistencia->save();
 
 
                     $this->enviarNotificacionPush($idapoderado, $estudiante, "entrada");
                     
-                    return response()->json($estudiante->id . ' ' . $codigo, 200);
+                    return response()->json($estudiante->nombre, 200);
                 } else {
 
                     if (Carbon::now()->lt(Carbon::parse("14:30:00")) and Carbon::now()->gt(Carbon::parse("13:50:00"))) {
@@ -160,48 +160,48 @@ class AsistenciaController extends Controller
                         $asistencia->updated_at = now();
                         $asistencia->update();
                         $this->enviarNotificacionPush($idapoderado, $estudiante, "salida");
-                        return response()->json($estudiante->nombre . '' . ' ' . $codigo, 200);
+                        return response()->json($estudiante->nombre, 200);
                     } else {
-                        return response()->json('Ya marco asistencia' . ' ' . $codigo, 200);
+                        return response()->json('Ya marco asistencia' , 200);
                     }
                 }
             }
-            //asistencia de turno estudiante tarde
-            if (Carbon::now()->gt(Carbon::parse("14:31:00"))) {
+            // //asistencia de turno estudiante tarde
+            // if (Carbon::now()->gt(Carbon::parse("14:31:00"))) {
 
-                $conteoasist = Asistenciaest::where('idmatricula', $matricula->id)
-                    ->where('fechaentrada', date("Y-m-d"))
-                    ->whereTime('created_at', '>=', '14:31:00')
-                    ->first();
-
-
-                if (!$conteoasist) {
-                    $asistencia = new Asistenciaest;
-                    $asistencia->idanolectivo = $anolectivo->id;
-                    $asistencia->idmatricula = $matricula->id;
-                    $asistencia->fechaentrada = date("Y-m-d");
-                    $asistencia->estado = (date("H:i:s") < $aula->tarde) ? 1 : 0;
-                    $asistencia->save();
-                    //dd($idapoderado,$estudiante,);
-                    $this->enviarNotificacionPush($idapoderado, $estudiante, "entrada");
-                    return response()->json($estudiante->id . 'marco entrada' . ' ' . $codigo, 200);
-                } else {
-
-                    if (Carbon::now()->gt(Carbon::parse("17:15:00"))) {
-                        $asistencia = Asistenciaest::where('idmatricula', $matricula->id)->where('fechaentrada', date("Y-m-d"))->orderBy('id', 'desc')->first();
-
-                        $asistencia->updated_at = now();
-                        $asistencia->update();
-                        $this->enviarNotificacionPush($idapoderado, $estudiante, "Salida");
-                        return response()->json($estudiante->nombre . ' marco salida' . $codigo, 200);
-                    } else {
-                        return response()->json('Ya marco asistencia tarde' . ' ' . $codigo, 200);
-                    }
-                };
-            }
+            //     $conteoasist = Asistenciaest::where('idmatricula', $matricula->id)
+            //         ->where('fechaentrada', date("Y-m-d"))
+            //         ->whereTime('created_at', '>=', '14:31:00')
+            //         ->first();
 
 
-            return response()->json($codigo . ' ' . 'no matriculado', 200);
+            //     if (!$conteoasist) {
+            //         $asistencia = new Asistenciaest;
+            //         $asistencia->idanolectivo = $anolectivo->id;
+            //         $asistencia->idmatricula = $matricula->id;
+            //         $asistencia->fechaentrada = date("Y-m-d");
+            //         $asistencia->estado = (date("H:i:s") < $aula->tarde) ? 1 : 0;
+            //         $asistencia->save();
+            //         //dd($idapoderado,$estudiante,);
+            //         $this->enviarNotificacionPush($idapoderado, $estudiante, "entrada");
+            //         return response()->json($estudiante->id . 'marco entrada' . ' ' . $codigo, 200);
+            //     } else {
+
+            //         if (Carbon::now()->gt(Carbon::parse("17:15:00"))) {
+            //             $asistencia = Asistenciaest::where('idmatricula', $matricula->id)->where('fechaentrada', date("Y-m-d"))->orderBy('id', 'desc')->first();
+
+            //             $asistencia->updated_at = now();
+            //             $asistencia->update();
+            //             $this->enviarNotificacionPush($idapoderado, $estudiante, "Salida");
+            //             return response()->json($estudiante->nombre . ' marco salida' . $codigo, 200);
+            //         } else {
+            //             return response()->json('Ya marco asistencia tarde' . ' ' . $codigo, 200);
+            //         }
+            //     };
+            // }
+
+
+            return response()->json($codigo . ' ' . 'no registrado i/o no matriculado', 200);
         } catch (\Throwable $e) {
 
             Log::error('ERROR ASISTENCIA', [
