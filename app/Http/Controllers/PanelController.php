@@ -226,7 +226,7 @@ class PanelController extends Controller
             ->join('matriculas as m', 'a.idmatricula', '=', 'm.id')
             ->join('aulas as au', 'm.idaula', '=', 'au.id')
             ->where('au.nivel', $nivel)
-           ->where('a.fechaentrada', '2026-02-17')
+           ->where('a.fechaentrada', date('Y-m-d'))
                 //  ->where('a.fechaentrada', '2026-02-17')
             ->select(
                 DB::raw("SUM(CASE WHEN a.estado = 1 THEN 1 ELSE 0 END) as puntual"),
