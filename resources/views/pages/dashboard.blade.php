@@ -230,7 +230,7 @@
 </div> --}}
 {{-- porcentaje de faltass --}}
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-8">
         <div class="card">
 
 
@@ -351,13 +351,13 @@
                                             $celularDestino = $celularMama ?? $celularPapa;
 
                                             $mensaje =
-                                            'Estimado padre de familia de la I.E.P. Mundo Feliz, le informamos que su menor hijo(a) ' .
+                                            'Estimado padre de familia del Colegio Bertot Brecht, le informamos que su menor hijo(a) ' .
                                             $repor->nombre .
                                             ' ' .
                                             $repor->apellidos .
                                             ' registra ' .
                                             $repor->total_tardanzas .
-                                            ' tardanzas a la fecha. Por favor, tomar las medidas necesarias.';
+                                            ' tardanza(s) a la fecha. Por favor, tomar las medidas necesarias.';
                                             $urlWhatsapp =
                                             'https://wa.me/51' .
                                             $celularDestino .
@@ -458,13 +458,13 @@
                                         $celularDestino = $celularMama ?? $celularPapa;
 
                                         $mensaje =
-                                        'Estimado padre de familia de la I.E.P. Mundo Feliz, le informamos que su menor hijo(a) ' .
+                                        'Estimado padre de familia de la Colegio Bertot Brecht, le informamos que su menor hijo(a) ' .
                                         $repor->nombre .
                                         ' ' .
                                         $repor->apellidos .
                                         ' registra ' .
                                         $tardanzas .
-                                        ' tardanzas a la fecha. Por favor, tomar las medidas necesarias.';
+                                        ' falta(s) a la fecha. Por favor, tomar las medidas necesarias.';
                                         $urlWhatsapp =
                                         'https://wa.me/51' .
                                         $celularDestino .
@@ -549,7 +549,7 @@
 
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="card">
             <div class="card-body">
                 <h2 class="counter">Asistencia de Hoy</h2>
