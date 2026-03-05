@@ -100,7 +100,7 @@ class EstudianteController extends Controller
             $estudiante->nombre = strtoupper($request->get('nombre'));
             $estudiante->apellidos = strtoupper($apellidop . ' ' . $apellidom);
             $estudiante->dni = strtoupper($request->get('dni'));
-            $estudiante->celular = strtoupper($request->get('celularp') . '/' . $request->get('celularm'));
+            $estudiante->celular = strtoupper( $request->get('celularm' . ' / ' .$request->get('celularp')));
             $estudiante->idapoderado = $apoderado->id; // Vinculación
             $estudiante->observaciones = strtoupper($request->get('observaciones'));
             $estudiante->save();

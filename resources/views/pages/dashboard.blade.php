@@ -375,7 +375,7 @@
                                                                 : null;
 
                                                             // Elegimos el primer número disponible para el botón principal
-                                                            $celularDestino = $celularMama ?? $celularPapa;
+                                                            $celularDestino = $celularMama || $celularPapa;
 
                                                             $mensaje =
                                                                 'Estimado padre de familia de la I.E.P. Mundo Feliz, le informamos que su menor hijo(a) ' .
@@ -410,7 +410,11 @@
 
                                                         <td>
                                                             <div class="progress" style="height: 10px;">
-                                                                <div class="progress-bar {{ $repor->total_tardanzas >= 3 ? 'bg-info' : 'bg-danger' }}"
+                                                                <div class="progress-bar  {{ $repor->porcentaje_tardanza <= 10
+                                                                    ? 'bg-success'
+                                                                    : ($repor->porcentaje_tardanza <= 25
+                                                                        ? 'bg-warning'
+                                                                        : 'bg-danger') }}"
                                                                     role="progressbar"
                                                                     style="width: {{ round($repor->porcentaje_tardanza) }}%">
                                                                 </div>
@@ -476,14 +480,14 @@
                                                 @forelse($reporte as $repor)
                                                     @php
                                                         // Suponiendo que $repor->total_faltas representa las tardanzas en esta vista
-                                                        $tardanzas = $repor->total_faltas;
+                                                        $faltas = $repor->total_faltas;
 
                                                         $numeros = explode('/', $repor->celular); // Divide por la barra '/'
                                                         $celularMama = isset($numeros[0]) ? trim($numeros[0]) : null;
                                                         $celularPapa = isset($numeros[1]) ? trim($numeros[1]) : null;
 
                                                         // Elegimos el primer número disponible para el botón principal
-                                                        $celularDestino = $celularMama ?? $celularPapa;
+                                                        $celularDestino = $celularMama || $celularPapa;
 
                                                         $mensaje =
                                                             'Estimado padre de familia de la I.E.P. Mundo Feliz, le informamos que su menor hijo(a) ' .
@@ -491,8 +495,8 @@
                                                             ' ' .
                                                             $repor->apellidos .
                                                             ' registra ' .
-                                                            $tardanzas .
-                                                            ' tardanzas a la fecha. Por favor, tomar las medidas necesarias.';
+                                                            $faltas .
+                                                            ' faltas a la fecha. Por favor, tomar las medidas necesarias.';
                                                         $urlWhatsapp =
                                                             'https://wa.me/51' .
                                                             $celularDestino .
@@ -503,6 +507,7 @@
                                                         <td>{{ $numeracion }}</td>
                                                         <td>
                                                             {{ $repor->apellidos }} <br> {{ $repor->nombre }}
+                                                            {{$celularMama}}{{ $celularPapa}}
                                                         </td>
                                                         <td>
                                                             {{ $repor->nivel }} <br> {{ $repor->grado }} <br>
@@ -511,8 +516,8 @@
                                                         <td>
                                                             {{-- UX: Resaltar en rojo si llega a 3 o más --}}
                                                             <span
-                                                                class="badge {{ $tardanzas >= 3 ? 'bg-danger' : 'bg-warning' }}">
-                                                                {{ $tardanzas }} / {{ $repor->total_dias }}
+                                                                class="badge {{ $faltas >= 3 ? 'bg-danger' : 'bg-warning' }}">
+                                                                {{ $faltas }} / {{ $repor->total_dias }}
                                                             </span>
                                                         </td>
 
@@ -533,7 +538,7 @@
 
 
                                                         <td class="text-center">
-                                                            @if ($repor->total_faltas >= 0 && $celularDestino)
+                                                            @if ($repor->total_faltas >= 1 && $celularDestino)
                                                                 <div class="btn-group" role="group">
                                                                     {{-- Botón Principal (Mamá) --}}
                                                                     <a href="https://wa.me/51{{ $celularMama }}?text={{ urlencode($mensaje) }}"
