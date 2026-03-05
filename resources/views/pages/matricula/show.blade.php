@@ -94,7 +94,7 @@
             </div>
         </div>
 
-        <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="card" style="background-color: #ffffff63">
                 <div class="card-header d-flex justify-content-between" style="background-color: #ffffff63">
                     <div class="header-title">
