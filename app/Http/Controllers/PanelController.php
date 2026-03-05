@@ -110,7 +110,7 @@ class PanelController extends Controller
                 ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
                 ->join('aulas as au', 'm.idaula', '=', 'au.id')
                 ->whereBetween('a.fechaentrada', [$fechaInicio, $fechaFin])
-                ->where('a.idanolectivo', $anolect->estado)
+                ->where('a.idanolectivo', $anolect->id)
                 ->select(
                     'e.id',
                     'e.nombre',
@@ -133,7 +133,7 @@ class PanelController extends Controller
                 ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
                 ->join('aulas as au', 'm.idaula', '=', 'au.id')
                 ->whereBetween('a.fechaentrada', [$fechaInicio, $fechaFin])
-                ->where('a.idanolectivo', $anolect->estado)
+                ->where('a.idanolectivo', $anolect->id)
                 ->select(
                     'e.id',
                     'e.nombre',
@@ -170,7 +170,7 @@ class PanelController extends Controller
                 ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
                 ->join('aulas as au', 'm.idaula', '=', 'au.id')
                 ->whereBetween('a.fechaentrada', [$fechaInicio, $fechaFin])
-                ->where('a.idanolectivo', $anolect->estado)
+                ->where('a.idanolectivo', $anolect->id)
 
                 ->select(
                     'e.id',
