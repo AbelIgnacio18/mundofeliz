@@ -3575,6 +3575,13 @@ textarea.form-control-lg {
   -webkit-box-shadow: none;
           box-shadow: none;
 }
+.btn-alumko {
+  color: #fff;
+  background-color: #8C4CFF !important;
+  border-color: #8C4CFF !important;
+  -webkit-box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0);
+          box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0);
+}
 
 .btn-primary {
   color: #fff;

@@ -196,7 +196,7 @@
                                     @case(1) btn-success @break
                                     @case(0) btn-warning @break
                                     @case(4) btn-danger @break
-                                    @case(2) btn-primary @break
+                                    @case(2) btn-alumko @break
                                     @case(3) btn-secondary @break
                                     @default btn-outline-secondary
                                 @endswitch dropdown-toggle"
@@ -376,7 +376,7 @@
                         button.innerText = "F";
                         break;
                     case 2:
-                        button.classList.add("btn-primary");
+                        button.classList.add("btn-alumko");
                         button.innerText = "TJ";
                         break;
                     case 3:
