@@ -5,9 +5,10 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Carbon\Carbon;
 use App\Models\Anolectivo;
+use App\Models\CalendarioEscolar;
 class RegistrarFaltas extends Command
 {
-    /**
+    /**  
      * The name and signature of the console command.
      *
      * @var string
@@ -26,18 +27,22 @@ class RegistrarFaltas extends Command
      */
     public function handle()
     {
-          $hoy = now()->toDateString();
- if (Carbon::now()->isSaturday()) {
-        $this->info('Hoy es sábado, no se ejecuta.');
+        $hoy = now()->toDateString();
+
+    $dia = CalendarioEscolar::where('fecha', $hoy)->first();
+
+    if (!$dia || !$dia->es_laborable) {
+        $this->info('Hoy no es día laborable.');
         return;
     }
 
-    if (Carbon::now()->isSunday()) {
-        $this->info('Hoy es domingo, no se ejecuta.');
+    $anolec = Anolectivo::where('estado', 1)->first();
+
+    if (!$anolec) {
+        $this->error('No hay año lectivo activo.');
         return;
     }
-    // Obtener todas las matrículas
-           $anolec = Anolectivo::where('estado', 1)->first();
+
     $matriculas = \App\Models\Matricula::all();
 
     foreach ($matriculas as $matricula) {
@@ -48,14 +53,17 @@ class RegistrarFaltas extends Command
 
         if (!$existe) {
             \App\Models\Asistenciaest::create([
-                'idanolectivo'=>$anolec->id,
+                'idanolectivo' => $anolec->id,
                 'idmatricula' => $matricula->id,
                 'fechaentrada' => $hoy,
-                'estado' => 4 // 2 = Falta
+                'estado' => 4 // Falta
             ]);
         }
     }
 
-    $this->info('Faltas registradas correctamente.');
+    $this->info('Faltas registradas correctamente.');  
+
+       
+   
     }
 }

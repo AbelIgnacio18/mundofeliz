@@ -126,7 +126,7 @@ class PanelController extends Controller
                 ->groupBy('e.id', 'e.nombre', 'e.apellidos', 'e.celular', 'au.nivel', 'au.grado', 'au.seccion')
                 ->havingRaw('(SUM(CASE WHEN a.estado=4 THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) >= 20')
                 ->orderByDesc('porcentaje_faltas')
-                ->limit(10)->get();
+                ->limit(15)->get();
 
             $reportetarde = DB::table('asistenciaests as a')
                 ->join('matriculas as m', 'a.idmatricula', '=', 'm.id')
@@ -162,7 +162,7 @@ class PanelController extends Controller
         (SUM(CASE WHEN a.estado = 0 THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) >= 30
     ')
                 ->orderByDesc('porcentaje_tardanza')
-                ->limit(10)
+                ->limit(15)
                 ->get();
 
             $asistenciaPorcentaje = DB::table('asistenciaests as a')
@@ -204,7 +204,7 @@ class PanelController extends Controller
                 )
 
                 ->orderByDesc('porcentaje_asistencia')
-                ->limit(6)
+                ->limit(15)
                 ->get();
 
 
