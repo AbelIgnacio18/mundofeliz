@@ -331,7 +331,7 @@ class PanelController extends Controller
         ->join('matriculas as m', 'a.idmatricula', '=', 'm.id')
         ->join('aulas as au', 'm.idaula', '=', 'au.id')
         ->where('au.nivel', $nivel)
-        ->whereDate('a.fechaentrada', '2026-02-17')
+        ->whereDate('a.fechaentrada', date('Y-m-d'))
         ->select(
             'au.grado',
              'au.seccion',
@@ -348,7 +348,7 @@ class PanelController extends Controller
             CAST(au.grado AS UNSIGNED)
         ")
         ->get();
-dd($datos);
+
     return response()->json($datos);
 }
     public function reporte()
