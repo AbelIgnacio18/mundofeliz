@@ -148,6 +148,33 @@
 
 @include('pages.matricula.pdfasistencia')
 @include('pages.matricula.search')
+<form action="matriculas" method="GET" autocomplete="off">
+        @method('GET')
+        @csrf
+        <div class="row p-2">
+          
+
+            <div class="input-group ms-3" style="width: auto;">
+                <label for="fecha" class="form-label me-2" style="margin-top: 0.7rem !important;">Fecha:</label>
+               
+       <input type="date" class="form-control" name="fecha"
+                            value="{{ $searchTextFecha == '' ? date('Y-m-d') : $searchTextFecha }}">
+
+
+                <button class="input-group-text btn-info">
+                    <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="11.7669" cy="11.7666" r="8.98856" stroke="currentColor" stroke-width="1.5"
+                            stroke-linecap="round" stroke-linejoin="round"></circle>
+                        <path d="M18.0186 18.4851L21.5426 22" stroke="currentColor" stroke-width="1.5"
+                            stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </form>
+
+
 <div class="card-body p-0">
     <div class="table-responsive">
         <table id="user-list-table" class="table table-striped" role="grid" data-toggle="grid">
