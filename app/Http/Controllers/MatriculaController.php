@@ -103,7 +103,7 @@ class MatriculaController extends Controller
 
      public function show($id)
     {
-        $matricula = Matricula::where('id', $id)->with('estudiante')->first();
+        $matricula = Matricula::where('id', $id)->with('estudiante.apoderado')->with('aula')->first();
         $mes = Mese::where('idmatricula', $id)->get();
         $avancepen = count($mes);
 
