@@ -7,15 +7,15 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
-    /**
+    /**  
      * Define the application's command schedule.
      */
     protected function schedule(Schedule $schedule): void
     {
         
-        $schedule->command('registrar:faltas')
-             ->dailyAt('10:00')
-             ->weekdays(); // 👈 SOLO lunes a viernes
+      $schedule->command('app:registrar-faltas')
+         ->dailyAt('10:00')
+         ->weekdays(); // 👈 SOLO lunes a viernes
 
     }
 

@@ -1,7 +1,8 @@
 <?php
 
 namespace Database\Seeders;
-
+use Carbon\Carbon;
+use App\Models\CalendarioEscolar;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,6 +17,20 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
+
+$inicio = Carbon::create(2026, 3, 1);
+$fin = Carbon::create(2026, 12, 31);
+
+        while ($inicio <= $fin) {
+
+            CalendarioEscolar::create([
+                'fecha' => $inicio->toDateString(),
+                'es_laborable' => !$inicio->isWeekend(), // sábados y domingos no laborables
+            ]);
+
+            $inicio->addDay();
+        }
+        
         \App\Models\User::create([
             'name' => 'InnovaStaff',
             'apellidos' => 'InnovaStaff',
