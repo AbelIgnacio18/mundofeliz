@@ -11,7 +11,7 @@ use App\Models\Concepto;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Facades\Excel;//importaciones a excel....EstudianteExport
+use Maatwebsite\Excel\Facades\Excel; //importaciones a excel....EstudianteExport
 
 class MatriculaController extends Controller
 {
@@ -23,7 +23,8 @@ class MatriculaController extends Controller
 
         if ($request) {
 
-            $searchText = trim($request->get('searchText'));
+
+
             $anolect = Anolectivo::where('estado', 1)->first();
             // Obtener solo los estudiantes sin matrícula
             //$estudiantes = Estudiante::whereDoesntHave('matricula')->get();
@@ -41,8 +42,12 @@ class MatriculaController extends Controller
             $concepto = Concepto::where('codigo', 'P001')->orderBy('concepto', 'desc')->get();
 
             $searchText = trim($request->get('searchText'));
-
+            $searchTextFecha = trim($request->get('searchTextFecha'));
             $matricula = Matricula::where('idanolectivo', $anolect->id)
+                ->when($searchTextFecha, function ($q) use ($searchTextFecha) {
+                    // Usamos whereDate para ignorar la hora del timestamp 'created_at'
+                    return $q->whereDate('created_at', $searchTextFecha);
+                })
                 ->whereHas('estudiante', function ($q) use ($searchText) {
                     $q->where('nombre', 'LIKE', '%' . $searchText . '%')
                         ->orWhere('apellidos', 'LIKE', '%' . $searchText . '%');
@@ -53,13 +58,13 @@ class MatriculaController extends Controller
                     'concepto',
 
                     // 🔥 TRAER PAGOS POR CONCEPTO A LA VEZ
-                     // 🔥 nuevas relaciones
-         'estudiante.pagos.pensiones.concepto'
+                    // 🔥 nuevas relaciones
+                    'estudiante.pagos.pensiones.concepto'
                 ])
                 ->paginate(50);
-   
+
             $aula = Aula::get();
-            return view('pages.matricula.index', compact('estudiante', 'aula', 'matricula', 'concepto','searchText'));
+            return view('pages.matricula.index', compact('estudiante', 'aula', 'matricula', 'concepto', 'searchText', 'searchTextFecha'));
         }
     }
 
@@ -80,9 +85,9 @@ class MatriculaController extends Controller
         $estudianteid = $request->get('estudiante_id');
         $aula = $request->get('aula_id');
         $concepto = $request->get('concepto');
-         $codigo = $request->get('codigo');
+        $codigo = $request->get('codigo');
 
-    
+
         $anolectivo = Anolectivo::where('estado', 1)->first();
         // dd($estudianteid, $aula,$anolectivo->id);
         $cont = 0;
@@ -93,7 +98,7 @@ class MatriculaController extends Controller
             $matricula->idaula = $aula;
             $matricula->idconcepto = 1;
             // $matricula->idconcepto = $concepto;
-             $matricula->codigo = $codigo;
+            $matricula->codigo = $codigo;
             $matricula->save();
             $cont = $cont + 1;
         }
@@ -101,7 +106,7 @@ class MatriculaController extends Controller
         return back()->with('message', 'Registro Exítosa');
     }
 
-     public function show($id)
+    public function show($id)
     {
         $matricula = Matricula::where('id', $id)->with('estudiante.apoderado')->with('aula')->first();
         $mes = Mese::where('idmatricula', $id)->get();
@@ -110,16 +115,16 @@ class MatriculaController extends Controller
 
 
         $otros = DB::table('pagos as p')
-        ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
-        ->join('pensions as pen', 'p.id', '=', 'pen.idpago')
-        ->join('conceptos as c', 'pen.idconcepto', '=', 'c.id')
-        ->select('p.idestudiante', 'c.concepto', 'p.created_at as fecha', 'p.montototal', 'pen.cantidad', 'pen.monto')->where('p.idestudiante', $matricula->idestudiante)->get();
+            ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
+            ->join('pensions as pen', 'p.id', '=', 'pen.idpago')
+            ->join('conceptos as c', 'pen.idconcepto', '=', 'c.id')
+            ->select('p.idestudiante', 'c.concepto', 'p.created_at as fecha', 'p.montototal', 'pen.cantidad', 'pen.monto')->where('p.idestudiante', $matricula->idestudiante)->get();
 
         $articulo = DB::table('pagos as p')
-        ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
-        ->join('detallepagos as det', 'p.id', '=', 'det.idpago')
-        ->join('articulos as a', 'det.idarticulo', '=', 'a.id')
-        ->select('p.idestudiante', 'a.nombre as articulo', 'p.created_at as fecha', 'det.cantidadar as cantidad', 'det.montoar')->where('p.idestudiante', $matricula->idestudiante)->get();
+            ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
+            ->join('detallepagos as det', 'p.id', '=', 'det.idpago')
+            ->join('articulos as a', 'det.idarticulo', '=', 'a.id')
+            ->select('p.idestudiante', 'a.nombre as articulo', 'p.created_at as fecha', 'det.cantidadar as cantidad', 'det.montoar')->where('p.idestudiante', $matricula->idestudiante)->get();
 
 
         //  dd($matricula);
@@ -130,12 +135,12 @@ class MatriculaController extends Controller
     public function showaula($id)
     {
         $anolect = Anolectivo::where('estado', 1)->first();
-        $aula=Aula::where('id',$id)->first();
+        $aula = Aula::where('id', $id)->first();
 
         $matricula = Matricula::where('idanolectivo', $anolect->id)->where('idaula', $id)
             ->join('estudiantes', 'matriculas.idestudiante', '=', 'estudiantes.id')
             ->orderBy('estudiantes.apellidos', 'asc')
-  
+
             ->select('matriculas.*')
             ->with([
                 'estudiante',
@@ -147,7 +152,7 @@ class MatriculaController extends Controller
             ->get();
 
         //  dd($matricula);
-        return view("pages.matricula.showaula", compact('matricula','aula'));
+        return view("pages.matricula.showaula", compact('matricula', 'aula'));
     }
 
     /**
@@ -155,15 +160,15 @@ class MatriculaController extends Controller
      */
     public function update(Request $request, $matricula)
     {
-        $matricula=Matricula::find($matricula);  
-   
-        $matricula->idaula=$request->get('aula_id');  
+        $matricula = Matricula::find($matricula);
+
+        $matricula->idaula = $request->get('aula_id');
         // $matricula->idconcepto=$request->get('concepto');  
-         $matricula->idconcepto=1;  
-         $matricula->estado=$request->get('estado'); 
-          $matricula->codigo=$request->get('codigo'); 
+        $matricula->idconcepto = 1;
+        $matricula->estado = $request->get('estado');
+        $matricula->codigo = $request->get('codigo');
         $matricula->update();
-       
+
         return back()->with('message', 'Actualización Exítosa');
     }
 
@@ -172,57 +177,48 @@ class MatriculaController extends Controller
      */
     public function destroy($matricula)
     {
-        $matricula=Matricula::find($matricula);
+        $matricula = Matricula::find($matricula);
         $matricula->delete();
         return back()->with('message', 'Registro Eliminado ');
     }
 
 
-     public function reportematricula(Request $request)
+    public function reportematricula(Request $request)
     {
         $request->validate([
             'aula' => 'required'
         ]);
-         $idaula = $request->get('aula');
-       $aula = Aula::orderBy('nivel', 'asc')
+        $idaula = $request->get('aula');
+        $aula = Aula::orderBy('nivel', 'asc')
             ->orderByRaw("CAST(grado AS UNSIGNED) asc")
             ->orderBy('seccion', 'asc')
             ->get();
-          
+
 
         $anolect = Anolectivo::where('estado', 1)->first();
 
-        if($idaula=="todos"){
-                $mostraraula = (object)[
-        "nivel" => "",
-        "grado" => "",
-        "seccion" => ""
-    ];
+        if ($idaula == "todos") {
+            $mostraraula = (object)[
+                "nivel" => "",
+                "grado" => "",
+                "seccion" => ""
+            ];
 
-//dd($idaula);
-      
-        $matricula=Matricula::where('idanolectivo',$anolect->id)->with('estudiante')->with('aula')->with('meses')->orderBy('idaula','asc')->get();
+            //dd($idaula);
 
-        $pdf = Pdf::loadView('pages.matricula.invocepdf', compact('matricula', 'anolect','aula','mostraraula'));
-        $pdf->setPaper('A4', 'landscape');
-        return $pdf->stream('lista_matriculado_'.' $anolect'.'.pdf',);
+            $matricula = Matricula::where('idanolectivo', $anolect->id)->with('estudiante')->with('aula')->with('meses')->orderBy('idaula', 'asc')->get();
 
-
+            $pdf = Pdf::loadView('pages.matricula.invocepdf', compact('matricula', 'anolect', 'aula', 'mostraraula'));
+            $pdf->setPaper('A4', 'landscape');
+            return $pdf->stream('lista_matriculado_' . ' $anolect' . '.pdf',);
         }
- 
-    $matricula=Matricula::where('idanolectivo',$anolect->id)->where('idaula',$idaula)->with('estudiante')->with('aula')->with('meses')->get();
-      $mostraraula = Aula::where('id',$idaula)->first();
 
-        $pdf = Pdf::loadView('pages.matricula.invocepdf', compact('matricula', 'anolect','mostraraula'));
+        $matricula = Matricula::where('idanolectivo', $anolect->id)->where('idaula', $idaula)->with('estudiante')->with('aula')->with('meses')->get();
+        $mostraraula = Aula::where('id', $idaula)->first();
+
+        $pdf = Pdf::loadView('pages.matricula.invocepdf', compact('matricula', 'anolect', 'mostraraula'));
         $pdf->setPaper('A4', 'landscape'); //Formato de hoha A4 en horizontal
-        return $pdf->stream('lista_matriculado_'.' $anolect'.'.pdf');
+        return $pdf->stream('lista_matriculado_' . ' $anolect' . '.pdf');
     }
-    public function admisiontraslado(Request $request){
-
-       
-
-
-
-
-    }
+    public function admisiontraslado(Request $request) {}
 }
