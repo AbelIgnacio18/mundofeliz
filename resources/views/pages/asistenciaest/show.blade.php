@@ -17,7 +17,7 @@
         /* Estilo de la Tarjeta de Estudiante */
         .student-card {
             background: #fff;
-            border-left: 5px solid #4e73df;
+            border-left: 5px solid #1e2125;
             border-radius: 8px;
         }
 
@@ -93,21 +93,21 @@
                         </div>
                         <div class="col-md-6 text-md-right mt-3 mt-md-0">
                             <div class="d-inline-block text-center mr-3">
-                                <div class="small text-muted font-weight-bold">Asistió</div>
+                                <div class="small text-muted font-weight-bold">ASISTIÓ</div>
                                 <div
-                                    style="height: 10px; width: 40px; background: #1cc88a; margin: 0 auto; border-radius: 10px;">
+                                    style="height: 10px; width: 40px; background: #1aa053; margin: 0 auto; border-radius: 10px;">
                                 </div>
                             </div>
                             <div class="d-inline-block text-center mr-3">
                                 <div class="small text-muted font-weight-bold">TARDE</div>
                                 <div
-                                    style="height: 10px; width: 40px; background: #d3864b; margin: 0 auto; border-radius: 10px;">
+                                    style="height: 10px; width: 40px; background: #f16a1b; margin: 0 auto; border-radius: 10px;">
                                 </div>
                             </div>
                             <div class="d-inline-block text-center">
                                 <div class="small text-muted font-weight-bold">FALTÓ</div>
                                 <div
-                                    style="height: 10px; width: 40px; background: #e74a3b; margin: 0 auto; border-radius: 10px;">
+                                    style="height: 10px; width: 40px; background: #ad2d1e; margin: 0 auto; border-radius: 10px;">
                                 </div>
                             </div>
                         </div>
