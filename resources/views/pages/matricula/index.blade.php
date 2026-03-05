@@ -157,7 +157,7 @@
             <div class="input-group ms-3" style="width: auto;">
                 <label for="fecha" class="form-label me-2" style="margin-top: 0.7rem !important;">Fecha:</label>
                
-       <input type="date" class="form-control" name="fecha"
+       <input type="date" class="form-control" name="searchTextFecha"
                             value="{{ $searchTextFecha == '' ? date('Y-m-d') : $searchTextFecha }}">
 
 
