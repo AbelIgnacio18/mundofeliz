@@ -843,6 +843,12 @@ body {
 .dark .border-success {
   border-color: #1aa053 !important;
 }
+.dark .border-danger {
+  border-color: #ad2d1e !important;
+}
+.dark .border-dark {
+  border-color: #1e2125 !important;
+}
 .dark #top-tab-list li a {
   color: var(--bs-primary);
   background: var(--bs-primary-tint-80);

@@ -58,7 +58,7 @@
                             </td>
                             <td>
                                 <span class="badge {{ $matri->estado == 1 ? 'bg-info' : 'bg-secondary' }}">
-                                    {{ $matri->estado == 1 ? 'Trasladado' : 'No Trasladado' }}
+                                    {{ $matri->estado == 1 ? 'Trasladado' : 'Matrículado' }}
                                 </span>
                             </td>
                             <td> <h6 class="badge bg-alumko" style="font-size: 1em;">{{ $matri->codigo }}</h6></td>

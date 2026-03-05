@@ -37,7 +37,7 @@
                             d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                     </svg>
                 </i>
-                <span>Registrar sin Tageta </span>
+                <span>Registrar sin Tajeta</span>
             </a>
 
 
@@ -72,7 +72,7 @@
 
     @include('pages.asistenciaest.create')
   @include('pages.asistenciaest.pdfasistencia')
-    <div class="row mb-4 p-2">
+    <div class="row p-3">
 
         <!-- MITAD IZQUIERDA: FORM -->
         <div class="col-md-6">
@@ -155,7 +155,7 @@
     </div>
 
     <div class="card-body p-0">
-        <div class="table-responsive mt-4">
+        <div class="table-responsive">
             <table id="user-list-table" class="table table-striped" role="grid" data-toggle="data-table">
                 <thead>
                     <tr>
