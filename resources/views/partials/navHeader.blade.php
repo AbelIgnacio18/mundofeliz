@@ -199,9 +199,9 @@ if (isset($split_url[2])) {
                                     stroke-linecap="round" stroke-linejoin="round">
                                 </path>
                             </svg>
-                        </i>Detalle de Pagos de Pensión</h2>
+                        </i>Datos de la Matrícula</h2>
                     <p><a class="nav-link-ubicacion" href="{{ route('app.home') }}">Panel de Control</a>
-                        / Detalle</p>
+                        / Datos de la Matrícula</p>
                 </div>
 
             </div>
@@ -942,7 +942,7 @@ if (isset($split_url[2])) {
 
                             </i>Matrículas</h2>
                         <p><a class="nav-link-ubicacion" href="{{ route('app.home') }}">Panel de Control</a> /
-                            Lista</p>
+                            Matrícula</p>
                     </div>
 
                 </div>

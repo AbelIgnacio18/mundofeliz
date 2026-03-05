@@ -90,7 +90,7 @@
                             <div>
                                 <h3 class="counter">
                                     @if ($puntualHoy != 0)
-                                    s/ {{ $puntualHoy }}
+                                    {{ $puntualHoy }}
                                     @else
                                     0
                                     @endif
@@ -117,7 +117,7 @@
                                 <h3 class="counter">
                                     <h3 class="counter">
                                         @if ($tardeHoy != 0)
-                                        s/ {{ $tardeHoy }}
+                                        {{ $tardeHoy }}
                                         @else
                                         0
                                         @endif
@@ -144,7 +144,7 @@
                                 <h3 class="counter">
                                     <h3 class="counter">
                                         @if ($faltaHoy!= 0)
-                                        s/ {{ $faltaHoy }}
+                                        {{ $faltaHoy }}
                                         @else
                                         0
                                         @endif
