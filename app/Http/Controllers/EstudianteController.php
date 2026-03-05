@@ -193,7 +193,7 @@ class EstudianteController extends Controller
 
     public function descargarPlantilla()
     {
-        return Excel::download(new PlantillaEstudianteExport, 'plantilla_matricula_sistema.xlsx');
+        return Excel::download(new PlantillaEstudianteExport, 'plantilla_importar_estudiantes.xlsx');
     }
 
     public function importexcel(Request $request)
