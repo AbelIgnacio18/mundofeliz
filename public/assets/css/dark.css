@@ -1309,3 +1309,17 @@
   --bs-bg-opacity: 1;
   background-color: #151824 !important;
 }
+
+.dark .tab-bottom-bordered .nav-tabs .nav-link.active {
+  background-color: unset;
+  color: var(--bs-primary);
+  -webkit-box-shadow: unset;
+  box-shadow: unset;
+  font-weight: 700;
+}
+
+.dark .tab-bottom-bordered .nav-tabs .nav-link {
+  color: #e9ecef;
+  position: relative;
+  font-weight: 500;
+}

@@ -17,7 +17,7 @@
         /* Estilo de la Tarjeta de Estudiante */
         .student-card {
             background: #fff;
-            border-left: 5px solid #4e73df;
+            border-left: 5px solid #1e2125;
             border-radius: 8px;
         }
 

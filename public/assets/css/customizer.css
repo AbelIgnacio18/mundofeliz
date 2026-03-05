@@ -163,6 +163,10 @@ body {
   color: var(--bs-primary) !important;
 }
 
+.text-secondary {
+  color: var(--bs-secondary) !important;
+}
+
 .bg-primary {
   background-color: var(--bs-primary) !important;
 }
@@ -1022,6 +1026,7 @@ body {
 }
 
 .tab-bottom-bordered .nav-tabs .nav-link {
-  color: #e9ecef;
+  color: var(--bs-dark-primary);
   position: relative;
+  font-weight: 500;
 }
