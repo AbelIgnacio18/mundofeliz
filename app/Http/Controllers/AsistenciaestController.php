@@ -186,32 +186,16 @@ class AsistenciaestController extends Controller
      * Display the specified resource.
      */
     public function show($id)
-    {
-        $anolect = Anolectivo::where('estado', 1)->first();
+    {$anolect = Anolectivo::where('estado', 1)->first();
 
-        $fechaInicio = Carbon::parse($anolect->inicio);
-        $fechaFin = Carbon::parse(date("Y-m-d"));
-        $dias = [];
-        $meses = [];
-        $fechaActual = $fechaInicio->copy();
-        $fechaActual2 = $fechaInicio->copy();
-        while ($fechaActual->lte($fechaFin)) {
-            $dias[] = $fechaActual->format('Y-m-d'); // Formato día-mes-año
-            $fechaActual->addDay();
-        }
-        while ($fechaActual2->lte($fechaFin)) {
+$items = Matricula::where('idestudiante', $id)
+    ->where('idanolectivo', $anolect->id)
+    ->with('asistenciahoy')
+    ->with('estudiante')
+    ->get();
 
-            $meses[] = $fechaActual2->format('Y-m'); // Formato Mes Año
-            $fechaActual2->addMonth();
-        }
-        //dd($meses);
-
-        $items = Matricula::where('idestudiante', $id)->where('idanolectivo', $anolect->id)->with('asistenciahoy')->with('estudiante')
-            ->get();
-        //dd($items);
-
-
-        return view('pages.asistenciaest.show', compact('items', 'dias', 'meses'));
+return view('pages.asistenciaest.show', compact('items'));
+        
     }
 
 
