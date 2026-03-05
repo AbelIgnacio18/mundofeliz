@@ -41,7 +41,7 @@
             </a>
 
 
-            {{-- <a href="#" class=" text-center btn btn-secondary btn-icon mt-lg-0 mt-md-0 mt-3" data-bs-toggle="modal"
+<!--             <a href="#" class=" text-center btn btn-secondary btn-icon mt-lg-0 mt-md-0 mt-3" data-bs-toggle="modal"
                 data-bs-target="#registrarfalta-1">
                 <i class="btn-inner">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -51,7 +51,7 @@
                     </svg>
                 </i>
                 <span>Registrar Faltas </span>
-            </a> --}}
+            </a> -->
             
             <a class="btn btn-danger btn-round ml-auto" type="button" href="" data-bs-toggle="modal"
                 data-bs-target="#reporteasistencia">
@@ -107,7 +107,7 @@
                             <option value="">Todos</option>
                             <option value="1" {{ request('estado') === '1' ? 'selected' : '' }}>Asistió</option>
                             <option value="0" {{ request('estado') === '0' ? 'selected' : '' }}>Tarde</option>
-                            <option value="null" {{ request('estado') === 'null' ? 'selected' : '' }}>Falta</option>
+                            <option value="4" {{ request('estado') === '4' ? 'selected' : '' }}>Falta</option>
                         </select>
                     </div>
 
@@ -196,7 +196,7 @@
                                     @case(1) btn-success @break
                                     @case(0) btn-warning @break
                                     @case(4) btn-danger @break
-                                    @case(2) btn-primary @break
+                                    @case(2) btn-alumko @break
                                     @case(3) btn-secondary @break
                                     @default btn-outline-secondary
                                 @endswitch dropdown-toggle"
@@ -376,7 +376,7 @@
                         button.innerText = "F";
                         break;
                     case 2:
-                        button.classList.add("btn-primary");
+                        button.classList.add("btn-alumko");
                         button.innerText = "TJ";
                         break;
                     case 3:
