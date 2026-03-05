@@ -20,6 +20,7 @@ use App\Http\Controllers\AsistenciaestController;
 use App\Http\Controllers\EgresoController;
 use App\Http\Controllers\CajaController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\CalendarioController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RolPermissionController;
@@ -69,6 +70,7 @@ Route::get('home', [App\Http\Controllers\PanelController::class, 'index'])->name
     
      Route::resource('/roles-permission-union',RolPermissionController::class)->names('unionrolespermission');;
     Route::resource('/asistencia-docentes',AsistenciaController::class)->names('asistencia');
+     Route::resource('/calendario-escolar',CalendarioController::class)->names('calendario');
     Route::get('/registrar-falta-docente',[App\Http\Controllers\AsistenciaController::class, 'registrarfalta'])->name('registrarfaltadocente');
     
     Route::resource('/asistencia-estudiantes',AsistenciaestController::class)->names('asist-estudiante');

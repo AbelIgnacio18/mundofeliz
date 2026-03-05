@@ -574,8 +574,8 @@
                                 </a>
                             </li>
                         @endif
-                        <!-- <li class="nav-item">
-                            <a class="nav-link " href="{{ url('dashboard/concepto-pago') }}">
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('dashboard/calendario-escolar') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/calendario-escolar') }}">
                                 <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                         fill="currentColor">
@@ -585,9 +585,9 @@
                                     </svg>
                                 </i>
                                 <i class="sidenav-mini-icon">CT</i>
-                                <span class="item-sub-name">Concepto</span>
+                                <span class="item-sub-name">Calendario Escolar</span>
                             </a>
-                        </li> -->
+                        </li> 
                         @if (auth()->user()->hasPermission('VER AULAS'))
                             <li class="nav-item">
                                 <a class="{{ request()->is('dashboard/administracion-aulas') ? 'nav-link active' : 'nav-link' }}"
