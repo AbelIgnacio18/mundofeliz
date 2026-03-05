@@ -156,7 +156,7 @@
 
     <div class="card-body p-0">
         <div class="table-responsive">
-            <table id="user-list-table" class="table table-striped" role="grid" data-toggle="data-table">
+            <table id="user-list-table" class="table" role="grid" data-toggle="data-table">
                 <thead>
                     <tr>
                         <th>N°</th>

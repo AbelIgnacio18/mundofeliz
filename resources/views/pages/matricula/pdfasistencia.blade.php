@@ -6,7 +6,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
          </div>
          <div class="modal-body">
-            <form action="{{ route('app.reportematricula') }}" method="POST">
+            <form action="{{ route('app.reportematricula') }}" method="POST" target="_blank">
                @method('GET')
                @csrf
 
@@ -38,7 +38,7 @@
 
 
                <div class="text-start mt-2">
-                  <button class="btn btn-secondary" target="_blank" type="submit">Descargar</button>
+                  <button class="btn btn-secondary" type="submit">Descargar</button>
                   <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                </div>
             </form>
