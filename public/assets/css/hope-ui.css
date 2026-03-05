@@ -26264,3 +26264,9 @@ pre[class*=language-] {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+
+#user-list-table th,
+#user-list-table td{
+    padding: 0.25rem 0.75rem !important;
+    font-size: 0.9rem;
+}

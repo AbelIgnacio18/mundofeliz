@@ -162,16 +162,13 @@
     </div>
 </div>
 </div>
-
-
 </div>
+
 @include('pages.estudiante.search')
 
 <div class="card-body p-0">
-
-
     <div class="table-responsive">
-        <table class="table table-striped" role="grid" data-toggle="grid">
+        <table id="user-list-table" class="table" role="grid" data-toggle="grid">
             <thead>
                 <tr>
                     <th>N°</th>
@@ -181,8 +178,6 @@
                     <th>Apoderado</th>
                     <th>Dirección</th>
                     <!-- <th>Observaciones</th> -->
-
-
                     <th>Acciones</th>
 
                 </tr>
@@ -190,28 +185,34 @@
             <tbody>
                 @forelse($items as $estud)
                 <tr>
-                    <td class="py-0">
-                        <div class="d-flex align-items-center">
-                            <p>{{ $estud->id }}</p>
+                    <td>
+                        <div class="d-flex align-items-center">{{ $estud->id }}
                         </div>
                     </td>
 
                     <td>
-                        <p>{{ $estud->apellidos }}, {{ $estud->nombre }}</p>
+                        <div class="d-flex align-items-center">{{ $estud->apellidos }}, {{ $estud->nombre }}
+                        </div>
                     </td>
 
                     <td>
-                        <p>{{ $estud->dni }}</p>
+                        <div class="d-flex align-items-center">{{ $estud->dni }}
+                        </div>
                     </td>
 
                     <td>
-                        <p>{{ $estud->celular }}</p>
+                        <div class="d-flex align-items-center">{{ $estud->celular }}
+                        </div>
+
                     </td>
                     <td>
-                        <p>{{ $estud->apoderado->nombre }}</p>
+                        <div class="d-flex align-items-center">{{ $estud->apoderado->nombre }}
+                        </div>
                     </td>
                     <td>
-                        <p>{{ $estud->apoderado->direccion }}</p>
+                        <div class="d-flex align-items-center">{{ $estud->apoderado->direccion }}
+                        </div>
+
                     </td>
                     <!--                             <td>
                                 <p>{{ $estud->observaciones }}</p>
