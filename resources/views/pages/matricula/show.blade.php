@@ -148,7 +148,7 @@
                             </div>
                             <div>
                                 <p class="mb-1">Celular</p>
-                                <h5 class="mb-0">{{$matricula->estudiante->apoderado->celular}}</h5>
+                                <h5 class="mb-0">{{$matricula->estudiante->celular}}</h5>
                             </div>
                         </div>
                     </div>

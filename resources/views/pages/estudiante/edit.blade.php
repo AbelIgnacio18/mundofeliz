@@ -52,14 +52,13 @@
                   <label for="celular" class="form-label">Celular: <span class="badge bg-primary">Opcional</span></label>
                   <input type="text" class="form-control" id="celular" aria-describedby="celular" value="{{$estud->celular}}" name="celular">
                </div>
-         </div>
+               <div class="text-start mt-2">
+                  <button type="submit" class="btn btn-secondary">Actualizar</button>
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+               </div>
 
-
-         <div class="text-start mt-2">
-            <button type="submit" class="btn btn-secondary">Actualizar</button>
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            </form>
          </div>
-         </form>
 
       </div>
    </div>
