@@ -311,6 +311,14 @@
                     Faltas
                     <div class="value red">{{ $falta }}</div>
                 </td>
+                 <td>
+                    Tarde Just.
+                    <div class="value orange">{{ $tardejus }}</div>
+                </td>
+                  <td>
+                    Faltas Just. 
+                    <div class="value red">{{ $faltajus }}</div>
+                </td>
 
                 <td>
                     % Asistencia
@@ -331,6 +339,8 @@
         <span style="background:#1aa053">Asistió</span>
         <span style="background:#f39c12">Tarde</span>
         <span style="background:#e74c3c">Falta</span>
+ <span style="background:#8C4CFF">Tarde Justificada</span>
+ <span style="background:#115DD0"> Falta Justificada</span>
 
     </div>
 
@@ -390,6 +400,16 @@
                                         @if ($registro->estado == 0)
                                             <div class="tarde">
                                                 {{ Carbon\Carbon::parse($registro->created_at)->format('H:i') }}
+                                            </div>
+                                        @endif
+                                         @if ($registro->estado == 2)
+                                            <div class="" style="background-color: #8C4CFF">
+                                                {{ Carbon\Carbon::parse($registro->created_at)->format('H:i') }}
+                                            </div>
+                                        @endif
+                                          @if ($registro->estado == 3)
+                                            <div class="" style="background-color: #115DD0;color:#ffff">
+                                                FJ
                                             </div>
                                         @endif
 

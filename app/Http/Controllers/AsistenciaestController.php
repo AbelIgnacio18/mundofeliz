@@ -225,6 +225,8 @@ class AsistenciaestController extends Controller
             $asistio = 0;
 $tarde = 0;
 $falta = 0;
+$tardejus=0;
+$faltajus=0;
 
 foreach ($items as $item) {
     foreach ($item->asistenciahoy as $asis) {
@@ -232,17 +234,22 @@ foreach ($items as $item) {
         if ($asis->estado == 1) $asistio++;
         if ($asis->estado == 0) $tarde++;
         if ($asis->estado == 4) $falta++;
+        if ($asis->estado == 2) $tardejus++;
+         if ($asis->estado == 3) $faltajus++;
+
+        
+
 
     }
 }
 
-$total = $asistio + $tarde + $falta;
+$total = $asistio + $tarde + $falta+$faltajus+$tardejus;
 
 $porcentaje = $total > 0 ? round(($asistio / $total) * 100) : 0;
         //dd($items);
   $pdf = Pdf::loadView(
     'pages.asistenciaest.asistenciaindividual',
-    compact('items','dias','meses','estudiante','asistio','tarde','falta','total','porcentaje')
+    compact('items','dias','meses','estudiante','asistio','tarde','falta','total','porcentaje','faltajus','tardejus')
 );
         $pdf->setPaper('A4', 'landscape'); //Formato de hoha A4 en horizontal
         return $pdf->stream('lista_asistencia.pdf');
