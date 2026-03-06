@@ -44,34 +44,7 @@ class EstudianteController extends Controller
 
 
 
-    protected function pdffiltrado(Request $request)
-    {
-
-        if ($request) {
-            $nivel = trim($request->get('filtronivel'));
-            $grado = trim($request->get('filtrogrado'));
-            $seccion = trim($request->get('filtroseccion'));
-
-            // dd($nivel,$grado,$seccionf);
-
-
-            $estudiante = Estudiante::with('meses')->with('seccion')->with('nivel')->with('grado')->where('idnivel', 'LIKE', '%' . $nivel . '%')->where('idgrado', 'LIKE', '%' . $grado . '%')->where('idseccion', 'LIKE', '%' . $seccion . '%')->get();
-
-
-
-            $pdf = Pdf::loadView('pages.estudiante.mostrarfiltro', compact('estudiante', 'seccion'));
-
-
-            if ($nivel != "" && $grado != "" && $seccion != "") {
-                $nivelb = Nivel::find($nivel);
-                $gradob = Grado::find($grado);
-                $seccionb = Seccion::find($seccion);
-                return $pdf->stream('' . $nivelb->nombre . '-' . $gradob->grado . '-' . $seccionb->nombre . '.pdf');
-            } else {
-                return $pdf->stream('lista-estudiantes.pdf');
-            }
-        }
-    }
+    
 
 
 
