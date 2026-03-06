@@ -47,7 +47,7 @@ class AsistenciahoyApiController extends Controller
             ->join('matriculas as m', 'e.id', '=', 'm.idestudiante')
             ->join('asistenciaests as a', 'm.id', '=', 'a.idmatricula')
             ->select('e.id as iduser', 'e.nombre', 'e.apellidos','m.id as idmatricula' ,
-            'a.fechaentrada as fecha','a.created_at as entrada', 'a.updated_at as salida','a.estado')->where('e.id', $id)->orderBy('a.fechaentrada', 'desc')->first();
+            'a.fechaentrada as fecha','a.created_at as entrada', 'a.horasalida as salida','a.estado')->where('e.id', $id)->orderBy('a.fechaentrada', 'desc')->first();
 
         $countasistencia = Asistenciaest::where('idmatricula',$estudiante->idmatricula)->count();
         //faltass
@@ -69,7 +69,7 @@ class AsistenciahoyApiController extends Controller
       'mes' => Carbon::parse($estudiante->fecha)->format('F'),
         'dia' => Carbon::parse($estudiante->fecha)->translatedFormat('l'),
         'entrada' =>Carbon::parse($estudiante->entrada)->format('h:i A'),
-        'salida' => Carbon::parse($estudiante->salida)->format('h:i A'),
+        'salida' => $estudiante->salida != null ? Carbon::parse($estudiante->salida)->format('h:i A') : '—',
         
         'porcentaje' => round($porcentualfaltas, 2),
         'falta' => $countfaltas,

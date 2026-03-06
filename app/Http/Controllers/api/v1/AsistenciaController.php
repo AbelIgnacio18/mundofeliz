@@ -138,7 +138,7 @@ class AsistenciaController extends Controller
             $idapoderado = Apoderado::where('id', $estudiante->idapoderado)->first();
             $aula = Aula::where('id', $matricula->idaula)->first();
             //asistencia de turno estudiante mañana
-            if (Carbon::now()->lt(Carbon::parse("14:30:00"))) {
+            if (Carbon::now()->lt(Carbon::parse($aula->horafalta))) {
 
                 if (empty(Asistenciaest::where('idmatricula', $matricula->id)->where('fechaentrada', date("Y-m-d"))->first()) == true) {
                     $asistencia = new Asistenciaest;
@@ -154,10 +154,10 @@ class AsistenciaController extends Controller
                     return response()->json($estudiante->nombre, 200);
                 } else {
 
-                    if (Carbon::now()->lt(Carbon::parse("14:30:00")) and Carbon::now()->gt(Carbon::parse("13:50:00"))) {
+                    if (Carbon::now()->lt(Carbon::parse("$aula->horasalida")) and Carbon::now()->gt(Carbon::parse("13:50:00"))) {
                         $asistencia = Asistenciaest::where('idmatricula', $matricula->id)->where('fechaentrada', date("Y-m-d"))->first();
 
-                        $asistencia->updated_at = now();
+                        $asistencia->horasalida = date("H:i:s");
                         $asistencia->update();
                         $this->enviarNotificacionPush($idapoderado, $estudiante, "salida");
                         return response()->json($estudiante->nombre, 200);
