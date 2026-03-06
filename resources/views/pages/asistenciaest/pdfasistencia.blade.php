@@ -6,7 +6,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
          </div>
          <div class="modal-body">
-            <form action="{{ route('app.reporteasistencia') }}" method="POST">
+            <form action="{{ route('app.reporteasistencia') }}" method="POST" target="_blank">
                @method('GET')
                @csrf
 
@@ -16,12 +16,12 @@
                      <span>Escoger Aula:</span>
                      <div>
                         @forelse($aula as $tu)
-                         <div class="form-check">
-                             <input class="form-check-input" type="radio" name="turno" id="grado" value="{{$tu->id}}" style="cursor:pointer">
-                             <label class="form-check-label" for="estado">
-                               {{$tu->nivel}}   {{$tu->grado}}   {{$tu->seccion}}
-                             </label>
-                          </div>
+                        <div class="form-check">
+                           <input class="form-check-input" type="radio" name="turno" id="grado" value="{{$tu->id}}" style="cursor:pointer">
+                           <label class="form-check-label" for="estado">
+                              {{$tu->nivel}}   {{$tu->grado}}   {{$tu->seccion}}
+                           </label>
+                        </div>
                         @empty
                         @endforelse
 

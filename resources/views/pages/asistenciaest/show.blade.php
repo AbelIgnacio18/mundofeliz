@@ -108,12 +108,6 @@
         </div> 
 
         <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">
-                    Asistencia: {{ $items->first()->estudiante->nombre }}
-                </h4>
-            </div>
-
             <div class="card-body">
                 <div id="calendar-asistencia"></div>
             </div>
@@ -123,7 +117,7 @@
 
         <div class="text-center py-4">
             <a href="{{ url('dashboard/asistencia-estudiantes') }}" class="btn btn-secondary btn-return shadow-sm">
-                <i class="fas fa-chevron-left mr-2"></i> Volver al Panel de Control
+                <i class="fas fa-chevron-left mr-2"></i>Regresar
             </a>
         </div>
 

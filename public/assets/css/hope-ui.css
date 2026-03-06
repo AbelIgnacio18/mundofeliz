@@ -8867,8 +8867,8 @@ textarea.form-control-lg {
 }
 
 .my-n5 {
-  margin-top: -3rem !important;
-  margin-bottom: -3rem !important;
+  margin-top: -4rem !important;
+  margin-bottom: -4rem !important;
 }
 
 .mt-n1 {
@@ -26263,4 +26263,10 @@ pre[class*=language-] {
 *, ::before, ::after {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+#user-list-table th,
+#user-list-table td{
+    padding: 0.25rem 0.75rem !important;
+    font-size: 0.9rem;
 }

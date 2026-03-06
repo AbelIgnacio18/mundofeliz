@@ -18,11 +18,8 @@
             @endif
         </div>
         <div class="header-title">
-            <h4 class="card-title mb-0">Asistencia de Estudiantes</h4>
-            <h4 class="card-title mb-3"><span
+            <h4 class="card-title mb-0">Asistencia de Estudiantes <span
                     class="badge bg-dark">{{ Carbon\Carbon::parse(date('Y-m-d'))->translatedFormat('l, j F Y') }}</span></h4>
-
-
         </div>
 
         <!-- modal para crear nuevos conceptos de pagooo -->
@@ -156,7 +153,7 @@
 
     <div class="card-body p-0">
         <div class="table-responsive">
-            <table id="user-list-table" class="table table-striped" role="grid" data-toggle="data-table">
+            <table id="user-list-table" class="table" role="grid" data-toggle="data-table">
                 <thead>
                     <tr>
                         <th>N°</th>
