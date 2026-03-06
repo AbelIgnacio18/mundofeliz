@@ -18,11 +18,8 @@
             @endif
         </div>
         <div class="header-title">
-            <h4 class="card-title mb-0">Asistencia de Estudiantes</h4>
-            <h4 class="card-title"><span
+            <h4 class="card-title mb-0">Asistencia de Estudiantes <span
                     class="badge bg-dark">{{ Carbon\Carbon::parse(date('Y-m-d'))->translatedFormat('l, j F Y') }}</span></h4>
-
-
         </div>
 
         <!-- modal para crear nuevos conceptos de pagooo -->

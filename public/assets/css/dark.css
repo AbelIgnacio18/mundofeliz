@@ -1328,6 +1328,10 @@
     filter: invert(1);
 }
 
+.dark input[type="time"]::-webkit-calendar-picker-indicator{
+    filter: invert(1);
+}
+
 .dark .form-select,
 [data-bs-theme="dark"] .form-select{
     color:#fff;
