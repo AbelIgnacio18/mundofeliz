@@ -459,7 +459,12 @@
                                         @empty
                                         @endforelse
 
+<<<<<<< HEAD
                                     </tbody>
+=======
+                                                            // Elegimos el primer número disponible para el botón principal
+                                                            $celularDestino = $celularMama || $celularPapa;
+>>>>>>> 73180e4f1eacd18439a11209493934a2f37099b2
 
                                 </table>
                             </div>
@@ -493,40 +498,122 @@
                                         // Elegimos el primer número disponible para el botón principal
                                         $celularDestino = $celularMama ?? $celularPapa;
 
-                                        $mensaje =
-                                        'Estimado padre de familia del colegio Bertolt Brecht, le informamos que su menor hijo(a) ' .
-                                        $repor->nombre .
-                                        ' ' .
-                                        $repor->apellidos .
-                                        ' registra ' .
-                                        $tardanzas .
-                                        ' falta(s) a la fecha. Por favor, tomar las medidas necesarias.';
-                                        $urlWhatsapp =
-                                        'https://wa.me/51' .
-                                        $celularDestino .
-                                        '?text=' .
-                                        urlencode($mensaje);
-                                        @endphp
-                                        <tr>
-                                            <td>{{ $numeracion }}</td>
-                                            <td>
-                                                {{ $repor->apellidos }} <br> {{ $repor->nombre }}
-                                            </td>
-                                            <td>
-                                                {{ $repor->nivel }} <br> {{ $repor->grado }} <br>
-                                                {{ $repor->seccion }}
-                                            </td>
-                                            <td>
-                                                {{-- UX: Resaltar en rojo si llega a 3 o más --}}
-                                                <span
-                                                    class="badge {{ $tardanzas >= 3 ? 'bg-danger' : 'bg-warning' }}">
-                                                    {{ $tardanzas }} / {{ $repor->total_dias }}
-                                                </span>
-                                            </td>
+                                                        <td>
+                                                            <div class="progress" style="height: 10px;">
+                                                                <div class="progress-bar  {{ $repor->porcentaje_tardanza <= 10
+                                                                    ? 'bg-success'
+                                                                    : ($repor->porcentaje_tardanza <= 25
+                                                                        ? 'bg-warning'
+                                                                        : 'bg-danger') }}"
+                                                                    role="progressbar"
+                                                                    style="width: {{ round($repor->porcentaje_tardanza) }}%">
+                                                                </div>
+                                                            </div>
+                                                            <small>{{ round($repor->porcentaje_tardanza) }}%</small>
+                                                        </td>
 
-                                            <td>
-                                                <div class="progress" style="height: 10px;">
-                                                    <div class="progress-bar 
+                                                        <td class="text-center">
+                                                            @if ($repor->total_tardanzas >= 3 && $celularDestino)
+                                                                <div class="btn-group" role="group">
+                                                                    {{-- Botón Principal (Mamá) --}}
+                                                                    <a href="https://wa.me/51{{ $celularMama }}?text={{ urlencode($mensaje) }}"
+                                                                        target="_blank" class="btn btn-success btn-sm"
+                                                                        title="Notificar a Mamá">
+                                                                        <i class="fab fa-whatsapp"></i> M
+                                                                    </a>
+
+                                                                    {{-- Botón Secundario (Si existe Papá) --}}
+                                                                    @if ($celularPapa)
+                                                                        <a href="https://wa.me/51{{ $celularPapa }}?text={{ urlencode($mensaje) }}"
+                                                                            target="_blank" class="btn btn-info btn-sm"
+                                                                            title="Notificar a Papá">
+                                                                            <i class="fab fa-whatsapp"></i> P
+                                                                        </a>
+                                                                    @endif
+                                                                </div>
+                                                            @else
+                                                                <span class="text-muted"><small>Sin acción</small></span>
+                                                            @endif
+                                                        </td>
+
+                                                    </tr>
+
+                                                    @php
+                                                        $numeracion++;
+
+                                                    @endphp
+                                                @empty
+                                                @endforelse
+
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="nav-contact-11" role="tabpanel"
+                                    aria-labelledby="nav-contact-11-tab">
+                                    <div class="table-responsive">
+                                        <table id="transaction-table-2" class="table mb-0" role="grid">
+                                            <thead>
+                                                <tr>
+                                                    <th>N°</th>
+                                                    <th>Nombre Completo</th>
+                                                    <th>Aula</th>
+                                                    <th>Falta</th>
+                                                    <th>Porcentaje</th>
+                                                    <th>Acción</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php $numeracion = 1; @endphp
+                                                @forelse($reporte as $repor)
+                                                    @php
+                                                        // Suponiendo que $repor->total_faltas representa las tardanzas en esta vista
+                                                        $faltas = $repor->total_faltas;
+
+                                                        $numeros = explode('/', $repor->celular); // Divide por la barra '/'
+                                                        $celularMama = isset($numeros[0]) ? trim($numeros[0]) : null;
+                                                        $celularPapa = isset($numeros[1]) ? trim($numeros[1]) : null;
+
+                                                        // Elegimos el primer número disponible para el botón principal
+                                                        $celularDestino = $celularMama || $celularPapa;
+
+                                                        $mensaje =
+                                                            'Estimado padre de familia del colegio Bertolt Brecht, le informamos que su menor hijo(a) ' .
+                                                            $repor->nombre .
+                                                            ' ' .
+                                                            $repor->apellidos .
+                                                            ' registra ' .
+                                                            $faltas .
+                                                            ' falta(s) a la fecha. Por favor, tomar las medidas necesarias.';
+                                                        $urlWhatsapp =
+                                                            'https://wa.me/51' .
+                                                            $celularDestino .
+                                                            '?text=' .
+                                                            urlencode($mensaje);
+                                                    @endphp
+                                                    <tr>
+                                                        <td>{{ $numeracion }}</td>
+                                                        <td>
+                                                            {{ $repor->apellidos }} <br> {{ $repor->nombre }}
+                                                            {{$celularMama}}{{ $celularPapa}}
+                                                        </td>
+                                                        <td>
+                                                            {{ $repor->nivel }} <br> {{ $repor->grado }} <br>
+                                                            {{ $repor->seccion }}
+                                                        </td>
+                                                        <td>
+                                                            {{-- UX: Resaltar en rojo si llega a 3 o más --}}
+                                                            <span
+                                                                class="badge {{ $faltas >= 3 ? 'bg-danger' : 'bg-warning' }}">
+                                                                {{ $faltas }} / {{ $repor->total_dias }}
+                                                            </span>
+                                                        </td>
+
+                                                        <td>
+                                                            <div class="progress" style="height: 10px;">
+                                                                <div class="progress-bar 
                                                                 {{ $repor->porcentaje_faltas <= 10
                                                                     ? 'bg-success'
                                                                     : ($repor->porcentaje_faltas <= 25
@@ -540,6 +627,7 @@
                                             </td>
 
 
+<<<<<<< HEAD
                                             <td class="text-center">
                                                 @if ($repor->total_faltas >= 0 && $celularDestino)
                                                 <div class="btn-group" role="group">
@@ -549,6 +637,17 @@
                                                         title="Notificar a Mamá">
                                                         <i class="fab fa-whatsapp"></i> M
                                                     </a>
+=======
+                                                        <td class="text-center">
+                                                            @if ($repor->total_faltas >= 1 && $celularDestino)
+                                                                <div class="btn-group" role="group">
+                                                                    {{-- Botón Principal (Mamá) --}}
+                                                                    <a href="https://wa.me/51{{ $celularMama }}?text={{ urlencode($mensaje) }}"
+                                                                        target="_blank" class="btn btn-success btn-sm"
+                                                                        title="Notificar a Mamá">
+                                                                        <i class="fab fa-whatsapp"></i> M
+                                                                    </a>
+>>>>>>> 73180e4f1eacd18439a11209493934a2f37099b2
 
                                                     {{-- Botón Secundario (Si existe Papá) --}}
                                                     @if ($celularPapa)
