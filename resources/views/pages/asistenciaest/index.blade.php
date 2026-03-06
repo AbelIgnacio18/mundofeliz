@@ -248,7 +248,7 @@
                                     <strong>{{ Carbon\Carbon::parse($item->created_at)->format('h:i A') }}</strong>
                                 </div>
                                 <div class="text-muted">
-                                    {{ $item->created_at != $item->updated_at ? Carbon\Carbon::parse($item->updated_at)->format('h:i A') : '—' }}
+                                    {{ $item->horasalida != null ? Carbon\Carbon::parse($item->horasalida)->format('h:i A') : '—' }}
                                 </div>
                             </td>
                             {{-- value="{{ $item->observacion }}" --}}

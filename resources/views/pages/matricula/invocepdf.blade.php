@@ -85,7 +85,7 @@
                     <strong>I.E.P.</strong><br>
                     Mundo Feliz<br>
                     RUC: 10752090625<br>
-                    Año Lectivo:{{$anolect->años}}
+                    Año Lectivo:{{ $anolect->años }}
                 </h3>
             </div><!--.me-->
 
@@ -102,14 +102,14 @@
         </header>
         <div>
             <h1>
-                {{$mostraraula->nivel}} {{$mostraraula->grado}} {{$mostraraula->seccion}}
+                {{ $mostraraula->nivel }} {{ $mostraraula->grado }} {{ $mostraraula->seccion }}
             </h1>
         </div>
 
     </div>
 
     <div class="container">
-        
+
 
         <div class="table-responsive mt-4">
             <table id="user-list-table" class="table table-striped" role="grid" data-toggle="data-table">
@@ -119,82 +119,61 @@
                         <th>Estudiante</th>
                         <th>DNI</th>
                         <th>Nivel</th>
-                        <th>Pensión</th>
-                        <th>D.Admisión</th>
+                        <th>Código</th>
+                        <th>Estado</th>
 
                         <!--                    <th>Código</th> -->
                     </tr>
                 </thead>
                 <tbody>
                     @php
-                    $contador=1;
+                        $contador = 1;
                     @endphp
                     @forelse($matricula as $matri)
-                    <tr>
-                        <td>
-                            <h4>{{$contador}}</h4>
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <h5>{{$matri->estudiante->apellidos}}, {{$matri->estudiante->nombre}} @if($matri->estado==1) <span class="badge bg-danger"> Trasladado</span> @endif </h5>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <h5>{{$matri->estudiante->dni}}</h5>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <h5>{{$matri->aula->nivel}} {{$matri->aula->grado}} {{$matri->aula->seccion}}</h5>
-                            </div>
-                        </td>
-                        <td>
-                            <div style="display:flex; flex-wrap:wrap; gap:8px;">
-                                @forelse($matri->meses as $me)
-                                <a href="#" class="iq-media-1" style="display:inline-block; padding:0px 0px; background:#F5CCD0; border-radius:6px;">
-                                    <div>{{ $me->mes }}</div>
-                                </a>
-                                @empty
-                                @endforelse
-                            </div>
+                        <tr>
+                            <td>
+                                <h4>{{ $contador }}</h4>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <h5>{{ $matri->estudiante->apellidos }}, {{ $matri->estudiante->nombre }}
+                                        @if ($matri->estado == 1)
+                                            <span class="badge bg-danger"> Trasladado</span>
+                                        @endif
+                                    </h5>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <h5>{{ $matri->estudiante->dni }}</h5>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <h5>{{ $matri->aula->nivel }} {{ $matri->aula->grado }} {{ $matri->aula->seccion }}
+                                    </h5>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                                    {{ $matri->codigo }}
+                                </div>
 
-                        </td>
+                            </td>
 
-                        <td>
-                            @php
+                            <td>
 
-                            $pensiones = $matri->estudiante->pagos->flatMap->pensiones;
-                            $conceptosMostrar = [
-                            'M2025' => 'MTR',
-                            'C2025' => 'COP',
-                            'PSC2025' => 'PS',
-                            'UE2025' => 'UTE',
-                            ];
-                            @endphp
+                                <div style="display:flex; flex-wrap:wrap;">
+                                    <span class="badge {{ $matri->estado == 1 ? 'bg-info' : 'bg-secondary' }}">
+                                        {{ $matri->estado == 1 ? 'Trasladado' : 'Matrículado' }}
+                                    </span>
+                                </div>
+                            </td>
 
-                            <div style="display:flex; flex-wrap:wrap;">
-
-                                @foreach ($conceptosMostrar as $codigo => $label)
-                                @if ($pensiones->firstWhere('concepto.codigo', $codigo))
-                                <span style="
-                    display:inline-block; 
-                    padding:0px; 
-                    background:#F5CCD0; 
-                    border-radius:6px;
-                    margin:2px;">
-                                    {{ $label }}
-                                </span>
-                                @endif
-                                @endforeach
-
-                            </div>
-                        </td>
-
-                    </tr>
-                    @php
-                    $contador++;
-                    @endphp
+                        </tr>
+                        @php
+                            $contador++;
+                        @endphp
                     @empty
                     @endforelse
 

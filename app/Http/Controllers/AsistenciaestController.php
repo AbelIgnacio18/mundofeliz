@@ -41,7 +41,7 @@ class AsistenciaestController extends Controller
                 ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
                 ->join('asistenciaests as a', 'm.id', '=', 'a.idmatricula')
                 ->join('aulas as au', 'm.idaula', '=', 'au.id')
-                ->select('a.id', 'e.nombre', 'e.apellidos', 'e.id as idestudiante', 'au.nivel', 'au.grado', 'au.seccion', 'a.created_at', 'a.updated_at', 'a.fechaentrada', 'a.estado', 'a.idanolectivo', 'a.observacion')
+                ->select('a.id', 'e.nombre', 'e.apellidos', 'e.id as idestudiante', 'au.nivel', 'au.grado', 'au.seccion', 'a.created_at', 'a.updated_at','a.horasalida', 'a.fechaentrada', 'a.estado', 'a.idanolectivo', 'a.observacion')
                 ->when($idaula, fn($q) => $q->where('m.idaula', $idaula))
                 ->when($estado !== null && $estado !== '', function ($q) use ($estado) {
 
@@ -112,6 +112,7 @@ class AsistenciaestController extends Controller
                 $asistencia->idanolectivo = $anolect->id;
                 $asistencia->idmatricula = $idmatriculas[$cont];
                 $asistencia->fechaentrada = date('Y-m-d');
+            
                 $asistencia->estado =  $hora < ($aula->horatarde) ? 1 : 0;
                 $asistencia->save();
 
