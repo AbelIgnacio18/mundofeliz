@@ -41,7 +41,7 @@ class AsistenciaestController extends Controller
                 ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
                 ->join('asistenciaests as a', 'm.id', '=', 'a.idmatricula')
                 ->join('aulas as au', 'm.idaula', '=', 'au.id')
-                ->select('a.id', 'e.nombre', 'e.apellidos', 'e.id as idestudiante', 'au.nivel', 'au.grado', 'au.seccion', 'a.created_at', 'a.updated_at','a.horasalida', 'a.fechaentrada', 'a.estado', 'a.idanolectivo', 'a.observacion')
+                ->select('a.id', 'e.nombre', 'e.apellidos', 'e.id as idestudiante', 'au.nivel', 'au.grado', 'au.seccion', 'a.created_at', 'a.updated_at', 'a.horasalida', 'a.fechaentrada', 'a.estado', 'a.idanolectivo', 'a.observacion')
                 ->when($idaula, fn($q) => $q->where('m.idaula', $idaula))
                 ->when($estado !== null && $estado !== '', function ($q) use ($estado) {
 
@@ -100,6 +100,7 @@ class AsistenciaestController extends Controller
         $hora = $request->get('hora-entrada');
         $anolect = Anolectivo::where('estado', 1)->first();
 
+$tipo = $request->has('tipo_registro') ? 'salida' : 'entrada';
 
         $cont = 0;
         while ($cont < count($idmatriculas)) {
@@ -107,23 +108,41 @@ class AsistenciaestController extends Controller
             $estudiante = Estudiante::where('id', $matricula->idestudiante)->first();
             $idapoderado = Apoderado::where('id', $estudiante->idapoderado)->first();
             $aula = Aula::where('id', $matricula->idaula)->first();
-            if (empty(Asistenciaest::where('idmatricula', $matricula->id)->where('fechaentrada', date("Y-m-d"))->first()) == true) {
-                $asistencia = new Asistenciaest();
-                $asistencia->idanolectivo = $anolect->id;
-                $asistencia->idmatricula = $idmatriculas[$cont];
-                $asistencia->fechaentrada = date('Y-m-d');
-            
-                $asistencia->estado =  $hora < ($aula->horatarde) ? 1 : 0;
-                $asistencia->save();
 
-                $this->enviarNotificacionPush($idapoderado, $estudiante, "entrada");
-            }
-            $cont = $cont + 1;
+
+            if (empty(Asistenciaest::where('idmatricula', $matricula->id)->where('fechaentrada', date("Y-m-d"))->first()) == true) {
+
+                if ($tipo == 'entrada') {
+                    $asistencia = new Asistenciaest();
+                    $asistencia->idanolectivo = $anolect->id;
+                    $asistencia->idmatricula = $idmatriculas[$cont];
+                    $asistencia->fechaentrada = date('Y-m-d');
+
+                    $asistencia->estado =  $hora < ($aula->horatarde) ? 1 : 0;
+                    $asistencia->save();
+                    $this->enviarNotificacionPush($idapoderado, $estudiante, "entrada");
+                } 
+            
+
+                
+            }else {
+
+                    $asistencia=Asistenciaest::where('idmatricula', $matricula->id)->where('fechaentrada', date("Y-m-d"))->first();
+              
+                    $asistencia->horasalida = $hora;
+                    $asistencia->update();
+
+                    $this->enviarNotificacionPush($idapoderado, $estudiante, "salida");
+                }
+   $cont = $cont + 1;
+
+
+
         }
         session()->flash('swal', [
             'icon' => 'success',
             'title' => 'bien hecho',
-            'text' => 'Estudiante Actualización correctamente',
+            'text' => 'Registro correcto',
             'timer' => '1000',
             ' showConfirmButton' => 'false'
         ]);
@@ -200,8 +219,8 @@ class AsistenciaestController extends Controller
     }
     public function asistenciaindividual($id)
     {
-        
-      $anolect = Anolectivo::where('estado', 1)->first();
+
+        $anolect = Anolectivo::where('estado', 1)->first();
 
         $fechaInicio = Carbon::parse($anolect->inicio);
         $fechaFin = Carbon::parse(date("Y-m-d"));
@@ -219,42 +238,37 @@ class AsistenciaestController extends Controller
             $fechaActual2->addMonth();
         }
         //dd($meses);
-// 
+        // 
         $items = Matricula::where('idestudiante', $id)->where('idanolectivo', $anolect->id)->with('asistenciahoy')->with('estudiante')
             ->get();
-            $estudiante=Estudiante::where('id',$id)->first();
-            $asistio = 0;
-$tarde = 0;
-$falta = 0;
-$tardejus=0;
-$faltajus=0;
+        $estudiante = Estudiante::where('id', $id)->first();
+        $asistio = 0;
+        $tarde = 0;
+        $falta = 0;
+        $tardejus = 0;
+        $faltajus = 0;
 
-foreach ($items as $item) {
-    foreach ($item->asistenciahoy as $asis) {
+        foreach ($items as $item) {
+            foreach ($item->asistenciahoy as $asis) {
 
-        if ($asis->estado == 1) $asistio++;
-        if ($asis->estado == 0) $tarde++;
-        if ($asis->estado == 4) $falta++;
-        if ($asis->estado == 2) $tardejus++;
-         if ($asis->estado == 3) $faltajus++;
+                if ($asis->estado == 1) $asistio++;
+                if ($asis->estado == 0) $tarde++;
+                if ($asis->estado == 4) $falta++;
+                if ($asis->estado == 2) $tardejus++;
+                if ($asis->estado == 3) $faltajus++;
+            }
+        }
 
-        
+        $total = $asistio + $tarde + $falta + $faltajus + $tardejus;
 
-
-    }
-}
-
-$total = $asistio + $tarde + $falta+$faltajus+$tardejus;
-
-$porcentaje = $total > 0 ? round(($asistio / $total) * 100) : 0;
+        $porcentaje = $total > 0 ? round(($asistio / $total) * 100) : 0;
         //dd($items);
-  $pdf = Pdf::loadView(
-    'pages.asistenciaest.asistenciaindividual',
-    compact('items','dias','meses','estudiante','asistio','tarde','falta','total','porcentaje','faltajus','tardejus')
-);
+        $pdf = Pdf::loadView(
+            'pages.asistenciaest.asistenciaindividual',
+            compact('items', 'dias', 'meses', 'estudiante', 'asistio', 'tarde', 'falta', 'total', 'porcentaje', 'faltajus', 'tardejus')
+        );
         $pdf->setPaper('A4', 'landscape'); //Formato de hoha A4 en horizontal
         return $pdf->stream('lista_asistencia.pdf');
-
     }
 
 
