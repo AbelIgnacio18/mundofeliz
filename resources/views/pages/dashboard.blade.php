@@ -503,7 +503,7 @@
                                                         $celularDestino = $celularMama || $celularPapa;
 
                                                         $mensaje =
-                                                            'Estimado padre del colegio Bertol Brecht, le informamos que su menor hijo(a) ' .
+                                                            'Estimado padre de familia del colegio Bertol Brecht, le informamos que su menor hijo(a) ' .
                                                             $repor->nombre .
                                                             ' ' .
                                                             $repor->apellidos .

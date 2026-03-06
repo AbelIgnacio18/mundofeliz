@@ -24,18 +24,18 @@ body {
 
 :root {
 /* Colores de Header ROJO - Principal */
---bs-heading-color: #61131B;
---bs-primary: #D72B3B;
---bs-primary-shade-80: #61131B;
---bs-primary-shade-60: #7B1922;
---bs-primary-shade-40: #991F2A;
---bs-primary-shade-20: #B72532;
---bs-primary-tint-90: #FBEAEB;
---bs-primary-tint-80: #F5CCD0;
---bs-primary-tint-60: #EEA4AB;
---bs-primary-tint-40: #E67984;
---bs-primary-tint-20: #DE515E;
---bs-primary-rgb: 215, 43, 59;
+--bs-heading-color: #072655;
+--bs-primary: #0F55BD;
+--bs-primary-shade-80: #072655;
+--bs-primary-shade-60: #09306C;
+--bs-primary-shade-40: #0B3C86;
+--bs-primary-shade-20: #0D48A1;
+--bs-primary-tint-90: #E7EEF8;
+--bs-primary-tint-80: #C5D6EF;
+--bs-primary-tint-60: #98B6E3;
+--bs-primary-tint-40: #6894D5;
+--bs-primary-tint-20: #3A74C9;
+--bs-primary-rgb: 13, 72, 161;
 
 /* Colores de Info verde ESMERALDA - Secundario */
 --bs-heading-color: #055A60;

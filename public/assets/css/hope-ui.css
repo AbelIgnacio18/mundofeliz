@@ -25,8 +25,8 @@
 }
 
 :root {
-  --primary: #D72B3B;
-  --secondary: #115DD0;
+  --primary: #0f55bd;
+  --secondary: #FFB606;
   --tertiary: #0067f4;
   --light: #FDFFFC;
   --light_variant: #F2F5F8;
@@ -26114,7 +26114,7 @@ pre[class*=language-] {
 }
 
 .login {
-  background-image: url(../images/auth/fondo-login.png);
+  background-image: url(../images/auth/fondo-login.webp);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
