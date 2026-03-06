@@ -459,12 +459,8 @@
                                         @empty
                                         @endforelse
 
-<<<<<<< HEAD
-                                    </tbody>
-=======
                                                             // Elegimos el primer número disponible para el botón principal
                                                             $celularDestino = $celularMama || $celularPapa;
->>>>>>> 73180e4f1eacd18439a11209493934a2f37099b2
 
                                 </table>
                             </div>
@@ -627,17 +623,6 @@
                                             </td>
 
 
-<<<<<<< HEAD
-                                            <td class="text-center">
-                                                @if ($repor->total_faltas >= 0 && $celularDestino)
-                                                <div class="btn-group" role="group">
-                                                    {{-- Botón Principal (Mamá) --}}
-                                                    <a href="https://wa.me/51{{ $celularMama }}?text={{ urlencode($mensaje) }}"
-                                                        target="_blank" class="btn btn-success btn-sm"
-                                                        title="Notificar a Mamá">
-                                                        <i class="fab fa-whatsapp"></i> M
-                                                    </a>
-=======
                                                         <td class="text-center">
                                                             @if ($repor->total_faltas >= 1 && $celularDestino)
                                                                 <div class="btn-group" role="group">
@@ -647,7 +632,6 @@
                                                                         title="Notificar a Mamá">
                                                                         <i class="fab fa-whatsapp"></i> M
                                                                     </a>
->>>>>>> 73180e4f1eacd18439a11209493934a2f37099b2
 
                                                     {{-- Botón Secundario (Si existe Papá) --}}
                                                     @if ($celularPapa)
