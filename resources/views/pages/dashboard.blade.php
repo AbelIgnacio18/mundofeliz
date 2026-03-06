@@ -386,13 +386,13 @@
                                             $celularDestino = $celularMama ?? $celularPapa;
 
                                             $mensaje =
-                                            'Estimado padre de familia de la I.E.P. Mundo Feliz, le informamos que su menor hijo(a) ' .
+                                            'Estimado padre de familia del colegio Bertolt Brecht, le informamos que su menor hijo(a) ' .
                                             $repor->nombre .
                                             ' ' .
                                             $repor->apellidos .
                                             ' registra ' .
                                             $repor->total_tardanzas .
-                                            ' tardanzas a la fecha. Por favor, tomar las medidas necesarias.';
+                                            ' tardanza(s) a la fecha. Por favor, tomar las medidas necesarias.';
                                             $urlWhatsapp =
                                             'https://wa.me/51' .
                                             $celularDestino .
@@ -494,13 +494,13 @@
                                         $celularDestino = $celularMama ?? $celularPapa;
 
                                         $mensaje =
-                                        'Estimado padre de familia de la I.E.P. Mundo Feliz, le informamos que su menor hijo(a) ' .
+                                        'Estimado padre de familia del colegio Bertolt Brecht, le informamos que su menor hijo(a) ' .
                                         $repor->nombre .
                                         ' ' .
                                         $repor->apellidos .
                                         ' registra ' .
                                         $tardanzas .
-                                        ' tardanzas a la fecha. Por favor, tomar las medidas necesarias.';
+                                        ' falta(s) a la fecha. Por favor, tomar las medidas necesarias.';
                                         $urlWhatsapp =
                                         'https://wa.me/51' .
                                         $celularDestino .
