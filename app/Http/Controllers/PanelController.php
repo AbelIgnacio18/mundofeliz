@@ -124,7 +124,7 @@ class PanelController extends Controller
                     DB::raw('(SUM(CASE WHEN a.estado=4 THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) as porcentaje_faltas')
                 )
                 ->groupBy('e.id', 'e.nombre', 'e.apellidos', 'e.celular', 'au.nivel', 'au.grado', 'au.seccion')
-                ->havingRaw('(SUM(CASE WHEN a.estado=4 THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) >= 20')
+                ->havingRaw('(SUM(CASE WHEN a.estado=4 THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) >= 0')
                 ->orderByDesc('porcentaje_faltas')
                 ->limit(15)->get();
 
@@ -159,7 +159,7 @@ class PanelController extends Controller
                     'au.seccion'
                 )
                 ->havingRaw('
-        (SUM(CASE WHEN a.estado = 0 THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) >= 30
+        (SUM(CASE WHEN a.estado = 0 THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) >= 0
     ')
                 ->orderByDesc('porcentaje_tardanza')
                 ->limit(15)
