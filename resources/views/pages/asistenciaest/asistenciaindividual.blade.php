@@ -25,15 +25,16 @@
             font-family: Arial, Helvetica, sans-serif;
         }
 
-      .contenedor {
-    width: 93%;
-    margin: 20px auto;
-}
+        .contenedor {
+            width: 93%;
+            margin: 20px auto;
+        }
+
         /* HEADER */
 
         .header {
             width: 100%;
-            border-bottom: 3px solid #3a57e8;
+            border-bottom: 3px solid #0F55BD;
             padding-bottom: 10px;
             margin-bottom: 10px;
         }
@@ -57,7 +58,7 @@
         .school-info .title {
             font-size: 20px;
             font-weight: bold;
-            color: #3a57e8;
+            color: #0F55BD;
         }
 
         .school-info .subtitle {
@@ -69,7 +70,6 @@
 
         .student-box {
             margin-top: 8px;
-            border: 1px solid #cfcfcf;
             padding: 6px;
             font-size: 12px;
         }
@@ -86,7 +86,6 @@
 
         .stats {
             margin-top: 10px;
-            border: 1px solid #cfcfcf;
         }
 
         .stats table {
@@ -98,7 +97,6 @@
             text-align: center;
             padding: 6px;
             font-size: 12px;
-            border-right: 1px solid #ddd;
         }
 
         .stats td:last-child {
@@ -157,13 +155,13 @@
         }
 
         th {
-            background: #3a57e8;
+            background: #0F55BD;
             color: white;
             font-size: 11px;
             padding: 4px;
         }
 
-        td {
+        .td {
             border: 1px solid #ccc;
             text-align: center;
             font-size: 9px;
@@ -219,134 +217,134 @@
 <body>
 
     <!-- HEADER -->
-<div class="contenedor">
+    <div class="contenedor">
 
-    <!-- TODO TU REPORTE -->
- <div class="header">
+        <!-- TODO TU REPORTE -->
+        <div class="header">
 
-        <table class="header-table">
+            <table class="header-table">
 
-            <tr>
+                <tr>
 
-                <td class="logo">
-                    <img src="assets/images/logo.webp">
-                </td>
+                    <td class="logo">
+                        <img src="assets/images/logo.webp">
+                    </td>
 
-                <td class="school-info">
+                    <td class="school-info">
 
-                    <div class="title">Colegio Bertolt Brecht</div>
+                        <div class="title">Colegio Bertolt Brecht</div>
 
-                    <div class="subtitle">
-                        Reporte de Asistencia Escolar
-                    </div>
+                        <div class="subtitle">
+                            Reporte de Asistencia Escolar
+                        </div>
 
-                    <div class="subtitle">
-                       bertoltbrecht2020@gmail.com <br>
-                        Calle Real 859 - Chilca, Huancayo, Peru, 12000
-                    </div>
+                        <div class="subtitle">
+                            bertoltbrecht2020@gmail.com<br>
+                            Calle Real 859 - Chilca, Huancayo, Peru
+                        </div>
 
-                    <div class="subtitle">
-                        Tel:(064) 212189
-                    </div>
+                        <div class="subtitle">
+                            Tel:(064) 212189
+                        </div>
 
-                </td>
+                    </td>
 
-                <td width="80"></td>
+                    <td width="80"></td>
 
-            </tr>
+                </tr>
 
-        </table>
+            </table>
 
-    </div>
-
-
-    <!-- STUDENT DATA -->
-
-    <div class="student-box">
-
-        <table>
-
-            <tr>
-
-                <td width="60%">
-                    <strong>Estudiante:</strong>
-                    {{ $estudiante->apellidos }}, {{ $estudiante->nombre }}
-                </td>
-
-                <td width="40%">
-                    <strong>Fecha reporte:</strong>
-                    {{ \Carbon\Carbon::now()->format('d/m/Y') }}
-                </td>
-
-            </tr>
-
-        </table>
-
-    </div>
+        </div>
 
 
-    <!-- STATS -->
+        <!-- STUDENT DATA -->
 
-    <div class="stats">
+        <div class="student-box">
 
-        <table>
+            <table>
 
-            <tr>
+                <tr>
 
-                <td>
-                    Total días
-                    <div class="value">{{ $total }}</div>
-                </td>
+                    <td width="60%">
+                        Estudiante:
+                        <strong>{{ $estudiante->apellidos }}, {{ $estudiante->nombre }}</strong>
+                    </td>
 
-                <td>
-                    Asistió
-                    <div class="value green">{{ $asistio }}</div>
-                </td>
+                    <td width="40%">
+                        Fecha reporte:
+                        <strong>{{ \Carbon\Carbon::now()->format('d/m/Y') }}</strong>
+                    </td>
 
-                <td>
-                    Tarde
-                    <div class="value orange">{{ $tarde }}</div>
-                </td>
+                </tr>
 
-                <td>
-                    Faltas
-                    <div class="value red">{{ $falta }}</div>
-                </td>
-                 <td>
-                    Tarde Just.
-                    <div class="value orange">{{ $tardejus }}</div>
-                </td>
-                  <td>
-                    Faltas Just. 
-                    <div class="value red">{{ $faltajus }}</div>
-                </td>
+            </table>
 
-                <td>
-                    % Asistencia
-                    <div class="value">{{ $porcentaje }}%</div>
-                </td>
-
-            </tr>
-
-        </table>
-
-    </div>
+        </div>
 
 
-    <!-- LEGEND -->
+        <!-- STATS -->
 
-    <div class="legend">
+        <div class="stats">
 
-        <span style="background:#1aa053">Asistió</span>
-        <span style="background:#f39c12">Tarde</span>
-        <span style="background:#e74c3c">Falta</span>
- <span style="background:#8C4CFF">Tarde Justificada</span>
- <span style="background:#115DD0"> Falta Justificada</span>
+            <table>
 
-    </div>
+                <tr>
+
+                    <td class="td">
+                        Total días
+                        <div class="value">{{ $total }}</div>
+                    </td>
+
+                    <td class="td">
+                        Asistió
+                        <div class="value green">{{ $asistio }}</div>
+                    </td>
+
+                    <td class="td">
+                        Tarde
+                        <div class="value orange">{{ $tarde }}</div>
+                    </td>
+
+                    <td class="td">
+                        Faltas
+                        <div class="value red">{{ $falta }}</div>
+                    </td>
+                    <td class="td">
+                        Tarde Just.
+                        <div class="value orange">{{ $tardejus }}</div>
+                    </td>
+                    <td class="td">
+                        Faltas Just.
+                        <div class="value red">{{ $faltajus }}</div>
+                    </td>
+
+                    <td class="td">
+                        % Asistencia
+                        <div class="value">{{ $porcentaje }}%</div>
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
 
 
-    @foreach ($meses as $me)
+        <!-- LEGEND -->
+
+        <div class="legend">
+
+            <span style="background:#1aa053">Asistió</span>
+            <span style="background:#f39c12">Tarde</span>
+            <span style="background:#e74c3c">Falta</span>
+            <span style="background:#8C4CFF">Tarde Justificada</span>
+            <span style="background:#115DD0"> Falta Justificada</span>
+
+        </div>
+
+
+        @foreach ($meses as $me)
         <div class="mes-titulo">
             Mes: {{ Carbon\Carbon::parse($me)->translatedFormat('F Y') }}
         </div>
@@ -360,11 +358,11 @@
                     <th width="35">N°</th>
 
                     @foreach ($dias as $di)
-                        @if (Carbon\Carbon::parse($di)->format('Y-m') == $me)
-                            <th>
-                                {{ Carbon\Carbon::parse($di)->format('d') }}
-                            </th>
-                        @endif
+                    @if (Carbon\Carbon::parse($di)->format('Y-m') == $me)
+                    <th>
+                        {{ Carbon\Carbon::parse($di)->format('d') }}
+                    </th>
+                    @endif
                     @endforeach
 
                 </tr>
@@ -374,92 +372,92 @@
             <tbody>
 
                 @foreach ($items as $index => $item)
-                    <tr>
+                <tr>
 
-                        <td>{{ $index + 1 }}</td>
+                    <td class="td">{{ $index + 1 }}</td>
 
-                        @foreach ($dias as $di)
-                            @if (Carbon\Carbon::parse($di)->format('Y-m') == $me)
-                                @php
-                                    $fecha = Carbon\Carbon::parse($di);
-                                    $esFinDeSemana = $fecha->isWeekend();
-                                    $registro = $item->asistenciahoy->firstWhere(
-                                        'fechaentrada',
-                                        $fecha->format('Y-m-d'),
-                                    );
-                                @endphp
+                    @foreach ($dias as $di)
+                    @if (Carbon\Carbon::parse($di)->format('Y-m') == $me)
+                    @php
+                    $fecha = Carbon\Carbon::parse($di);
+                    $esFinDeSemana = $fecha->isWeekend();
+                    $registro = $item->asistenciahoy->firstWhere(
+                    'fechaentrada',
+                    $fecha->format('Y-m-d'),
+                    );
+                    @endphp
 
-                                <td class="{{ $esFinDeSemana ? 'weekend' : '' }}">
+                    <td class="{{ $esFinDeSemana ? 'weekend' : '' }} td">
 
-                                    @if ($registro)
-                                        @if ($registro->estado == 1)
-                                            <div class="asistio">
-                                                {{ Carbon\Carbon::parse($registro->created_at)->format('H:i') }}
-                                            </div>
-                                        @endif
+                        @if ($registro)
+                        @if ($registro->estado == 1)
+                        <div class="asistio">
+                            {{ Carbon\Carbon::parse($registro->created_at)->format('H:i') }}
+                        </div>
+                        @endif
 
-                                        @if ($registro->estado == 0)
-                                            <div class="tarde">
-                                                {{ Carbon\Carbon::parse($registro->created_at)->format('H:i') }}
-                                            </div>
-                                        @endif
-                                         @if ($registro->estado == 2)
-                                            <div class="" style="background-color: #8C4CFF">
-                                                {{ Carbon\Carbon::parse($registro->created_at)->format('H:i') }}
-                                            </div>
-                                        @endif
-                                          @if ($registro->estado == 3)
-                                            <div class="" style="background-color: #115DD0;color:#ffff">
-                                                FJ
-                                            </div>
-                                        @endif
+                        @if ($registro->estado == 0)
+                        <div class="tarde">
+                            {{ Carbon\Carbon::parse($registro->created_at)->format('H:i') }}
+                        </div>
+                        @endif
+                        @if ($registro->estado == 2)
+                        <div class="" style="background-color: #8C4CFF">
+                            {{ Carbon\Carbon::parse($registro->created_at)->format('H:i') }}
+                        </div>
+                        @endif
+                        @if ($registro->estado == 3)
+                        <div class="" style="background-color: #0F55BD;color:#ffff">
+                            FJ
+                        </div>
+                        @endif
 
-                                        @if ($registro->estado == 4)
-                                            <div class="falta">
-                                                F
-                                            </div>
-                                        @endif
-                                    @endif
+                        @if ($registro->estado == 4)
+                        <div class="falta">
+                            F
+                        </div>
+                        @endif
+                        @endif
 
-                                </td>
-                            @endif
-                        @endforeach
+                    </td>
+                    @endif
+                    @endforeach
 
-                    </tr>
+                </tr>
                 @endforeach
 
             </tbody>
 
         </table>
-    @endforeach
+        @endforeach
 
 
-    <!-- SIGNATURES -->
+        <!-- SIGNATURES -->
 
-    <div class="footer">
+        <div class="footer">
 
-        <table>
+            <table>
 
-            <tr>
+                <tr>
 
-                <td>
-                    _________________________<br>
-                    Docente Tutor
-                </td>
+                    <td>
+                        _________________________<br>
+                        Docente Tutor
+                    </td>
 
-                <td>
-                    _________________________<br>
-                    Dirección
-                </td>
+                    <td>
+                        _________________________<br>
+                        Dirección
+                    </td>
 
-            </tr>
+                </tr>
 
-        </table>
+            </table>
+
+        </div>
 
     </div>
 
-</div>
-   
 </body>
 
 </html>

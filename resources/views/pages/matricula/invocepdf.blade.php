@@ -82,9 +82,9 @@
 
             <div class="me">
                 <h3>
-                    <strong>I.E.P.</strong><br>
-                    Mundo Feliz<br>
-                    RUC: 10752090625<br>
+                    <strong>Colegio</strong><br>
+                    Bertolt Brechet<br>
+                    bertoltbrecht2020@gmail.com<br>
                     Año Lectivo:{{ $anolect->años }}
                 </h3>
             </div><!--.me-->
@@ -92,9 +92,9 @@
 
             <div class="info text-righ">
                 <h4>
-                    Web:<a href="">www.mundofeliz.edu.pe</a><br>
-                    E-mail:<a href="mailto:info@mundofeliz.edu.pe">info@mundofeliz.edu.pe</a><br>
-                    Cel: 961 141 838 - 922 916 052
+                    Web:<a href="">www.bertoltbrecht.edu.pe</a><br>
+                    E-mail:<a href="mailto:info@mundofeliz.edu.pe">info@bertoltbrecht.edu.pe</a><br>
+                    Tel:(064) 212189
                 </h4>
             </div><!-- .info -->
 

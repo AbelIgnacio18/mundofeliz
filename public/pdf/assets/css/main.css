@@ -331,7 +331,7 @@ p {
     left: 0;
     right: 0;
     z-index: 100;
-    background: #B60900;
+    background: #0F55BD;
     color: white;
     line-height: 4rem;
     height: 4rem
@@ -389,7 +389,7 @@ p {
 header {
     margin: 1rem 0 0;
     padding: 0 0 2rem 0;
-    border-bottom: 3pt solid #B60900
+    border-bottom: 3pt solid #0F55BD
 }
 
 header p {
@@ -405,7 +405,7 @@ header a {
     width: auto;
     height: auto;
     border: none;
-    fill: #B60900
+    fill: #0F55BD
 }
 
 .logoholder {
@@ -439,7 +439,7 @@ h1 {
     margin: 0;
     padding: 0;
     font-size: 2rem;
-    color: #B60900
+    color: #0F55BD
 }
 
 .details input {
@@ -509,7 +509,7 @@ h1 {
 .invoicelist-body .control {
     display: inline-block;
     color: white;
-    background: #B60900;
+    background: #0F55BD;
     padding: 3px 7px;
     font-size: .9rem;
     text-transform: uppercase;
@@ -517,7 +517,7 @@ h1 {
 }
 
 .invoicelist-body .control:hover {
-    background: #E00B00
+    background: #0F55BD
 }
 
 .invoicelist-body .newRow {
@@ -556,7 +556,7 @@ h1 {
 
 .invoicelist-footer table #total_price {
     font-size: 2rem;
-    color: #B60900
+    color: #0F55BD
 }
 
 .note {
