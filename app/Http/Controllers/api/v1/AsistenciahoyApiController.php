@@ -46,8 +46,9 @@ class AsistenciahoyApiController extends Controller
         $estudiante = DB::table('estudiantes as e')
             ->join('matriculas as m', 'e.id', '=', 'm.idestudiante')
             ->join('asistenciaests as a', 'm.id', '=', 'a.idmatricula')
+            ->join('aulas as au', 'au.id', '=', 'm.idaula')
             ->select('e.id as iduser', 'e.nombre', 'e.apellidos','m.id as idmatricula' ,
-            'a.fechaentrada as fecha','a.created_at as entrada', 'a.horasalida as salida','a.estado')->where('e.id', $id)->orderBy('a.fechaentrada', 'desc')->first();
+            'a.fechaentrada as fecha','a.created_at as entrada', 'a.horasalida as salida','au.nivel','au.grado','au.seccion','au.horaentrada','au.horasalida','a.estado')->where('e.id', $id)->orderBy('a.fechaentrada', 'desc')->first();
 
         $countasistencia = Asistenciaest::where('idmatricula',$estudiante->idmatricula)->count();
         //faltass
@@ -57,25 +58,31 @@ class AsistenciahoyApiController extends Controller
         $counttardanza = Asistenciaest::where('idmatricula',$estudiante->idmatricula)->where('estado', 0)->count();
        $porcentualfaltas = $countasistencia > 0 ? ($countfaltas / $countasistencia) * 100 : 0;
 
-            $estado = match ($estudiante->estado) {
+        $estado = match ($estudiante->estado) {
         0 => 'Tarde',
         1 => 'Temprano',
-        null => 'Faltó',
+        4 => 'Faltó',
     };
 
         //porcentajes de falta
      $estuds = [
-        'user' => $estudiante->nombre . ' ' . $estudiante->apellidos,
-      'mes' => Carbon::parse($estudiante->fecha)->format('F'),
-        'dia' => Carbon::parse($estudiante->fecha)->translatedFormat('l'),
-        'entrada' =>Carbon::parse($estudiante->entrada)->format('h:i A'),
-        'salida' => $estudiante->salida != null ? Carbon::parse($estudiante->salida)->format('h:i A') : '—',
-        
-        'porcentaje' => round($porcentualfaltas, 2),
-        'falta' => $countfaltas,
-        'tardanza' => $counttardanza,
-        'estado' => $estado,
+            'user' => $estudiante->nombre . ' ' . $estudiante->apellidos,
+             'id' => $estudiante->idmatricula,
+            'aula'=>$estudiante->nivel. ' '.$estudiante->grado.' '.$estudiante->seccion,
+           
+            'horaentrada' => Carbon::parse($estudiante->horaentrada)->format('h:i A'),
+            'horasalida' => Carbon::parse($estudiante->horasalida)->format('h:i A'),               //   'mes' => Carbon::parse($estudiante->fecha)->format('F'),
+            'fecha' => Carbon::parse($estudiante->fecha)->format('l, F'),
+            'entrada' => Carbon::parse($estudiante->entrada)->format('h:i A'),
+            'salida' => $estudiante->salida != null ? Carbon::parse($estudiante->salida)->format('h:i A') : '—',
+
+            'porcentaje' => round($porcentualfaltas, 0),
+            'falta' => $countfaltas,
+            'tardanza' => $counttardanza,
+            'estado' => $estado,
     ];
+
+
 
 
         //  $estudiante= Arr::add($estudiante, 'numeroasist', $countasistencia);
@@ -83,4 +90,10 @@ class AsistenciahoyApiController extends Controller
 
         return response()->json($estuds, 200);
     }
+    public function calendarioasistencia($id){
+    return Asistenciaest::where('idmatricula',$id)
+            ->select('fechaentrada as fercha','estado')
+            ->get();
+    }
+    
 }

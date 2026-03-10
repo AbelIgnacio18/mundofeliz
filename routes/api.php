@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
   Route::apiResource('apoderado', ApoderadoApiController::class);
   Route::apiResource('asistenciahoy', AsistenciahoyApiController::class);
+   Route::get('calendario', [AsistenciahoyApiController::class,'calendarioasistencia']);
 
     Route::post('logout', [AuthController::class, 'logout']);
 });

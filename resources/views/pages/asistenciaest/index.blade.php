@@ -183,7 +183,7 @@
                             </td>
                             <td>
                                 {{ $item->nivel }} {{ $item->grado }} {{ $item->seccion }}
-                            </td>
+                            </td> 
 
                             <td>
                                 <div class="dropdown position-static">

@@ -206,18 +206,20 @@
             <small>${estados[estado]}</small>
         </div>
 
-        <div class="dropdown">
+        <div class="dropdown position-static">
             <a href="javascript:void(0);" data-bs-toggle="dropdown" 
                style="color: white; text-decoration: none; padding-left: 5px;">
                 <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2.75C17.108 2.75 21.25 6.891 21.25 12C21.25 17.108 17.108 21.25 12 21.25C6.891 21.25 2.75 17.108 2.75 12C2.75 6.892 6.892 2.75 12 2.75Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M15.9393 12.0129H15.9483" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M11.9301 12.0129H11.9391" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M7.92128 12.0129H7.93028" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </a>
-            <ul class="dropdown-menu dropdown-menu-end shadow-lg">
+            <ul class="dropdown-menu dropdown-menu shadow">
                 <li><h6 class="dropdown-header">Cambiar Estado</h6></li>
+                
+                <li><a class="dropdown-item" onclick="actualizarEstado(2, ${id})">🟣 Tarde Justificada</a></li>
+                <li><a class="dropdown-item" onclick="actualizarEstado(3, ${id})">🔵 Falta Justificada</a></li>
+                   <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" onclick="actualizarEstado(1, ${id})">🟢 Asistió</a></li>
                 <li><a class="dropdown-item" onclick="actualizarEstado(0, ${id})">🟠 Tarde</a></li>
                 <li><a class="dropdown-item" onclick="actualizarEstado(4, ${id})">🔴 Falta</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" onclick="actualizarEstado(2, ${id})">🟣 Tarde Justificada</a></li>
-                <li><a class="dropdown-item" onclick="actualizarEstado(3, ${id})">🔵 Falta Justificada</a></li>
+             
             </ul>
         </div>
     </div>`;
