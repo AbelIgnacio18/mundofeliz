@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Asistenciaest extends Model
 {
     use HasFactory;
-    protected $fillable=['idanolectivo','idestudiante','fechaentrada','estado','horaentrada','horasalida'];
+    protected $fillable=['idanolectivo','idmatricula','fechaentrada','horaentrada','horasalida','observacion','estado'];
 
-   
+  
      public function matricula()
 {
     return $this->belongsTo(Matricula::class, 'idmatricula', 'id');

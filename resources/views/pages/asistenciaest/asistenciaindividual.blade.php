@@ -25,16 +25,15 @@
             font-family: Arial, Helvetica, sans-serif;
         }
 
-        .contenedor {
-            width: 100%;
-            padding: 5px;
-        }
-
+      .contenedor {
+    width: 93%;
+    margin: 20px auto;
+}
         /* HEADER */
 
         .header {
             width: 100%;
-            border-bottom: 3px solid #c00000;
+            border-bottom: 3px solid #3a57e8;
             padding-bottom: 10px;
             margin-bottom: 10px;
         }
@@ -58,7 +57,7 @@
         .school-info .title {
             font-size: 20px;
             font-weight: bold;
-            color: #c00000;
+            color: #3a57e8;
         }
 
         .school-info .subtitle {
@@ -154,10 +153,11 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 4px;
+            justify-content: center;
         }
 
         th {
-            background: #c00000;
+            background: #3a57e8;
             color: white;
             font-size: 11px;
             padding: 4px;
@@ -234,18 +234,19 @@
 
                 <td class="school-info">
 
-                    <div class="title">I.E.P. MUNDO FELIZ</div>
+                    <div class="title">Colegio Bertolt Brecht</div>
 
                     <div class="subtitle">
                         Reporte de Asistencia Escolar
                     </div>
 
                     <div class="subtitle">
-                        www.mundofeliz.edu.pe
+                       bertoltbrecht2020@gmail.com <br>
+                        Calle Real 859 - Chilca, Huancayo, Peru, 12000
                     </div>
 
                     <div class="subtitle">
-                        Cel: 961 141 838 / 922 916 052
+                        Tel:(064) 212189
                     </div>
 
                 </td>

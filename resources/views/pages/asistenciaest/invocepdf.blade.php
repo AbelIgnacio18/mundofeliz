@@ -1,258 +1,191 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Registro de asistencia
-    </title>
-    <link rel="stylesheet" href="../public/pdf/assets/css/comprobantepdf.css">
-</head>
-<htmlpageheader name="headerasistencia">
-    <div style="width:100%; text-align:center; font-size:14px; padding:5px 0;
-                border-bottom: 2px solid #c00000;">
-        <strong>Reporte de Asistencia</strong>
-    </div>
-
-
-</htmlpageheader>
-<body>
     <style>
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
+        /* Configuración para impresión A4 Horizontal */
+        @page { 
+            size: A4 landscape; 
+            margin: 0.5cm; 
+        }
+        
+        * { box-sizing: border-box; font-family: 'Arial Narrow', Arial, sans-serif; margin: 0; padding: 0; }
+        
+        body { width: 95%; color: #333; background-color: white; margin: 20px auto; }
+
+        /* HEADER PROFESIONAL */
+        .header-container { width: 100%; margin-bottom: 10px; position: relative; height: 80px; border-bottom: 2px solid #345da7; }
+        .logo-box { position: absolute; left: 0; top: 5px; width: 70px; }
+        .info-box { width: 100%; text-align: center; padding-top: 5px; }
+       .leyenda-box {
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-align: left;
+    font-size: 8px;
+    line-height: 1.6;
+    border: 0.5px solid #ccc;
+    padding: 6px;
+    background: #f9f9f9;
+}
+
+.leyenda-item {
+    display: block;
+    margin-bottom: 2px;
+}
+
+/* Esta técnica asegura que el color aparezca incluso si "imprimir fondos" está desactivado */
+.color-dot {
+    display: inline-block;
+    width: 0;
+    height: 8px;
+    border-left: 10px solid; /* El color se define en el style inline */
+    margin-right: 4px;
+    vertical-align: middle;
+}
+        .title-seccion { 
+            background: #345da7; 
+            color: white; 
+            padding: 5px 10px; 
+            font-size: 10px; 
+            font-weight: bold; 
+            border: 0.5px solid #000;
         }
 
-        @page {
-            margin-top: 130px;
-            margin-left: 20px;
-            margin-right: 20px;
-            margin-bottom: 60px;
+        /* AJUSTE DE COLUMNAS PARA QUE TODO QUEPA EN LA HOJA */
+        table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+
+        .col-n { width: 1px; }
+        .col-estudiante { width: 380px; } /* Ancho ideal para nombres sin desplazar la tabla */
+        .col-dia { width: auto; } /* El resto se reparte equitativamente */
+
+        th { 
+            background-color: #345da7; 
+            color: white; 
+            font-size: 8px; 
+            border: 0.5px solid #000;
+            height: 28px; 
         }
 
-        .page_break {
-            page-break-before: always;
+        .num-dia { display: block; font-size: 9px; }
+        .letra-dia { display: block; font-size: 6px; text-transform: uppercase; }
 
+        td { border: 0.5px solid #444; text-align: center; font-size: 7px; height: 30px; padding: 0; }
+
+        /* AJUSTE PARA NOMBRES LARGOS */
+        .nombre-txt { 
+
+            text-align: left; 
+            padding: 2px 4px; 
+            font-size: 8px; 
+            font-weight: bold; 
+            line-height: 1;
+            white-space: normal; /* Permite salto de línea si el nombre es muy largo */
+            overflow: hidden;
         }
 
-        .control-bar-2 {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 20px;
-            /* Ajusta a tu barra */
-            z-index: 999;
+        .asis-box { 
+            display: block; 
+            width: 100%; 
+          
+            font-weight: bold; 
+            line-height: 1.2;
+            padding-top: 0px;
         }
 
-        html,
-        body {
-            margin: 5px !important;
-            padding: 0 !important;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th {
-            background-color: #D72B3B;
-            color: white;
-            font-weight: bold;
-            font-size: 15px;
-            padding: 2px !important;
-        }
-
-        li {
-            list-style-type: none;
-            padding: 0 !important;
-            margin: 0 !important;
-            line-height: 0.9rem !important;
-            /* 🔥 MÁS BAJO */
-            font-size: 10px !important;
-            font-weight: 700
-                /* 🔥 SUPER COMPACTO */
-        }
-
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table td,
-        table th {
-            padding: 1px 2px !important;
-            line-height: 0.9;
-        }
-
-        th,
-        td {
-            border: 1px solid #ccc;
-        }
-
-        /* Alternar filas más sutil */
-        tr:nth-child(even) {
-            background-color: #f8f8f8;
-        }
+        .weekend { background-color: #f2f2f2 !important; }
+        .page-break { page-break-after: always; }
     </style>
-    <div class="col-1">
-        <header class="row">
-            <div class="logoholder text-center">
-                <img src="assets/images/logo.webp" alt="Isotipo Colegio Mundo Feliz" width="85px">
-            </div><!--.logoholder-->
+</head>
+<body>
 
-            <div class="me">
-            <h2>
-                <strong>I.E.P.</strong><br>
-                MUNDO FELIZ<br>
-                www.mundofeliz.edu.pe<br>
-                Cel: 961 141 838 / 922 916 052
-            </h2>
-            </div><!--.me-->
-
-            <div class="info text-righ">
-                <div style=" display: flex;;flex-direction: row;">
-                    <div style="width: 40px;">Temprano:</div>
-                    <div style="background-color: green;width: 40px;color: green">ll</div>
-
-                </div>
-                <div style=" display: flex;;flex-direction: row;">
-                    <div style="width: 40px;">Tarde:</div>
-                    <div style="background-color: orange;width: 40px;color: orange">ll</div>
-
-                </div>
-                <div style=" display: flex;;flex-direction: row;">
-                    <div style="width: 40px;">Faltó:</div>
-                    <div style="background-color: red;width: 40px;color: red">ll</div>
-
-                </div>
-            </div><!-- .info -->
-
-        </header>
+@foreach($meses as $me)
+    <div class="header-container">
+        <div class="logo-box"><img src="assets/images/logo.webp" width="65"></div>
+        <div class="info-box">
+            <h1 style="font-size: 16px;">COLEGIO BERTOLT BRECHT</h1>
+            <p style="font-size: 9px;">bertoltbrecht2020@gmail.com | Tel:(064) 212189</p>
+            <h2 style="font-size: 12px; margin-top: 5px;">REPORTE DE ASISTENCIA MENSUAL</h2>
+        </div>
+       <div class="leyenda-box">
+    <strong>LEYENDA:</strong><br>
+    <div class="leyenda-item"><span class="color-dot" style="border-left-color: #28a745;"></span>Asistío(Puntual)</div>
+    <div class="leyenda-item"><span class="color-dot" style="border-left-color: #ffc107;"></span> Tarde</div>
+    <div class="leyenda-item"><span class="color-dot" style="border-left-color: #dc3545;"></span> Falta</div>
+    <div class="leyenda-item"><span class="color-dot" style="border-left-color: #8e44ad;"></span> T.Justificado</div>
+    <div class="leyenda-item"><span class="color-dot" style="border-left-color: #1f6ed4;"></span> F.Justificado</div>
+</div>
     </div>
 
+    <div class="title-seccion">
+        AULA: {{ strtoupper($nombreaula->grado) }} "{{ $nombreaula->seccion }}" &nbsp;&nbsp;&nbsp; 
+        MES: {{ strtoupper(Carbon\Carbon::parse($me)->translatedFormat('F Y')) }}
+    </div>
 
-    <div class="container">
-
-        @forelse($meses as $me)
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <h1 width="50%"><span style="font-size: 1.5rem; color: #000">Aula: </span>{{$nombreaula->nivel}} {{$nombreaula->grado}} {{$nombreaula->seccion}}</h1>
-            </div>
-            <div class="col-md-6">
-                <h1 width="50%"><span style="font-size: 1.5rem; color: #000">Mes: </span>{{Carbon\Carbon::parse($me)->translatedFormat('F')}}</h1>
-            </div>
-
-        </div>
-
-        <table style="margin-top: 8px;">
-            <thead>
-                <tr>
-                    <th>Nº</th>
-                    <th width="10%">Estudiante</th>
-                    @forelse($dias as $di)
-
-                    @if(Carbon\Carbon::parse($di)->Format('Y-m')==$me)
-                    <th>
-                        {{Carbon\Carbon::parse($di)->Format('d')}}
-                    </th>
+    <table>
+        <thead>
+            <tr>
+                <th class="col-n">Nº</th>
+                <th class="col-estudiante">APELLIDOS Y NOMBRES</th>
+                @foreach($dias as $di)
+                    @if (str_starts_with($di, $me))
+                        @php 
+                            $fechaC = Carbon\Carbon::parse($di);
+                            $letra = substr($fechaC->translatedFormat('D'), 0, 1);
+                        @endphp
+                        <th class="col-dia">
+                            <span class="num-dia">{{ $fechaC->format('d') }}</span>
+                            <span class="letra-dia">{{ $letra }}</span>
+                        </th>
                     @endif
-
-                    @empty
-                    @endforelse
-                </tr>
-            </thead>
-            <tbody>
-                <?php $contadorgallo = 1; ?>
-                @forelse($items as $item)
-                <tr>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <?php echo $contadorgallo; ?>
-                        </div>
-                    </td>
-                    <td>
-                        <h6>{{$item->estudiante->apellidos}}, {{$item->estudiante->nombre}}</h6>
-                    </td>
-
-
-
-
-
-                    @forelse($dias as $di)
-                    @if(Carbon\Carbon::parse($di)->Format('Y-m')==$me)
-                    @php
-                    $fecha = Carbon\Carbon::parse($di);
-                    $esFinDeSemana = $fecha->isSaturday() || $fecha->isSunday();
-                    $contador = 1;
-                    @endphp
-
-                    <td style="{{ $esFinDeSemana ? 'background-color:#d8d1d1ff;' : '' }}">
-
-                        @forelse($item->asistenciahoy->toArray() as $asis)
-                        @if(Carbon\Carbon::parse($di)->Format('Y-m-d')== Carbon\Carbon::parse($asis['fechaentrada'])->Format('Y-m-d'))
-                        @if($asis['estado']===1)
-                        <li style="background-color: green;color:white;font-size:9px;padding:0px 1px">
-                            {{ Carbon\Carbon::parse($asis['created_at'])->setTimezone('America/Lima')->format('h:i A') }}
-                        </li>
-
-                        @endif
-                        @if($asis['estado']===0)
-                        <li style="background-color: orange;color:black;font-size:9px;padding:0px 1px">
-
-                            {{ Carbon\Carbon::parse($asis['created_at'])->setTimezone('America/Lima')->format('h:i A') }}
-
-                        </li>
-
-                        @endif
-                        @if($asis['estado']===null)
-                        <li style="background-color: red;color:white;font-size:9px;padding:0px 1px">
-                            {{ Carbon\Carbon::parse($asis['created_at'])->setTimezone('America/Lima')->format('h:i A') }}
-
-                        </li>
-
-                        @endif
-
-                        <?php $contador = 0; ?>
-                        @endif
-
-                        @empty
-                        @endforelse
-
-                        @if($contador==1)
-
-                        <?php $contador = 1; ?>
-                        @endif
-
-                    </td>
-
+                @endforeach
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($items as $index => $item)
+            <tr>
+                <td style="background-color: #f5f5f5; font-weight: bold;">{{ $index + 1 }}</td>
+                <td class="nombre-txt">
+                    {{ $item->estudiante->apellidos }}<br>
+                    <span style="font-weight: normal; font-size: 7px;">{{ $item->estudiante->nombre }}</span>
+                </td>
+                
+                @foreach($dias as $di)
+                    @if (str_starts_with($di, $me))
+                        @php
+                            $f = Carbon\Carbon::parse($di);
+                            $esFinde = $f->isSaturday() || $f->isSunday();
+                            $asis = $item->asistencia_indexada[$di] ?? null; 
+                        @endphp
+                        <td class="{{ $esFinde ? 'weekend' : '' }}">
+                            @if($asis)
+                                @php
+                                    $color = match((int)$asis->estado) {
+                                        1 => '#28a745', 0 => '#ffc107', 4 => '#dc3545', 
+                                        2 => '#8e44ad', 3 => '#1f6ed4', default => '#6c757d'
+                                    };
+                                    $time = \Carbon\Carbon::parse($asis->created_at);
+                                @endphp
+                                <div class="asis-box" style="background-color: {{ $color }}; color: {{ (int)$asis->estado === 0 ? 'black' : 'white' }};display:block">
+                                    @if($asis->estado !== 4)
+                                       {{ $time->format('h:i') }}<br>
+                                    <span style="font-size: 5px;">{{ $time->format('A') }}</span>
+                                    @endif
+                                     @if($asis->estado === 4)
+                                  
+                                    <span style="font-size: 15px;">F</span>
+                                    @endif
+                                 
+                                </div>
+                            @endif
+                        </td>
                     @endif
-                    @empty
-                    @endif
-
-
-                    </td>
-
-
-
-                </tr>
-
-                <?php $contadorgallo++; ?>
-
-                @empty
-                @endforelse
-
-
-            </tbody>
-        </table>
-        <div class="page_break">
-        </div>
-        @empty
-        @endforelse
-
-
+                @endforeach
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+    @if(!$loop->last) <div class="page-break"></div> @endif
+@endforeach
 </body>
-
 </html>

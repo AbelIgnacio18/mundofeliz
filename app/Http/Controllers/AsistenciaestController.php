@@ -425,47 +425,56 @@ $tipo = $request->has('tipo_registro') ? 'salida' : 'entrada';
         }
     }
 
-    public function reporteasistencia(Request $request)
-    {
-        $request->validate([
-            'turno' => 'required'
-        ]);
+   public function reporteasistencia(Request $request)
+{
+    $request->validate(['turno' => 'required']);
+    $idaula = $request->get('turno');
 
-        $anolect = Anolectivo::where('estado', 1)->first();
+    $anolect = Anolectivo::where('estado', 1)->first();
+    $nombreaula = Aula::find($idaula);
 
-        $fechaInicio = Carbon::parse($anolect->inicio);
-        $fechaFin = Carbon::parse($anolect->fin);
-        $dias = [];
-        $meses = [];
-        $fechaActual = $fechaInicio->copy();
-        $fechaActual2 = $fechaInicio->copy();
-        while ($fechaActual->lte($fechaFin)) {
-            $dias[] = $fechaActual->format('Y-m-d'); // Formato día-mes-año
-            $fechaActual->addDay();
+    // 1. Generar rango de días y meses
+    $fechaInicio = Carbon::parse($anolect->inicio);
+    $fechaFin = Carbon::parse($anolect->fin);
+    $fechaHoy = Carbon::now();
+$fechaFin = $fechaHoy->lt($fechaFin) ? $fechaHoy : $fechaFin;
+
+    
+    $dias = [];
+    $meses = [];
+    $tempFecha = $fechaInicio->copy();
+
+    while ($tempFecha->lte($fechaFin)) {
+        $dias[] = $tempFecha->format('Y-m-d');
+        $mesMes = $tempFecha->format('Y-m');
+        if (!in_array($mesMes, $meses)) {
+            $meses[] = $mesMes;
         }
-        while ($fechaActual2->lte($fechaFin)) {
-
-            $meses[] = $fechaActual2->format('Y-m'); // Formato Mes Año
-            $fechaActual2->addMonth();
-        }
-        //dd($meses);
-
-        $idaula = trim($request->get('turno'));
-
-
-        $aula = Aula::all();
-        $anolect = Anolectivo::where('estado', 1)->first();
-        $nombreaula = Aula::where('id', $idaula)->first();
-        $items = Matricula::where('idaula', 'LIKE', '%' . $idaula . '%')->where('idanolectivo', $anolect->id)->with('asistenciahoy')->with('asistenciahoy')
-            ->with('estudiante')
-            ->get();
-        //dd($items);
-
-        $pdf = Pdf::loadView('pages.asistenciaest.invocepdf', compact('items', 'dias', 'meses', 'nombreaula'));
-        $pdf->setPaper('A4', 'landscape'); //Formato de hoha A4 en horizontal
-        return $pdf->stream('lista_asistencia.pdf');
+        $tempFecha->addDay();
     }
 
+    // 2. Obtener datos con relación
+    $items = Matricula::where('idaula', $idaula)
+        ->where('idanolectivo', $anolect->id)
+        ->with(['estudiante', 'asistenciahoy'])
+        ->get();
+
+    // 3. Indexar asistencia (ESTO EVITA LA PANTALLA BLANCA)
+    foreach ($items as $item) {
+        $item->asistencia_indexada = $item->asistenciahoy->mapWithKeys(function ($asis) {
+            // Usamos la fecha como llave para búsqueda directa
+            $fechaKey = Carbon::parse($asis->fechaentrada)->format('Y-m-d');
+            return [$fechaKey => $asis];
+        });
+    }
+
+   if (ob_get_contents()) ob_end_clean();
+
+    $pdf = Pdf::loadView('pages.asistenciaest.invocepdf', compact('items', 'dias', 'meses', 'nombreaula'));
+    
+    // Forzamos el papel y la orientación aquí
+    return $pdf->setPaper('a4', 'landscape')->stream('reporte_asistencia.pdf');
+}
 
     //vista de registro de asistencia
     public function vistaasistencia()

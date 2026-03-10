@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
     {
         
       $schedule->command('app:registrar-faltas')
-         ->dailyAt('10:00')
+         ->dailyAt('13:34')
          ->weekdays(); // 👈 SOLO lunes a viernes
 
     }

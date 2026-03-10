@@ -43,18 +43,18 @@ class RegistrarFaltas extends Command
         return;
     }
 
-    $matriculas = \App\Models\Matricula::all();
+    $matriculas = \App\Models\Matricula::where('idanolectivo', $anolec->id)->get();
 
-    foreach ($matriculas as $matricula) {
+    foreach ($matriculas as $matri) {
 
-        $existe = \App\Models\Asistenciaest::where('idmatricula', $matricula->id)
+        $existe = \App\Models\Asistenciaest::where('idmatricula', $matri->id)
             ->whereDate('fechaentrada', $hoy)
             ->exists();
 
         if (!$existe) {
             \App\Models\Asistenciaest::create([
                 'idanolectivo' => $anolec->id,
-                'idmatricula' => $matricula->id,
+                'idmatricula' => $matri->id,
                 'fechaentrada' => $hoy,
                 'estado' => 4 // Falta
             ]);
