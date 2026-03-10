@@ -14,7 +14,7 @@
         body { width: 95%; color: #333; background-color: white; margin: 20px auto; }
 
         /* HEADER PROFESIONAL */
-        .header-container { width: 100%; margin-bottom: 10px; position: relative; height: 80px; border-bottom: 2px solid #345da7; }
+        .header-container { width: 100%; margin-bottom: 10px; position: relative; height: 80px; border-bottom: 2px solid #0F55BD; }
         .logo-box { position: absolute; left: 0; top: 5px; width: 70px; }
         .info-box { width: 100%; text-align: center; padding-top: 5px; }
        .leyenda-box {
@@ -44,12 +44,13 @@
     vertical-align: middle;
 }
         .title-seccion { 
-            background: #345da7; 
+            background: #e7e7e7; 
             color: white; 
             padding: 5px 10px; 
             font-size: 10px; 
             font-weight: bold; 
             border: 0.5px solid #000;
+            color: #000;
         }
 
         /* AJUSTE DE COLUMNAS PARA QUE TODO QUEPA EN LA HOJA */
@@ -60,7 +61,7 @@
         .col-dia { width: auto; } /* El resto se reparte equitativamente */
 
         th { 
-            background-color: #345da7; 
+            background-color: #0F55BD; 
             color: white; 
             font-size: 8px; 
             border: 0.5px solid #000;
@@ -86,8 +87,7 @@
 
         .asis-box { 
             display: block; 
-            width: 100%; 
-          
+            width: 100%;
             font-weight: bold; 
             line-height: 1.2;
             padding-top: 0px;
@@ -107,7 +107,7 @@
             <p style="font-size: 9px;">bertoltbrecht2020@gmail.com | Tel:(064) 212189</p>
             <h2 style="font-size: 12px; margin-top: 5px;">REPORTE DE ASISTENCIA MENSUAL</h2>
         </div>
-       <div class="leyenda-box">
+    <div class="leyenda-box">
     <strong>LEYENDA:</strong><br>
     <div class="leyenda-item"><span class="color-dot" style="border-left-color: #28a745;"></span>Asistío(Puntual)</div>
     <div class="leyenda-item"><span class="color-dot" style="border-left-color: #ffc107;"></span> Tarde</div>

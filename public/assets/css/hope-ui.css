@@ -18294,7 +18294,7 @@ body.offcanvas-active {
 .upload-icone {
   position: relative;
   top: auto;
-  left: -20px;
+  left: -16px;
   bottom: -20px;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   border-radius: 50%;
