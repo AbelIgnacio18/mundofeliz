@@ -28,7 +28,7 @@ class StoreEstudianteRequest extends FormRequest
             'dni'=>'string|max:8|required',
             'celular'=>'max:25',
             'direccion'=>'max:200',          
-            'observaciones'=>'max:200',
+            'observaciones'=>'max:200', 
             
             'nombreapoderado' => 'string|max:50|required',
             'dniapoderado' => 'string|max:8|required',

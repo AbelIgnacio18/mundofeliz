@@ -59,7 +59,7 @@ class EstudianteController extends Controller
                 ['dni' => $request->get('dniapoderado')],
                 [
                     'nombre'    => strtoupper($request->get('nombreapoderado')),
-                    'celular'   => strtoupper($request->get('celularp') . ' / ' . $request->get('celularm')),
+                    'celular'   => strtoupper($request->get('celularm') . '/' . $request->get('celularp')),
                     'password'  => bcrypt($request->get('dniapoderado')),
                     'direccion' => strtoupper($request->get('direccion')),
                 ]
@@ -73,9 +73,10 @@ class EstudianteController extends Controller
             $estudiante->nombre = strtoupper($request->get('nombre'));
             $estudiante->apellidos = strtoupper($apellidop . ' ' . $apellidom);
             $estudiante->dni = strtoupper($request->get('dni'));
-            $estudiante->celular = strtoupper( $request->get('celularm' . ' / ' .$request->get('celularp')));
+            $estudiante->celular = strtoupper( $request->get('celularm'). ' / ' .$request->get('celularp'));
             $estudiante->idapoderado = $apoderado->id; // Vinculación
             $estudiante->observaciones = strtoupper($request->get('observaciones'));
+            dd($estudiante);
             $estudiante->save();
 
             // 3. ENVIAR NOTIFICACIÓN PUSH (Llamada al método de Firebase)

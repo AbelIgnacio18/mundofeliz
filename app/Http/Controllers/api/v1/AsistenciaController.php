@@ -201,7 +201,7 @@ class AsistenciaController extends Controller
             // }
 
 
-            return response()->json($codigo . ' ' . 'no registrado i/o no matriculado', 200);
+            return response()->json('no registrado i/o no matriculado', 200);
         } catch (\Throwable $e) {
 
             Log::error('ERROR ASISTENCIA', [

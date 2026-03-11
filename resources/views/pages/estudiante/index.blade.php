@@ -138,14 +138,14 @@
                                             class="badge bg-warning">Opcional</span></label>
                                     <input type="text" class="form-control" id="celular"
                                         aria-describedby="celular" placeholder="987654321" name="celularm"
-                                        value="{{ old('celular') }}">
+                                        value="{{ old('celularm') }}">
                                 </div>
                                 <div class="form-group col-md-6 p-1">
                                     <label for="celular" class="form-label">Celular Papá: <span
                                             class="badge bg-warning">Opcional</span></label>
                                     <input type="text" class="form-control" id="celular"
                                         aria-describedby="celular" placeholder="987654321" name="celularp"
-                                        value="{{ old('celular') }}">
+                                        value="{{ old('celularp') }}">
                                 </div>
                             </div>
 

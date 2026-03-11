@@ -53,16 +53,17 @@ class AsistenciahoyApiController extends Controller
         $countasistencia = Asistenciaest::where('idmatricula',$estudiante->idmatricula)->count();
         //faltass
 
-        $countfaltas = Asistenciaest::where('idmatricula',$estudiante->idmatricula)->where('estado', null)->count();
+        $countfaltas = Asistenciaest::where('idmatricula',$estudiante->idmatricula)->where('estado', 4)->count();
         //tardansasss
         $counttardanza = Asistenciaest::where('idmatricula',$estudiante->idmatricula)->where('estado', 0)->count();
        $porcentualfaltas = $countasistencia > 0 ? ($countfaltas / $countasistencia) * 100 : 0;
 
-        $estado = match ($estudiante->estado) {
-        0 => 'Tarde',
-        1 => 'Temprano',
-        4 => 'Faltó',
-    };
+    //     $estado = match ($estudiante->estado) {
+    //     0 ,
+    //     1 ,
+    //     4 
+        
+    // };
 
         //porcentajes de falta
      $estuds = [
@@ -72,14 +73,14 @@ class AsistenciahoyApiController extends Controller
            
             'horaentrada' => Carbon::parse($estudiante->horaentrada)->format('h:i A'),
             'horasalida' => Carbon::parse($estudiante->horasalida)->format('h:i A'),               //   'mes' => Carbon::parse($estudiante->fecha)->format('F'),
-            'fecha' => Carbon::parse($estudiante->fecha)->format('l, F'),
+            'fecha' => Carbon::parse($estudiante->fecha)->format('l,d F'),
             'entrada' => Carbon::parse($estudiante->entrada)->format('h:i A'),
             'salida' => $estudiante->salida != null ? Carbon::parse($estudiante->salida)->format('h:i A') : '—',
 
             'porcentaje' => round($porcentualfaltas, 0),
             'falta' => $countfaltas,
             'tardanza' => $counttardanza,
-            'estado' => $estado,
+            'estado' => $estudiante->estado,
     ];
 
 
@@ -92,7 +93,8 @@ class AsistenciahoyApiController extends Controller
     }
     public function calendarioasistencia($id){
     return Asistenciaest::where('idmatricula',$id)
-            ->select('fechaentrada as fercha','estado')
+            ->select('fechaentrada as fecha','estado')
+             ->orderBy('fechaentrada')
             ->get();
     }
     
