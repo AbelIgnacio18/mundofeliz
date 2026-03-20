@@ -6,22 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('cajas', function (Blueprint $table) {
             $table->id();
-            $table->decimal('monto',11,2);
-            $table->decimal('gatos',11,2)->default(0);
+            $table->unsignedBigInteger('iduser');
+            $table->foreign('iduser')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->date('fecha');
+            $table->decimal('monto_inicial', 11, 2);
+            $table->decimal('monto_final', 11, 2)->nullable();
+            $table->decimal('diferencia', 11,2)->nullable();
+            $table->boolean('estado')->default(1);
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('cajas');

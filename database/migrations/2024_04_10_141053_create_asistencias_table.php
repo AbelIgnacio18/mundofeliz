@@ -16,12 +16,17 @@ return new class extends Migration
             $table->unsignedBigInteger('idanolectivo');
             $table->foreign('idanolectivo')->references('id')->on('anolectivos')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('iddocente');
-            $table->foreign('iddocente')->references('id')->on('docentes')->onUpdate('cascade')->onDelete('cascade');
-            $table->date('fechaentrada');          
-           
+             $table->foreign('iddocente')->references('id')->on('docentes')->onUpdate('cascade')->onDelete('cascade');
+      
+            $table->date('fechaentrada');
+            $table->time('horaentrada')->nullable();
+            $table->time('horasalida')->nullable();
+        
+            $table->integer('minutos_tarde')->default(0);
+            $table->decimal('descuento')->default(0);
             $table->boolean('estado')->nullable();
+     
             $table->timestamps();
-
         });
     }
 

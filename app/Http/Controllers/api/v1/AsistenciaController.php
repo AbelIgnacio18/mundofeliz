@@ -22,23 +22,18 @@ use Illuminate\Support\Facades\Log;
 use Google\Client;
 use App\Services\FcmService;
 
-
-
 class AsistenciaController extends Controller
 {
     public function index($id)
     {
-
         $estudiante = Asistenciaest::where('idestudiante', $id)->get();
-
         return response()->json($estudiante, 200);
     }
-
 
     private function enviarNotificacionPush($apoderado, $estudiante, $tipo)
     {
         $fcmToken = $apoderado->fcm_token;
-        // dd($fcmToken);
+
         if (empty($fcmToken)) {
             logger()->info("El estudiante {$estudiante->nombre} no tiene un token registrado.");
             return;
@@ -53,167 +48,465 @@ class AsistenciaController extends Controller
                 'alumno_id' => $estudiante->id,
                 'hora' => now()->format('H:i:s'),
             ]
-
         );
     }
 
-
     public function store(Request $request)
     {
-
         try {
-
-
             $request->validate([
                 'codigo' => 'required'
             ]);
-            $horario = Horario::first();
+
             $codigo = $request->get('codigo');
-            $estudiante = Matricula::where('codigo', $codigo)->first();
             $anolectivo = Anolectivo::where('estado', 1)->first();
 
-            ///poner la hor de entrada dinamic
-            if (empty($estudiante) == true) {
-                $docente = Docente::where('codigo', $codigo)->first();
-
-                $cargo = Contrato::where('id', $docente->idcontrato)->first();
-                //asistencia de turno docente Mañana
-                if (Carbon::now()->lt(Carbon::parse("14:30:00"))) {
-
-                    if (empty(Asistencia::where('iddocente', $docente->id)->where('fechaentrada', date("Y-m-d"))->first()) == true) {
-                        $asistencia = new Asistencia;
-                        $asistencia->idanolectivo = $anolectivo->id;
-                        $asistencia->iddocente = $docente->id;
-                        $asistencia->fechaentrada = date("Y-m-d");
-                        $asistencia->estado = (date("H:i:s") < $cargo->horaentrada) ? 1 : 0;
-                        $asistencia->save();
-                        return response()->json($docente->nombre . ' ' . $codigo, 200);
-                    } else {
-                        if (Carbon::now()->lt(Carbon::parse("14:30:00")) and Carbon::now()->gt(Carbon::parse("13:50:00"))) {
-                            $asistencia = Asistencia::where('iddocente', $docente->id)->where('fechaentrada', date("Y-m-d"))->first();
-
-                            $asistencia->updated_at = now();
-                            $asistencia->update();
-                            return response()->json("salida" . $docente->nombre, 200);
-                        } else {
-                            return response()->json('Ya marco asistencia' . ' ' . $codigo, 200);
-                        }
-                    }
-                }
-                //asistencia de turno docente tarde
-                if (Carbon::now()->gt(Carbon::parse("14:31:00"))) {
-                    $conteoasist = Asistencia::where('iddocente', $docente->id)->where('fechaentrada', date("Y-m-d"))
-                        ->whereTime('created_at', '>=', '14:31:00')
-                        ->first();
-
-                    if (!$conteoasist) {
-
-                        $asistencia = new Asistencia;
-                        $asistencia->idanolectivo = $anolectivo->id;
-                        $asistencia->iddocente = $docente->id;
-                        $asistencia->fechaentrada = date("Y-m-d");
-                        $asistencia->estado = (date("H:i:s") < "15:00:59") ? 1 : 0;
-                        $asistencia->save();
-                        return response()->json($docente->nombre . ' ' . $codigo, 200);
-                    } else {
-
-                        if (Carbon::now()->gt(Carbon::parse("17:15:00"))) {
-                            $asistencia = Asistencia::where('iddocente', $docente->id)->where('fechaentrada', date("Y-m-d"))->orderBy('id', 'desc')->first();
-
-                            $asistencia->updated_at = now();
-                            $asistencia->update();
-                            return response()->json("salida" . $docente->nombre, 200);
-                        } else {
-                            return response()->json('Ya marco asistencia' . ' ' . $codigo, 200);
-                        }
-                    };
-                }
+            if (!$anolectivo) {
+                return response()->json([
+                    'ok' => false,
+                    'error' => 'No hay año lectivo activo'
+                ], 400);
             }
 
-
-            //asistencia de turno estudiante mañana
-
-            $matricula = Matricula::where('codigo', $codigo)->where('idanolectivo', $anolectivo->id)->first();
-            $estudiante = Estudiante::where('id', $matricula->idestudiante)->first();
-            $idapoderado = Apoderado::where('id', $estudiante->idapoderado)->first();
-            $aula = Aula::where('id', $matricula->idaula)->first();
-            //asistencia de turno estudiante mañana
-            if (Carbon::now()->lt(Carbon::parse($aula->horafalta))) {
-
-                if (empty(Asistenciaest::where('idmatricula', $matricula->id)->where('fechaentrada', date("Y-m-d"))->first()) == true) {
-                    $asistencia = new Asistenciaest;
-                    $asistencia->idanolectivo = $anolectivo->id;
-                    $asistencia->idmatricula = $matricula->id;
-                    $asistencia->fechaentrada = date("Y-m-d");
-                    $asistencia->estado = (date("H:i:s") < $aula->horatarde) ? 1 : 0;
-                    $asistencia->save();
+            // Buscar si es estudiante
+            $matricula = Matricula::where('codigo', $codigo)
+                ->where('idanolectivo', $anolectivo->id)
+                ->first();
 
 
-                    $this->enviarNotificacionPush($idapoderado, $estudiante, "entrada");
-                    
-                    return response()->json($estudiante->nombre, 200);
-                } else {
 
-                    if (Carbon::now()->lt(Carbon::parse("$aula->horasalida")) and Carbon::now()->gt(Carbon::parse("13:50:00"))) {
-                        $asistencia = Asistenciaest::where('idmatricula', $matricula->id)->where('fechaentrada', date("Y-m-d"))->first();
-
-                        $asistencia->horasalida = date("H:i:s");
-                        $asistencia->update();
-                        $this->enviarNotificacionPush($idapoderado, $estudiante, "salida");
-                        return response()->json($estudiante->nombre, 200);
-                    } else {
-                        return response()->json('Ya marco asistencia' , 200);
-                    }
-                }
+            if ($matricula) {
+                return $this->procesarEstudiante($matricula, $anolectivo);
             }
-            // //asistencia de turno estudiante tarde
-            // if (Carbon::now()->gt(Carbon::parse("14:31:00"))) {
 
-            //     $conteoasist = Asistenciaest::where('idmatricula', $matricula->id)
-            //         ->where('fechaentrada', date("Y-m-d"))
-            //         ->whereTime('created_at', '>=', '14:31:00')
-            //         ->first();
+            // Buscar si es docente
+            $docente = Docente::where('codigo', $codigo)->first();
 
+            if ($docente) {
+                return $this->procesarDocente($docente, $anolectivo);
+            }
 
-            //     if (!$conteoasist) {
-            //         $asistencia = new Asistenciaest;
-            //         $asistencia->idanolectivo = $anolectivo->id;
-            //         $asistencia->idmatricula = $matricula->id;
-            //         $asistencia->fechaentrada = date("Y-m-d");
-            //         $asistencia->estado = (date("H:i:s") < $aula->tarde) ? 1 : 0;
-            //         $asistencia->save();
-            //         //dd($idapoderado,$estudiante,);
-            //         $this->enviarNotificacionPush($idapoderado, $estudiante, "entrada");
-            //         return response()->json($estudiante->id . 'marco entrada' . ' ' . $codigo, 200);
-            //     } else {
-
-            //         if (Carbon::now()->gt(Carbon::parse("17:15:00"))) {
-            //             $asistencia = Asistenciaest::where('idmatricula', $matricula->id)->where('fechaentrada', date("Y-m-d"))->orderBy('id', 'desc')->first();
-
-            //             $asistencia->updated_at = now();
-            //             $asistencia->update();
-            //             $this->enviarNotificacionPush($idapoderado, $estudiante, "Salida");
-            //             return response()->json($estudiante->nombre . ' marco salida' . $codigo, 200);
-            //         } else {
-            //             return response()->json('Ya marco asistencia tarde' . ' ' . $codigo, 200);
-            //         }
-            //     };
-            // }
-
-
-            return response()->json('no registrado i/o no matriculado', 200);
+            return response()->json([
+                'ok' => false,
+                'error' => 'Código no registrado'
+            ], 404);
         } catch (\Throwable $e) {
-
             Log::error('ERROR ASISTENCIA', [
                 'mensaje' => $e->getMessage(),
-                'linea' => $e->getLine(),
-                'archivo' => $e->getFile(),
+
             ]);
 
             return response()->json([
                 'ok' => false,
                 'error' => $e->getMessage()
             ], 500);
+        }
+    }
+
+    private function procesarEstudiante($matricula, $anolectivo)
+    {
+        //asistencia de turno estudiante
+$ahora = Carbon::now();
+        $estudiante = Estudiante::find($matricula->idestudiante);
+
+        if (!$estudiante) {
+            return response()->json(['error' => 'Estudiante no encontrado'], 404);
+        }
+
+        $apoderado = Apoderado::find($estudiante->idapoderado);
+
+        $aula = Aula::find($matricula->idaula);
+        //asistencia de turno estudiante mañana
+        if (Carbon::now()->lt(Carbon::parse($aula->horafalta))) {
+
+            if (empty(Asistenciaest::where('idmatricula', $matricula->id)->where('fechaentrada', date("Y-m-d"))->first()) == true) {
+                $asistencia = new Asistenciaest;
+                $asistencia->idanolectivo = $anolectivo->id;
+                $asistencia->idmatricula = $matricula->id;
+                            // 2. Usamos la misma instancia para fecha y hora
+                $asistencia->fechaentrada = $ahora->format('Y-m-d');
+                $asistencia->horaentrada  = $ahora->format('H:i:s');
+
+                // 3. Comparación semántica: ¿Es la hora actual menor que la hora límite?
+                // Asumiendo que $aula->horatarde es un string como "08:10:00"
+                
+                $asistencia->estado = ($ahora->toTimeString() < Carbon::parse($aula->horatarde)->format('H:i:s')) ? 1 : 0;
+                $asistencia->save();
+
+
+                $this->enviarNotificacionPush($apoderado, $estudiante, "entrada");
+
+                return response()->json($estudiante->nombre, 200);
+            } else {
+                $asistencia = Asistenciaest::where('idmatricula', $matricula->id)->where('fechaentrada', date("Y-m-d"))->first();
+                if (Carbon::now()->gt(Carbon::parse($aula->horasalida))) {
+
+                    if (!$asistencia->horasalida) {
+                        
+                         $asistencia->horasalida  = $ahora->format('H:i:s');
+                        $asistencia->update();
+                        $this->enviarNotificacionPush($apoderado, $estudiante, "salida");
+                        return response()->json($estudiante->nombre, 200);
+                    }
+
+                    return response()->json('Ya marco Salida', 200);
+                } else {
+                    if ($asistencia->estado == 4) {
+                 
+                        $asistencia->horaentrada  = $ahora->format('H:i:s');
+                       $asistencia->estado = ($ahora->toTimeString() < Carbon::parse($aula->horatarde)->format('H:i:s')) ? 1 : 0;
+                        $asistencia->update();
+                        return response()->json('Actualizo Asistencia', 200);
+                    }
+                    return response()->json('Ya marco asistencia Hoy', 200);
+                }
+            }
+        }
+    }
+
+    private function procesarDocente($docente, $anolectivo)
+    {
+
+        $dia = strtolower(\Carbon\Carbon::now()->locale('es')->dayName);
+        $horario = Horario::where('iddocente', $docente->id)
+            ->where('dia_semana', $dia)
+            ->first();
+        if (!$horario) {
+            return response()->json("No tiene horario hoy", 200);
+        }
+
+        $existe = Asistencia::where('iddocente', $docente->id)
+            ->whereDate('fechaentrada', today())
+            ->first();
+
+
+        if (!$existe) {
+
+            $entrada = Carbon::parse($horario->hora_ingreso);
+            $tolerancia = $horario->tolerancia;
+
+            $horaActual = now()->format('H:i:s');
+
+            $minutos = $entrada->diffInMinutes($horaActual, false);
+
+            if ($minutos <= 0) {
+                $estado = 1; // puntual
+                $minutos_tarde = 0;
+            } elseif ($minutos <= $tolerancia) {
+                $estado = 1; // tolerancia
+                $minutos_tarde = 0;
+            } else {
+                $estado = 0; // tarde
+                $minutos_tarde = $minutos;
+            }
+            $asistencia = new Asistencia;
+            $asistencia->idanolectivo = $anolectivo->id;
+            $asistencia->iddocente = $docente->id;
+            $asistencia->fechaentrada = now()->format('Y-m-d');;
+             $asistencia->horaentrada =  $horaActual;
+            $asistencia->minutos_tarde = $minutos_tarde;
+            $asistencia->estado = $estado;
+            $asistencia->save();
+
+            return response()->json($docente->nombre, 200);
+        }
+    }
+
+
+
+
+    public function sync(Request $request)
+    {
+        try {
+            $request->validate([
+                'registros' => 'required|array',
+                'registros.*.codigo' => 'required',
+                'registros.*.fecha' => 'required|date',
+                'registros.*.hora' => 'required|date_format:H:i:s',
+                
+            ]);
+            Log::info('=== SYNC RECIBIDO ===', [
+                'ip' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                'total_registros' => count($request->registros ?? [])
+            ]);
+
+            $anolectivo = Anolectivo::where('estado', 1)->first();
+
+            if (!$anolectivo) {
+                return response()->json([
+                    'ok' => false,
+                    'error' => 'No hay año lectivo activo'
+                ], 400);
+            }
+
+            $resultados = [];
+            $procesados = 0;
+            $errores = 0;
+
+            // Iniciar transacción para asegurar integridad
+            DB::beginTransaction();
+
+            try {
+                foreach ($request->registros as $registro) {
+                    try {
+                        $codigo = $registro['codigo'];
+                        $fecha = $registro['fecha'];
+                        $hora = $registro['hora'];
+                     
+
+                        // Log para depuración
+                        Log::info('Procesando registro sync', [
+                            'codigo' => $codigo,
+                            'fecha' => $fecha,
+                            'hora' => $hora,
+                         
+                        ]);
+
+                        // Buscar si es estudiante
+                        $matricula = Matricula::where('codigo', $codigo)
+                            ->where('idanolectivo', $anolectivo->id)
+                            ->first();
+                           
+
+
+                        if ($matricula) {
+                            $guardado = $this->procesarAsistenciaEstudianteSync($matricula, $fecha, $hora, $anolectivo);
+
+                            if ($guardado) {
+                                $procesados++;
+                                $resultados[] = [
+                                    'codigo' => $codigo,
+                                    'status' => 'ok',
+                                    'tipo' => 'estudiante',
+                                    'mensaje' => 'Registrado correctamente'
+                                ];
+
+                                // Opcional: Enviar notificación
+                               
+                            } else {
+                                $errores++;
+                                $resultados[] = [
+                                    'codigo' => $codigo,
+                                    'status' => 'error',
+                                    'tipo' => 'estudiante',
+                                    'mensaje' => 'No se pudo guardar la asistencia'
+                                ];
+                            }
+                            continue;
+                        }
+
+                        // Buscar si es docente
+                        $docente = Docente::where('codigo', $codigo)->first();
+
+                        if ($docente) {
+                            $guardado = $this->procesarAsistenciaDocenteSync($docente, $fecha, $hora, $anolectivo);
+
+                            if ($guardado) {
+                                $procesados++;
+                                $resultados[] = [
+                                    'codigo' => $codigo,
+                                    'status' => 'ok',
+                                    'tipo' => 'docente',
+                                    'mensaje' => 'Registrado correctamente'
+                                ];
+                            } else {
+                                $errores++;
+                                $resultados[] = [
+                                    'codigo' => $codigo,
+                                    'status' => 'error',
+                                    'tipo' => 'docente',
+                                    'mensaje' => 'No se pudo guardar la asistencia'
+                                ];
+                            }
+                            continue;
+                        }
+
+                        // No encontrado
+                        $errores++;
+                        $resultados[] = [
+                            'codigo' => $codigo,
+                            'status' => 'error',
+                            'tipo' => 'desconocido',
+                            'mensaje' => 'Código no registrado en el sistema'
+                        ];
+                    } catch (\Exception $e) {
+
+                        $errores++;
+                        $resultados[] = [
+                            'codigo' => $registro['codigo'],
+                            'status' => 'error',
+                            'tipo' => 'error',
+                            'mensaje' => $e->getMessage()
+                        ];
+
+                        Log::error('Error en sync individual', [
+                            'codigo' => $registro['codigo'],
+                            'error' => $e->getMessage(),
+                            'trace' => $e->getTraceAsString()
+                        ]);
+                    }
+                }
+
+                // Si todo OK, confirmar transacción
+                DB::commit();
+
+                Log::info('Sync completado', [
+                    'procesados' => $procesados,
+                    'errores' => $errores,
+                    'total' => count($request->registros)
+                ]);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                throw $e;
+            }
+
+            return response()->json([
+                'ok' => true,
+                'procesados' => $procesados,
+                'errores' => $errores,
+                'total' => count($request->registros),
+                'resultados' => $resultados
+            ], 200);
+        } catch (\Throwable $e) {
+            Log::error('ERROR SYNC ASISTENCIA', [
+                'mensaje' => $e->getMessage(),
+                'linea' => $e->getLine(),
+                'archivo' => $e->getFile(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return response()->json([
+                'ok' => false,
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    private function procesarAsistenciaEstudianteSync($matricula, $fecha, $hora, $anolectivo)
+    {
+        try {
+            // Buscar si ya existe registro para ese día
+            $estudiante = Estudiante::where('id', $matricula->idestudiante)->first();
+            $apoderado = Apoderado::where('id', $estudiante->idapoderado)->first();
+            $aula = Aula::where('id', $matricula->idaula)->first();
+
+
+            if (!$aula) {
+                Log::error('Aula no encontrada para matrícula', ['matricula_id' => $matricula->id]);
+                return false;
+            }
+
+            if (Carbon::now()->lt(Carbon::parse($aula->horafalta))) {
+
+                if (empty(Asistenciaest::where('idmatricula', $matricula->id)->where('fechaentrada', $fecha)->first()) == true) {
+                    $asistencia = new Asistenciaest;
+                    $asistencia->idanolectivo = $anolectivo->id;
+                    $asistencia->idmatricula = $matricula->id;
+                    $asistencia->fechaentrada = $fecha;
+                      $asistencia->horaentrada = $hora;
+                    $asistencia->estado = ($hora < Carbon::parse($aula->horatarde)->format('H:i:s')) ? 1 : 0;
+                    $asistencia->save();
+
+
+                    $this->enviarNotificacionPush($apoderado, $estudiante, "entrada");
+
+                    return response()->json($estudiante->nombre, 200);
+                } else {
+ $asistencia = Asistenciaest::where('idmatricula', $matricula->id)->where('fechaentrada', $fecha)->first();
+                    if (Carbon::now()->gt(Carbon::parse($aula->horasalida))) {
+                       
+                        if ((!$asistencia->horasalida)) {
+                            $asistencia->horasalida = $hora;
+                            $asistencia->update();
+                            $this->enviarNotificacionPush($apoderado, $estudiante, "salida");
+                            return response()->json($estudiante->nombre, 200);
+                        }
+
+                        return response()->json('Ya marco Salida', 200);
+                    } else {
+                       if ($asistencia->estado == 4) {
+                      $asistencia->horaentrada = $hora;
+                        $asistencia->estado = ($hora < Carbon::parse($aula->horatarde)->format('H:i:s')) ? 1 : 0;
+                         $asistencia->update();
+                        return response()->json('Actualizo Asistencia', 200);
+                    }
+                        return response()->json('Ya marco asistencia Hoy' , 200);
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            Log::error('Error en procesarAsistenciaEstudianteSync', [
+                'error' => $e->getMessage(),
+                'matricula_id' => $matricula->id,
+                'trace' => $e->getTraceAsString()
+            ]);
+            return false;
+        }
+    }
+
+    private function procesarAsistenciaDocenteSync($docente, $fecha, $hora, $anolectivo)
+    {
+        try {
+            // Buscar si ya existe registro para ese día
+            $dia = strtolower(\Carbon\Carbon::now()->locale('es')->dayName);
+            $horario = Horario::where('iddocente', $docente->id)
+                ->where('dia_semana', $dia)
+                ->first();
+            if (!$horario) {
+                return response()->json("No tiene horario hoy", 200);
+            }
+
+            $asistencia = Asistencia::where('iddocente', $docente->id)
+                ->where('fechaentrada', $fecha)
+                ->first();
+
+
+
+            Log::info('Procesando asistencia docente', [
+                'docente_id' => $docente->id,
+                'fecha' => $fecha,
+                'hora' => $hora,
+                
+            ]);
+            if (!$asistencia) {
+
+                $entrada = Carbon::parse($horario->hora_ingreso);
+                $tolerancia = $horario->tolerancia;
+
+                $horaActual = $hora;
+
+                $minutos = $entrada->diffInMinutes($horaActual, false);
+
+                if ($minutos <= 0) {
+                    $estado = 1; // puntual
+                    $minutos_tarde = 0;
+                } elseif ($minutos <= $tolerancia) {
+                    $estado = 1; // tolerancia
+                    $minutos_tarde = 0;
+                } else {
+                    $estado = 0; // tarde
+                    $minutos_tarde = $minutos;
+                }
+                $asistencia = new Asistencia;
+                $asistencia->idanolectivo = $anolectivo->id;
+                $asistencia->iddocente = $docente->id;
+                $asistencia->fechaentrada = $fecha;
+                $asistencia->minutos_tarde = $minutos_tarde;
+                $asistencia->estado = $estado;
+                $asistencia->save();
+
+                return response()->json($docente->nombre, 200);
+            }
+
+
+            return false;
+        } catch (\Exception $e) {
+            Log::error('Error en procesarAsistenciaDocenteSync', [
+                'error' => $e->getMessage(),
+                'docente_id' => $docente->id
+            ]);
+            return false;
         }
     }
 }

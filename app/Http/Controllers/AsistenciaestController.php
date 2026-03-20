@@ -38,22 +38,34 @@ class AsistenciaestController extends Controller
             }
             $anolect = Anolectivo::where('estado', 1)->first();
             $items = DB::table('matriculas as m')
-                ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
-                ->join('asistenciaests as a', 'm.id', '=', 'a.idmatricula')
-                ->join('aulas as au', 'm.idaula', '=', 'au.id')
-                ->select('a.id', 'e.nombre', 'e.apellidos', 'e.id as idestudiante', 'au.nivel', 'au.grado', 'au.seccion', 'a.created_at', 'a.updated_at', 'a.horasalida', 'a.fechaentrada', 'a.estado', 'a.idanolectivo', 'a.observacion')
-                ->when($idaula, fn($q) => $q->where('m.idaula', $idaula))
-                ->when($estado !== null && $estado !== '', function ($q) use ($estado) {
-
-                    if ($estado === 'null') {
-                        $q->whereNull('a.estado'); // Falta
-                    } else {
-                        $q->where('a.estado', $estado); // 0 o 1
-                    }
-                })
-                ->whereDate('a.fechaentrada', $fecha)
-                ->where('a.idanolectivo', $anolect->id)->orderBy('e.apellidos', 'asc')
-                ->get();
+    ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
+    ->join('asistenciaests as a', 'm.id', '=', 'a.idmatricula')
+    ->join('aulas as au', 'm.idaula', '=', 'au.id')
+    ->select(
+        'a.id',
+        'e.nombre',
+        'e.apellidos',
+        'e.id as idestudiante',
+        'au.nivel',
+        'au.grado',
+        'au.seccion',
+        'a.created_at',
+        'a.updated_at',
+        'a.horasalida',
+        'a.fechaentrada',
+        'a.estado',
+        'a.horaentrada',
+        'a.idanolectivo',
+        'a.observacion'
+    )
+    ->when($idaula, fn($q) => $q->where('m.idaula', $idaula))
+    ->when($estado !== '' && $estado !== null, function ($q) use ($estado) {
+        $q->where('a.estado', $estado);
+    })
+    ->whereDate('a.fechaentrada', $fecha)
+    ->where('a.idanolectivo', $anolect->id)
+    ->orderBy('e.apellidos', 'asc')
+    ->get();
 
 
             $aula = Aula::get();
@@ -117,7 +129,7 @@ $tipo = $request->has('tipo_registro') ? 'salida' : 'entrada';
                     $asistencia->idanolectivo = $anolect->id;
                     $asistencia->idmatricula = $idmatriculas[$cont];
                     $asistencia->fechaentrada = date('Y-m-d');
-
+                    $asistencia->horaentrada = $hora;
                     $asistencia->estado =  $hora < ($aula->horatarde) ? 1 : 0;
                     $asistencia->save();
                     $this->enviarNotificacionPush($idapoderado, $estudiante, "entrada");
@@ -158,6 +170,10 @@ $tipo = $request->has('tipo_registro') ? 'salida' : 'entrada';
         };
 
         $asistencia->estado = $request->estado;
+        if ($asistencia->estado === 4) {
+            $asistencia->horaentrada = date('H:i:s');
+        }
+
         $asistencia->save();
 
         // 🔥 Regla automática

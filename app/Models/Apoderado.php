@@ -19,6 +19,8 @@ class Apoderado extends Authenticatable
     protected $fillable = [
         'nombre',
         'dni',
+        'celularp',
+        'celularm',        
         'celular',
         'direccion',
         'password',

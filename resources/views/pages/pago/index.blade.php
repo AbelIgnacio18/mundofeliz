@@ -37,6 +37,19 @@
          </i>
          <span>Nuevo Comprobante</span>
       </a>
+         @if (Session::has('message'))
+                <div id="alerts-disimissible-component" class="tab-pane tab-example-result fade active show col-md-12"
+                    role="tabpanel" aria-labelledby="alerts-disimissible-component-tab">
+                    <div class="alert alert-success alert-dismissible fade show " role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="24">
+                            <use xlink:href="#check-circle-fill" />
+                        </svg>
+                        <strong>Exitoso!</strong> {{ Session::get('message') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"> </button>
+                    </div>
+                </div>
+                
+            @endif
       @include('pages.pago.create')
 
    </div>

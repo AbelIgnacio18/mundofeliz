@@ -10,9 +10,13 @@
                 @php
                     $est = $asistencia->matricula->estudiante;
                 @endphp
+                @if ($est->imagen !="")
+                        <img class="img-fluid rounded-circle mb-4 shadow"  style="width: 300px; height: 300px; object-fit: cover;" src="{{ asset('storage/avatar/' . $pag->archivo) }}" alt="{{$pag->id}}" class="img-thumbnail" style="width: 50px;height: 50px">
 
-                <img src="{{ asset('imagenes/avatar/01.webp') }}" class="img-fluid rounded-circle mb-4 shadow"
-                    style="width: 300px; height: 300px; object-fit: cover;">
+                @else
+                    <img src="{{ asset('imagenes/avatar/01.png') }}" class="img-fluid rounded-circle mb-4 shadow"
+                        style="width: 300px; height: 300px; object-fit: cover;">
+                @endif
 
                 <h1 id="nombreAlumno" class="fw-bold display-4">
                     {{ $est->nombre }} {{ $est->apellidos }}
@@ -23,7 +27,7 @@
                 </h3>
 
                 <h4 id="horaAlumno" class="mb-3">
-                    {{ \Carbon\Carbon::parse($asistencia->created_at)->format('h:i A') }}
+                    {{ \Carbon\Carbon::parse($asistencia->horaentrada)->format('h:i A') }}
                 </h4>
 
 
@@ -34,7 +38,7 @@
                             $color = '';
 
                             if ($asistencia->estado == 1) {
-                                $estadoTexto = 'PUNTUAL';
+                                $estadoTexto = 'Asistío(PUNTUAL)';
                                 $color = 'bg-success';
                             } elseif ($asistencia->estado == 2) {
                                 $estadoTexto = 'TARDANZA';
@@ -45,9 +49,9 @@
                             }
                         @endphp
 
-                       
+
                         <div class="mt-4">
-                            <span id="estadoAlumno" class="badge fs-2 p-3 {{$color}}">
+                            <span id="estadoAlumno" class="badge fs-2 p-3 {{ $color }}">
                                 {{ $estadoTexto }}
                             </span>
                         </div>
@@ -60,56 +64,56 @@
         </div>
     </div>
 
-  <script>
-    let ultimoId = {{ $asistencia->id ?? 0 }};
+    <script>
+        let ultimoId = {{ $asistencia->id ?? 0 }};
 
-    setInterval(() => {
+        setInterval(() => {
 
-        fetch("{{ route('app.ultimaasistencia') }}")
-            .then(response => response.json())
-            .then(data => {
+            fetch("{{ route('app.ultimaasistencia') }}")
+                .then(response => response.json())
+                .then(data => {
 
-                if (!data || data.existe === false) return;
+                    if (!data || data.existe === false) return;
 
-                if (data.id != ultimoId) {
+                    if (data.id != ultimoId) {
 
-                    ultimoId = data.id;
+                        ultimoId = data.id;
 
-                    document.getElementById('nombreAlumno').innerText =
-                        data.nombre + ' ' + data.apellidos;
+                        document.getElementById('nombreAlumno').innerText =
+                            data.nombre + ' ' + data.apellidos;
 
-                    document.getElementById('horaAlumno').innerText =
-                        data.hora;
+                        document.getElementById('horaAlumno').innerText =
+                            data.hora;
 
-                    let estadoTexto = '';
-                    let color = '';
+                        let estadoTexto = '';
+                        let color = '';
 
-                    if (data.estado == 1) {
-                        estadoTexto = 'PUNTUAL';
-                        color = 'bg-success';
-                    } else if (data.estado == 0) {
-                        estadoTexto = 'TARDANZA';
-                        color = 'bg-warning';
-                    } else {
-                        estadoTexto = 'FALTA';
-                        color = 'bg-danger';
+                        if (data.estado == 1) {
+                            estadoTexto = 'Asistío(PUNTUAL)';
+                            color = 'bg-success';
+                        } else if (data.estado == 0) {
+                            estadoTexto = 'TARDANZA';
+                            color = 'bg-warning';
+                        } else {
+                            estadoTexto = 'FALTA';
+                            color = 'bg-danger';
+                        }
+
+                        let badge = document.getElementById('estadoAlumno');
+                        badge.innerText = estadoTexto;
+                        badge.className = 'badge fs-2 p-3 ' + color;
+
+                        // 🔥 Animación mejorada
+                        badge.classList.add("animate__animated", "animate__bounce");
+                        setTimeout(() => {
+                            badge.classList.remove("animate__animated", "animate__bounce");
+                        }, 1000);
                     }
 
-                    let badge = document.getElementById('estadoAlumno');
-                    badge.innerText = estadoTexto;
-                    badge.className = 'badge fs-2 p-3 ' + color;
+                });
 
-                    // 🔥 Animación mejorada
-                    badge.classList.add("animate__animated", "animate__bounce");
-                    setTimeout(() => {
-                        badge.classList.remove("animate__animated", "animate__bounce");
-                    }, 1000);
-                }
-
-            });
-
-    }, 3000);
-</script>
+        }, 3000);
+    </script>
 
 
 @endsection

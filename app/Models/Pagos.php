@@ -23,13 +23,7 @@ class Pagos extends Model
    }
    // loss 
 
-//    public function pensions()
-// {
-//     return $this->hasMany(Pension::class, 'idpago');
-// }
-
-// public function concepto()
-// {
-//     return $this->belongsTo(Concepto::class, 'idconcepto');
-// }
+public function movimientos(){
+    return $this->hasMany(Movimiento::class,'idpago');
+}
 }

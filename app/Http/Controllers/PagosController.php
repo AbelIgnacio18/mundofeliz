@@ -12,7 +12,9 @@ use App\Models\Articulo;
 use App\Models\Matricula;
 use App\Models\Anolectivo;
 use App\Models\Pension;
+use App\Models\Movimiento;
 use App\Models\Pago;
+use App\Models\Caja;
 use App\Models\Detallepago;
 use App\Models\Estudiante;
 use Illuminate\Support\Facades\DB;
@@ -36,23 +38,23 @@ class PagosController extends Controller
 
             $pago = DB::table('pagos as p')
                 ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
-                ->select('p.id', 'p.idestudiante', 'p.descripcion', 'p.fecha','p.created_at','p.numcomprobante', 'p.montototal','p.montodigital','p.montoefectivo', 'p.cobrado_por', 'p.archivo', 'e.nombre', 'e.apellidos','e.dni')->where('e.nombre','LIKE','%'.$searchText.'%')->orwhere('e.apellidos','LIKE','%'.$searchText.'%')
+                ->select('p.id', 'p.idestudiante', 'p.descripcion', 'p.fecha', 'p.created_at', 'p.numcomprobante', 'p.montototal', 'p.montodigital', 'p.montoefectivo', 'p.cobrado_por', 'p.archivo', 'e.nombre', 'e.apellidos', 'e.dni')->where('e.nombre', 'LIKE', '%' . $searchText . '%')->orwhere('e.apellidos', 'LIKE', '%' . $searchText . '%')
                 ->orderBy('id', 'desc')->paginate(30);
 
 
             $articulo = Articulo::with('categoria')->get();
-           // dd($articulo);
+            // dd($articulo);
 
-            $estudiante = Matricula::with('estudiante')->with('concepto','meses','estudiante.pagos.pensiones.concepto')->get();
+            $estudiante = Matricula::with('estudiante')->with('concepto', 'meses', 'estudiante.pagos.pensiones.concepto')->get();
             $concepto = Concepto::orderBy('codigo', 'asc')->orderBy('concepto', 'desc')->get();
 
 
             $monto = DB::table('pagos')
-    ->whereDate('created_at', date('Y-m-d'))
-    ->sum('montoefectivo');
+                ->whereDate('created_at', date('Y-m-d'))
+                ->sum('montoefectivo');
 
 
-            return view('pages.pago.index', compact('pago', 'concepto', 'estudiante', 'articulo','monto','searchText'));
+            return view('pages.pago.index', compact('pago', 'concepto', 'estudiante', 'articulo', 'monto', 'searchText'));
         }
     }
 
@@ -66,42 +68,50 @@ class PagosController extends Controller
 
 
         $validated = $request->validate([
-        'idestudiante' => 'required',  
-        
-        'montototal' => 'required|numeric|min:0',
-      //  'imagen' => 'nullable|image|mimes:jpg,png,jpeg|max:5120', // <= 5MB
-        'imagen' => 'nullable|image|max:5120',
+            'idestudiante' => 'required',
+
+            'montototal' => 'required|numeric|min:0',
+            //  'imagen' => 'nullable|image|mimes:jpg,png,jpeg|max:5120', // <= 5MB
+            'imagen' => 'nullable|image|max:5120',
 
 
-    ]);
-        try {
-            DB::beginTransaction();
-           
-            $mytime = Carbon::now('America/Lima');
-            $anolect = Anolectivo::where('estado', 1)->first();
-          
-            
-           
-            $separarid=$request->get('idestudiante');
-            //dd($separarid);
-            $contadorestu = 0;
-            while ($contadorestu < count($separarid)) {
-                $idestudiante = explode('|', $separarid[$contadorestu]);
-                $pago = new Pagos;
-                $ultimoRegistro = Pagos::orderBy('id','desc')->first();
-                $pago->idestudiante = $idestudiante[0];
-                $pago->montototal = $request->get('montototal');
-                $pago->cobrado_por = $request->cobrado_por;
-                if($request->get('efetivo')==1){
-                    $pago->montodigital = $request->get('montodigital');
-                    $pago->montoefectivo = $request->get('montototal') - $request->get('montodigital');
-                    $pago->descripcion = $request->get('descripcion');
+        ]);
+        //  try {
+        //   DB::beginTransaction();
 
-                }else{
-                    $pago->montodigital = 0;
-                    $pago->montoefectivo = $request->get('montototal');
-                    
-                }
+        $mytime = Carbon::now('America/Lima');
+        $anolect = Anolectivo::where('estado', 1)->first();
+
+
+
+        $separarid = $request->get('idestudiante');
+        //caja apertura
+        $caja = Caja::where('iduser', auth()->id())
+            ->where('estado', 1)
+            ->first();
+
+        if (!$caja) {
+            return back()->with('message', 'Debe abrir caja primero');
+        }
+        //dd($separarid);
+        $contadorestu = 0;
+        while ($contadorestu < count($separarid)) {
+            $idestudiante = explode('|', $separarid[$contadorestu]);
+
+            $pago = new Pagos;
+            $ultimoRegistro = Pagos::orderBy('id', 'desc')->first();
+            $pago->idestudiante = $idestudiante[0];
+
+            $pago->montototal = $request->get('montototal');
+            $pago->cobrado_por = $request->cobrado_por;
+            if ($request->get('efetivo') == 1) {
+                $pago->montodigital = $request->get('montodigital');
+                $pago->montoefectivo = $request->get('montototal') - $request->get('montodigital');
+                $pago->descripcion = $request->get('descripcion');
+            } else {
+                $pago->montodigital = 0;
+                $pago->montoefectivo = $request->get('montototal');
+            }
 
             if ($request->file('imagen')) {
                 $file = $request->file('imagen');
@@ -111,18 +121,42 @@ class PagosController extends Controller
                 $pago->archivo = $name;
             }
             $pago->fecha = $mytime->toDateTimeString();
-            if(empty($ultimoRegistro)==true){
-            $pago->numcomprobante = 1;
-            }else{
-                $pago->numcomprobante = $ultimoRegistro->numcomprobante +1;
-            }            
+            if (empty($ultimoRegistro) == true) {
+                $pago->numcomprobante = 1;
+            } else {
+                $pago->numcomprobante = $ultimoRegistro->numcomprobante + 1;
+            }
             $pago->idanolectivo = $anolect->id;
             $pago->save();
+            //registro de movimiento
+            // 🔥 EFECTIVO
+            if ($pago->montoefectivo > 0) {
+                Movimiento::create([
+                    'idcaja' => $caja->id,
+                    'tipo' => 'ingreso',
+                    'monto' => $pago->montoefectivo,
+                    'metodo' => 'efectivo',
+                    'descripcion' => 'Pago estudiante ID ' . $pago->idestudiante,
+                    'idpago' => $pago->id
+                ]);
+            }
+
+            // 📱 DIGITAL (YAPE)
+            if ($pago->montodigital > 0) {
+                Movimiento::create([
+                    'idcaja' => $caja->id,
+                    'tipo' => 'ingreso',
+                    'monto' => $pago->montodigital,
+                    'metodo' => 'yape',
+                    'descripcion' => 'Pago estudiante ID ' . $pago->idestudiante,
+                    'idpago' => $pago->id
+                ]);
+            }
             //articulos
             $idarticulo = $request->get('idarticulo');
             $cantidadar = $request->get('cantidadar');
             $montoar = $request->get('montoar');
-              if (is_string($idarticulo) == false) {
+            if (is_string($idarticulo) == false) {
                 if ($idarticulo != null) {
                     $contador = 0;
                     while ($contador < count($idarticulo)) {
@@ -153,9 +187,9 @@ class PagosController extends Controller
             $cantidad = $request->get('cantidad');
             $monto = $request->get('monto');
             $descripcion = $request->get('idconcepto');
-            $idmatricula=Matricula::where('idestudiante',$idestudiante[0])->first();
-/* dd(($idmatricula)); */
-             if (is_string($idconcepto) == false) {
+            $idmatricula = Matricula::where('idestudiante', $idestudiante[0])->first();
+            /* dd(($idmatricula)); */
+            if (is_string($idconcepto) == false) {
                 if ($idconcepto != null) {
                     $cont = 0;
                     while ($cont < count($idconcepto)) {
@@ -166,29 +200,45 @@ class PagosController extends Controller
                         $detalle->cantidad = $cantidad[$cont];
 
                         $concep = Concepto::where('id', $idconcepto[$cont])->first();
-                        if ($concep->codigo=='P001') {
+                        if ($concep->codigo == 'P001') {
                             $id = $idmatricula->id;
                             $numeropension = $cantidad[$cont];
 
                             $numeromesespagados = Mese::where('idmatricula', $id)->count();
-                            //  dd($numeropension,$numeromesespagados);
-                                if(($numeropension+ $numeromesespagados)<=10){
-                                $meses = ['MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SET', 'OCT', 'NOV', 'DIC'];
-                                                            for ($i = 0; $i <  $numeropension; $i++) {
-                                                                $mess = new Mese();
-                                                                $mess->idmatricula = $id;
-
-                                                                $mess->mes = $meses[$numeromesespagados];
-
-                                                                $mess->save();
-                                                                $numeromesespagados++;
-                                                            }
-                                }else{
-                                $mess = new Mese();
-                                $mess->prueba = $meses[$numeromesespagados];
-                                $mess->save();
-                                }
                           
+                            
+                            if (($numeropension + $numeromesespagados) <= 10) {
+                                   $mesesMap = [
+                                1 => 'ENE',
+                                2 => 'FEB',
+                                3 => 'MAR',
+                                4 => 'ABR',
+                                5 => 'MAY',
+                                6 => 'JUN',
+                                7 => 'JUL',
+                                8 => 'AGO',
+                                9 => 'SET',
+                                10 => 'OCT',
+                                11 => 'NOV',
+                                12 => 'DIC'
+                            ];
+
+                            $mesinicio=$idmatricula->fecha_matricula;
+                            $cantidadMesOficial=$numeromesespagados+Carbon::parse($mesinicio)->format("m");
+                                for ($i = 0; $i <  $numeropension; $i++) {
+                                    $mess = new Mese();
+                                    $mess->idmatricula = $id;
+
+                                    $mess->mes = $mesesMap[$numeromesespagados];
+
+                                    $mess->save();
+                                    $numeromesespagados++;
+                                }
+                            } else {
+                                $mess = new Mese();
+                                $mess->prueba = $mesesMap[$numeromesespagados];
+                                $mess->save();
+                            }
                         }
 
                         $detalle->monto = $monto[$cont] * $cantidad[$cont];
@@ -200,15 +250,14 @@ class PagosController extends Controller
             }
 
             $contadorestu++;
-
-            }
-
-         
-
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollback();
         }
+
+
+
+        //         DB::commit();
+        //     } catch (\Exception $e) {
+        //       DB::rollback();
+        // }
         //estudiante------------------------
 
         return back()->with('message', 'Registro Exítoso');
@@ -231,13 +280,13 @@ class PagosController extends Controller
     {
         $estudiante = DB::table('pagos as p')
             ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
-            ->select('p.id', 'e.nombre', 'e.apellidos', 'e.dni', 'p.created_at as fecha', 'p.montototal','p.numcomprobante','p.archivo')->where('p.id', $id)->get();
+            ->select('p.id', 'e.nombre', 'e.apellidos', 'e.dni', 'p.created_at as fecha', 'p.montototal', 'p.numcomprobante', 'p.archivo')->where('p.id', $id)->get();
         // dd($estudiante);
         $pension = DB::table('pagos as p')
             ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
             ->join('pensions as pen', 'p.id', '=', 'pen.idpago')
             ->join('conceptos as c', 'pen.idconcepto', '=', 'c.id')
-            ->select('p.id', 'e.nombre', 'e.apellidos','e.dni', 'c.concepto', 'p.created_at as fecha', 'p.montototal','p.archivo', 'pen.cantidad', 'pen.monto','p.numcomprobante')->where('p.id', $id)->get();
+            ->select('p.id', 'e.nombre', 'e.apellidos', 'e.dni', 'c.concepto', 'p.created_at as fecha', 'p.montototal', 'p.archivo', 'pen.cantidad', 'pen.monto', 'p.numcomprobante')->where('p.id', $id)->get();
         // dd($pension);
 
         $articulo = DB::table('pagos as p')
@@ -245,7 +294,7 @@ class PagosController extends Controller
             ->join('detallepagos as det', 'p.id', '=', 'det.idpago')
             ->join('articulos as a', 'det.idarticulo', '=', 'a.id')
             ->join('categorias as c', 'a.idcategoria', '=', 'c.id')
-            ->select('p.id', 'p.idestudiante', 'a.nombre as articulo', 'c.nombre as categoria', 'p.created_at as fecha','p.archivo', 'det.cantidadar as cantidad', 'det.montoar','p.numcomprobante')->where('p.id', $id)->get();
+            ->select('p.id', 'p.idestudiante', 'a.nombre as articulo', 'c.nombre as categoria', 'p.created_at as fecha', 'p.archivo', 'det.cantidadar as cantidad', 'det.montoar', 'p.numcomprobante')->where('p.id', $id)->get();
 
 
         //  dd($articulo);
@@ -258,7 +307,7 @@ class PagosController extends Controller
     {
 
         $pago = Pagos::find($pagoid);
-      
+
         $detallecont = Detallepago::where('idpago', $pagoid)->get();
         //    dd(count($detallecont));
         if (count($detallecont) != 0) {
@@ -285,25 +334,23 @@ class PagosController extends Controller
                 $pensiones = Pension::where('idpago', $pagoid)->count();
                 if ($pensiones != 0) {
                     $pensiones = Pension::where('idpago', $pagoid)->first();
-                    $concepto=Concepto::where('id',$pensiones->idconcepto)->first();
-                    if($concepto->codigo=="P001"){
-                    $cantidadpenciones = $pensiones->cantidad; //cantidad de penciones pagadas
-                    $idestudiante = $pago->idestudiante; //estudiantee  
-                    $idmatricula = Matricula::where('idestudiante', $idestudiante)->first();
-                     for ($i = 0; $i <  $cantidadpenciones; $i++) {
-                        $meses = Mese::where('idmatricula', $idmatricula->id)->get();
+                    $concepto = Concepto::where('id', $pensiones->idconcepto)->first();
+                    if ($concepto->codigo == "P001") {
+                        $cantidadpenciones = $pensiones->cantidad; //cantidad de penciones pagadas
+                        $idestudiante = $pago->idestudiante; //estudiantee  
+                        $idmatricula = Matricula::where('idestudiante', $idestudiante)->first();
+                        for ($i = 0; $i <  $cantidadpenciones; $i++) {
+                            $meses = Mese::where('idmatricula', $idmatricula->id)->get();
 
-                        $idmeses = $meses[count($meses) - 1]->id;
-                        $mess = Mese::find($idmeses);
-                        $mess->delete();
-                    }
-                    }else{
+                            $idmeses = $meses[count($meses) - 1]->id;
+                            $mess = Mese::find($idmeses);
+                            $mess->delete();
+                        }
+                    } else {
                         $pensiones = Pension::where('idpago', $pagoid)->first();
                         $pensiones->delete();
                     }
-                                        
-                   
-                } 
+                }
             }
         }
 
@@ -319,13 +366,13 @@ class PagosController extends Controller
 
         $estudiante = DB::table('pagos as p')
             ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
-            ->select('p.id', 'e.nombre', 'e.apellidos', 'e.dni','e.nombreapoderado', 'p.created_at as fecha', 'p.montototal','p.numcomprobante')->where('p.id', $id)->get();
+            ->select('p.id', 'e.nombre', 'e.apellidos', 'e.dni', 'e.nombreapoderado', 'p.created_at as fecha', 'p.montototal', 'p.numcomprobante')->where('p.id', $id)->get();
         //  dd($estudiante);
         $pension = DB::table('pagos as p')
             ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
             ->join('pensions as pen', 'p.id', '=', 'pen.idpago')
             ->join('conceptos as c', 'pen.idconcepto', '=', 'c.id')
-            ->select('p.id', 'c.codigo', 'c.concepto', 'c.monto', 'p.created_at as fecha', 'p.montototal', 'pen.cantidad', 'pen.monto','p.numcomprobante')->where('p.id', $id)->get();
+            ->select('p.id', 'c.codigo', 'c.concepto', 'c.monto', 'p.created_at as fecha', 'p.montototal', 'pen.cantidad', 'pen.monto', 'p.numcomprobante')->where('p.id', $id)->get();
         // dd($pension);
 
         $articulo = DB::table('pagos as p')
@@ -333,7 +380,7 @@ class PagosController extends Controller
             ->join('detallepagos as det', 'p.id', '=', 'det.idpago')
             ->join('articulos as a', 'det.idarticulo', '=', 'a.id')
             ->join('categorias as c', 'a.idcategoria', '=', 'c.id')
-            ->select('p.id', 'p.idestudiante', 'a.nombre as articulo', 'c.nombre as categoria', 'p.created_at as fecha', 'det.cantidadar as cantidad', 'det.montoar','p.numcomprobante')->where('p.id', $id)->get();
+            ->select('p.id', 'p.idestudiante', 'a.nombre as articulo', 'c.nombre as categoria', 'p.created_at as fecha', 'det.cantidadar as cantidad', 'det.montoar', 'p.numcomprobante')->where('p.id', $id)->get();
 
         $pdf = Pdf::loadView('pages.pago.reportecomprobanteA4', compact('pension', 'articulo', 'estudiante'));
 
@@ -347,13 +394,13 @@ class PagosController extends Controller
     {
         $estudiante = DB::table('pagos as p')
             ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
-            ->select('p.id', 'e.nombre', 'e.apellidos', 'e.dni','e.nombreapoderado', 'p.created_at as fecha', 'p.montototal','p.numcomprobante')->where('p.id', $id)->get();
+            ->select('p.id', 'e.nombre', 'e.apellidos', 'e.dni', 'e.nombreapoderado', 'p.created_at as fecha', 'p.montototal', 'p.numcomprobante')->where('p.id', $id)->get();
         //    dd($estudiante[0]->nombre);
         $pension = DB::table('pagos as p')
             ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
             ->join('pensions as pen', 'p.id', '=', 'pen.idpago')
             ->join('conceptos as c', 'pen.idconcepto', '=', 'c.id')
-            ->select('p.id', 'c.codigo', 'c.concepto', 'c.monto', 'p.created_at as fecha', 'p.montototal', 'pen.cantidad', 'pen.monto','p.numcomprobante')->where('p.id', $id)->get();
+            ->select('p.id', 'c.codigo', 'c.concepto', 'c.monto', 'p.created_at as fecha', 'p.montototal', 'pen.cantidad', 'pen.monto', 'p.numcomprobante')->where('p.id', $id)->get();
         // dd($pension);
 
         $articulo = DB::table('pagos as p')
@@ -361,22 +408,23 @@ class PagosController extends Controller
             ->join('detallepagos as det', 'p.id', '=', 'det.idpago')
             ->join('articulos as a', 'det.idarticulo', '=', 'a.id')
             ->join('categorias as c', 'a.idcategoria', '=', 'c.id')
-            ->select('p.id', 'p.idestudiante', 'a.nombre as articulo', 'c.nombre as categoria', 'p.created_at as fecha', 'det.cantidadar as cantidad', 'det.montoar','p.numcomprobante')->where('p.id', $id)->get();
+            ->select('p.id', 'p.idestudiante', 'a.nombre as articulo', 'c.nombre as categoria', 'p.created_at as fecha', 'det.cantidadar as cantidad', 'det.montoar', 'p.numcomprobante')->where('p.id', $id)->get();
         // dd($articulo);
 
         $pdf = Pdf::loadView('pages.pago.reporteComprobante', compact('pension', 'articulo', 'estudiante'));
         $pdf->set_paper(array(0, 0, 135, 380), 'portrait');
-        
-        return $pdf->stream('' . $estudiante[0]->nombre . '-' . $estudiante[0]->apellidos .'.pdf');
+
+        return $pdf->stream('' . $estudiante[0]->nombre . '-' . $estudiante[0]->apellidos . '.pdf');
     }
 
     // funcion para tikect------------------------------------------------------------
 
-public function reportefectivohoy() {
+    public function reportefectivohoy()
+    {
 
-$pago = DB::table('pagos as p')
-    ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
-    ->leftJoin(DB::raw("(
+        $pago = DB::table('pagos as p')
+            ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
+            ->leftJoin(DB::raw("(
 
         SELECT pen.idpago, c.concepto as detalle
         FROM pensions pen
@@ -390,57 +438,107 @@ $pago = DB::table('pagos as p')
         JOIN categorias cat ON a.idcategoria = cat.id
 
     ) as detalles"), 'detalles.idpago', '=', 'p.id')
-    ->select(
-        'p.id',
-        'p.idestudiante',
-        'p.descripcion',
-        'p.fecha',
-        'p.created_at',
-        'p.numcomprobante',
-        'p.montototal',
-        'p.montodigital',
-        'p.montoefectivo',
-        'p.cobrado_por',
-        'p.archivo',
-        'e.nombre',
-        'e.apellidos',
-        'e.dni',
-        DB::raw("GROUP_CONCAT(DISTINCT detalles.detalle SEPARATOR ', ') as detalle")
-    )
-    ->whereDate('p.created_at', date('Y-m-d'))
-    ->groupBy(
-        'p.id',
-        'p.idestudiante',
-        'p.descripcion',
-        'p.fecha',
-        'p.created_at',
-        'p.numcomprobante',
-        'p.montototal',
-        'p.montodigital',
-        'p.montoefectivo',
-        'p.cobrado_por',
-        'p.archivo',
-        'e.nombre',
-        'e.apellidos',
-        'e.dni'
-    )
-    ->orderBy('p.id', 'asc')
-    ->get();
+            ->select(
+                'p.id',
+                'p.idestudiante',
+                'p.descripcion',
+                'p.fecha',
+                'p.created_at',
+                'p.numcomprobante',
+                'p.montototal',
+                'p.montodigital',
+                'p.montoefectivo',
+                'p.cobrado_por',
+                'p.archivo',
+                'e.nombre',
+                'e.apellidos',
+                'e.dni',
+                DB::raw("GROUP_CONCAT(DISTINCT detalles.detalle SEPARATOR ', ') as detalle")
+            )
+            ->whereDate('p.created_at', date('Y-m-d'))
+            ->groupBy(
+                'p.id',
+                'p.idestudiante',
+                'p.descripcion',
+                'p.fecha',
+                'p.created_at',
+                'p.numcomprobante',
+                'p.montototal',
+                'p.montodigital',
+                'p.montoefectivo',
+                'p.cobrado_por',
+                'p.archivo',
+                'e.nombre',
+                'e.apellidos',
+                'e.dni'
+            )
+            ->orderBy('p.id', 'asc')
+            ->get();
 
-    $totales = DB::table('pagos')
-        ->selectRaw('
+        $totales = DB::table('pagos')
+            ->selectRaw('
             SUM(montototal) as total_monto,
             SUM(montoefectivo) as total_efectivo,
             SUM(montodigital) as total_digital
         ')
-        ->whereDate('created_at', date('Y-m-d'))
-        ->first();
+            ->whereDate('created_at', date('Y-m-d'))
+            ->first();
 
-    $pdf = Pdf::loadView('pages.pago.reportecaja', compact('pago', 'totales'));
-    $pdf->setPaper('A4', 'landscape');
+        $pdf = Pdf::loadView('pages.pago.reportecaja', compact('pago', 'totales'));
+        $pdf->setPaper('A4', 'landscape');
 
-    return $pdf->stream('reporte_caja_' . date('Y-m-d') . '.pdf');
-}
+        return $pdf->stream('reporte_caja_' . date('Y-m-d') . '.pdf');
+    }
 
 
+
+    //ajax para los pagos
+    public function getPagos($id)
+    {
+        $matricula = Matricula::with([
+            'meses',
+            'estudiante.pagos.pensiones.concepto'
+        ])->where('idestudiante', $id)->first();
+
+        if (!$matricula) {
+            return response()->json([
+                'pagados' => [],
+                'pendientes' => [],
+                'conceptos' => []
+            ]);
+        }
+
+        // 🔵 MESES PAGADOS
+        $mesesPagados = $matricula->meses->pluck('mes')->toArray();
+
+        // 🟢 TODOS LOS MESES
+        $todosMeses = ['MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SET', 'OCT', 'NOV', 'DIC'];
+
+        // 🔴 PENDIENTES
+        $mesesPendientes = array_values(array_diff($todosMeses, $mesesPagados));
+
+        // 🟣 CONCEPTOS PAGADOS (AQUÍ ESTÁ LO NUEVO 🔥)
+        $pensiones = $matricula->estudiante->pagos->flatMap->pensiones;
+
+        $conceptosMostrar = [
+            'MATR2026' => 'MTR',
+            'C2025' => 'COP',
+            'PSC2025' => 'PS',
+            'UE2025' => 'UTE',
+        ];
+
+        $conceptosPagadosArray = [];
+
+        foreach ($conceptosMostrar as $codigo => $label) {
+            if ($pensiones->firstWhere('concepto.codigo', $codigo)) {
+                $conceptosPagadosArray[] = $label;
+            }
+        }
+
+        return response()->json([
+            'pagados' => $mesesPagados,
+            'pendientes' => $mesesPendientes,
+            'conceptos' => $conceptosPagadosArray // 👈 importante
+        ]);
+    }
 }

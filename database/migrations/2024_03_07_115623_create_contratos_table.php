@@ -11,7 +11,6 @@ return new class extends Migration
         Schema::create('contratos', function (Blueprint $table) {
             $table->id();
             $table->string('cargo',50);
-            $table->time('horaentrada');
             $table->string('nivel',50);
             $table->timestamps();
         });

@@ -10,7 +10,7 @@ class Pension extends Model
     use HasFactory;
     protected $fillable=['idpago','idconcepto','cantidad','montototal'];
     public function pago(){
-        return $this->belongsTo(Pagos::class,'id','idconcepto');
+       return $this->belongsTo(Pagos::class, 'idpago', 'id');
     
      }
      public function concepto(){

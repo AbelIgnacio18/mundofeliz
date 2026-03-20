@@ -392,18 +392,18 @@
                         @if ($registro)
                         @if ($registro->estado == 1)
                         <div class="asistio">
-                            {{ Carbon\Carbon::parse($registro->created_at)->format('H:i') }}
+                            {{ Carbon\Carbon::parse($registro->created_at)->format('h:i A') }}
                         </div>
                         @endif
 
                         @if ($registro->estado == 0)
                         <div class="tarde">
-                            {{ Carbon\Carbon::parse($registro->created_at)->format('H:i') }}
+                            {{ Carbon\Carbon::parse($registro->created_at)->format('h:i A') }}
                         </div>
                         @endif
                         @if ($registro->estado == 2)
                         <div class="" style="background-color: #8C4CFF">
-                            {{ Carbon\Carbon::parse($registro->created_at)->format('H:i') }}
+                            {{ Carbon\Carbon::parse($registro->created_at)->format('h:i A') }}
                         </div>
                         @endif
                         @if ($registro->estado == 3)

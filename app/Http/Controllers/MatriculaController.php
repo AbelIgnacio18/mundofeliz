@@ -86,6 +86,8 @@ class MatriculaController extends Controller
         $aula = $request->get('aula_id');
         $concepto = $request->get('concepto');
         $codigo = $request->get('codigo');
+          $fecha_matricula = $request->get('fecha_matricula');
+          $colegio_procedencia = $request->get('colegio_procedencia');
 
 
         $anolectivo = Anolectivo::where('estado', 1)->first();
@@ -96,8 +98,10 @@ class MatriculaController extends Controller
             $matricula->idestudiante = $estudianteid[$cont];
             $matricula->idanolectivo = $anolectivo->id;
             $matricula->idaula = $aula;
+            $matricula->fecha_matricula = $fecha_matricula;
+             $matricula->colegio_procedencia = $colegio_procedencia;
             $matricula->idconcepto = 1;
-            // $matricula->idconcepto = $concepto;
+          
             $matricula->codigo = $codigo;
             $matricula->save();
             $cont = $cont + 1;

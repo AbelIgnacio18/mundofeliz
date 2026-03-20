@@ -1,221 +1,309 @@
 @extends('layouts.master')
 
-@section('tab_tittle','Registro de asistencia')
+@section('tab_tittle', 'Reporte Individual de Asistencia')
 
 @section('content')
 
-
-<style>
-    .page_break {
-        page-break-before: always;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        /* Para un borde único entre celdas */
-    }
-
-    th,
-    td {
-        border: 1px solid #cccccc;
-        /* Borde de celda */
-        padding: 2px;
-        text-align: left;
-    }
-
-    th {
-        background-color: #f2f2f2;
-        /* Fondo para encabezados */
-        font-weight: bold;
-    }
-      li{
-            list-style-type: none;
-            font-size: 12px !important;
-            font-weight:700;
+    <style>
+        <style>.report-container {
+            font-family: 'Segoe UI', Roboto, sans-serif;
         }
 
+        .page_break {
+            page-break-before: always;
+        }
 
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
-        /* Color alterno para filas */
-    }
-</style>
+        .student-card {
+            background: #fff;
+            border-left: 5px solid #1e2125;
+            border-radius: 8px;
+        }
 
-<div class="col-12 py-2">
-    <header class="row">
+        /* --- SOLUCIÓN PARA EL CALENDARIO --- */
+        /* 1. Evita que el menú se corte en los bordes de la celda */
+        .fc-daygrid-day-frame,
+        .fc-daygrid-event-h-wrapper,
+        .fc-event-main {
+            overflow: visible !important;
+        }
+
+        /* 2. Estructura vertical para que Hora y Estado no se amontonen */
+        .attendance-event-container {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 4px 6px !important;
+            width: 100%;
+        }
+
+        .attendance-info {
+            display: flex;
+            flex-direction: column;
+            /* Hora arriba, Estado abajo */
+            line-height: 1.1;
+        }
+
+        .attendance-info b {
+            font-size: 0.75rem;
+        }
+
+        .attendance-info small {
+            font-size: 0.65rem;
+            opacity: 0.9;
+        }
+
+        /* 3. Menú desplegable profesional */
+        .dropdown-menu {
+            z-index: 9999 !important;
+        }
+        /* Permite que el dropdown flote fuera de la celda */
+.fc-daygrid-day-frame, 
+.fc-daygrid-event-h-wrapper, 
+.fc-event-main, 
+.fc-event-main-frame {
+    overflow: visible !important;
+}
+
+/* Contenedor Flex para separar texto de botón */
+.event-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 2px 5px;
+}
+
+/* Ajuste del menú para que no se desplace */
+.dropdown-menu {
+   position: absolute;
+    z-index: 1060 !important;
+}
+    </style>
+    </style>
+
+    <div class="container-fluid report-container p-4">
 
 
-        <div class="col-md-4">
-            <h6>
+        <div class="card student-card shadow-sm mb-4">
+            <div class="card-body">
+                <h5 class="text-muted small text-uppercase mb-1">Reporte de Asistencia</h5>
 
+                <h3 class="text-primary font-weight-bold mb-0">
+                    <i class="fas fa-user-circle mr-2"></i>
+                    {{ $items->first()->nombre }}
+                    {{ $items->first()->apellidos }}
+                </h3>
+                {{-- //botom para descargar el reporte del estudiante --}}
+              <a class="btn btn-danger btn-round ml-auto" target="_blank" type="button" href="{{route('app.asistenciaindividualdocente',$items->first()->id)}}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                    class="bi bi-filetype-pdf" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.6 11.85H0v3.999h.791v-1.342h.803c.287 0 .531-.057.732-.173.203-.117.358-.275.463-.474a1.42 1.42 0 0 0 .161-.677c0-.25-.053-.476-.158-.677a1.176 1.176 0 0 0-.46-.477c-.2-.12-.443-.179-.732-.179Zm.545 1.333a.795.795 0 0 1-.085.38.574.574 0 0 1-.238.241.794.794 0 0 1-.375.082H.788V12.48h.66c.218 0 .389.06.512.181.123.122.185.296.185.522Zm1.217-1.333v3.999h1.46c.401 0 .734-.08.998-.237a1.45 1.45 0 0 0 .595-.689c.13-.3.196-.662.196-1.084 0-.42-.065-.778-.196-1.075a1.426 1.426 0 0 0-.589-.68c-.264-.156-.599-.234-1.005-.234H3.362Zm.791.645h.563c.248 0 .45.05.609.152a.89.89 0 0 1 .354.454c.079.201.118.452.118.753a2.3 2.3 0 0 1-.068.592 1.14 1.14 0 0 1-.196.422.8.8 0 0 1-.334.252 1.298 1.298 0 0 1-.483.082h-.563v-2.707Zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638H7.896Z">
+                    </path>
+                </svg>
+            </a>
 
-                Docente: @forelse($items as $item) {{$item->nombre}}, {{$item->apellidos}} @empty @endforelse
-            </h6>
-        </div><!--.me-->
-
-
-
-        <div class="col-md-12">
-            <div style=" display: flex;;flex-direction: row;">
-                <div class="col-md-1">Temprano:</div>
-                <div style="background-color: green;width: 40px;color: green">ll</div>
 
             </div>
-            <div style=" display: flex;;flex-direction: row;">
-                <div class="col-md-1">Tarde:</div>
-                <div style="background-color: orange;width: 40px;color: orange">ll</div>
+        </div> 
 
+        <div class="card">
+            <div class="card-body">
+                <div id="calendar-asistencia"></div>
             </div>
-            <div style=" display: flex;;flex-direction: row;">
-                <div class="col-md-1">Faltó:</div>
-                <div style="background-color: red;width: 40px;color: red">ll</div>
-
-            </div>
-        </div><!--.me-->
-
-
-    </header>
-</div>
-
-
-
-
-
-
-
-<div class="container table-responsive mt-4">
-
-
-    @forelse($meses as $me)
-    <div class="row justify-content-start">
-        <div class="col-md-6">
-            <h6 width="50%">Mes</h6>
         </div>
-        <div class="col-md-6">
-            <h6 width="50%">{{Carbon\Carbon::parse($me)->translatedFormat('F')}}</h6>
-        </div>
+        <div class="page_break"></div>
 
+
+        <div class="text-center py-4">
+            <a href="{{ url('dashboard/asistencia-estudiantes') }}" class="btn btn-secondary btn-return shadow-sm">
+                <i class="fas fa-chevron-left mr-2"></i>Regresar
+            </a>
+        </div>
 
     </div>
+    <script>
+        let calendar;
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            var calendarEl = document.getElementById('calendar-asistencia');
+
+            calendar = new FullCalendar.Calendar(calendarEl, {
+                timeZone: 'America/Lima',
+                initialView: 'dayGridMonth',
+                locale: 'es',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,listMonth'
+                },
+                // Mapeamos tus datos de Laravel a eventos del calendario
+                events: [
+                    @foreach ($items as $item)
+                        @foreach ($item->asistenciadocentehoy as $asis)
+                            {
+                                id: '{{ $asis['id'] }}',
+                                title: '{{ $asis['estado'] == 1
+                                    ? 'Asistió'
+                                    : ($asis['estado'] == 0
+                                        ? 'Tarde'
+                                        : ($asis['estado'] == 4
+                                            ? 'Falta'
+                                            : ($asis['estado'] == 2
+                                                ? 'Tarde Justificada'
+                                                : 'Falta Justificada'))) }}',
+
+                                start: '{{ \Carbon\Carbon::parse($asis['fechaentrada'])->format('Y-m-d') }}T{{ \Carbon\Carbon::parse($asis['created_at'])->format('H:i:s') }}',
+
+                                backgroundColor: '{{ $asis['estado'] == 1
+                                    ? '#1aa053'
+                                    : ($asis['estado'] == 0
+                                        ? '#f16a1b'
+                                        : ($asis['estado'] == 4
+                                            ? '#c03221'
+                                            : ($asis['estado'] == 2
+                                                ? '#8e44ad'
+                                                : '#1f6ed4'))) }}',
+
+                                borderColor: '{{ $asis['estado'] == 1
+                                    ? '#1aa053'
+                                    : ($asis['estado'] == 0
+                                        ? '#f16a1b'
+                                        : ($asis['estado'] == 4
+                                            ? '#c03221'
+                                            : ($asis['estado'] == 2
+                                                ? '#8e44ad'
+                                                : '#1f6ed4'))) }}',
+
+                                textColor: '#ffffff',
+                                display: 'block',
+
+                                extendedProps: {
+                                    estado: '{{ $asis['estado'] }}',
+                                    minutos_tarde:'{{ $asis['minutos_tarde'] }}',
+                                    hora: '{{ \Carbon\Carbon::parse($asis['horaentrada'])->format('h:i A') }}'
+                                }
+                            },
+                        @endforeach
+                    @endforeach
+                ],
+                eventContent: function(info) {
+                    let id = info.event.id;
+                    let hora = info.event.extendedProps.hora;
+                    let estado = info.event.extendedProps.estado;
+                     let minutos_tarde = info.event.extendedProps.minutos_tarde;
+
+                    let estados = {
+                        1: "Asistió",
+                        0: "Tarde",
+                        4: "Falta",
+                      
+                    };
+                    let html = `
+    <div class="attendance-event-container">
+        <div class="attendance-info">
+            <b>${hora}</b>
+            <small>${estados[estado]} <b>${minutos_tarde} min </b></small>
+        </div>
+
+        <div class="dropdown position-static">
+            <a href="javascript:void(0);" data-bs-toggle="dropdown" 
+               style="color: white; text-decoration: none; padding-left: 5px;">
+                <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2.75C17.108 2.75 21.25 6.891 21.25 12C21.25 17.108 17.108 21.25 12 21.25C6.891 21.25 2.75 17.108 2.75 12C2.75 6.892 6.892 2.75 12 2.75Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M15.9393 12.0129H15.9483" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M11.9301 12.0129H11.9391" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M7.92128 12.0129H7.93028" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </a>
+            <ul class="dropdown-menu dropdown-menu shadow">
+                <li><h6 class="dropdown-header">Cambiar Estado</h6></li>
+                
+              
+                <li><a class="dropdown-item" onclick="actualizarEstado(1, ${id})">🟢 Asistió</a></li>
+                <li><a class="dropdown-item" onclick="actualizarEstado(0, ${id})">🟠 Tarde</a></li>
+                <li><a class="dropdown-item" onclick="actualizarEstado(4, ${id})">🔴 Falta</a></li>
+             
+            </ul>
+        </div>
+    </div>`;
+
+                    return {
+                        html: html
+                    };
+                }
+            });
+
+            calendar.render();
+        });
 
 
-    <table>
-        <thead>
-            <tr>
-                <th>Nº</th>
-
-                @forelse($dias as $di)
-
-                @if(Carbon\Carbon::parse($di)->Format('Y-m')==$me)
-                <th>
-                    {{Carbon\Carbon::parse($di)->Format('d')}}
-                </th>
-                @endif
-
-                @empty
-                @endforelse
-            </tr>
-        </thead>
-        <tbody>
-            <?php $contadorgallo = 1; ?>
-            @forelse($items as $item)
-            <tr>
-                <td>
-                    <div class="d-flex align-items-center">
-                        <?php echo $contadorgallo; ?>
-                    </div>
-                </td>
-
-                @forelse($dias as $di)
-                @if(Carbon\Carbon::parse($di)->Format('Y-m')==$me)
-                @php
-                $fecha = Carbon\Carbon::parse($di);
-                $esFinDeSemana = $fecha->isSaturday() || $fecha->isSunday();
-                $contador = 1;
-                @endphp
-               
-                <td  style="{{ $esFinDeSemana ? 'background-color:#d8d1d1ff;' : '' }}">
-                    @forelse($item->asistenciadocentehoy->toArray() as $asis)
 
 
-                    @if(Carbon\Carbon::parse($di)->Format('Y-m-d')== Carbon\Carbon::parse($asis['fechaentrada'])->Format('Y-m-d'))
+        function actualizarEstado(estado, idAsistencia) {
 
-                    @if($asis['estado']===1)
-                    <li style="background-color: green;color:white;padding:0px 1px">
-                        {{ Carbon\Carbon::parse($asis['created_at'])->setTimezone('America/Lima')->format('h:i A') }}
+            let url = "{{ route('app.asist-estudiante.update', ':id') }}";
+            url = url.replace(':id', idAsistencia);
 
+            fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({
+                        _method: "PUT",
+                        estado: estado
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
 
-                    </li>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Actualizado',
+                        text: data.mensaje,
+                        timer: 1000,
+                        showConfirmButton: false
+                    });
 
-                    @endif
-                    @if($asis['estado']===0)
-                    <li style="background-color: orange;color:black;padding:0px 1px">
+                    // 🔥 Actualizar botón visualmente sin recargar
+                    // actualizarBotonVisual(idAsistencia, estado);
+                    actualizarEventoCalendario(idAsistencia, estado);
 
-                        {{ Carbon\Carbon::parse($asis['created_at'])->setTimezone('America/Lima')->format('h:i A') }}
+                })
+                .catch(error => console.error("Error:", error));
+        }
 
-                    </li>
+        function actualizarEventoCalendario(id, estado) {
 
-                    @endif
-                    @if($asis['estado']===null)
-                    <li style="background-color: red;color:white;padding:0px 1px">
-                        {{ Carbon\Carbon::parse($asis['created_at'])->setTimezone('America/Lima')->format('h:i A') }}
+            let evento = calendar.getEventById(id);
 
-                    </li>
+            if (!evento) return;
 
-                    @endif
+            let titulo = '';
+            let color = '';
 
-                    <?php $contador = 0; ?>
-                    @endif
+            if (estado == 1) {
+                titulo = 'Asistió';
+                color = '#1aa053';
+            }
 
+            if (estado == 0) {
+                titulo = 'Tarde';
+                color = '#f16a1b';
+            }
 
-                    @empty
-                    @endforelse
+            if (estado == 4) {
+                titulo = 'Falta';
+                color = '#c03221';
+            }
 
-                    @if($contador==1)
+           
 
-                    <?php $contador = 1; ?>
-                    @endif
+            // actualizar propiedades
+            evento.setProp('title', titulo);
+            evento.setProp('backgroundColor', color);
+            evento.setProp('borderColor', color);
 
-                </td>
+            // 🔥 forzar re-render del evento
+            evento.setExtendedProp('estado', estado);
 
-                @endif
-                @empty
-                @endif
-
-
-                </td>
-
-
-
-            </tr>
-
-            <?php $contadorgallo++; ?>
-
-            @empty
-            @endforelse
-
-
-        </tbody>
-    </table>
-    <div class="page_break">
-    </div>
-    @empty
-    @endforelse
-
-
-
-
-
-
-</div><!--.invoice-body-->
-<div class="invoicelist-body">
-
-</div>
-
-<div class="form-group text-center pt-lg-3">
-    <a href="{{url('dashboard/asistencia-docentes')}}" class="btn btn-secondary" type="submit">Regresar</a>
-</div>
-
-
+        }
+    </script>
 @endsection

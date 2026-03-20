@@ -14,10 +14,12 @@ return new class extends Migration
             $table->string('apellidos',100);
             $table->string('dni',8)->nullable();         
             $table->string('celular',50)->nullable();             
-            $table->string('observaciones',200)->nullable();       
-         
-           
-             $table->unsignedBigInteger('idapoderado');
+            $table->string('observaciones',200)->nullable();
+            $table->date('fecha_nacimiento')->nullable(); 
+            $table->string('colegio_procedencia')->nullable();
+            $table->string('genero')->nullable();  
+            $table->string('imagen',100)->nullable();         
+            $table->unsignedBigInteger('idapoderado');
             $table->foreign('idapoderado')->references('id')->on('apoderados')->onUpdate('cascade');
             $table->boolean('estado')->nullable()->default(1);
             $table->timestamps();

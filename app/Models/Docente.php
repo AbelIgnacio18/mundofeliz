@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Docente extends Model
 {
     use HasFactory;
-    protected $fillable=['nombre','apellidos','dni','idcontrato','codigo','estado'];
+    protected $fillable=['user_id','nombre','apellidos','dni','codigo','estado'];
 
     public function contrato(){
         return $this->belongsTo(Contrato::class,'idcontrato','id');
@@ -18,4 +18,13 @@ class Docente extends Model
         return $this->hasmany(Asistencia::class,'iddocente','id');
     
      }
+     public function horarios()
+{
+    return $this->hasMany(Horario::class,'iddocente','id');
+}
+public function user()
+{
+    return $this->belongsTo(User::class, 'user_id');
+}
+     
 }

@@ -94,7 +94,7 @@
                     {{ $items->first()->estudiante->apellidos }}
                 </h3>
                 {{-- //botom para descargar el reporte del estudiante --}}
-              <a class="btn btn-danger btn-round ml-auto" type="button" href="{{route('app.asistenciaindividual',$items->first()->idestudiante)}}">
+              <a class="btn btn-danger btn-round ml-auto" target="_blank" type="button" href="{{route('app.asistenciaindividual',$items->first()->idestudiante)}}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                     class="bi bi-filetype-pdf" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"

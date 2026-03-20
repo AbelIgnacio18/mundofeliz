@@ -12,7 +12,9 @@ return new class extends Migration
             $table->id();
             $table->string('nombre',100);          
             $table->string('dni',8)->unique();         
-            $table->string('celular',50)->nullable();
+            $table->string('celularp',10)->nullable();
+            $table->string('celularm',10)->nullable();
+            $table->string('celular',22)->nullable();
             $table->string('direccion',200)->nullable();           
             $table->string('password');      
             $table->text('fcm_token')->nullable();              

@@ -22,7 +22,7 @@ class UpdateCajaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'monto'=>'required|numeric'
+            'monto_inicial'=>'required|numeric'
         ];
     }
 }

@@ -9,7 +9,8 @@ class Estudiante extends Model
 {
     use HasFactory;
   
-    protected $fillable=['nombre','apellidos','dni','celular','observaciones','estado','idapoderado'];
+    protected $fillable=['nombre','apellidos','dni','celular',
+    'observaciones','estado','idapoderado','fecha_nacimiento','colegio_procedencia','genero','imagen'];
 
     // public function pagos(){
     //     return $this->hasMany(Pagos::class,'id','idestudiante');

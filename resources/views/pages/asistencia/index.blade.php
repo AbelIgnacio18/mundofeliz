@@ -100,56 +100,83 @@
             <tr>
                <th>N°</th>
                <th>Nombres</th>
-               <th>Entrada</th>
-               <th>Salida</th>
-               <th>Estado</th>
-               <th>Acciones</th>
+               <th>Asistencia</th>
+               <th>Entr./Sal.</th>
+               <th>Minuto Tarde</th>
+           
+                <th>Acciones</th>
             </tr>
          </thead>
          <tbody>
+             @php
+                        $numeracion = 1;
+
+                    @endphp
             @forelse($items as $item)
             <tr>
                <td>
-                  <div class="d-flex align-items-center">
-                     <h6>{{$item->id}}</h6>
-                  </div>
+                   <div class="d-flex align-items-center">
+                                    <h6>{{ $numeracion }}</h6>
+                                </div>
                </td>
                <td>
                   <h6>{{$item->docentes->apellidos}}, {{$item->docentes->nombre}}</h6>
                </td>
+                <td>
+                                <div class="dropdown position-static">
+                                    <button data-id="{{ $item->id }}"
+                                        class="btn btn-sm 
+                                @switch($item->estado)
+                                    @case(1) btn-success @break
+                                    @case(0) btn-warning @break
+                                    @case(4) btn-danger @break
+                                
+                                    @default btn-outline-secondary
+                                @endswitch dropdown-toggle"
+                                        type="button" data-bs-toggle="dropdown">
+
+                                        @switch($item->estado)
+                                            @case(1)
+                                                A
+                                            @break
+
+                                            @case(0)
+                                                T
+                                            @break
+
+                                            @case(4)
+                                                F
+                                            @break
+
+
+                                            @default
+                                                -
+                                        @endswitch
+
+                                    </button>
+
+                                    <ul class="dropdown-menu shadow">
+                                        <li><a class="dropdown-item"
+                                                onclick="actualizarEstado(1, {{ $item->id }})">🟢 Asistió</a></li>
+                                        <li><a class="dropdown-item"
+                                                onclick="actualizarEstado(0, {{ $item->id }})">🟠 Tarde</a></li>
+                                        <li><a class="dropdown-item"
+                                                onclick="actualizarEstado(4, {{ $item->id }})">🔴 Falta</a></li>
+                                      
+                                    </ul>
+                                </div>
+                            </td>
+                            <td class="small">
+                                <div>
+                                    <strong>{{ Carbon\Carbon::parse($item->horaentrada)->format('h:i A') }}</strong>
+                                </div>
+                                <div class="text-muted">
+                                    {{ $item->horasalida != null ? Carbon\Carbon::parse($item->horasalida)->format('h:i A') : '—' }}
+                                </div>
+                            </td>
                <td>
                   <h6>
-                     {{Carbon\Carbon::parse($item->created_at)->translatedFormat('l, j F Y h:i A')}}
-                  </h6>
-               </td>
-               <td>
-                  @if($item->estado===null)
-                     {{Carbon\Carbon::parse($item->updated_at)->translatedFormat('l, j F  h:i A')}}
-                  @endif
-                  <h6></h6>
-                  @if($item->created_at==$item->updated_at)
-               
-                  @else
-                  <h6>
-                     {{Carbon\Carbon::parse($item->updated_at)->translatedFormat('l, j F  h:i A')}}
-                  </h6>
-
-                  @endif
-               </td>
-               <td>
-                  <h6>
-                     @if($item->estado===0)
-                     <span class="badge bg-warning" style="font-size: 1em;">Tarde</span> 
-                     @endif
-
-                     @if($item->estado===1)
-                     <span class="badge bg-success" style="font-size: 1em;">Asistió</span> 
-                     @endif
-                  
-
-                     @if($item->estado===null)
-                     <span class="badge bg-danger" style="font-size: 1em;">Faltó</span> 
-                     @endif
+                    {{$item->minutos_tarde}}
                   </h6>               
                </td>
 
@@ -180,7 +207,10 @@
             </tr>
             @include('pages.asistencia.modal')
 
+ @php
+                            $numeracion++;
 
+                        @endphp
             @empty
 
             @endforelse

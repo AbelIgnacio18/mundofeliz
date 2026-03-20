@@ -10,8 +10,7 @@ class Detallepago extends Model
     use HasFactory;
     protected $fillable=['idpago','idarticulo','cantidadar','montoar','fecha'];
 
-    public function articulos(){
-        return $this->hasMany(Articulo::class,'idartuculo','id');
-    
-     }
+    public function articulo(){
+    return $this->belongsTo(Articulo::class,'idarticulo','id');
+}
 }

@@ -19,6 +19,7 @@ use App\Models\Docente;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Google\Client;
 use App\Services\FcmService;
 
@@ -97,5 +98,31 @@ class AsistenciahoyApiController extends Controller
              ->orderBy('fechaentrada')
             ->get();
     }
+
+    public function subirFoto(Request $request, $id)
+{
+    $est = Estudiante::findOrFail($id);
+
+    if ($request->hasFile('foto')) {
+
+        // 🗑️ eliminar imagen anterior (opcional pero PRO)
+        if ($est->imagen && Storage::disk('public')->exists($est->imagen)) {
+            Storage::disk('public')->delete($est->imagen);
+        }
+
+        // 📸 guardar nueva imagen
+        $ruta = $request->file('foto')->store('estudiantes', 'public');
+
+        // 🌐 guardar URL completa
+        $est->imagen = asset('storage/' . $ruta);
+
+        $est->save();
+    }
+
+    return response()->json([
+        'ok' => true,
+        'imagen' => $est->imagen // 🔥 devuelves la URL lista
+    ]);
+}
     
 }

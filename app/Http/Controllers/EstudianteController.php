@@ -44,7 +44,7 @@ class EstudianteController extends Controller
 
 
 
-    
+
 
 
 
@@ -55,12 +55,15 @@ class EstudianteController extends Controller
     {
         try {
             // 1. Lógica del Apoderado: Buscar por DNI o crear si no existe
+          
             $apoderado = Apoderado::firstOrCreate(
                 ['dni' => $request->get('dniapoderado')],
                 [
-                    'nombre'    => strtoupper($request->get('nombreapoderado')),
-                    'celular'   => strtoupper($request->get('celularm') . '/' . $request->get('celularp')),
-                    'password'  => bcrypt($request->get('dniapoderado')),
+                    'nombre' => strtoupper($request->get('nombreapoderado')),
+                    'celularp' => $request->get('celularp'),
+                    'celularm' => $request->get('celularm'),
+                    'celular' => $request->get('celularm') . ' / ' . $request->get('celularp'),
+                    'password' => bcrypt($request->get('dniapoderado')),
                     'direccion' => strtoupper($request->get('direccion')),
                 ]
             );
@@ -72,15 +75,20 @@ class EstudianteController extends Controller
 
             $estudiante->nombre = strtoupper($request->get('nombre'));
             $estudiante->apellidos = strtoupper($apellidop . ' ' . $apellidom);
-            $estudiante->dni = strtoupper($request->get('dni'));
-            $estudiante->celular = strtoupper( $request->get('celularm'). ' / ' .$request->get('celularp'));
+            $estudiante->dni = $request->get('dni');
+            $estudiante->celular = strtoupper($request->get('celularm') . ' / ' . $request->get('celularp'));
+            $estudiante->fecha_nacimiento = $request->get('fecha_nacimiento');
+            $estudiante->colegio_procedencia = strtoupper($request->get('colegio_procedencia'));
+            $estudiante->genero = strtoupper($request->get('genero'));
+            // $estudiante->imagen = $request->get('imagen');
             $estudiante->idapoderado = $apoderado->id; // Vinculación
             $estudiante->observaciones = strtoupper($request->get('observaciones'));
-            dd($estudiante);
+
             $estudiante->save();
 
             // 3. ENVIAR NOTIFICACIÓN PUSH (Llamada al método de Firebase)
-            // Solo si el apoderado ya tiene el token de la App registrado
+            // Solo si el apoderado ya tiene el token de la App registrado fecha_nacimiento	date	
+
             if ($apoderado->fcm_token) {
                 $this->enviarNotificacionFirebase($apoderado->fcm_token, $estudiante->nombre, "Registro");
             }
@@ -126,19 +134,21 @@ class EstudianteController extends Controller
     public function update(UpdateEstudianteRequest $request,  $item)
     {
         $estudiante = Estudiante::find($item);
-  $apoderado = Apoderado::find($estudiante->idapoderado);
-         $apoderado->nombre = strtoupper($request->get('nombreapoderado'));
+        $apoderado = Apoderado::find($estudiante->idapoderado);
+        $apoderado->nombre = strtoupper($request->get('nombreapoderado'));
         $apoderado->dni = strtoupper($request->get('dniapoderado'));
-        $apoderado->direccion = strtoupper($request->get('direccion'));   
+        $estudiante->celularp = strtoupper($request->get('celularp'));
+        $estudiante->celularm = strtoupper($request->get('celularm'));
+        $apoderado->direccion = strtoupper($request->get('direccion'));
         $apoderado->password = bcrypt($request->get('dniapoderado'));
-        $apoderado->update(); 
+        $apoderado->update();
 
         $estudiante->nombre = strtoupper($request->get('nombre'));
-       $estudiante->apellidos = strtoupper($request->get('apellidos'));
+        $estudiante->apellidos = strtoupper($request->get('apellidos'));
         $estudiante->dni = strtoupper($request->get('dni'));
-        $estudiante->celular = strtoupper($request->get('celular'));
+        $estudiante->celular = strtoupper($request->get('celularm') . ' / ' . $request->get('celularp'));
         $estudiante->observaciones = strtoupper($request->get('observaciones'));
-         $estudiante->update();
+        $estudiante->update();
         session()->flash('swal', [
             'icon' => 'success',
             'title' => 'bien hecho',

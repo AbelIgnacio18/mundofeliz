@@ -21,8 +21,11 @@ return new class extends Migration
             
               $table->unsignedBigInteger('idconcepto');
             $table->foreign('idconcepto')->references('id')->on('conceptos')->onUpdate('cascade');
-            $table->string('codigo',8)->nullable();
-            $table->boolean('estado')->nullable()->default(false);
+                $table->string('colegio_procedencia')->nullable();
+            $table->date('fecha_matricula');
+            $table->string('codigo',9)->nullable();
+
+            $table->boolean('estado')->nullable()->default(1);
          
             $table->timestamps();
         });

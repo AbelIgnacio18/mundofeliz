@@ -10,15 +10,18 @@ return new class extends Migration
     {
         Schema::create('docentes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')
+        ->nullable()
+        ->constrained('users')
+        ->nullOnDelete();
             $table->string('nombre',50);
             $table->string('apellidos',100);
             $table->string('dni',8);
             $table->string('celular',9)->nullable();   
             $table->string('codigo',8)->nullable();
             $table->boolean('estado')->default(1);
-            $table->unsignedBigInteger('idcontrato');
-            $table->foreign('idcontrato')->references('id')->on('contratos')->onUpdate('cascade')->onDelete('cascade'); 
-            $table->timestamps();
+         
+             $table->timestamps();
         });
     }
 

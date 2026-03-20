@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Matricula extends Model
 {
     use HasFactory;
-    protected $fillable=['idestudiante','idanolectivo','idaula','codigo'];
+    protected $fillable=['idestudiante','colegio_procedencia'	,'fecha_matricula','idanolectivo','idaula','codigo'];
 
      public function estudiante()
 {

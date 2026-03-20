@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+
 use Carbon\Carbon;
 use App\Models\CalendarioEscolar;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -18,8 +19,8 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
 
-$inicio = Carbon::create(2026, 3, 1);
-$fin = Carbon::create(2026, 12, 31);
+        $inicio = Carbon::create(2026, 3, 1);
+        $fin = Carbon::create(2026, 12, 31);
 
         while ($inicio <= $fin) {
 
@@ -30,7 +31,7 @@ $fin = Carbon::create(2026, 12, 31);
 
             $inicio->addDay();
         }
-        
+
         \App\Models\User::create([
             'name' => 'InnovaStaff',
             'apellidos' => 'InnovaStaff',
@@ -258,20 +259,20 @@ $fin = Carbon::create(2026, 12, 31);
         \App\Models\Anolectivo::create([
             'años' => '2025',
             'inicio' => '2025-10-01',
-            'fin' => '2025-12-25',           
+            'fin' => '2025-12-25',
         ]);
 
-    
-  // Datos semilla de Nivel de Educación
+
+        // Datos semilla de Nivel de Educación
         \App\Models\Aula::create([
             'nivel' => 'Inicial',
             'grado' => '3 años',
             'seccion' => 'Único',
             'vacantes' => 22,
-            'horaentrada' => '07:20:00',  
+            'horaentrada' => '07:20:00',
             'horatarde' => '08:00:59',
-            'horafalta' => '10:00:00',  
-             'horasalida' => '13:30:00',      
+            'horafalta' => '10:00:00',
+            'horasalida' => '13:30:00',
         ]);
 
         \App\Models\Aula::create([
@@ -279,10 +280,10 @@ $fin = Carbon::create(2026, 12, 31);
             'grado' => '4 años',
             'seccion' => 'Único',
             'vacantes' => 39,
-               'horaentrada' => '07:20:00',  
+            'horaentrada' => '07:20:00',
             'horatarde' => '08:00:59',
-            'horafalta' => '10:00:00',  
-              'horasalida' => '13:30:00',       
+            'horafalta' => '10:00:00',
+            'horasalida' => '13:30:00',
         ]);
 
         \App\Models\Aula::create([
@@ -290,10 +291,10 @@ $fin = Carbon::create(2026, 12, 31);
             'grado' => '5 años',
             'seccion' => 'Único',
             'vacantes' => 45,
-               'horaentrada' => '07:20:00',  
+            'horaentrada' => '07:20:00',
             'horatarde' => '08:00:59',
-            'horafalta' => '10:00:00', 
-              'horasalida' => '13:30:00',         
+            'horafalta' => '10:00:00',
+            'horasalida' => '13:30:00',
         ]);
 
         \App\Models\Aula::create([
@@ -301,10 +302,10 @@ $fin = Carbon::create(2026, 12, 31);
             'grado' => '1er grado',
             'seccion' => 'Único',
             'vacantes' => 55,
-              'horaentrada' => '07:20:00',  
+            'horaentrada' => '07:20:00',
             'horatarde' => '08:00:59',
-            'horafalta' => '10:00:00', 
-              'horasalida' => '13:30:00',         
+            'horafalta' => '10:00:00',
+            'horasalida' => '13:30:00',
         ]);
 
         \App\Models\Aula::create([
@@ -312,10 +313,10 @@ $fin = Carbon::create(2026, 12, 31);
             'grado' => '2do grado',
             'seccion' => 'Único',
             'vacantes' => 63,
-             'horaentrada' => '07:20:00',  
+            'horaentrada' => '07:20:00',
             'horatarde' => '08:00:59',
-            'horafalta' => '10:00:00',  
-              'horasalida' => '13:30:00',        
+            'horafalta' => '10:00:00',
+            'horasalida' => '13:30:00',
         ]);
 
         // \App\Models\Aula::create([
@@ -390,27 +391,32 @@ $fin = Carbon::create(2026, 12, 31);
         //     'tarde' => '8:00:59',          
         // ]);
 
-        \App\Models\Horario::create([
-            'entrada' => 'hrentrada',
-            'mañana' => '08:00:20',
-            'tarde' => '14:30:00',
-            'estado' => true,
-        ]);
+        // \App\Models\Horario::create([
+        //     'entrada' => 'hrentrada',
+        //     'mañana' => '08:00:20',
+        //     'tarde' => '14:30:00',
+        //     'estado' => true,
+        // ]);
 
         \App\Models\Modulo::create([
             'nombre' => 'estudiantes',
         ]);
         \App\Models\Modulo::create([
-            'nombre' =>'matricula',
-        ]); \App\Models\Modulo::create([
-            'nombre' =>'concepto',
-        ]); \App\Models\Modulo::create([
+            'nombre' => 'matricula',
+        ]);
+        \App\Models\Modulo::create([
+            'nombre' => 'concepto',
+        ]);
+        \App\Models\Modulo::create([
             'nombre' => 'docentes',
-        ]); \App\Models\Modulo::create([
+        ]);
+        \App\Models\Modulo::create([
             'nombre' => 'articulos',
-        ]); \App\Models\Modulo::create([
+        ]);
+        \App\Models\Modulo::create([
             'nombre' => 'ingresos',
-        ]); \App\Models\Modulo::create([
+        ]);
+        \App\Models\Modulo::create([
             'nombre' => 'comprobante',
         ]);
         \App\Models\Modulo::create([
@@ -425,107 +431,111 @@ $fin = Carbon::create(2026, 12, 31);
         \App\Models\Modulo::create([
             'nombre' => 'cargo',
         ]);
-        
+
 
         \App\Models\Modulo::create([
-                'nombre' =>'usuario',
-        ]); \App\Models\Modulo::create([
-            'nombre' =>'role y permisos',
-        ]);   
-
-
-        \App\Models\Rol::create([
-            'nombre' =>'Admin',
+            'nombre' => 'usuario',
+        ]);
+        \App\Models\Modulo::create([
+            'nombre' => 'role y permisos',
         ]);
 
         \App\Models\Rol::create([
-            'nombre' =>'Secretaria',
+            'nombre' => 'SuperAdmin',
+        ]);
+        \App\Models\Rol::create([
+            'nombre' => 'Admin',
+        ]);
+        \App\Models\Rol::create([
+            'nombre' => 'Docente',
+        ]);
+
+        \App\Models\Rol::create([
+            'nombre' => 'Secretaria',
         ]);
 
         \App\Models\UserRol::create([
-            'iduser' =>1,
-            'idrol' =>1,
-        ]); 
-
-        \App\Models\Permission::create([
-            'idmodulo'=>1,
-            'nombre'=>'VER ESTUDIANTES',
-                'status'=>1,  
-        ]);
-        
-        \App\Models\Permission::create([
-            'idmodulo'=>2,
-                'nombre'=>'VER MATRICULA',
-
-                'status'=>1,
-
-        ]);  
-        \App\Models\Permission::create([
-            'idmodulo'=>3,
-                'nombre'=>'VER CONCEPTO',
-                'status'=>1, 
-        ]); 
-        \App\Models\Permission::create([
-            'idmodulo'=>4,
-                'nombre'=>'VER DOCENTE',
-                'status'=>1,
-        ]); 
-        \App\Models\Permission::create([
-            'idmodulo'=>5,
-                'nombre'=>'VER INVENTARIO ARTICULOS',
-                'status'=>1,
-        ]); 
-        \App\Models\Permission::create([
-            'idmodulo'=>6,
-                'nombre'=>'VER INVENTARIO INGRESOS',
-                'status'=>1,
-        ]); 
-        \App\Models\Permission::create([
-            'idmodulo'=>7,
-                'nombre'=>'VER COMPROBANTES',
-                'status'=>1, 
-        ]); 
-        \App\Models\Permission::create([
-            'idmodulo'=>8,
-                'nombre'=>'VER ASISTENCIA',
-                'status'=>1,
-        ]); 
-        \App\Models\Permission::create([
-            'idmodulo'=>9,
-                'nombre'=>'VER AÑO LECTIVO',
-                'status'=>1, 
-        ]);
-        \App\Models\Permission::create([
-            'idmodulo'=>10,
-                'nombre'=>'VER AULAS',
-                'status'=>1, 
-        ]);
-        \App\Models\Permission::create([
-            'idmodulo'=>11,
-                'nombre'=>'VER CARGO',
-                'status'=>1, 
-        ]);
-        \App\Models\Permission::create([
-            'idmodulo'=>12,
-                'nombre'=>'VER USUARIOS',
-                'status'=>1, 
-        ]); 
-        \App\Models\Permission::create([
-            'idmodulo'=>13,
-                'nombre'=>'VER ROL & PERMISOS',
-                'status'=>1,
+            'iduser' => 1,
+            'idrol' => 1,
         ]);
 
+        \App\Models\Permission::create([
+            'idmodulo' => 1,
+            'nombre' => 'VER ESTUDIANTES',
+            'status' => 1,
+        ]);
 
-\App\Models\RolPermission::create([
-            'idrol'=>1, 
-            'idpermission'=>12
+        \App\Models\Permission::create([
+            'idmodulo' => 2,
+            'nombre' => 'VER MATRICULA',
+
+            'status' => 1,
+
+        ]);
+        \App\Models\Permission::create([
+            'idmodulo' => 3,
+            'nombre' => 'VER CONCEPTO',
+            'status' => 1,
+        ]);
+        \App\Models\Permission::create([
+            'idmodulo' => 4,
+            'nombre' => 'VER DOCENTE',
+            'status' => 1,
+        ]);
+        \App\Models\Permission::create([
+            'idmodulo' => 5,
+            'nombre' => 'VER INVENTARIO ARTICULOS',
+            'status' => 1,
+        ]);
+        \App\Models\Permission::create([
+            'idmodulo' => 6,
+            'nombre' => 'VER INVENTARIO INGRESOS',
+            'status' => 1,
+        ]);
+        \App\Models\Permission::create([
+            'idmodulo' => 7,
+            'nombre' => 'VER COMPROBANTES',
+            'status' => 1,
+        ]);
+        \App\Models\Permission::create([
+            'idmodulo' => 8,
+            'nombre' => 'VER ASISTENCIA',
+            'status' => 1,
+        ]);
+        \App\Models\Permission::create([
+            'idmodulo' => 9,
+            'nombre' => 'VER AÑO LECTIVO',
+            'status' => 1,
+        ]);
+        \App\Models\Permission::create([
+            'idmodulo' => 10,
+            'nombre' => 'VER AULAS',
+            'status' => 1,
+        ]);
+        \App\Models\Permission::create([
+            'idmodulo' => 11,
+            'nombre' => 'VER CARGO',
+            'status' => 1,
+        ]);
+        \App\Models\Permission::create([
+            'idmodulo' => 12,
+            'nombre' => 'VER USUARIOS',
+            'status' => 1,
+        ]);
+        \App\Models\Permission::create([
+            'idmodulo' => 13,
+            'nombre' => 'VER ROL & PERMISOS',
+            'status' => 1,
+        ]);
+
+
+        \App\Models\RolPermission::create([
+            'idrol' => 1,
+            'idpermission' => 12
         ]);
         \App\Models\RolPermission::create([
-            'idrol'=>1, 
-            'idpermission'=>13
+            'idrol' => 1,
+            'idpermission' => 13
         ]);
-
-
     }
 }

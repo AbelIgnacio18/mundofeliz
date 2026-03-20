@@ -66,5 +66,9 @@ class User extends Authenticatable
 
         return in_array($permissionName, $permisos);
     }
+    public function docente()
+{
+    return $this->hasOne(Docente::class, 'user_id');
+}
     
 }

@@ -11,21 +11,25 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('horarios', function (Blueprint $table) {
+        Schema::create('cursos', function (Blueprint $table) {
             $table->id();
-            $table->string('entrada',45);
-            $table->time('mañana');
-            $table->time('tarde');      
-            $table->boolean('estado')->nullable()->default(true);
+
+            $table->string('nombre');
+            $table->string('codigo');
+            $table->string('area');
+
+            $table->boolean('estado')->default(1);
             $table->timestamps();
         });
     }
 
     /**
+     * Campo	Tipo	Descripción
+
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('horarios');
+        Schema::dropIfExists('cursos');
     }
 };
