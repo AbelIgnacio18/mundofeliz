@@ -146,7 +146,7 @@
                                     </svg>
                                 </span>
                             </a>
-                             <a class="btn btn-sm btn-icon text-warning" data-bs-toggle="modal"
+                             <a class="btn btn-sm btn-icon text-danger" data-bs-toggle="modal"
                                 data-bs-original-title="Editar" data-bs-target="#model-delete-{{ $estud->id }}">
                                 <span class="btn-inner">
                                     <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
