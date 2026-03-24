@@ -20,9 +20,9 @@
 
 
                                   @forelse($estudiante as $est)
-                                      <option value="{{ $est->id }}"> {{ $est->apellidos }}
-                                          {{ $est->nombre }}- {{ $est->dni }}
-                                      </option>
+                                  <option value="{{ $est->id }}"> {{ $est->apellidos }}
+                                      {{ $est->nombre }}- {{ $est->dni }}
+                                  </option>
                                   @empty
                                   @endforelse
 
@@ -52,10 +52,10 @@
 
                                       <option value="">Seleccionar</option>
                                       @forelse($aula as $esp)
-                                          <option value="{{ $esp->id }}">{{ $esp->nivel }}
-                                              {{ $esp->grado }}
-                                              {{ $esp->seccion }}
-                                          </option>
+                                      <option value="{{ $esp->id }}">{{ $esp->nivel }}
+                                          {{ $esp->grado }}
+                                          {{ $esp->seccion }}
+                                      </option>
                                       @empty
                                       @endforelse
 
@@ -78,20 +78,20 @@
                               <input type="date" class="form-control" name="fecha_matricula"
                                   value="{{ date('Y-m-d') }}">
                           </div>
-                         
-                              @if (auth()->user()->esSuperAdmin() || $sedes->count() > 1)
-                               <div class="form-group col-md-4">
-                            <label for="colegio_procedencia" class="form-label">Sede:</label>
-                                  <select name="idsede" class="form-control">
-                                      @foreach ($sedes as $sede)
-                                          <option value="{{ $sede->id }}">{{ $sede->nombre }}</option>
-                                      @endforeach
-                                  </select>
-                                   </div>
-                              @else
-                                  <input type="hidden" name="idsede" value="{{ $sedes->first()->id }}">
-                              @endif
-                          
+
+                          @if (auth()->user()->esSuperAdmin() || $sedes->count() > 1)
+                          <div class="form-group col-md-4">
+                              <label for="colegio_procedencia" class="form-label">Sede:</label>
+                              <select name="idsede" class="form-control">
+                                  @foreach ($sedes as $sede)
+                                  <option value="{{ $sede->id }}">{{ $sede->nombre }}</option>
+                                  @endforeach
+                              </select>
+                          </div>
+                          @else
+                          <input type="hidden" name="idsede" value="{{ $sedes->first()->id }}">
+                          @endif
+
 
                           <div class="form-group col-md-4 p-1">
                               <label for="colegio_procedencia" class="form-label">Colegio Procedencia:<span
@@ -110,23 +110,25 @@
                                             <option value="">Seleccionar</option>
                                             @forelse($concepto as $con)
                                                 <option value="{{ $con->id }}"> {{ $con->concepto }} </option>
-                            @empty
-                            @endforelse
+                      @empty
+                      @endforelse
 
-                            </select>
+                      </select>
 
-                    </div>
-                </div> --}}
-
-
-
-                      <div class="text-start mt-2"> <button type="button" class="btn btn-danger"
-                              data-bs-dismiss="modal">Cancelar</button>
-                          <button class="btn btn-secondary" type="submit">Guardar</button>
-
-                      </div>
-                  </form>
               </div>
+          </div> --}}
+
+
+
+          <div class="text-start mt-2">
+              <button class="btn btn-secondary" type="submit">Guardar</button>
+              <button type="button" class="btn btn-danger"
+                  data-bs-dismiss="modal">Cancelar</button>
+
+
           </div>
+          </form>
       </div>
+  </div>
+  </div>
   </div>

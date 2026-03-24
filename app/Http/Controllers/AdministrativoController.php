@@ -80,7 +80,7 @@ class administrativoController extends Controller
     {
 
 
-        $email = $request->dni . '@bertoltbrecht.com';
+        $email = $request->dni . '@bertoltbrecht.edu.pe';
 
         if (User::where('email', $email)->exists()) {
             return back()->with('danger', 'El usuario ya existe');
@@ -141,7 +141,7 @@ public function update(Request $request, $id)
         $admin = Administrativo::findOrFail($id);
         $usuario = $admin->user;
 
-        $email = $request->dni . '@bertoltbrecht.com';
+        $email = $request->dni . '@bertoltbrecht.edu.pe';
 
         // validar email único
         if (User::where('email', $email)

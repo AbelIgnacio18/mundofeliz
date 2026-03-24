@@ -27,7 +27,7 @@
                     <div class="raw d-flex">
                         <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown"
                             role="button" data-bs-toggle="dropdown" aria-expanded="false"
-                            style="padding: 0.425rem 0.3rem;">
+                            style="padding: 0.425rem 0rem;">
 
                             @if (auth()->user()->foto != '')
                                 <img src="{{ asset('imagenes/avatar/' . auth()->user()->foto) }}" alt="User-Profile"

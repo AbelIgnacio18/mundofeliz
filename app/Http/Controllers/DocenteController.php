@@ -56,14 +56,14 @@ $user = auth()->user();
             $apellidom = $request->get('apellidom');
 
             // 🔥 1. CREAR USUARIO (LOGIN)
-            if (User::where('email', $request->dni . '@bertoltbrecht.com')->exists()) {
+            if (User::where('email', $request->dni . '@bertoltbrecht.edu.pe')->exists()) {
                 return back()->with('danger', 'El docente ya tiene usuario');
             }
 
             $user = User::create([
                 'name' => strtoupper($request->get('nombre')),
                 'apellidos' => strtoupper($apellidop . ' ' . $apellidom),
-                'email' => $request->get('dni') . '@bertoltbrecht.com', // temporal
+                'email' => $request->get('dni') . '@bertoltbrecht.edu.pe', // temporal
                 'password' => bcrypt($request->get('dni')),
             ]);
 
@@ -136,7 +136,7 @@ $user = auth()->user();
         try {
 
             $docente = Docente::findOrFail($id);
-            $email = $request->dni . '@bertoltbrecht.com';
+            $email = $request->dni . '@bertoltbrecht.edu.pe';
 
             if (User::where('email', $email)
                 ->where('id', '!=', $docente->user_id)
@@ -157,14 +157,14 @@ $user = auth()->user();
             $docente->save();
 
             // 🔥 actualizar usuario vinculado
-
+s
 
             if ($docente->user) {
 
                 $docente->user->update([
                     'name' => $docente->nombre,
                     'apellidos' => $docente->apellidos,
-                    'email' => $docente->dni . '@bertoltbrecht.com', // opcional
+                    'email' => $docente->dni . '@bertoltbrecht.edu.pe', // opcional
                 ]);
             }
 

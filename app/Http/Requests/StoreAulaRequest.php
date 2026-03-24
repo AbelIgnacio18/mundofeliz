@@ -43,7 +43,7 @@ public function rules(): array
 
 public function withValidator($validator)
 {
-    $validator->after(function ($validator) {
+/*     $validator->after(function ($validator) {
 
         $user = auth()->user();
 
@@ -65,7 +65,7 @@ public function withValidator($validator)
         if ($this->horafalta < $this->horasalida) {
             $validator->errors()->add('horasalida', 'Debe ser mayor que la hora de falta');
         }
-    });
+    }); */
 }
 public function messages(): array
 {
