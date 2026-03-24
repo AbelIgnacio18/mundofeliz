@@ -18,9 +18,9 @@
                             <option value="">Seleccionar</option>
                             @forelse($matricula as $ma)
                                 <option value="{{ $ma->id }}">
-                                    {{ $ma->estudiante->apellidos }},{{ $ma->estudiante->nombre }} -
-                                    {{ $ma->estudiante->dni }}</option>
-
+                                    {{ $ma->estudiante->apellidos }}, {{ $ma->estudiante->nombre }} -
+                                    {{ $ma->estudiante->dni }}
+                                </option>
                             @empty
                                 <option value="">No hay Datos</option>
                             @endforelse
@@ -34,12 +34,13 @@
                         <input type="time" class="form-control" id="hora-entrada" aria-describedby="nivelS"
                             name="hora-entrada" step="1" value="<?= date('H:i') ?>">
                     </div>
-                 <div class="form-group">
-    <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" name="tipo_registro" value="salida" id="flexSwitchCheckDefault">
-        <label class="form-check-label" for="flexSwitchCheckDefault">Marcar Salida</label>
-    </div>
-</div>
+                    <div class="form-group">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="tipo_registro" value="salida"
+                                id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Marcar Salida</label>
+                        </div>
+                    </div>
                     <div class="text-start mt-2">
                         <button class="btn btn-secondary" type="submit">Guardar</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>

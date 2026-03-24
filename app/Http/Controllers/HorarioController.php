@@ -7,19 +7,22 @@ use App\Http\Requests\StoreHorarioRequest;
 use App\Http\Requests\UpdateHorarioRequest;
 use App\Models\Horario;
 use App\Models\Docente;
+use App\Models\User;
 
 class HorarioController extends Controller
 {
     public function __construct() {}
 
     public function index(Request $request)
-    {
+{
+    // 🔹 traer usuarios (docentes + administrativos si quieres)
+    $usuarios = User::with(['docente', 'administrativo'])->get();
 
-        $docente = Docente::all();
-        $horarios = Horario::with('docente')->get()->groupBy('iddocente');
+    // 🔹 horarios agrupados por usuario
+    $horarios = Horario::with('user')->get()->groupBy('iduser');
 
-        return view('pages.horario.index', compact('horarios', 'docente'));
-    }
+    return view('pages.horario.index', compact('horarios', 'usuarios'));
+}
 
     public function store(Request $request)
     {
@@ -34,7 +37,7 @@ class HorarioController extends Controller
             if (!empty($horas[$index])) {
 
                 Horario::create([
-                    'iddocente' => $request->iddocente,
+                    'iduser' => $request->iduser,
                     'dia_semana' => $dia,
                     'hora_ingreso' => $horas[$index],
                     'tolerancia' => $tolerancias[$index],
@@ -44,6 +47,7 @@ class HorarioController extends Controller
         }
         return back()->with('message', 'Actualización Exítosa');
     }
+   
 
 
 
@@ -54,7 +58,7 @@ class HorarioController extends Controller
   
 $diasSeleccionados = $request->dias ?? [];
 
-Horario::where('iddocente',$docenteId)
+Horario::where('iduser',$docenteId)
        ->whereNotIn('dia_semana',$diasSeleccionados)
        ->delete();
 
@@ -66,7 +70,7 @@ Horario::where('iddocente',$docenteId)
         Horario::updateOrCreate(
 
         [
-            'iddocente'=>$docenteId,
+            'iduser'=>$docenteId,
             'dia_semana'=>$dia
         ],
 
@@ -88,7 +92,7 @@ Horario::where('iddocente',$docenteId)
     public function destroy($docenteId)
     {
 
-        Horario::where('iddocente', $docenteId)->delete();
+        Horario::where('iduser', $docenteId)->delete();
         return back()->with('message', 'Archivo Eliminado ');
     }
 }

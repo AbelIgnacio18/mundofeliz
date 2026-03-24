@@ -37,7 +37,7 @@
                             <td>
                                 <div class="d-flex align-items-center">
                                     <h6>{{ $matri->estudiante->apellidos }}, {{ $matri->estudiante->nombre }}</h6>
-                                    @if ($matri->estado == 1)
+                                    @if ($matri->estado == 0)
                                         <span class="badge bg-danger"> trasladad@</span>
                                     @endif
                                 </div>
@@ -58,7 +58,7 @@
                             </td>
                             <td>
                                 <span class="badge {{ $matri->estado == 1 ? 'bg-info' : 'bg-secondary' }}">
-                                    {{ $matri->estado == 1 ? 'Trasladado' : 'Matrículado' }}
+                                    {{ $matri->estado == 0 ? 'Trasladado' : 'Matrículado' }}
                                 </span>
                             </td>
                             <td> <h6 class="badge bg-alumko" style="font-size: 1em;">{{ $matri->codigo }}</h6></td>

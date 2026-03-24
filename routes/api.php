@@ -15,6 +15,8 @@ Route::post('login', [AuthController::class, 'login']);
 Route::apiResource('asistencia', AsistenciaController::class);
 
 Route::post('login', [AuthController::class, 'login']);
+Route::post('enviarcodigo', [AsistenciaController::class,'enviaarcodigo']);
+
 
 Route::middleware('auth:sanctum')->group(function () {
 

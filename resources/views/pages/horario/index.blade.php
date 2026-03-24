@@ -18,7 +18,7 @@
             @endif
         </div>
         <div class="header-title">
-            <h4 class="card-title mb-0">Asignar Horario al Docente</h4>
+            <h4 class="card-title mb-0">Asignar Horario al Docente y Administrativo</h4>
         </div>
 
         <!-- modal para crear nuevos conceptos de pagooo -->
@@ -44,7 +44,8 @@
             <table id="user-list-table" class="table table-striped" role="grid" data-toggle="data-table">
                 <thead>
                     <tr>
-                        <th>N°</th><th>Docente</th>
+                        <th>N°</th>
+                        <th>Docente</th>
                         <th>Lun</th>
                         <th>Mar</th>
                         <th>Mie</th>
@@ -54,19 +55,19 @@
                     </tr>
                 </thead>
                 <tbody>
-@php
+                    @php
                         $numeracion = 1;
 
                     @endphp
                     @foreach ($horarios as $docenteId => $dias)
                         <tr>
                             <td>
-                                {{$numeracion}}
+                                {{ $numeracion }}
                             </td>
 
                             <td>
-                                {{ $dias->first()->docente->nombre }}
-                                {{ $dias->first()->docente->apellidos }}
+                                {{ $dias->first()->user->name }}
+                                {{ $dias->first()->user->apellidos }}
                             </td>
 
                             <td>
@@ -139,9 +140,9 @@
                         </tr>
 
                         @php
-                        $numeracion++;
+                            $numeracion++;
 
-                    @endphp
+                        @endphp
                     @endforeach
 
                 </tbody>

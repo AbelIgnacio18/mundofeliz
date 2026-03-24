@@ -11,12 +11,15 @@
                       @method('POST')
                       @csrf
 
-                      <select name="iddocente" class="form-control">
-                          @foreach ($docente as $d)
-                              <option value="{{ $d->id }}">{{ $d->apellidos }} {{ $d->nombre }}</option>
-                          @endforeach
+                      <select name="iduser" class="form-control">
+                          @forelse ($usuarios as $d)
+                              <option value="{{ $d->id }}">
+                                  {{ $d->apellidos ?? '' }} {{ $d->name }}
+                              </option>
+                          @empty
+                              <option value="">No hay usuarios</option>
+                          @endforelse
                       </select>
-
                       <hr>
                       <table class="table">
                           <thead>
@@ -31,11 +34,11 @@
                               <tr>
                                   <td>Lunes</td>
                                   <td>
-                                     <input type="hidden" name="dias[]" value="lunes">
-                                    <input type="time" name="horas[]" class="form-control">
+                                      <input type="hidden" name="dias[]" value="lunes">
+                                      <input type="time" name="horas[]" class="form-control">
                                   </td>
                                   <td>
-                                     <input type="number" name="tolerancias[]" class="form-control" value="2">
+                                      <input type="number" name="tolerancias[]" class="form-control" value="2">
                                   </td>
                               </tr>
 
@@ -43,43 +46,43 @@
                                   <td>Martes</td>
                                   <td>
                                       <input type="hidden" name="dias[]" value="martes">
-                                    <input type="time" name="horas[]" class="form-control">
+                                      <input type="time" name="horas[]" class="form-control">
                                   </td>
                                   <td>
-                                     <input type="number" name="tolerancias[]" class="form-control" value="2">
+                                      <input type="number" name="tolerancias[]" class="form-control" value="2">
                                   </td>
                               </tr>
 
                               <tr>
                                   <td>Miércoles</td>
-                                 <td>
-                                    <input type="hidden" name="dias[]" value="miercoles">
-                                    <input type="time" name="horas[]" class="form-control">
+                                  <td>
+                                      <input type="hidden" name="dias[]" value="miercoles">
+                                      <input type="time" name="horas[]" class="form-control">
                                   </td>
                                   <td>
-                                     <input type="number" name="tolerancias[]" class="form-control" value="2">
+                                      <input type="number" name="tolerancias[]" class="form-control" value="2">
                                   </td>
                               </tr>
 
                               <tr>
                                   <td>Jueves</td>
                                   <td>
-                                  <input type="hidden" name="dias[]" value="jueves">
-                                    <input type="time" name="horas[]" class="form-control">
+                                      <input type="hidden" name="dias[]" value="jueves">
+                                      <input type="time" name="horas[]" class="form-control">
                                   </td>
                                   <td>
-                                     <input type="number" name="tolerancias[]" class="form-control" value="2">
+                                      <input type="number" name="tolerancias[]" class="form-control" value="2">
                                   </td>
                               </tr>
 
                               <tr>
                                   <td>Viernes</td>
                                   <td>
-                                    <input type="hidden" name="dias[]" value="viernes">
-                                    <input type="time" name="horas[]" class="form-control">
+                                      <input type="hidden" name="dias[]" value="viernes">
+                                      <input type="time" name="horas[]" class="form-control">
                                   </td>
                                   <td>
-                                     <input type="number" name="tolerancias[]" class="form-control" value="2">
+                                      <input type="number" name="tolerancias[]" class="form-control" value="2">
                                   </td>
                               </tr>
 

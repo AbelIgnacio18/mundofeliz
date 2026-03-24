@@ -288,7 +288,7 @@ padding:2px;
 
                             <td width="60%">
                                 Docente:
-                                <strong>{{ $docente->apellidos }}, {{ $docente->nombre }}</strong>
+                                <strong>{{ $user->apellidos }}, {{ $user->name }}</strong>
                             </td>
 
                             <td width="40%">
@@ -393,7 +393,7 @@ padding:2px;
 
 @php
 
-$registro = $docente->asistenciadocentehoy
+$registro = $user->asistenciauserhoy
 ->firstWhere('fechaentrada',$fecha->format('Y-m-d'));
 
 @endphp

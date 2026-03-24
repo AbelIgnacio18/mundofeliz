@@ -12,14 +12,14 @@
                     @csrf
 
                     <div class="form-group">
-                        <label for="nivelS" class="form-label">Nivel:</label>
-                        <input type="text" class="form-control" id="nivelS" aria-describedby="nivelS"
+                        <label for="nivel" class="form-label">Nivel:</label>
+                        <input type="text" class="form-control" id="nivel" aria-describedby="nivel"
                             placeholder="Primaria" name="nivel" value="{{ $item->nivel }}">
                     </div>
 
                     <div class="form-group">
                         <label for="tiempo general" class="form-label">Hora de Entrada</label>
-                        <input type="time" class="form-control" id="tiempo" name="hraentrada"
+                        <input type="time" class="form-control" id="tiempo" name="horaentrada"
                             value="{{ \Carbon\Carbon::parse($item->horaentrada)->format('H:i:s') }}" step="01"
                             required="">
                         <div class="invalid-feedback">
@@ -31,7 +31,7 @@
                     </div>
                     <div class="form-group">
                         <label for="tiempo general" class="form-label">Hora de Tarde</label>
-                        <input type="time" class="form-control" id="tiempo" name="hratarde"    value="{{ \Carbon\Carbon::parse($item->horatarde)->format('H:i:s') }}"
+                        <input type="time" class="form-control" id="tiempo" name="horatarde"    value="{{ \Carbon\Carbon::parse($item->horatarde)->format('H:i:s') }}"
                             step="01" required="">
                         <div class="invalid-feedback">
                             Por favor, elija el tiempo general de pelea válido.
@@ -42,7 +42,7 @@
                     </div>
                     <div class="form-group">
                         <label for="tiempo general" class="form-label">Hora de Falta</label>
-                        <input type="time" class="form-control" id="tiempo" name="hrafalta"    value="{{ \Carbon\Carbon::parse($item->horafalta)->format('H:i:s') }}"
+                        <input type="time" class="form-control" id="tiempo" name="horafalta"    value="{{ \Carbon\Carbon::parse($item->horafalta)->format('H:i:s') }}"
                             step="01" required="">
                         <div class="invalid-feedback">
                             Por favor, elija el tiempo general de pelea válido.
@@ -53,7 +53,7 @@
                     </div>
                     <div class="form-group">
                         <label for="tiempo general" class="form-label">Hora de Salida</label>
-                        <input type="time" class="form-control" id="tiempo" name="hrasalida"    value="{{ \Carbon\Carbon::parse($item->horasalida)->format('H:i:s') }}"
+                        <input type="time" class="form-control" id="tiempo" name="horasalida"    value="{{ \Carbon\Carbon::parse($item->horasalida)->format('H:i:s') }}"
                             step="01" required="">
                         <div class="invalid-feedback">
                             Por favor, elija el tiempo general de pelea válido.

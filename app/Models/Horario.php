@@ -10,15 +10,16 @@ class Horario extends Model
     use HasFactory;
 
     protected $fillable=[
-        'iddocente',
+        'iduser',
         'dia_semana',
         'hora_ingreso',
         'tolerancia',
         'estado'
     ];
 
-    public function docente()
+   
+     public function user()
     {
-        return $this->belongsTo(Docente::class,'iddocente','id');
+        return $this->belongsTo(User::class, 'iduser');
     }
 }

@@ -16,7 +16,9 @@ return new class extends Migration
 
             $table->unsignedBigInteger('idestudiante');
             $table->foreign('idestudiante')->references('id')->on('estudiantes')->onUpdate('cascade')->onDelete('cascade');  
-                    
+               $table->unsignedBigInteger('idmatricula');
+            $table->foreign('idmatricula')->references('id')->on('matriculas')->onUpdate('cascade')->onDelete('cascade');  
+                   
             $table->decimal('montototal',11,2);
             $table->decimal('montoefectivo',11,2);
             $table->decimal('montodigital',11,2);

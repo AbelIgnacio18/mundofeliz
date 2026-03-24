@@ -12,7 +12,14 @@ class ViewServiceProvider extends ServiceProvider
     {
         // Pasar los menús a todas las vistas que incluyan 'partials.aside'
         View::composer('partials.aside', function ($view) {
-            $menus = Aula::orderBy('id')->get();
+           
+            $menus = Aula::porUsuario()
+    ->withCount(['matriculas' => function ($q) {
+        $anolect = \App\Models\Anolectivo::where('estado', 1)->first();
+        $q->where('idanolectivo', $anolect->id);
+    }])
+    ->get();
+
             $view->with('menus', $menus);
         });
     }

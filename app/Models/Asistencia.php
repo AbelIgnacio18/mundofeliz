@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Asistencia extends Model
 {
     use HasFactory;
-    protected $fillable=['idañolectivo','iddocente','fechaentreda','mes','dia'];
+    protected $fillable=['idañolectivo','iduser','fechaentreda','mes','dia'];
 
 
     
-    public function docentes(){
-        return $this->belongsTo(Docente::class,'iddocente','id');
-    
-     }
+ 
+     public function user()
+{
+    return $this->belongsTo(User::class, 'iduser');
+}
 }

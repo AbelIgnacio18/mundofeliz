@@ -45,10 +45,18 @@
                                 {{ auth()->user()->name }}
                             </h6>
                             <p class="mb-0 caption-sub-title" style="font-size: 14px">{{ auth()->user()->email }}</p>
+                            <div class="ms-auto">
+                                <span class="badge bg-primary">
+                                    {{ auth()->user()->sedes->first()->nombre ?? 'Sin sede' }}
+                                </span>
+                            </div>
                         </div>
 
 
+
+
                     </div>
+                </li>
                 <li class="nav-item">
                     <a class="{{ request()->is('dashboard/home') ? 'nav-link active' : 'nav-link' }} "
                         aria-current="page" href="{{ url('dashboard/home') }}">
@@ -180,8 +188,11 @@
                                             </svg>
                                         </i>
                                         <i class="sidenav-mini-icon"> A </i>
-                                        <span class="item-sub-name"> {{ $menu->nivel }} {{ $menu->grado }}
-                                            {{ $menu->seccion }}</span>
+
+                                        <span class="item-sub-name">
+                                            {{ $menu->grado }}° {{ $menu->seccion }}
+                                            <span class="badge bg-primary">{{ $menu->matriculas_count }}</span>
+                                        </span>
                                     </a>
                                 </li>
                             @empty
@@ -194,7 +205,7 @@
                     </li>
                 @endif
 
-                @if (auth()->user()->hasPermission('VER MATRICULA'))
+                @if (auth()->user()->hasPermission('VER CONCEPTO'))
                     <!-- Matrícula -->
                     <li class="nav-item">
                         <a class="nav-link {{ request()->is('dashboard/pension*') ||
@@ -321,85 +332,109 @@
                         </a>
                     </li>
                 @endif
+
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#Calificaciones-menus" role="button"
-                        aria-expanded="false" aria-controls="Calificaciones-menus">
+                    <a class="{{ request()->is('dashboard/personal*') ? 'nav-link active' : 'nav-link' }}"
+                        aria-current="page" href="{{ url('dashboard/personal') }}">
                         <i class="icon">
                             <svg width="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
-                                <path opacity="0.4" fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M5.91064 20.5886C5.91064 19.7486 6.59064 19.0686 7.43064 19.0686C8.26064 19.0686 8.94064 19.7486 8.94064 20.5886C8.94064 21.4186 8.26064 22.0986 7.43064 22.0986C6.59064 22.0986 5.91064 21.4186 5.91064 20.5886ZM17.1606 20.5886C17.1606 19.7486 17.8406 19.0686 18.6806 19.0686C19.5106 19.0686 20.1906 19.7486 20.1906 20.5886C20.1906 21.4186 19.5106 22.0986 18.6806 22.0986C17.8406 22.0986 17.1606 21.4186 17.1606 20.5886Z"
+                                <path
+                                    d="M11.997 15.1746C7.684 15.1746 4 15.8546 4 18.5746C4 21.2956 7.661 21.9996 11.997 21.9996C16.31 21.9996 19.994 21.3206 19.994 18.5996C19.994 15.8786 16.334 15.1746 11.997 15.1746Z"
                                     fill="currentColor"></path>
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M20.1907 6.34909C20.8007 6.34909 21.2007 6.55909 21.6007 7.01909C22.0007 7.47909 22.0707 8.13909 21.9807 8.73809L21.0307 15.2981C20.8507 16.5591 19.7707 17.4881 18.5007 17.4881H7.59074C6.26074 17.4881 5.16074 16.4681 5.05074 15.1491L4.13074 4.24809L2.62074 3.98809C2.22074 3.91809 1.94074 3.52809 2.01074 3.12809C2.08074 2.71809 2.47074 2.44809 2.88074 2.50809L5.26574 2.86809C5.60574 2.92909 5.85574 3.20809 5.88574 3.54809L6.07574 5.78809C6.10574 6.10909 6.36574 6.34909 6.68574 6.34909H20.1907ZM14.1307 11.5481H16.9007C17.3207 11.5481 17.6507 11.2081 17.6507 10.7981C17.6507 10.3781 17.3207 10.0481 16.9007 10.0481H14.1307C13.7107 10.0481 13.3807 10.3781 13.3807 10.7981C13.3807 11.2081 13.7107 11.5481 14.1307 11.5481Z"
+                                <path opacity="0.4"
+                                    d="M11.9971 12.5838C14.9351 12.5838 17.2891 10.2288 17.2891 7.29176C17.2891 4.35476 14.9351 1.99976 11.9971 1.99976C9.06008 1.99976 6.70508 4.35476 6.70508 7.29176C6.70508 10.2288 9.06008 12.5838 11.9971 12.5838Z"
                                     fill="currentColor"></path>
                             </svg>
                         </i>
-                        <span class="item-name">Inventario</span>
-                        <i class="right-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 5l7 7-7 7" />
-                            </svg>
-
-                        </i>
+                        <span class="item-name">Administrativo</span>
                     </a>
-                    <ul class="sub-nav collapse" id="Calificaciones-menus" data-bs-parent="#sidebar-menu">
-                        <li class="nav-item">
-                            <a class="{{ request()->is('dashboard/categoria') ? 'nav-link active' : 'nav-link' }}"
-                                href="{{ url('dashboard/categoria') }}">
-                                <i class="icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
-                                        fill="currentColor">
-                                        <g>
-                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                                        </g>
-                                    </svg>
-                                </i>
-                                <i class="sidenav-mini-icon">C</i>
-                                <span class="item-sub-name">Categoría</span>
-                            </a>
-                        </li>
-                        @if (auth()->user()->hasPermission('VER INVENTARIO ARTICULOS'))
-                            <li class="nav-item">
-                                <a class="{{ request()->is('dashboard/articulos') ? 'nav-link active' : 'nav-link' }}"
-                                    href="{{ url('dashboard/articulos') }}">
-                                    <i class="icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
-                                            fill="currentColor">
-                                            <g>
-                                                <circle cx="12" cy="12" r="8" fill="currentColor">
-                                                </circle>
-                                            </g>
-                                        </svg>
-                                    </i>
-                                    <i class="sidenav-mini-icon"> A </i>
-                                    <span class="item-sub-name"> Artículos </span>
-                                </a>
-                            </li>
-                        @endif
-                        @if (auth()->user()->hasPermission('VER INVENTARIO INGRESOS'))
-                            <li class="nav-item">
-                                <a class="{{ request()->is('dashboard/ingresos') ? 'nav-link active' : 'nav-link' }}"
-                                    href="{{ url('dashboard/ingresos') }}">
-                                    <i class="icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
-                                            fill="currentColor">
-                                            <g>
-                                                <circle cx="12" cy="12" r="8" fill="currentColor">
-                                                </circle>
-                                            </g>
-                                        </svg>
-                                    </i>
-                                    <i class="sidenav-mini-icon"> I </i>
-                                    <span class="item-sub-name"> Ingresos </span>
-                                </a>
-                            </li>
-                        @endif
-
-                    </ul>
                 </li>
+
+
+
+                @if (auth()->user()->hasPermission('VER INVENTARIO INGRESOS'))
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#Calificaciones-menus" role="button"
+                            aria-expanded="false" aria-controls="Calificaciones-menus">
+                            <i class="icon">
+                                <svg width="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path opacity="0.4" fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M5.91064 20.5886C5.91064 19.7486 6.59064 19.0686 7.43064 19.0686C8.26064 19.0686 8.94064 19.7486 8.94064 20.5886C8.94064 21.4186 8.26064 22.0986 7.43064 22.0986C6.59064 22.0986 5.91064 21.4186 5.91064 20.5886ZM17.1606 20.5886C17.1606 19.7486 17.8406 19.0686 18.6806 19.0686C19.5106 19.0686 20.1906 19.7486 20.1906 20.5886C20.1906 21.4186 19.5106 22.0986 18.6806 22.0986C17.8406 22.0986 17.1606 21.4186 17.1606 20.5886Z"
+                                        fill="currentColor"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M20.1907 6.34909C20.8007 6.34909 21.2007 6.55909 21.6007 7.01909C22.0007 7.47909 22.0707 8.13909 21.9807 8.73809L21.0307 15.2981C20.8507 16.5591 19.7707 17.4881 18.5007 17.4881H7.59074C6.26074 17.4881 5.16074 16.4681 5.05074 15.1491L4.13074 4.24809L2.62074 3.98809C2.22074 3.91809 1.94074 3.52809 2.01074 3.12809C2.08074 2.71809 2.47074 2.44809 2.88074 2.50809L5.26574 2.86809C5.60574 2.92909 5.85574 3.20809 5.88574 3.54809L6.07574 5.78809C6.10574 6.10909 6.36574 6.34909 6.68574 6.34909H20.1907ZM14.1307 11.5481H16.9007C17.3207 11.5481 17.6507 11.2081 17.6507 10.7981C17.6507 10.3781 17.3207 10.0481 16.9007 10.0481H14.1307C13.7107 10.0481 13.3807 10.3781 13.3807 10.7981C13.3807 11.2081 13.7107 11.5481 14.1307 11.5481Z"
+                                        fill="currentColor"></path>
+                                </svg>
+                            </i>
+                            <span class="item-name">Inventario</span>
+                            <i class="right-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+
+                            </i>
+                        </a>
+                        <ul class="sub-nav collapse" id="Calificaciones-menus" data-bs-parent="#sidebar-menu">
+                            <li class="nav-item">
+                                <a class="{{ request()->is('dashboard/categoria') ? 'nav-link active' : 'nav-link' }}"
+                                    href="{{ url('dashboard/categoria') }}">
+                                    <i class="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
+                                            fill="currentColor">
+                                            <g>
+                                                <circle cx="12" cy="12" r="8" fill="currentColor">
+                                                </circle>
+                                            </g>
+                                        </svg>
+                                    </i>
+                                    <i class="sidenav-mini-icon">C</i>
+                                    <span class="item-sub-name">Categoría</span>
+                                </a>
+                            </li>
+                            @if (auth()->user()->hasPermission('VER INVENTARIO ARTICULOS'))
+                                <li class="nav-item">
+                                    <a class="{{ request()->is('dashboard/articulos') ? 'nav-link active' : 'nav-link' }}"
+                                        href="{{ url('dashboard/articulos') }}">
+                                        <i class="icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="10"
+                                                viewBox="0 0 24 24" fill="currentColor">
+                                                <g>
+                                                    <circle cx="12" cy="12" r="8" fill="currentColor">
+                                                    </circle>
+                                                </g>
+                                            </svg>
+                                        </i>
+                                        <i class="sidenav-mini-icon"> A </i>
+                                        <span class="item-sub-name"> Artículos </span>
+                                    </a>
+                                </li>
+                            @endif
+                            @if (auth()->user()->hasPermission('VER INVENTARIO INGRESOS'))
+                                <li class="nav-item">
+                                    <a class="{{ request()->is('dashboard/ingresos') ? 'nav-link active' : 'nav-link' }}"
+                                        href="{{ url('dashboard/ingresos') }}">
+                                        <i class="icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="10"
+                                                viewBox="0 0 24 24" fill="currentColor">
+                                                <g>
+                                                    <circle cx="12" cy="12" r="8" fill="currentColor">
+                                                    </circle>
+                                                </g>
+                                            </svg>
+                                        </i>
+                                        <i class="sidenav-mini-icon"> I </i>
+                                        <span class="item-sub-name"> Ingresos </span>
+                                    </a>
+                                </li>
+                            @endif
+
+                        </ul>
+                    </li>
+                @endif
                 @if (auth()->user()->hasPermission('VER COMPROBANTES'))
                     <li class="nav-item">
                         <a class="{{ request()->is('dashboard/pagos-realizados') ? 'nav-link active' : 'nav-link' }}"
@@ -478,7 +513,7 @@
                             </li>
 
 
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="{{ request()->is('dashboard/asistencia-aula') ? 'nav-link active' : 'nav-link' }}"
                                     href="{{ url('dashboard/asistencia-aula') }}">
                                     <i class="icon">
@@ -493,9 +528,9 @@
                                     <i class="sidenav-mini-icon">AA</i>
                                     <span class="item-sub-name">Asistencia por Aulas</span>
                                 </a>
-                            </li>
+                            </li> --}}
 
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="{{ request()->is('dashboard/listar-falta') ? 'nav-link active' : 'nav-link' }}"
                                     href="{{ url('dashboard/listar-falta') }}">
                                     <i class="icon">
@@ -510,7 +545,7 @@
                                     <i class="sidenav-mini-icon">F</i>
                                     <span class="item-sub-name">Faltantes</span>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
                                 <a class="{{ request()->is('dashboard/asistencia-docentes') ? 'nav-link active' : 'nav-link' }}"
                                     href="{{ url('dashboard/asistencia-docentes') }}">
@@ -524,7 +559,7 @@
                                         </svg>
                                     </i>
                                     <i class="sidenav-mini-icon">AD</i>
-                                    <span class="item-sub-name">Asistencia Docente</span>
+                                    <span class="item-sub-name">Asistencia Personal</span>
                                 </a>
                             </li>
                         </ul>
@@ -629,7 +664,7 @@
                             </li>
                         @endif
                         @if (auth()->user()->hasPermission('VER CARGO'))
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="{{ request()->is('dashboard/administracion-contrato') ? 'nav-link active' : 'nav-link' }}"
                                     href="{{ url('dashboard/administracion-contrato') }}">
                                     <i class="icon">
@@ -644,7 +679,7 @@
                                     <i class="sidenav-mini-icon">C</i>
                                     <span class="item-sub-name">Cargo</span>
                                 </a>
-                            </li>
+                            </li> --}}
                         @endif
                         @if (auth()->user()->hasPermission('VER ROL & PERMISOS'))
                             <li class="nav-item">
@@ -676,7 +711,7 @@
                                     </svg>
                                 </i>
                                 <i class="sidenav-mini-icon">HD</i>
-                                <span class="item-sub-name">Horario Docente</span>
+                                <span class="item-sub-name">Horario</span>
                             </a>
                         </li>
 
@@ -694,7 +729,20 @@
                                 <span class="item-sub-name">Caja</span>
                             </a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link " href="{{ url('dashboard/sedes') }}">
+                                <i class="icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
+                                        fill="currentColor">
+                                        <g>
+                                            <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                                        </g>
+                                    </svg>
+                                </i>
+                                <i class="sidenav-mini-icon">S</i>
+                                <span class="item-sub-name">Sede</span>
+                            </a>
+                        </li>
 
 
 

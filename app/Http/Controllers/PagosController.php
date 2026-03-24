@@ -200,15 +200,15 @@ class PagosController extends Controller
                         $detalle->cantidad = $cantidad[$cont];
 
                         $concep = Concepto::where('id', $idconcepto[$cont])->first();
+
                         if ($concep->codigo == 'P001') {
+
                             $id = $idmatricula->id;
                             $numeropension = $cantidad[$cont];
 
-                            $numeromesespagados = Mese::where('idmatricula', $id)->count();
-                          
-                            
-                            if (($numeropension + $numeromesespagados) <= 10) {
-                                   $mesesMap = [
+                            $mesInicioNumero = Carbon::parse($idmatricula->fecha_matricula)->month;
+
+                            $mesesMap = [
                                 1 => 'ENE',
                                 2 => 'FEB',
                                 3 => 'MAR',
@@ -223,21 +223,33 @@ class PagosController extends Controller
                                 12 => 'DIC'
                             ];
 
-                            $mesinicio=$idmatricula->fecha_matricula;
-                            $cantidadMesOficial=$numeromesespagados+Carbon::parse($mesinicio)->format("m");
-                                for ($i = 0; $i <  $numeropension; $i++) {
-                                    $mess = new Mese();
-                                    $mess->idmatricula = $id;
+                            // 🔥 último mes pagado
+                            $ultimoMes = Mese::where('idmatricula', $id)->max('mes_numero');
 
-                                    $mess->mes = $mesesMap[$numeromesespagados];
+                            $mesActual = $ultimoMes ? $ultimoMes + 1 : $mesInicioNumero;
 
-                                    $mess->save();
-                                    $numeromesespagados++;
+                            for ($i = 0; $i < $numeropension; $i++) {
+
+                                if ($mesActual > 12) break;
+
+                                // 🔒 validar duplicado real
+                                $existe = Mese::where('idmatricula', $id)
+                                    ->where('mes_numero', $mesActual)
+                                    ->exists();
+
+                                if ($existe) {
+                                    $mesActual++;
+                                    continue;
                                 }
-                            } else {
+
                                 $mess = new Mese();
-                                $mess->prueba = $mesesMap[$numeromesespagados];
+                                $mess->idmatricula = $id;
+                                $mess->mes_numero = $mesActual;
+                                $mess->mes = $mesesMap[$mesActual];
+                                $mess->estado = 1;
                                 $mess->save();
+
+                                $mesActual++;
                             }
                         }
 
@@ -394,7 +406,8 @@ class PagosController extends Controller
     {
         $estudiante = DB::table('pagos as p')
             ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')
-            ->select('p.id', 'e.nombre', 'e.apellidos', 'e.dni', 'e.nombreapoderado', 'p.created_at as fecha', 'p.montototal', 'p.numcomprobante')->where('p.id', $id)->get();
+            ->join('apoderados as a', 'a.id', '=', 'e.idapoderado')
+            ->select('p.id', 'e.nombre', 'e.apellidos', 'e.dni', 'a.nombre as nombreapoderado', 'a.nombre as apellidos','p.created_at as fecha', 'p.montototal', 'p.numcomprobante')->where('p.id', $id)->get();
         //    dd($estudiante[0]->nombre);
         $pension = DB::table('pagos as p')
             ->join('estudiantes as e', 'p.idestudiante', '=', 'e.id')

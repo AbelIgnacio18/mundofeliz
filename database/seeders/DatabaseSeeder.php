@@ -257,11 +257,22 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\Anolectivo::create([
-            'años' => '2025',
-            'inicio' => '2025-10-01',
-            'fin' => '2025-12-25',
+            'años' => '2026',
+            'inicio' => '2026-03-23',
+            'fin' => '2026-12-20',
         ]);
-
+ // Datos semilla de Nivel de Educación
+        \App\Models\Sede::create([
+            'nombre' => 'Huancayo',
+            'direccion' => 'Huancayo',
+            
+        ]);
+          \App\Models\Sede::create([
+            'nombre' => 'Chilca',
+            'direccion' => 'Chilca'
+        ]);
+        
+        
 
         // Datos semilla de Nivel de Educación
         \App\Models\Aula::create([
@@ -273,6 +284,7 @@ class DatabaseSeeder extends Seeder
             'horatarde' => '08:00:59',
             'horafalta' => '10:00:00',
             'horasalida' => '13:30:00',
+            'idsede' => 1,
         ]);
 
         \App\Models\Aula::create([
@@ -284,6 +296,7 @@ class DatabaseSeeder extends Seeder
             'horatarde' => '08:00:59',
             'horafalta' => '10:00:00',
             'horasalida' => '13:30:00',
+             'idsede' => 1,
         ]);
 
         \App\Models\Aula::create([
@@ -295,6 +308,7 @@ class DatabaseSeeder extends Seeder
             'horatarde' => '08:00:59',
             'horafalta' => '10:00:00',
             'horasalida' => '13:30:00',
+             'idsede' => 1,
         ]);
 
         \App\Models\Aula::create([
@@ -306,6 +320,7 @@ class DatabaseSeeder extends Seeder
             'horatarde' => '08:00:59',
             'horafalta' => '10:00:00',
             'horasalida' => '13:30:00',
+             'idsede' => 1,
         ]);
 
         \App\Models\Aula::create([
@@ -317,6 +332,7 @@ class DatabaseSeeder extends Seeder
             'horatarde' => '08:00:59',
             'horafalta' => '10:00:00',
             'horasalida' => '13:30:00',
+             'idsede' => 1,
         ]);
 
         // \App\Models\Aula::create([
@@ -324,7 +340,8 @@ class DatabaseSeeder extends Seeder
         //     'grado' => '3er grado',
         //     'seccion' => 'Único',
         //     'vacantes' => 51,
-        //     'tarde' => '8:00:59',          
+        //     'tarde' => '8:00:59',    'idsede' => 1,
+               
         // ]);
 
         // \App\Models\Aula::create([
@@ -332,7 +349,7 @@ class DatabaseSeeder extends Seeder
         //     'grado' => '4to grado',
         //     'seccion' => 'Único',
         //     'vacantes' => 42,
-        //     'tarde' => '8:00:59',          
+        //     'tarde' => '8:00:59',   'idsede' => 1,       
         // ]);
 
         // \App\Models\Aula::create([
@@ -340,7 +357,7 @@ class DatabaseSeeder extends Seeder
         //     'grado' => '5to grado',
         //     'seccion' => 'Único',
         //     'vacantes' => 57,
-        //     'tarde' => '8:00:59',          
+        //     'tarde' => '8:00:59',    'idsede' => 1,       
         // ]);
 
         // \App\Models\Aula::create([
@@ -348,7 +365,7 @@ class DatabaseSeeder extends Seeder
         //     'grado' => '6to grado',
         //     'seccion' => 'Único',
         //     'vacantes' => 44,
-        //     'tarde' => '8:00:59',          
+        //     'tarde' => '8:00:59',   'idsede' => 1,        
         // ]);
 
         // \App\Models\Aula::create([
@@ -356,7 +373,7 @@ class DatabaseSeeder extends Seeder
         //     'grado' => '1er grado',
         //     'seccion' => 'Único',
         //     'vacantes' => 51,
-        //     'tarde' => '8:00:59',          
+        //     'tarde' => '8:00:59',    'idsede' => 1,       
         // ]);
 
         // \App\Models\Aula::create([
@@ -364,7 +381,7 @@ class DatabaseSeeder extends Seeder
         //     'grado' => '2do grado',
         //     'seccion' => 'Único',
         //     'vacantes' => 67,
-        //     'tarde' => '8:00:59',          
+        //     'tarde' => '8:00:59',    'idsede' => 1,       
         // ]);
 
         // \App\Models\Aula::create([
@@ -372,7 +389,7 @@ class DatabaseSeeder extends Seeder
         //     'grado' => '3er grado',
         //     'seccion' => 'Único',
         //     'vacantes' => 63,
-        //     'tarde' => '8:00:59',          
+        //     'tarde' => '8:00:59',    'idsede' => 1,       
         // ]);
 
         // \App\Models\Aula::create([
@@ -380,7 +397,7 @@ class DatabaseSeeder extends Seeder
         //     'grado' => '4to grado',
         //     'seccion' => 'Único',
         //     'vacantes' => 67,
-        //     'tarde' => '8:00:59',          
+        //     'tarde' => '8:00:59',    'idsede' => 1,       
         // ]);
 
         // \App\Models\Aula::create([
@@ -388,15 +405,10 @@ class DatabaseSeeder extends Seeder
         //     'grado' => '5to grado',
         //     'seccion' => 'Único',
         //     'vacantes' => 50,
-        //     'tarde' => '8:00:59',          
+        //     'tarde' => '8:00:59',   'idsede' => 1,        
         // ]);
 
-        // \App\Models\Horario::create([
-        //     'entrada' => 'hrentrada',
-        //     'mañana' => '08:00:20',
-        //     'tarde' => '14:30:00',
-        //     'estado' => true,
-        // ]);
+       
 
         \App\Models\Modulo::create([
             'nombre' => 'estudiantes',
@@ -453,6 +465,14 @@ class DatabaseSeeder extends Seeder
         \App\Models\Rol::create([
             'nombre' => 'Secretaria',
         ]);
+          \App\Models\Rol::create([
+            'nombre' => 'Caja',
+        ]);
+          \App\Models\Rol::create([
+            'nombre' => 'Tutor',
+        ]);
+
+
 
         \App\Models\UserRol::create([
             'iduser' => 1,

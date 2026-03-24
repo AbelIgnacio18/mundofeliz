@@ -13,7 +13,7 @@ use App\Http\Controllers\PensionController;
 
 use App\Http\Controllers\AulaController;
 use App\Http\Controllers\DocenteController;
-use App\Http\Controllers\PersonalController;
+use App\Http\Controllers\AdministrativoController;
 use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\AsistenciaController;
 use App\Http\Controllers\AsistenciaestController;
@@ -26,6 +26,9 @@ use App\Http\Controllers\RolController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RolPermissionController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\SedeController;
+
+
 
 Route::get('/', [PageController::class, 'redirectLogin']);
 Route::get('/home', [PageController::class, 'redirectHome'])->name('home');
@@ -55,7 +58,7 @@ Route::get('home', [App\Http\Controllers\PanelController::class, 'index'])->name
     Route::resource('/administracion-caja',CajaController::class)->names('config-caja');
     Route::resource('/estudiantes',EstudianteController::class);
     Route::resource('/docentes',DocenteController::class);
-    Route::resource('/personal',PersonalController::class);
+    Route::resource('/personal',AdministrativoController::class);
     Route::resource('/matriculas',MatriculaController::class);
     Route::resource('/pension',PensionController::class);
     Route::resource('/admin-egresos',EgresoController::class);
@@ -77,7 +80,10 @@ Route::get('home', [App\Http\Controllers\PanelController::class, 'index'])->name
     Route::get('/registrar-falta-docente',[App\Http\Controllers\AsistenciaController::class, 'registrarfalta'])->name('registrarfaltadocente');
     
     Route::resource('/asistencia-estudiantes',AsistenciaestController::class)->names('asist-estudiante');
-     Route::post('/asistencia-actualizar',[App\Http\Controllers\AsistenciaestController::class, 'control'])->name('cambiarasistencia');
+       Route::resource('/sedes', SedeController::class);
+    Route::post('/sedes-selecionar', [SedeController::class,'seleccionar'])->name('sedes.seleccionar');
+       
+    Route::post('/asistencia-actualizar',[App\Http\Controllers\AsistenciaestController::class, 'control'])->name('cambiarasistencia');
      Route::get('/reporte-asistencia',[App\Http\Controllers\AsistenciaestController::class, 'reporteasistencia'])->name('reporteasistencia');
      Route::get('/reporte-asistencia-docente',[App\Http\Controllers\AsistenciaController::class, 'reporteasistencia'])->name('reporteasistenciadocente');
      Route::get('/reporte-asistenciadocente-pdf/{id}}',[App\Http\Controllers\AsistenciaController::class, 'asistenciaindividual'])->name('asistenciaindividualdocente');
@@ -102,11 +108,19 @@ Route::get('home', [App\Http\Controllers\PanelController::class, 'index'])->name
 Route::get('/descargar-plantilla', [EstudianteController::class, 'descargarPlantilla'])
     ->name('estudiantes.plantilla');
     Route::get('/reportepago/{id}', [App\Http\Controllers\PagosController::class, 'reportepago'])->name('reportepago');
+//para leer el codigo.....
+Route::get('leer-rfid', function () {
+    return response()->json([
+        'codigo' => cache('rfid_codigo')
+    ]);
+})->name('leer-rfid');
+
 
     Route::group( ['prefix' => 'settings', 'as' => 'setting.'], function () {
 
     Route::get('my-profile', [PageController::class, 'profile'])->name('my-profile');
     Route::get('change-password', [PageController::class, 'changePassword'])->name('change-password');
+ 
 
 
 

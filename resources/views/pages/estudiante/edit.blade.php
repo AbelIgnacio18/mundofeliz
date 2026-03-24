@@ -60,12 +60,7 @@
                                 name="nombreapoderado" value="{{ old('apellidom') }}">
                         </div>
                     </div>
-                    <div class="form-group col-md-12 p-1">
-                        <label for="celular" class="form-label">Celular: <span
-                                class="badge bg-primary">Opcional</span></label>
-                        <input type="text" class="form-control" id="celular" aria-describedby="celular"
-                            value="{{ $estud->celular }}" name="celular">
-                    </div>
+                 
                     <div class="raw d-flex">
                         <div class="form-group col-md-6 p-1">
                             <label for="celular" class="form-label">Celular Mamá: <span

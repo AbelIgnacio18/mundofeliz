@@ -18,62 +18,53 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Google\Client;
 use App\Services\FcmService;
-
+use Illuminate\Support\Facades\Auth;
 
 class AsistenciaestController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
-    {
-        if ($request) {
-            $idaula = trim($request->get('idaula'));
-            $fecha = trim($request->get('fecha'));
-            $estado = trim($request->get('estado'));
-            // $searchText = trim($request->get('searchText'));
+public function index(Request $request)
+{
+    $user = auth()->user();
+    $anolect = Anolectivo::where('estado', 1)->first();
+    $fecha = $request->get('fecha') ?? date('Y-m-d');
+    $idaula = $request->get('idaula');
+    $estado = $request->get('estado');
 
-            if ($fecha == "") {
-                $fecha = date('Y-m-d');
-            }
-            $anolect = Anolectivo::where('estado', 1)->first();
-            $items = DB::table('matriculas as m')
-    ->join('estudiantes as e', 'm.idestudiante', '=', 'e.id')
-    ->join('asistenciaests as a', 'm.id', '=', 'a.idmatricula')
-    ->join('aulas as au', 'm.idaula', '=', 'au.id')
-    ->select(
-        'a.id',
-        'e.nombre',
-        'e.apellidos',
-        'e.id as idestudiante',
-        'au.nivel',
-        'au.grado',
-        'au.seccion',
-        'a.created_at',
-        'a.updated_at',
-        'a.horasalida',
-        'a.fechaentrada',
-        'a.estado',
-        'a.horaentrada',
-        'a.idanolectivo',
-        'a.observacion'
-    )
-    ->when($idaula, fn($q) => $q->where('m.idaula', $idaula))
-    ->when($estado !== '' && $estado !== null, function ($q) use ($estado) {
-        $q->where('a.estado', $estado);
-    })
-    ->whereDate('a.fechaentrada', $fecha)
-    ->where('a.idanolectivo', $anolect->id)
-    ->orderBy('e.apellidos', 'asc')
-    ->get();
+    // Traer matrículas filtradas por sedes del usuario
+    $matriculaQuery = Matricula::with('estudiante', 'aula')
+        ->where('idanolectivo', $anolect->id);
 
-
-            $aula = Aula::get();
-
-            $matricula = Matricula::where('idanolectivo', $anolect->id)->with('estudiante')->get();
-        }
-        return view('pages.asistenciaest.index', compact('items', 'matricula', 'aula', 'fecha', 'estado', 'idaula'));
+    if (!$user->esSuperAdmin()) {
+        $matriculaQuery->whereIn('idsede', $user->getSedesIds());
     }
+
+    $matricula = $matriculaQuery->get();
+
+    // Traer aulas filtradas por sedes del usuario
+    $aulaQuery = Aula::query();
+    if (!$user->esSuperAdmin()) {
+        $aulaQuery->whereIn('idsede', $user->getSedesIds());
+    }
+    $aula = $aulaQuery->get();
+
+    // 🔹 Asistencias filtradas
+    $items = Asistenciaest::with(['matricula.estudiante', 'matricula.aula'])
+        ->whereDate('fechaentrada', $fecha)
+        ->where('idanolectivo', $anolect->id)
+        ->when($estado !== '' && $estado !== null, fn($q) => $q->where('estado', $estado))
+        ->when($idaula, fn($q) => $q->whereHas('matricula', fn($mq) => $mq->where('idaula', $idaula)))
+        ->whereHas('matricula', function($q) use ($user) {
+            if (!$user->esSuperAdmin()) {
+                $q->whereIn('idsede', $user->getSedesIds());
+            }
+        })
+        ->get();
+
+    return view('pages.asistenciaest.index', compact('matricula', 'aula', 'items', 'fecha', 'estado', 'idaula'));
+}
 
     /**
      * Show the form for creating a new resource.
@@ -106,61 +97,56 @@ class AsistenciaestController extends Controller
     }
 
     public function store(StoreAsistenciaestRequest $request)
-    {
+{
+    $idmatriculas = $request->get('matricula_id');
+    $hora = $request->get('hora-entrada');
+    $anolect = Anolectivo::where('estado', 1)->first();
+    $tipo = $request->has('tipo_registro') ? 'salida' : 'entrada';
+    $fechaHoy = date('Y-m-d');
 
-        $idmatriculas = $request->get('matricula_id');
-        $hora = $request->get('hora-entrada');
-        $anolect = Anolectivo::where('estado', 1)->first();
+    // Traemos todas las matrículas de una sola vez, con estudiante, apoderado y aula
+    $matriculas = Matricula::with(['estudiante.apoderado', 'aula'])
+        ->whereIn('id', $idmatriculas)
+        ->where('idanolectivo', $anolect->id)
+        ->get();
 
-$tipo = $request->has('tipo_registro') ? 'salida' : 'entrada';
+    foreach ($matriculas as $matricula) {
+        $estudiante = $matricula->estudiante;
+        $apoderado = $estudiante->apoderado;
+        $aula = $matricula->aula;
 
-        $cont = 0;
-        while ($cont < count($idmatriculas)) {
-            $matricula = Matricula::where('id', $idmatriculas[$cont])->where('idanolectivo', $anolect->id)->first();
-            $estudiante = Estudiante::where('id', $matricula->idestudiante)->first();
-            $idapoderado = Apoderado::where('id', $estudiante->idapoderado)->first();
-            $aula = Aula::where('id', $matricula->idaula)->first();
+        // Revisamos si ya existe registro de asistencia hoy
+        $asistencia = Asistenciaest::where('idmatricula', $matricula->id)
+            ->where('fechaentrada', $fechaHoy)
+            ->first();
 
+        if (!$asistencia) {
+            if ($tipo === 'entrada') {
+                $asistencia = new Asistenciaest();
+                $asistencia->idanolectivo = $anolect->id;
+                $asistencia->idmatricula = $matricula->id;
+                $asistencia->fechaentrada = $fechaHoy;
+                $asistencia->horaentrada = $hora;
+                // Determina si es asistencia o tarde según horario de aula
+                $asistencia->estado = $hora< Carbon::parse($aula->horatarde)->format('H:i:s') ? 1 : 0;
+                $asistencia->save();
 
-            if (empty(Asistenciaest::where('idmatricula', $matricula->id)->where('fechaentrada', date("Y-m-d"))->first()) == true) {
-
-                if ($tipo == 'entrada') {
-                    $asistencia = new Asistenciaest();
-                    $asistencia->idanolectivo = $anolect->id;
-                    $asistencia->idmatricula = $idmatriculas[$cont];
-                    $asistencia->fechaentrada = date('Y-m-d');
-                    $asistencia->horaentrada = $hora;
-                    $asistencia->estado =  $hora < ($aula->horatarde) ? 1 : 0;
-                    $asistencia->save();
-                    $this->enviarNotificacionPush($idapoderado, $estudiante, "entrada");
-                } 
+                $this->enviarNotificacionPush($apoderado, $estudiante, "entrada");
+            }
+        } else {
+            // Si ya existe registro, registramos salida
             
+            $asistencia->horasalida = $hora;
+            $asistencia->update();
 
-                
-            }else {
-
-                    $asistencia=Asistenciaest::where('idmatricula', $matricula->id)->where('fechaentrada', date("Y-m-d"))->first();
-              
-                    $asistencia->horasalida = $hora;
-                    $asistencia->update();
-
-                    $this->enviarNotificacionPush($idapoderado, $estudiante, "salida");
-                }
-   $cont = $cont + 1;
-
-
-
+            $this->enviarNotificacionPush($apoderado, $estudiante, "salida");
         }
-        session()->flash('swal', [
-            'icon' => 'success',
-            'title' => 'bien hecho',
-            'text' => 'Registro correcto',
-            'timer' => '1000',
-            ' showConfirmButton' => 'false'
-        ]);
-
-        return back()->with('message', 'Registro Exítosa');
     }
+
+    return back()->with('message', 'Registro Exitoso');
+}
+
+
     public function update(Request $request, $id)
     {
         $asistencia = Asistenciaest::find($id);
@@ -225,7 +211,7 @@ $tipo = $request->has('tipo_registro') ? 'salida' : 'entrada';
     {
         $anolect = Anolectivo::where('estado', 1)->first();
 
-        $items = Matricula::where('idestudiante', $id)
+        $items = Matricula::where('id', $id)
             ->where('idanolectivo', $anolect->id)
             ->with('asistenciahoy')
             ->with('estudiante')
@@ -441,56 +427,56 @@ $tipo = $request->has('tipo_registro') ? 'salida' : 'entrada';
         }
     }
 
-   public function reporteasistencia(Request $request)
-{
-    $request->validate(['turno' => 'required']);
-    $idaula = $request->get('turno');
+    public function reporteasistencia(Request $request)
+    {
+        $request->validate(['turno' => 'required']);
+        $idaula = $request->get('turno');
 
-    $anolect = Anolectivo::where('estado', 1)->first();
-    $nombreaula = Aula::find($idaula);
+        $anolect = Anolectivo::where('estado', 1)->first();
+        $nombreaula = Aula::find($idaula);
 
-    // 1. Generar rango de días y meses
-    $fechaInicio = Carbon::parse($anolect->inicio);
-    $fechaFin = Carbon::parse($anolect->fin);
-    $fechaHoy = Carbon::now();
-$fechaFin = $fechaHoy->lt($fechaFin) ? $fechaHoy : $fechaFin;
+        // 1. Generar rango de días y meses
+        $fechaInicio = Carbon::parse($anolect->inicio);
+        $fechaFin = Carbon::parse($anolect->fin);
+        $fechaHoy = Carbon::now();
+        $fechaFin = $fechaHoy->lt($fechaFin) ? $fechaHoy : $fechaFin;
 
-    
-    $dias = [];
-    $meses = [];
-    $tempFecha = $fechaInicio->copy();
 
-    while ($tempFecha->lte($fechaFin)) {
-        $dias[] = $tempFecha->format('Y-m-d');
-        $mesMes = $tempFecha->format('Y-m');
-        if (!in_array($mesMes, $meses)) {
-            $meses[] = $mesMes;
+        $dias = [];
+        $meses = [];
+        $tempFecha = $fechaInicio->copy();
+
+        while ($tempFecha->lte($fechaFin)) {
+            $dias[] = $tempFecha->format('Y-m-d');
+            $mesMes = $tempFecha->format('Y-m');
+            if (!in_array($mesMes, $meses)) {
+                $meses[] = $mesMes;
+            }
+            $tempFecha->addDay();
         }
-        $tempFecha->addDay();
+
+        // 2. Obtener datos con relación
+        $items = Matricula::where('idaula', $idaula)
+            ->where('idanolectivo', $anolect->id)
+            ->with(['estudiante', 'asistenciahoy'])
+            ->get();
+
+        // 3. Indexar asistencia (ESTO EVITA LA PANTALLA BLANCA)
+        foreach ($items as $item) {
+            $item->asistencia_indexada = $item->asistenciahoy->mapWithKeys(function ($asis) {
+                // Usamos la fecha como llave para búsqueda directa
+                $fechaKey = Carbon::parse($asis->fechaentrada)->format('Y-m-d');
+                return [$fechaKey => $asis];
+            });
+        }
+
+        if (ob_get_contents()) ob_end_clean();
+
+        $pdf = Pdf::loadView('pages.asistenciaest.invocepdf', compact('items', 'dias', 'meses', 'nombreaula'));
+
+        // Forzamos el papel y la orientación aquí
+        return $pdf->setPaper('a4', 'landscape')->stream('reporte_asistencia.pdf');
     }
-
-    // 2. Obtener datos con relación
-    $items = Matricula::where('idaula', $idaula)
-        ->where('idanolectivo', $anolect->id)
-        ->with(['estudiante', 'asistenciahoy'])
-        ->get();
-
-    // 3. Indexar asistencia (ESTO EVITA LA PANTALLA BLANCA)
-    foreach ($items as $item) {
-        $item->asistencia_indexada = $item->asistenciahoy->mapWithKeys(function ($asis) {
-            // Usamos la fecha como llave para búsqueda directa
-            $fechaKey = Carbon::parse($asis->fechaentrada)->format('Y-m-d');
-            return [$fechaKey => $asis];
-        });
-    }
-
-   if (ob_get_contents()) ob_end_clean();
-
-    $pdf = Pdf::loadView('pages.asistenciaest.invocepdf', compact('items', 'dias', 'meses', 'nombreaula'));
-    
-    // Forzamos el papel y la orientación aquí
-    return $pdf->setPaper('a4', 'landscape')->stream('reporte_asistencia.pdf');
-}
 
     //vista de registro de asistencia
     public function vistaasistencia()

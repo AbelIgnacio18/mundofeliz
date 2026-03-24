@@ -6,6 +6,7 @@ use App\Models\Anolectivo;
 use App\Models\Estudiante;
 use App\Models\Mese;
 use App\Models\Aula;
+use App\Models\Sede;
 use App\Models\Matricula;
 use App\Models\Concepto;
 use Illuminate\Http\Request;
@@ -24,26 +25,32 @@ class MatriculaController extends Controller
         if ($request) {
 
 
+$user = auth()->user();
+
+$sedes = $user->esSuperAdmin()
+    ? Sede::all()
+    : $user->sedes;
 
             $anolect = Anolectivo::where('estado', 1)->first();
             // Obtener solo los estudiantes sin matrícula
             //$estudiantes = Estudiante::whereDoesntHave('matricula')->get();
             // $estudiante=Estudiante::all();
-            $estudiantesMatriculados = Matricula::where('idanolectivo', $anolect->id)->pluck('idestudiante');
+          
+$user = auth()->user();
 
-            // Obtener los que NO están en esa lista
-            $estudiantesDisponibles = Estudiante::whereNotIn('id', $estudiantesMatriculados)->get();
-            // Obtener los que NO están en esa lista
-            $estudiante = Estudiante::whereNotIn('id', $estudiantesMatriculados)->get();
-            $estudiante2 = Estudiante::whereNotIn('id', $estudiantesMatriculados)->get();
+$estudiantesMatriculados = Matricula::where('idanolectivo', $anolect->id)
+    ->where('estado', 1) // 🔥 SOLO los activos (no trasladados)
+    ->pluck('idestudiante')
+    ->unique();
 
+$estudiante = Estudiante::whereNotIn('id', $estudiantesMatriculados)->get();
             // dd($estudiante);
             $anolect = Anolectivo::where('estado', 1)->first();
             $concepto = Concepto::where('codigo', 'P001')->orderBy('concepto', 'desc')->get();
 
             $searchText = trim($request->get('searchText'));
             $searchTextFecha = trim($request->get('searchTextFecha'));
-            $matricula = Matricula::where('idanolectivo', $anolect->id)
+           $matricula = Matricula::porUsuario()->where('idanolectivo', $anolect->id)
                 ->when($searchTextFecha, function ($q) use ($searchTextFecha) {
                     // Usamos whereDate para ignorar la hora del timestamp 'created_at'
                     return $q->whereDate('created_at', $searchTextFecha);
@@ -63,54 +70,74 @@ class MatriculaController extends Controller
                 ])
                 ->paginate(50);
 
-            $aula = Aula::get();
-            return view('pages.matricula.index', compact('estudiante', 'aula', 'matricula', 'concepto', 'searchText', 'searchTextFecha'));
+            $aula = Aula::porUsuario()->get();
+            return view('pages.matricula.index', compact('estudiante', 
+            'aula', 'matricula', 'concepto', 'searchText', 'searchTextFecha','sedes'));
         }
     }
-
+ 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
-
+   
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
+   public function store(Request $request)
+{
+    $estudianteid = $request->get('estudiante_id');
+    $aula = $request->get('aula_id');
+    $codigo = $request->get('codigo'); // ⚠️ opcional
+    $fecha_matricula = $request->get('fecha_matricula');
+    $colegio_procedencia = $request->get('colegio_procedencia');
 
-        $estudianteid = $request->get('estudiante_id');
-        $aula = $request->get('aula_id');
-        $concepto = $request->get('concepto');
-        $codigo = $request->get('codigo');
-          $fecha_matricula = $request->get('fecha_matricula');
-          $colegio_procedencia = $request->get('colegio_procedencia');
+    $anolectivo = Anolectivo::where('estado', 1)->first();
+    $user = auth()->user();
 
+    // 🔥 definir sede automáticamente
+    $idsede = $user->esSuperAdmin()
+        ? $request->idsede
+        : $user->sedes->first()->id;
 
-        $anolectivo = Anolectivo::where('estado', 1)->first();
-        // dd($estudianteid, $aula,$anolectivo->id);
-        $cont = 0;
-        while ($cont < count($estudianteid)) {
-            $matricula = new Matricula;
-            $matricula->idestudiante = $estudianteid[$cont];
-            $matricula->idanolectivo = $anolectivo->id;
-            $matricula->idaula = $aula;
-            $matricula->fecha_matricula = $fecha_matricula;
-             $matricula->colegio_procedencia = $colegio_procedencia;
-            $matricula->idconcepto = 1;
-          
-            $matricula->codigo = $codigo;
-            $matricula->save();
-            $cont = $cont + 1;
+    foreach ($estudianteid as $idEst) {
+
+        // ❌ evitar duplicados por año
+        $existe = Matricula::where('idestudiante', $idEst)
+            ->where('idanolectivo', $anolectivo->id)
+            ->exists();
+
+        if ($existe) {
+            return back()->with('danger', 'El alumno ya está matriculado en este año');
         }
 
-        return back()->with('message', 'Registro Exítosa');
+        $matricula = new Matricula();
+        $matricula->idestudiante = $idEst;
+        $matricula->idanolectivo = $anolectivo->id;
+        $matricula->idaula = $aula;
+        $matricula->idsede = $idsede; // 🔥 CLAVE
+        $matricula->fecha_matricula = $fecha_matricula;
+        $matricula->colegio_procedencia = $colegio_procedencia;
+        $matricula->idconcepto = 1;
+
+        // 🔥 SOLO asignar código si viene (no obligatorio)
+        if (!empty($codigo)) {
+
+            $existeCodigo = Matricula::where('codigo', $codigo)->exists();
+
+            if ($existeCodigo) {
+                return back()->with('danger', 'El código RFID ya está en uso');
+            }
+
+            $matricula->codigo = $codigo;
+        }
+
+        $matricula->save();
     }
 
-    public function show($id)
+    return back()->with('message', 'Registro Exitoso');
+}
+
+    public function show($id) 
     {
         $matricula = Matricula::where('id', $id)->with('estudiante.apoderado')->with('aula')->first();
         $mes = Mese::where('idmatricula', $id)->get();
@@ -137,44 +164,55 @@ class MatriculaController extends Controller
 
 
     public function showaula($id)
-    {
-        $anolect = Anolectivo::where('estado', 1)->first();
-        $aula = Aula::where('id', $id)->first();
+{
+    $anolect = Anolectivo::where('estado', 1)->first();
 
-        $matricula = Matricula::where('idanolectivo', $anolect->id)->where('idaula', $id)
-            ->join('estudiantes', 'matriculas.idestudiante', '=', 'estudiantes.id')
-            ->orderBy('estudiantes.apellidos', 'asc')
+    $aula = Aula::porUsuario()->findOrFail($id); // 🔥 seguridad
 
-            ->select('matriculas.*')
-            ->with([
-                'estudiante',
-                'aula',
-                'meses',
-                'concepto',
-                'estudiante.pagos.pensiones.concepto'
-            ])
-            ->get();
+    $matricula = Matricula::porUsuario()
+        ->where('idanolectivo', $anolect->id)
+        ->where('idaula', $id)
+        ->join('estudiantes', 'matriculas.idestudiante', '=', 'estudiantes.id')
+        ->orderBy('estudiantes.apellidos', 'asc')
+        ->select('matriculas.*')
+        ->with([
+            'estudiante',
+            'aula',
+            'meses',
+            'concepto',
+            'estudiante.pagos.pensiones.concepto'
+        ])
+        ->get();
 
-        //  dd($matricula);
-        return view("pages.matricula.showaula", compact('matricula', 'aula'));
-    }
-
+    return view("pages.matricula.showaula", compact('matricula', 'aula'));
+}
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $matricula)
-    {
-        $matricula = Matricula::find($matricula);
+   public function update(Request $request, $id)
+{
+    $matricula = Matricula::findOrFail($id);
 
-        $matricula->idaula = $request->get('aula_id');
-        // $matricula->idconcepto=$request->get('concepto');  
-        $matricula->idconcepto = 1;
-        $matricula->estado = $request->get('estado');
-        $matricula->codigo = $request->get('codigo');
-        $matricula->update();
+    // 🔥 validar RFID único
+    if ($request->codigo) {
+        $existe = Matricula::where('codigo', $request->codigo)
+            ->where('id', '!=', $id)
+            ->exists();
 
-        return back()->with('message', 'Actualización Exítosa');
+        if ($existe) {
+            return back()->with('danger', 'Este código RFID ya está asignado');
+        }
     }
+
+    $matricula->idaula = $request->aula_id;
+    $matricula->idconcepto = 1;
+    $matricula->estado = $request->estado;
+    $matricula->codigo = $request->codigo;
+
+    $matricula->update();
+
+    return back()->with('message', 'Actualización Exitosa');
+}
 
     /**
      * Remove the specified resource from storage.

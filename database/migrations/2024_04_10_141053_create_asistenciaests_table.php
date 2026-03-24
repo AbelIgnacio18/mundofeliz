@@ -22,7 +22,7 @@ return new class extends Migration
               $table->time('horasalida')->nullable();
             $table->text('observacion')->nullable();
             
-            $table->boolean('estado')->nullable();
+           $table->tinyInteger('estado')->default(1);
             $table->timestamps();
 
             //comparar las fechas entrada y fecha de actulizacion del regitro nde un mismo dia, si son diferentes crear un nuevo registro un rejistro... entrada

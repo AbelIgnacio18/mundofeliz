@@ -61,15 +61,29 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="seccionS" class="form-label">Sección:</label>
-                                    <input type="text" class="form-control" id="seccionS" aria-describedby="seccionS"
+                                    <label for="seccion" class="form-label">Sección:</label>
+                                    <input type="text" class="form-control" id="seccion" aria-describedby="seccion"
                                         placeholder="A" name="seccion">
                                 </div>
+                                @if (auth()->user()->esSuperAdmin() || $sedes->count() > 1)
+
+                                    <div class="form-group">
+                                        <label>Sede:</label>
+                                        <select name="idsede" class="form-control" required>
+                                            @foreach ($sedes as $sede)
+                                                <option value="{{ $sede->id }}">{{ $sede->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @else
+                                    <input type="hidden" name="idsede" value="{{ $sedes->first()->id }}">
+
+                                @endif
 
 
                                 <div class="form-group">
                                     <label for="tiempo general" class="form-label">Hora de Entrada</label>
-                                    <input type="time" class="form-control" id="tiempo" name="hraentrada"
+                                    <input type="time" class="form-control" id="tiempo" name="horaentrada"
                                         value="" step="01" required="">
                                     <div class="invalid-feedback">
                                         Por favor, elija el tiempo general de pelea válido.
@@ -78,9 +92,9 @@
                                         ¡Se ve bien!
                                     </div>
                                 </div>
-                                  <div class="form-group">
+                                <div class="form-group">
                                     <label for="tiempo general" class="form-label">Hora de Tarde</label>
-                                    <input type="time" class="form-control" id="tiempo" name="hratarde"
+                                    <input type="time" class="form-control" id="tiempo" name="horatarde"
                                         value="" step="01" required="">
                                     <div class="invalid-feedback">
                                         Por favor, elija el tiempo general de pelea válido.
@@ -89,9 +103,9 @@
                                         ¡Se ve bien!
                                     </div>
                                 </div>
-                                  <div class="form-group">
+                                <div class="form-group">
                                     <label for="tiempo general" class="form-label">Hora de Falta</label>
-                                    <input type="time" class="form-control" id="tiempo" name="hrafalta"
+                                    <input type="time" class="form-control" id="tiempo" name="horafalta"
                                         value="" step="01" required="">
                                     <div class="invalid-feedback">
                                         Por favor, elija el tiempo general de pelea válido.
@@ -100,9 +114,9 @@
                                         ¡Se ve bien!
                                     </div>
                                 </div>
-                                  <div class="form-group">
+                                <div class="form-group">
                                     <label for="tiempo general" class="form-label">Hora de Salida</label>
-                                    <input type="time" class="form-control" id="tiempo" name="hrasalida"
+                                    <input type="time" class="form-control" id="tiempo" name="horasalida"
                                         value="" step="01" required="">
                                     <div class="invalid-feedback">
                                         Por favor, elija el tiempo general de pelea válido.
@@ -111,20 +125,11 @@
                                         ¡Se ve bien!
                                     </div>
                                 </div>
-                                
+
 
                                 <label for="vacanteS" class="form-label">Nº Vacantes:</label>
                                 <select class="form-select" id="vacanteS" name="vacantes" placeholder="30">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
+
                                     <option value="11">11</option>
                                     <option value="12">12</option>
                                     <option value="13">13</option>
@@ -184,10 +189,11 @@
                         <th>Nivel</th>
                         <th>Grado</th>
                         <th>Sección</th>
+                        <th>Sede</th> <!-- 👈 NUEVO -->
                         <th>Hra.Entrada</th>
                         <th>Hra.tardanza</th>
                         <th>Hra.Falta</th>
-                         <th>Hra.Salida</th>
+                        <th>Hra.Salida</th>
                         <th>Nº Vacantes</th>
                         <th>Acciones</th>
                     </tr>
@@ -215,23 +221,26 @@
                                     <h6>{{ $item->seccion }}</h6>
                                 </div>
                             </td>
+                            <td>
+                                <h6>{{ $item->sede->nombre ?? 'Sin sede' }}</h6>
+                            </td>
 
                             <td>
                                 <h6>
                                     {{ Carbon\Carbon::parse($item->horaentrada)->translatedFormat('h:i A') }}
                                 </h6>
                             </td>
-                              <td>
+                            <td>
                                 <h6>
                                     {{ Carbon\Carbon::parse($item->horatarde)->translatedFormat('h:i A') }}
                                 </h6>
                             </td>
-                              <td>
+                            <td>
                                 <h6>
                                     {{ Carbon\Carbon::parse($item->horafalta)->translatedFormat('h:i A') }}
                                 </h6>
                             </td>
-                           <td>
+                            <td>
                                 <h6>
                                     {{ Carbon\Carbon::parse($item->horasalida)->translatedFormat('h:i A') }}
                                 </h6>
@@ -262,7 +271,7 @@
                                             </svg>
                                         </span>
                                     </a>
-                 
+
                                 </div>
                             </td>
                         </tr>

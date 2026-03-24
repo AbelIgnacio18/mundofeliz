@@ -10,7 +10,7 @@
             <form action="{{ route('app.asist-estudiante.destroy', $item->id) }}" method="POST">
                @method('DELETE')
                @csrf
-
+ 
                <div class="col-12">
                   <a class="btn btn-danger">
                      <svg width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

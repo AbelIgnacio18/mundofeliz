@@ -22,8 +22,8 @@ class StoreAsistenciaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'docente' => 'required',
-            'fecha-entrada' => 'required',
+            'user' => 'required',
+            'hora-entrada' => 'required',
         ];
     }
 }

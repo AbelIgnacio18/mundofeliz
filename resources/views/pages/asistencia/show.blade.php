@@ -90,7 +90,7 @@
 
                 <h3 class="text-primary font-weight-bold mb-0">
                     <i class="fas fa-user-circle mr-2"></i>
-                    {{ $items->first()->nombre }}
+                    {{ $items->first()->name }}
                     {{ $items->first()->apellidos }}
                 </h3>
                 {{-- //botom para descargar el reporte del estudiante --}}
@@ -116,7 +116,7 @@
 
 
         <div class="text-center py-4">
-            <a href="{{ url('dashboard/asistencia-estudiantes') }}" class="btn btn-secondary btn-return shadow-sm">
+            <a href="{{ url('dashboard/asistencia-docentes') }}" class="btn btn-secondary btn-return shadow-sm">
                 <i class="fas fa-chevron-left mr-2"></i>Regresar
             </a>
         </div>
@@ -141,7 +141,7 @@
                 // Mapeamos tus datos de Laravel a eventos del calendario
                 events: [
                     @foreach ($items as $item)
-                        @foreach ($item->asistenciadocentehoy as $asis)
+                        @foreach ($item->asistenciauserhoy as $asis)
                             {
                                 id: '{{ $asis['id'] }}',
                                 title: '{{ $asis['estado'] == 1

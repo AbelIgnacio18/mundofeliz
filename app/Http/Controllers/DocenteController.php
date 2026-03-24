@@ -20,9 +20,14 @@ class DocenteController extends Controller
     {
 
         if ($request) {
-
-            $items = Docente::get();
-            //  dd($items);
+$user = auth()->user();
+         
+            //  dd($items);  
+            $items = Docente::with('user.roles', 'user.sedes')
+        ->whereHas('user', function ($q) use ($user) {
+            $q->porSede($user);
+        })
+        ->get();
 
             return view(
                 'pages.docente.index',
@@ -58,7 +63,7 @@ class DocenteController extends Controller
             $user = User::create([
                 'name' => strtoupper($request->get('nombre')),
                 'apellidos' => strtoupper($apellidop . ' ' . $apellidom),
-                'email' => $request->get('dni') . 'bertoltbrecht.com', // temporal
+                'email' => $request->get('dni') . '@bertoltbrecht.com', // temporal
                 'password' => bcrypt($request->get('dni')),
             ]);
 
@@ -81,6 +86,19 @@ class DocenteController extends Controller
                 'iduser' => $user->id,
                 'idrol' => 3 // 👈 ID del rol docente
             ]);
+
+            if (auth()->user()->esSuperAdmin()) {
+                // puede elegir varias sedes
+                $sedes = $request->get('sedes', []);
+            } else {
+                // admin solo su sede
+                $sedes = auth()->user()->sedes->pluck('id')->toArray();
+            }
+
+            $user->sedes()->sync($sedes);
+
+
+         
 
             DB::commit();
 

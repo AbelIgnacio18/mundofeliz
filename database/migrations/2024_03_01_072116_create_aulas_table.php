@@ -21,7 +21,9 @@ return new class extends Migration
              $table->time('horatarde');             
               $table->time('horafalta');
                $table->time('horasalida')->nullable();
-         
+          $table->unsignedBigInteger('idsede');
+            $table->foreign('idsede')->references('id')->on('sedes')
+            ->onUpdate('cascade')->restrictOnDelete();
              
              
             $table->timestamps();

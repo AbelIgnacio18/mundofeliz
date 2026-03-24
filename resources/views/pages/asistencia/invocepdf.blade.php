@@ -193,7 +193,7 @@
 
                     <?php $contador = 1; ?>
                     <td style="{{ $esFinDeSemana ? 'background-color:#d8d1d1ff;' : '' }}">
-                        @forelse($item->asistenciadocentehoy->toArray() as $asis)
+                        @forelse($item->asistenciauserhoy->toArray() as $asis)
                         @if(Carbon\Carbon::parse($di)->Format('Y-m-d')== Carbon\Carbon::parse($asis['fechaentrada'])->Format('Y-m-d'))
 
                         @if($asis['estado']===1)
@@ -210,7 +210,7 @@
                         </li>
 
                         @endif
-                        @if($asis['estado']===null)
+                        @if($asis['estado']===4)
                         <li style="background-color: red;color:white;font-size:13px;padding:1px 1px;">
 
                             {{ Carbon\Carbon::parse($asis['created_at'])->setTimezone('America/Lima')->format('h:i A') }}

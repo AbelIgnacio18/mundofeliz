@@ -14,22 +14,23 @@
                      <div class="form-group">
                         <label for="nombre" class="form-label">Nombre del Docente:</label>
                         <!-- id="ex-search" -->
-                        <select name="docente[]" class="form-control" required onchange="mesespagado()" id="ex-search" multiple>
+                        <select name="user[]" class="form-control" required id="ex-search" multiple>
                            <option value="" disabled >Seleccionar</option>
-                           @forelse($docente as $doc)
-                           <option value="{{$doc->id}}"> {{$doc->nombre}} {{$doc->apellidos}} - {{$doc->dni}}</option>
+                           @forelse($user as $doc)
+                           <option value="{{$doc->id}}"> {{$doc->name}} {{$doc->apellidos}} - {{$doc->docentedni}}</option>
 
                            @empty
                            <option value="">No hay Datos</option>
                            @endforelse
                         </select>
 
-
                      </div>
 
                      <div class="form-group">
-                        <label for="nivelS" class="form-label">Hora de Entrada:</label>
-                        <input type="time" class="form-control" id="nivelS" aria-describedby="nivelS" name="fecha-entrada" min="00:00:00" step="1">
+                        <label for="nivel" class="form-label">Hora de Entrada:</label>
+                      
+                         <input type="time" class="form-control" id="hora-entrada" aria-describedby="nivelS"
+                            name="hora-entrada" step="1" value="<?= date('H:i') ?>">
                      </div>
 
 
@@ -42,3 +43,30 @@
             </div>
          </div>
       </div>
+
+      <script>
+    let intervaloHora;
+
+    function actualizarHora() {
+        const ahora = new Date();
+        const horas = ahora.getHours().toString().padStart(2, '0');
+        const minutos = ahora.getMinutes().toString().padStart(2, '0');
+        const segundos = ahora.getSeconds().toString().padStart(2, '0');
+
+        document.getElementById('hora-entrada').value =
+            `${horas}:${minutos}:${segundos}`;
+    }
+
+    const modal = document.getElementById('staticBackdrop-1');
+
+    // Cuando el modal se abre
+    modal.addEventListener('shown.bs.modal', function() {
+        actualizarHora(); // poner hora inmediata
+        intervaloHora = setInterval(actualizarHora, 1000); // actualizar cada segundo
+    });
+
+    // Cuando el modal se cierra
+    modal.addEventListener('hidden.bs.modal', function() {
+        clearInterval(intervaloHora); // detener contador
+    });
+</script>

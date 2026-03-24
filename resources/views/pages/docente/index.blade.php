@@ -47,19 +47,6 @@
 
 
 
-            @if (Session::has('message'))
-                <div id="alerts-disimissible-component" class="tab-pane tab-example-result fade active show col-md-12"
-                    role="tabpanel" aria-labelledby="alerts-disimissible-component-tab">
-                    <div class="alert alert-success alert-dismissible fade show " role="alert">
-                        <svg class="bi flex-shrink-0 me-2" width="24" height="24">
-                            <use xlink:href="#check-circle-fill" />
-                        </svg>
-                        <strong>Exitoso!</strong> {{ Session::get('message') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"> </button>
-                    </div>
-                </div>
-                
-            @endif
 
             @include('pages.estudiante.import')
 
@@ -114,7 +101,7 @@
                                     <label for="Codigo" class="form-label">Codigo Alumko: <span
                                             class="badge bg-secondary">InnovaStaff</span></label>
                                     <input type="text" class="form-control" id="Codigo" aria-describedby="Codigo"
-                                        placeholder="ATHON678" name="codigo" value="{{ old('Codigo') }}">
+                                        placeholder="ATHON678" name="codigo" value="{{ old('codigo') }}">
                                 </div>
 
                         </div>
@@ -140,6 +127,7 @@
                         <th>N°</th>
                         <th>Nombre Completo</th>
                         <th>Dni</th>
+                         <th>SEDE</th>
                         <th>Celular</th>
                         <th>Código Alumko</th>
                         <th>Acciones</th>
@@ -161,6 +149,11 @@
 
                             <td>
                                 <p>{{ $estud->dni }}</p>
+                            </td>
+                             <td>
+                                @foreach ($estud->user->sedes as $sede)
+                                    <span>{{ $sede->nombre }}</span>
+                                @endforeach
                             </td>
 
                             <td>

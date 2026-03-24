@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('idmatricula');
             $table->foreign('idmatricula')->references('id')->on('matriculas')->onUpdate('cascade')->onDelete('cascade');
-           $table->string('mes');
-        $table->boolean('estado')->nullable()->default(false);
-        
-           $table->timestamps();
+            $table->integer('mes_numero');
+            $table->string('mes', 15);
+            $table->boolean('estado')->nullable()->default(false);
+
+            $table->timestamps();
         });
     }
 

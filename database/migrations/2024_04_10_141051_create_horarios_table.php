@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('horarios', function (Blueprint $table) {
             $table->id();
-              $table->unsignedBigInteger('iddocente');
-          $table->foreign('iddocente')->references('id')->on('docentes')->onUpdate('cascade')->onDelete('cascade');
-          //   $table->unsignedBigInteger('idaula');
+       
+    $table->unsignedBigInteger('iduser'); // 🔥 CLAVE
+    $table->foreign('iduser')->references('id')->on('users')->cascadeOnDelete();
+      //   $table->unsignedBigInteger('idaula');
           // $table->foreign('idaula')->references('id')->on('aulas')->onUpdate('cascade')->onDelete('cascade');
           //   $table->unsignedBigInteger('idcurso');
           //   $table->foreign('idcurso')->references('id')->on('curso')->onUpdate('cascade')->onDelete('cascade');

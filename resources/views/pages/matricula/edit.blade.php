@@ -76,7 +76,7 @@
                             <div class="form-group col-md-6 p-1">
                                 <label for="dni" class="form-label">Código:</label>
                                 <span class="badge bg-alumko">Alumko</span>
-                                <input type="text" class="form-control" id="dni" aria-describedby="dni"
+                                <input type="text" class="form-control"  id="codigo-{{ $matri->id }}" aria-describedby="dni"
                                     placeholder="87654321" name="codigo" value="{{ $matri->codigo }}">
                             </div>
                             <div class="col-md-6 p-1">
@@ -88,17 +88,17 @@
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="estado" id="estado"
                                                         value="1" style="cursor:pointer"
-                                                        @if ($matri->estado == '1') checked @endif>
+                                                        @if ($matri->estado == 1) checked @endif>
                                                     <label class="form-check-label" for="estado">
-                                                        Si
+                                                        No
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="estado" id="estado"
                                                         value="0" style="cursor:pointer"
-                                                        @if ($matri->estado == '0') checked @endif>
+                                                        @if ($matri->estado == 0) checked @endif>
                                                     <label class="form-check-label" for="estado">
-                                                        No
+                                                        Si
                                                     </label>
                                                 </div>
 
@@ -126,4 +126,4 @@
         </div>
     </div>
 </div>
-</div
+

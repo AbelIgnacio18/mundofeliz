@@ -56,8 +56,54 @@
 
 @if(session('swal'))
 <script>
-    Swal.fire({
-        !!json_encode(session('swal')) !!
-    });
+    Swal.fire(@json(session('swal')));
+</script>
+
+@endif
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if(session('message'))
+<script>
+Swal.fire({
+    icon: 'success',
+    title: 'Éxito',
+    text: "{{ session('message') }}",
+    timer: 1500,
+    showConfirmButton: true
+});
+
+
+</script>
+@endif
+
+@if(session('danger'))
+<script>
+Swal.fire({
+    icon: 'error',
+    title: 'Error',
+    text: "{{ session('danger') }}",
+    showConfirmButton: true
+});
+</script>
+@endif
+
+@if(session('warning'))
+<script>
+Swal.fire({
+    icon: 'warning',
+    title: 'Advertencia',
+    text: "{{ session('warning') }}"
+});
+</script>
+@endif
+
+@if(session('info'))
+<script>
+Swal.fire({
+    icon: 'info',
+    title: 'Información',
+    text: "{{ session('info') }}"
+});
 </script>
 @endif

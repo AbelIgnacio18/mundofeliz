@@ -76,7 +76,7 @@ class EstudianteController extends Controller
             $estudiante->nombre = strtoupper($request->get('nombre'));
             $estudiante->apellidos = strtoupper($apellidop . ' ' . $apellidom);
             $estudiante->dni = $request->get('dni');
-            $estudiante->celular = strtoupper($request->get('celularm') . ' / ' . $request->get('celularp'));
+            $estudiante->celular = $request->get('celularm') . ' / ' . $request->get('celularp');
             $estudiante->fecha_nacimiento = $request->get('fecha_nacimiento');
             $estudiante->colegio_procedencia = strtoupper($request->get('colegio_procedencia'));
             $estudiante->genero = strtoupper($request->get('genero'));
@@ -93,12 +93,7 @@ class EstudianteController extends Controller
                 $this->enviarNotificacionFirebase($apoderado->fcm_token, $estudiante->nombre, "Registro");
             }
 
-            session()->flash('swal', [
-                'icon' => 'success',
-                'title' => '!Bien hecho!',
-                'text' => '!Estudiante y Apoderado procesados correctamente!',
-            ]);
-
+            
             return back()->with('message', 'Registro Exitoso');
         } catch (\Exception $e) {
             logger()->error("Error en store estudiante: " . $e->getMessage());
@@ -135,10 +130,11 @@ class EstudianteController extends Controller
     {
         $estudiante = Estudiante::find($item);
         $apoderado = Apoderado::find($estudiante->idapoderado);
+        
         $apoderado->nombre = strtoupper($request->get('nombreapoderado'));
         $apoderado->dni = strtoupper($request->get('dniapoderado'));
-        $estudiante->celularp = strtoupper($request->get('celularp'));
-        $estudiante->celularm = strtoupper($request->get('celularm'));
+        $apoderado->celularp = strtoupper($request->get('celularp'));
+        $apoderado->celularm = strtoupper($request->get('celularm'));
         $apoderado->direccion = strtoupper($request->get('direccion'));
         $apoderado->password = bcrypt($request->get('dniapoderado'));
         $apoderado->update();
@@ -146,16 +142,10 @@ class EstudianteController extends Controller
         $estudiante->nombre = strtoupper($request->get('nombre'));
         $estudiante->apellidos = strtoupper($request->get('apellidos'));
         $estudiante->dni = strtoupper($request->get('dni'));
-        $estudiante->celular = strtoupper($request->get('celularm') . ' / ' . $request->get('celularp'));
+        $estudiante->celular = $request->get('celularm') . ' / ' . $request->get('celularp');
         $estudiante->observaciones = strtoupper($request->get('observaciones'));
         $estudiante->update();
-        session()->flash('swal', [
-            'icon' => 'success',
-            'title' => 'bien hecho',
-            'text' => '!Estudiante Actualización correctamente!',
-            'timer' => '500',
-            ' showConfirmButton' => 'false'
-        ]);
+       
         return back()->with('message', 'Actualización Exítosa');
     }
 

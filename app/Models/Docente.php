@@ -14,10 +14,7 @@ class Docente extends Model
         return $this->belongsTo(Contrato::class,'idcontrato','id');
     
      }
-      public function asistenciadocentehoy(){
-        return $this->hasmany(Asistencia::class,'iddocente','id');
-    
-     }
+     
      public function horarios()
 {
     return $this->hasMany(Horario::class,'iddocente','id');

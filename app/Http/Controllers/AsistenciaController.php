@@ -9,6 +9,7 @@ use App\Http\Requests\StoreAsistenciaRequest;
 use App\Http\Requests\UpdateAsistenciaRequest;
 use Illuminate\Http\Request; // importacion
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Horario;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -26,10 +27,11 @@ class AsistenciaController extends Controller
             if ($fecha == "") {
                 $fecha = date('Y-m-d');
             }
-            $items = Asistencia::with('docentes')->where('fechaentrada', $fecha)->get();
-            $docente = Docente::all();
+            $items = Asistencia::with('user')->where('fechaentrada', $fecha)->get();
+          
+              $user = User::with(['docente', 'administrativo'])->get();
 
-            return view('pages.asistencia.index', compact('items', 'docente', 'fecha', 'horario'));
+            return view('pages.asistencia.index', compact('items', 'user', 'fecha', 'horario'));
         }
     }
 
@@ -42,7 +44,7 @@ class AsistenciaController extends Controller
 
         $anolect = Anolectivo::where('estado', 1)->first();
 
-        $items = Docente::where('id', $id)->with('asistenciadocentehoy')
+        $items = User::where('id', $id)->with('asistenciauserhoy')
             ->get();
         //dd($items);
 
@@ -110,7 +112,7 @@ class AsistenciaController extends Controller
 }
         //dd($meses);
         // 
-       $docente = Docente::with('asistenciadocentehoy')
+       $user = User::with('asistenciauserhoy')
     ->findOrFail($id);
         //    dd($items);
         $asistio = 0;
@@ -119,7 +121,7 @@ class AsistenciaController extends Controller
         $minutos_tarde = 0;
 
 
-        foreach ($docente->asistenciadocentehoy as $asis) {
+        foreach ($user->asistenciauserhoy as $asis) {
 
             $mes = \Carbon\Carbon::parse($asis->fechaentrada)->format('Y-m');
 
@@ -149,7 +151,7 @@ class AsistenciaController extends Controller
         //dd($items);
         $pdf = Pdf::loadView(
             'pages.asistencia.asistenciaindividual',
-            compact('docente', 'dias', 'meses', 'resumenMes','calendarioMes')
+            compact('user', 'dias', 'meses', 'resumenMes','calendarioMes')
         );
         $pdf->setPaper('A4', 'landscape'); //Formato de hoha A4 en horizontal
         return $pdf->stream('lista_asistencia_docente.pdf');
@@ -162,25 +164,25 @@ class AsistenciaController extends Controller
     {
         $anolect = Anolectivo::where('estado', 1)->first();
 
-        $iddocente = $request->get('docente');
-        $entrada1 = $request->get('fecha-entrada');
+        $iduser = $request->get('user');
+        $entrada1 = $request->get('hora-entrada');
 
         $cont = 0;
-        while ($cont < count($iddocente)) {
+        while ($cont < count($iduser)) {
 
-            $docente = Docente::where('id', $iddocente[$cont])->first();
-            if (!$docente) {
+            $user = User::where('id', $iduser[$cont])->first();
+            if (!$user) {
                 return back()->with('message', 'Docente no encontrado');
             }
             $dia = strtolower(\Carbon\Carbon::now()->locale('es')->dayName);
-            $horario = Horario::where('iddocente', $docente->id)
+            $horario = Horario::where('iduser', $user->id)
                 ->where('dia_semana', $dia)
                 ->first();
             if (!$horario) {
-                return back()->with('message', 'No exíte Horario');
+                return back()->with('danger', 'No exíste Horario,registre el Horario');
             }
 
-            $existe = Asistencia::where('iddocente', $docente->id)
+            $existe = Asistencia::where('iduser', $user->id)
                 ->whereDate('fechaentrada', today())
                 ->first();
             //  $horaActual = now()->format('H:i:s');
@@ -205,7 +207,7 @@ class AsistenciaController extends Controller
                 }
                 $asistencia = new Asistencia;
                 $asistencia->idanolectivo = $anolect->id;
-                $asistencia->iddocente = $docente->id;
+                $asistencia->iduser = $user->id;
                 $asistencia->fechaentrada = date("Y-m-d");
                 $asistencia->horaentrada = $entrada1;
                 $asistencia->minutos_tarde = $minutos_tarde;
@@ -262,7 +264,7 @@ class AsistenciaController extends Controller
 
         $anolect = Anolectivo::where('estado', 1)->first();
 
-        $items = Docente::where('estado', 1)->with('asistenciadocentehoy')->orderBy('apellidos', 'asc')
+        $items = User::where('estado', 1)->with('asistenciauserhoy')->orderBy('apellidos', 'asc')
             ->get();
 
         //dd($items);
@@ -280,7 +282,7 @@ class AsistenciaController extends Controller
 
 
             $anolectivo = Anolectivo::where('estado', 1)->first();
-            $docente = Docente::where('estado', 1)->with('asistenciadocentehoy')->get();
+            $docente = User::where('estado', 1)->with('asistenciauserhoy')->get();
 
 
             for ($i = 0; $i < count($docente); $i++) {
