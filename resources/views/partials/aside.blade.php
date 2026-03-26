@@ -189,7 +189,7 @@
                                         </i>
                                         <i class="sidenav-mini-icon"> A </i>
 
-                                        <span class="item-sub-name">{{ match($aula->nivel) {
+                                        <span class="item-sub-name">{{ match($menu->nivel) {
                                             'Inicial' => 'I',
                                             'Primaria' => 'P',
                                             'Secundaria' => 'S',
