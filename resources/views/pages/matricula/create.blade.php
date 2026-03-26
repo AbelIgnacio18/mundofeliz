@@ -94,10 +94,10 @@
 
 
                           <div class="form-group col-md-4 p-1">
-                              <label for="colegio_procedencia" class="form-label">Colegio Procedencia:<span
+                              <label for="colegio_procedencia" class="form-label">Colegio de Procedencia:<span
                                       class="badge bg-warning">Opcional</span></label>
                               <input type="text" class="form-control" id="colegio_procedencia"
-                                  aria-describedby="colegio_procedencia" placeholder="GONZALES"
+                                  aria-describedby="colegio_procedencia" placeholder="ALUMKO"
                                   name="colegio_procedencia" value="">
                           </div>
 
