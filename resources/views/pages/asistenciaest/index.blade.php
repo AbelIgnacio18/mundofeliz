@@ -86,7 +86,7 @@
                     </div>
 
                     <!-- Aula -->
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label class="form-label fw-semibold">Aula</label>
                         <select name="idaula" class="form-select">
                             <option value="">Todos</option>
@@ -109,7 +109,7 @@
                     </div>
 
                     <!-- Botón -->
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <button type="submit" class="btn btn-info d-flex align-items-center justify-content-center"
                             title="Buscar">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
@@ -127,23 +127,15 @@
         </div>
 
         <!-- MITAD DERECHA: LEYENDA -->
-        <div class="col-md-6 d-flex align-items-center">
+        <div class="col-md-6 d-flex align-items-end">
 
-            <div class="card shadow-sm w-100">
+            <div class="shadow-sm w-100">
                 <div class="card-body py-2">
-
-
-
                     <span class="badge bg-success me-2">A</span> Asistió
-
                     <span class="badge bg-warning ms-3 me-2">T</span> Tarde
-
                     <span class="badge bg-danger ms-3 me-2">F</span> Falta
-
                     <span class="badge bg-alumko ms-3 me-2">TJ</span> Tarde Justificada
-
                     <span class="badge bg-secondary ms-3 me-2">FT</span> Falta Justificada
-
                 </div>
             </div>
 

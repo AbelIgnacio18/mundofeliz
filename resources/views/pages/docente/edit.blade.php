@@ -9,6 +9,10 @@
             <form action="{{ route('app.docentes.update',$estud->id) }}" method="POST">
                @method('PUT')
                @csrf
+               <div class="form-group">
+                  <label for="dni" class="form-label">DNI:</label>
+                  <input type="text" class="form-control" id="dni" aria-describedby="dni" placeholder="DNI" name="dni" value="{{$estud->dni}}">
+               </div>
 
                <div class="form-group">
                   <label for="nombre" class="form-label">Nombre:</label>
@@ -20,26 +24,18 @@
                   <input type="text" class="form-control" id="apellidos" aria-describedby="apellidos" placeholder="Silva" value="{{$estud->apellidos}}" name="apellidos">
                </div>
 
-
-               <div class="form-group">
-                  <label for="dni" class="form-label">DNI:</label>
-                  <input type="text" class="form-control" id="dni" aria-describedby="dni" placeholder="DNI" name="dni" value="{{$estud->dni}}">
-               </div>
-               <div class="form-group">
+            <div class="raw d-flex">
+               <div class="form-group col-md-6 p-1">
                   <label for="celular" class="form-label">Celular:</label>
                   <input type="text" class="form-control" id="celular" aria-describedby="celular" value="{{$estud->celular}}" name="celular">
                </div>
 
-                 
-        
-
-               <div class="form-group">
-                <label for="Codigo" class="form-label">Codigo Alumko: <span
-                                            class="badge bg-secondary">InnovaStaff</span></label>
+               <div class="form-group col-md-6 p-1">
+                  <label for="Codigo" class="form-label">Código Alumko: <span
+                  class="badge bg-secondary">InnovaStaff</span></label>
                   <input type="text" class="form-control" id="Codigo" aria-describedby="Codigo"  name="codigo"  value="{{$estud->codigo}}">
                </div>
-
-            
+            </div>
 
 
                <div class="text-start mt-2">

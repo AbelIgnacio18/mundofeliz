@@ -18,7 +18,7 @@
             @endif
         </div>
         <div class="header-title">
-            <h4 class="card-title mb-0">Lista de Personal</h4>
+            <h4 class="card-title mb-0">Lista de Personal Administrativo</h4>
         </div>
 
         <!-- modal para crear nuevos conceptos de pagooo -->
@@ -33,7 +33,7 @@
                     <path fill-rule="evenodd"
                         d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
                 </svg>
-                <span>Nuevo personal</span>
+                <span>Nuevo P. Adminstrativo </span>
             </a>
 
 
@@ -54,7 +54,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Nuevo Personal</h5>
+                            <h5 class="modal-title" id="staticBackdropLabel">Nuevo Personal Administrativo</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body raw">
@@ -138,8 +138,8 @@
     </div>
 
     <div class="card-body p-0">
-        <div class="table-responsive mt-4">
-            <table class="table table-striped" role="grid" data-toggle="data-table">
+        <div class="table-responsive">
+            <table id="user-list-table" class="table"  role="grid" data-toggle="grid">
                 <thead>
                     <tr>
                         <th>N°</th>
@@ -156,35 +156,35 @@
                 <tbody>
                     @forelse($items as $estud)
                         <tr>
-                            <td class="py-0">
+                            <td>
                                 <div class="d-flex align-items-center">
-                                    <p>{{ $estud->user->id }}</p>
+                                    {{ $estud->user->id }}
                                 </div>
                             </td>
 
                             <td>
-                                <p>{{ $estud->user->apellidos }}, {{ $estud->user->name }}</p>
+                                <div>{{ $estud->user->apellidos }}, {{ $estud->user->name }}</div>
                             </td>
 
                             <td>
-                                <p>{{ $estud->dni }}</p>
+                                <div>{{ $estud->dni }}</div>
                             </td>
 
                             <td>
-                                <p>{{ $estud->celular }}</p>
+                                <div>{{ $estud->celular }}</div>
                             </td>
 
                             <td>
-                                <p class="badge bg-alumko" style="font-size: 1em;">{{ $estud->codigo }}</p>
+                                <span class="badge bg-alumko" style="font-size: 1em;">{{ $estud->codigo }}</span>
                             </td>
                             <td>
                                 @foreach ($estud->user->roles as $rol)
-                                    <span>{{ $rol->nombre }}</span>
+                                    <div>{{ $rol->nombre }}</div>
                                 @endforeach
                             </td>
                             <td>
                                 @foreach ($estud->user->sedes as $sede)
-                                    <span>{{ $sede->nombre }}</span>
+                                    <div>{{ $sede->nombre }}</div>
                                 @endforeach
                             </td>
 

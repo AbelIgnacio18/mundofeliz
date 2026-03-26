@@ -436,7 +436,7 @@
                                                         </td>
 
                                                         <td class="text-center">
-                                                            @if ($repor->total_tardanzas >= 3 && $celularDestino)
+                                                            @if ($repor->total_tardanzas >= 1 && $celularDestino)
                                                                 <div class="btn-group" role="group">
                                                                     {{-- Botón Principal (Mamá) --}}
                                                                     <a href="https://wa.me/51{{ $celularMama }}?text={{ urlencode($mensaje) }}"

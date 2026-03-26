@@ -121,7 +121,6 @@
                     @php
                         $numeracion = 1;
                     @endphp
-                    @endphp
                     @forelse($matricula as $matri)
                         <tr>
                             <td>

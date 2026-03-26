@@ -84,7 +84,7 @@
     <div class="container-fluid report-container p-4">
 
 
-        <div class="card student-card shadow-sm mb-4">
+        <div class="card student-card shadow-sm">
             <div class="card-body">
                 <h5 class="text-muted small text-uppercase mb-1">Reporte de Asistencia</h5>
 

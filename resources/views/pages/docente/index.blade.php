@@ -85,7 +85,6 @@
 
                                
                                 <div class="raw d-flex">
-                                   
                                     <div class="form-group col-md-6 p-1">
                                         <label for="celular" class="form-label">Celular: <span
                                                 class="badge bg-primary">Opcional</span></label>
@@ -93,16 +92,15 @@
                                             aria-describedby="celular" placeholder="987654321" name="celular"
                                             value="{{ old('celular') }}">
                                     </div>
-                                </div>
 
-                              
 
-                                <div class="form-group">
-                                    <label for="Codigo" class="form-label">Codigo Alumko: <span
+                                <div class="form-group col-md-6 p-1">
+                                    <label for="Codigo" class="form-label">Código Alumko: <span
                                             class="badge bg-secondary">InnovaStaff</span></label>
                                     <input type="text" class="form-control" id="Codigo" aria-describedby="Codigo"
                                         placeholder="ATHON678" name="codigo" value="{{ old('codigo') }}">
                                 </div>
+                                                            </div>
 
                         </div>
 
@@ -120,14 +118,14 @@
     </div>
 
     <div class="card-body p-0">
-        <div class="table-responsive mt-4">
-            <table class="table table-striped" role="grid" data-toggle="data-table">
+        <div class="table-responsive">
+            <table id="user-list-table" class="table" role="grid" data-toggle="grid">
                 <thead>
                     <tr>
                         <th>N°</th>
                         <th>Nombre Completo</th>
                         <th>Dni</th>
-                         <th>SEDE</th>
+                        <th>Sede</th>
                         <th>Celular</th>
                         <th>Código Alumko</th>
                         <th>Acciones</th>
@@ -139,29 +137,29 @@
                         <tr>
                             <td class="py-0">
                                 <div class="d-flex align-items-center">
-                                    <p>{{ $estud->id }}</p>
+                                    {{ $estud->id }}
                                 </div>
                             </td>
 
                             <td>
-                                <p>{{ $estud->apellidos }}, {{ $estud->nombre }}</p>
+                                <div>{{ $estud->apellidos }}, {{ $estud->nombre }}</div>
                             </td>
 
                             <td>
-                                <p>{{ $estud->dni }}</p>
+                                <div>{{ $estud->dni }}</div>
                             </td>
-                             <td>
+                            <td>
                                 @foreach ($estud->user->sedes as $sede)
-                                    <span>{{ $sede->nombre }}</span>
+                                    <div>{{ $sede->nombre }}</div>
                                 @endforeach
                             </td>
 
                             <td>
-                                <p>{{ $estud->celular }}</p>
+                                <div>{{ $estud->celular }}</div>
                             </td>
 
                             <td>
-                                <p class="badge bg-alumko" style="font-size: 1em;">{{ $estud->codigo }}</p>
+                                <div class="badge bg-alumko" style="font-size: 1em;">{{ $estud->codigo }}</div>
                             </td>
 
                             <td>

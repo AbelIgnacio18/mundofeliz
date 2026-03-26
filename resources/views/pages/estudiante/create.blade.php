@@ -39,7 +39,7 @@
                     </div>
                     <div class="raw d-flex">
                         <div class="form-group col-md-6 p-1">
-                            <label for="genero" class="form-label">Genero: <span
+                            <label for="genero" class="form-label">Género: <span
                                     class="badge bg-danger">Obligatorio</span></label>
 
                             <select name="genero" id="" class="form-control" id="genero" required>
