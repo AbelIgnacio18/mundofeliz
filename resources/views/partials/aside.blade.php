@@ -706,7 +706,7 @@
                         @endif
 
                         <li class="nav-item">
-                            <a class="nav-link " href="{{ url('dashboard/docentes-horarios') }}">
+                            <a class="{{ request()->is('dashboard/docentes-horarios') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/docentes-horarios') }}">
                                 <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                         fill="currentColor">
@@ -715,13 +715,13 @@
                                         </g>
                                     </svg>
                                 </i>
-                                <i class="sidenav-mini-icon">HD</i>
+                                <i class="sidenav-mini-icon">H</i>
                                 <span class="item-sub-name">Horario</span>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link " href="{{ url('dashboard/administracion-caja') }}">
+                            <a class="nav-link {{ request()->is('dashboard/administracion-caja') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/administracion-caja') }}">
                                 <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                         fill="currentColor">
@@ -735,7 +735,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="{{ url('dashboard/sedes') }}">
+                            <a class="nav-link {{ request()->is('dashboard/sedes') ? 'nav-link active' : 'nav-link' }}" href="{{ url('dashboard/sedes') }}">
                                 <i class="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24"
                                         fill="currentColor">
@@ -745,7 +745,7 @@
                                     </svg>
                                 </i>
                                 <i class="sidenav-mini-icon">S</i>
-                                <span class="item-sub-name">Sede</span>
+                                <span class="item-sub-name">Sedes</span>
                             </a>
                         </li>
 

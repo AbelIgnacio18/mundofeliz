@@ -18,7 +18,7 @@
             @endif
         </div>
         <div class="header-title">
-            <h4 class="card-title mb-0">Asignar Horario al Docente y Administrativo</h4>
+            <h4 class="card-title mb-0">Lista de Horario de Docentes y Administrativos</h4>
         </div>
 
         <!-- modal para crear nuevos conceptos de pagooo -->

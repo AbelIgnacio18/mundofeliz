@@ -157,7 +157,6 @@ $user = auth()->user();
             $docente->save();
 
             // 🔥 actualizar usuario vinculado
-s
 
             if ($docente->user) {
 
