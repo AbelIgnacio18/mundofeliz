@@ -114,6 +114,8 @@ Route::get('leer-rfid', function () {
         'codigo' => cache('rfid_codigo')
     ]);
 })->name('leer-rfid');
+Route::get('/exportar-matriculas', [MatriculaController::class, 'exportar'])
+    ->name('matriculas.exportar');
 
 
     Route::group( ['prefix' => 'settings', 'as' => 'setting.'], function () {

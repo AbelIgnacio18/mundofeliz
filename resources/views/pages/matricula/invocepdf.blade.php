@@ -137,7 +137,7 @@
                             <td>
                                 <div class="d-flex align-items-center">
                                     <h5>{{ $matri->estudiante->apellidos }}, {{ $matri->estudiante->nombre }}
-                                        @if ($matri->estado == 1)
+                                        @if ($matri->estado == 0)
                                             <span class="badge bg-danger"> Trasladado</span>
                                         @endif
                                     </h5>
@@ -165,7 +165,7 @@
 
                                 <div style="display:flex; flex-wrap:wrap;">
                                     <span class="badge {{ $matri->estado == 1 ? 'bg-info' : 'bg-secondary' }}">
-                                        {{ $matri->estado == 1 ? 'Trasladado' : 'Matrículado' }}
+                                        {{ $matri->estado == 1 ? 'Matrículado' : 'Trasladado' }}
                                     </span>
                                 </div>
                             </td>

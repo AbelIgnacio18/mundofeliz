@@ -189,8 +189,13 @@
                                         </i>
                                         <i class="sidenav-mini-icon"> A </i>
 
-                                        <span class="item-sub-name">
-                                            {{ $menu->grado }}° {{ $menu->seccion }}
+                                        <span class="item-sub-name">{{ match($aula->nivel) {
+                                            'Inicial' => 'I',
+                                            'Primaria' => 'P',
+                                            'Secundaria' => 'S',
+                                            default => '?'
+                                            } }}
+                                            {{ $menu->grado }} {{ $menu->seccion }}
                                             <span class="badge bg-primary">{{ $menu->matriculas_count }}</span>
                                         </span>
                                     </a>

@@ -39,16 +39,16 @@
 
 
             <!--             <a href="#" class=" text-center btn btn-secondary btn-icon mt-lg-0 mt-md-0 mt-3" data-bs-toggle="modal"
-                        data-bs-target="#registrarfalta-1">
-                        <i class="btn-inner">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                            </svg>
-                        </i>
-                        <span>Registrar Faltas </span>
-                    </a> -->
+                            data-bs-target="#registrarfalta-1">
+                            <i class="btn-inner">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                </svg>
+                            </i>
+                            <span>Registrar Faltas </span>
+                        </a> -->
 
             <a class="btn btn-danger btn-round ml-auto" type="button" href="" data-bs-toggle="modal"
                 data-bs-target="#reporteasistencia">
@@ -180,7 +180,7 @@
                             </td>
                             <td>
                                 {{ $item->matricula->estudiante->apellidos ?? '' }},
-                                {{ $item->matricula->estudiante->nombre ?? '' }},  {{ $item->matricula->id ?? '' }}
+                                {{ $item->matricula->estudiante->nombre ?? '' }}
                             </td>
 
                             <td>
@@ -232,16 +232,17 @@
 
                                     <ul class="dropdown-menu shadow">
                                         <li><a class="dropdown-item"
-                                                onclick="actualizarEstado(1, {{ $item->id }})">🟢 Asistió</a></li>
+                                                onclick="actualizarEstado(1, {{ $item->id }}, this)">🟢 Asistió</a>
+                                        </li>
                                         <li><a class="dropdown-item"
-                                                onclick="actualizarEstado(0, {{ $item->id }})">🟠 Tarde</a></li>
+                                                onclick="actualizarEstado(0, {{ $item->id }}, this)">🟠 Tarde</a></li>
                                         <li><a class="dropdown-item"
-                                                onclick="actualizarEstado(4, {{ $item->id }})">🔴 Falta</a></li>
+                                                onclick="actualizarEstado(4, {{ $item->id }}, this)">🔴 Falta</a></li>
                                         <li><a class="dropdown-item"
-                                                onclick="actualizarEstado(2, {{ $item->id }})">🟣 Tarde
+                                                onclick="actualizarEstado(2, {{ $item->id }}, this)">🟣 Tarde
                                                 Justificada</a></li>
                                         <li><a class="dropdown-item"
-                                                onclick="actualizarEstado(3, {{ $item->id }})">🔵
+                                                onclick="actualizarEstado(3, {{ $item->id }}, this)">🔵
                                                 Falta
                                                 Justificada</a></li>
                                     </ul>
@@ -265,7 +266,7 @@
                             <td>
                                 <div class="flex align-items-center list-user-action">
                                     <a class="btn btn-sm btn-icon text-success" data-bs-original-title="Ver"
-                                       href="{{ route('app.asist-estudiante.show', $item->idmatricula) }}">
+                                        href="{{ route('app.asist-estudiante.show', $item->idmatricula) }}">
                                         <span class="btn-inner">
                                             <svg width="20" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -321,7 +322,7 @@
         </div>
 
         <script>
-            function actualizarEstado(estado, idAsistencia) {
+            function actualizarEstado(estado, idAsistencia, element) {
 
                 let url = "{{ route('app.asist-estudiante.update', ':id') }}";
                 url = url.replace(':id', idAsistencia);
@@ -339,27 +340,24 @@
                     })
                     .then(response => response.json())
                     .then(data => {
-
+ // 🔥 BOTÓN DIRECTO (SIN QUERYSELECTOR)
+                        actualizarBotonDirecto(element, estado);
                         Swal.fire({
                             icon: 'success',
                             title: 'Actualizado',
                             text: data.mensaje,
-                            timer: 1000, 
+                            timer: 1000,
                             showConfirmButton: false
                         });
 
-                        // 🔥 Actualizar botón visualmente sin recargar
-                        actualizarBotonVisual(idAsistencia, estado);
+                       
 
-                    })
-                    .catch(error => console.error("Error:", error));
+                    });
             }
 
-            function actualizarBotonVisual(id, estado) {
+            function actualizarBotonDirecto(element, estado) {
 
-                const button = document.querySelector(`[data-id="${id}"]`);
-
-                if (!button) return;
+                const button = element.closest('.dropdown').querySelector('button');
 
                 button.className = "btn btn-sm dropdown-toggle";
 

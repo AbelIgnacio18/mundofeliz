@@ -84,6 +84,9 @@
                 </tr>
             </thead>
             <tbody>
+                 @php
+                            $contador=1;
+                        @endphp
                 @forelse($items as $estud)
                 <tr>
                     <td>
@@ -164,7 +167,9 @@
                 </tr>
                  @include('pages.estudiante.modal')
                 @include('pages.estudiante.edit')
-
+ @php
+                            $contador++;
+                        @endphp
                 @empty
                 <div class="alert alert-danger d-flex align-items-center" role="alert">
                     <svg class="flex-shrink-0 bi me-2 icon-24" width="24" height="24">

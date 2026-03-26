@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel; //importaciones a excel....EstudianteExport
+use App\Exports\EstudianteExport;
+
+
 
 class MatriculaController extends Controller
 {
@@ -167,8 +170,8 @@ $estudiante = Estudiante::whereNotIn('id', $estudiantesMatriculados)->get();
 {
     $anolect = Anolectivo::where('estado', 1)->first();
 
-    $aula = Aula::porUsuario()->findOrFail($id); // 🔥 seguridad
-
+    $aulanombre = Aula::porUsuario()->findOrFail($id); // 🔥 seguridad
+$aula = Aula::porUsuario()->get();
     $matricula = Matricula::porUsuario()
         ->where('idanolectivo', $anolect->id)
         ->where('idaula', $id)
@@ -184,7 +187,7 @@ $estudiante = Estudiante::whereNotIn('id', $estudiantesMatriculados)->get();
         ])
         ->get();
 
-    return view("pages.matricula.showaula", compact('matricula', 'aula'));
+    return view("pages.matricula.showaula", compact('matricula', 'aulanombre','aula'));
 }
     /**
      * Update the specified resource in storage.
@@ -262,5 +265,8 @@ $estudiante = Estudiante::whereNotIn('id', $estudiantesMatriculados)->get();
         $pdf->setPaper('A4', 'landscape'); //Formato de hoha A4 en horizontal
         return $pdf->stream('lista_matriculado_' . ' $anolect' . '.pdf');
     }
-    public function admisiontraslado(Request $request) {}
+    public function exportar()
+{
+    return Excel::download(new EstudianteExport, 'matriculas.csv');
+}
 }

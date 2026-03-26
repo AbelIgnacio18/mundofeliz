@@ -268,29 +268,35 @@ $estudiante = Matricula::where('idanolectivo', $anolect->id)
         'datosbarras'
     ));
 }
-    public function asistenciaPorNivel(Request $request)
-    {
-        $nivel = $request->nivel;
+      public function asistenciaPorNivel(Request $request)
+{
+    $nivel = $request->nivel;
+    $user = auth()->user();
 
-        $datos = DB::table('asistenciaests as a')
-            ->join('matriculas as m', 'a.idmatricula', '=', 'm.id')
-            ->join('aulas as au', 'm.idaula', '=', 'au.id')
-            ->where('au.nivel', $nivel)
-            ->where('a.fechaentrada', date('Y-m-d'))
+    $datos = DB::table('asistenciaests as a')
+        ->join('matriculas as m', 'a.idmatricula', '=', 'm.id')
+        ->join('aulas as au', 'm.idaula', '=', 'au.id')
 
-            ->select(
-                DB::raw("SUM(CASE WHEN a.estado = 1 THEN 1 ELSE 0 END) as puntual"),
-                DB::raw("SUM(CASE WHEN a.estado = 0 THEN 1 ELSE 0 END) as tarde"),
-                DB::raw("SUM(CASE WHEN a.estado = 4 THEN 1 ELSE 0 END) as falta")
-            )
-            ->first();
+        ->where('au.nivel', $nivel)
+        ->whereDate('a.fechaentrada', now())
 
-        return response()->json([
-            'puntual' => (int) $datos->puntual,
-            'tarde' => (int) $datos->tarde,
-            'falta' => (int) $datos->falta,
-        ]);
-    }
+        ->when(!$user->esSuperAdmin(), function ($q) use ($user) {
+            return $q->whereIn('m.idsede', $user->getSedesIds());
+        })
+
+        ->select(
+            DB::raw("SUM(CASE WHEN a.estado = 1 THEN 1 ELSE 0 END) as puntual"),
+            DB::raw("SUM(CASE WHEN a.estado = 0 THEN 1 ELSE 0 END) as tarde"),
+            DB::raw("SUM(CASE WHEN a.estado = 4 THEN 1 ELSE 0 END) as falta")
+        )
+        ->first();
+
+    return response()->json([
+        'puntual' => (int) ($datos->puntual ?? 0),
+        'tarde'   => (int) ($datos->tarde ?? 0),
+        'falta'   => (int) ($datos->falta ?? 0),
+    ]);
+}
 
     /**
      * metodo de barras
