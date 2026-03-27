@@ -435,6 +435,7 @@ class AsistenciaController extends Controller
                 Log::error('Aula no encontrada para matrícula', ['matricula_id' => $matricula->id]);
                 return false;
             }
+//if (Carbon::now()->gt(Carbon::parse($aula->horasalida))) {
 
             if (Carbon::now()->lt(Carbon::parse($aula->horasalida))) {
 
@@ -551,7 +552,7 @@ class AsistenciaController extends Controller
         }
     }
 
-    public function enviaarcodigo(Request $request)
+    public function enviarcodigo(Request $request)
     {
       
             $request->validate([

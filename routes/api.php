@@ -8,23 +8,18 @@ use App\Http\Controllers\api\v1\AsistenciahoyApiController;
 use App\Http\Controllers\api\Auth\AuthController;
 
 
-
-     
-   
 Route::post('login', [AuthController::class, 'login']);
 Route::apiResource('asistencia', AsistenciaController::class);
-
-Route::post('login', [AuthController::class, 'login']);
 Route::post('asistencia/sync', [AsistenciaController::class,'sync']);
 
-
+Route::post('enviarcodigo', [AsistenciaController::class,'enviarcodigo']);
 Route::middleware('auth:sanctum')->group(function () {
 
-    Route::get('/me', [AuthController::class, 'userInfo']);
+Route::get('/me', [AuthController::class, 'userInfo']);
 
-  Route::apiResource('apoderado', ApoderadoApiController::class);
-  Route::apiResource('asistenciahoy', AsistenciahoyApiController::class);
-   Route::get('calendario/{id}', [AsistenciahoyApiController::class,'calendarioasistencia']);
+Route::apiResource('apoderado', ApoderadoApiController::class);
+Route::apiResource('asistenciahoy', AsistenciahoyApiController::class);
+Route::get('calendario/{id}', [AsistenciahoyApiController::class,'calendarioasistencia']);
 Route::post('estudiante/foto/{id}', [AsistenciahoyApiController::class,'subirFoto']);
 
 
