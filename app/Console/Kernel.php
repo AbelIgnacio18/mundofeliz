@@ -10,14 +10,14 @@ class Kernel extends ConsoleKernel
     /**  
      * Define the application's command schedule.
      */
-  
+
 protected function schedule(Schedule $schedule): void
 {
     /*       $schedule->command('app:registrar-faltas')
-         ->dailyAt('09:50')
-         ->weekdays(); // 👈 SOLO lunes a viernes */
+        ->dailyAt('09:50')
+        ->weekdays(); // 👈 SOLO lunes a viernes */
     $schedule->command('app:registrar-faltas')
-        ->everyFiveMinutes()      // solo cada 5 minutos
+        ->everyFiveMinutes()      // solo cada 5m, si desea cada 10m, cambiar Five por Ten
         ->between('08:50', '11:30') // rango donde podría existir la falta
         ->weekdays()              // solo lunes a viernes
         ->withoutOverlapping();   // evita duplicados
